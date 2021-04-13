@@ -99,9 +99,8 @@ namespace PurchaseDesktop.Helpers
             }
         }
 
-        public void UpdateOrderHeader(object valor, DataRow dataRow, string campo) //todo  RETURN BOOL Y VOLVER AL ,MIMSO ESTADO VCOMO ESTABA!!!!
+        public bool UpdateOrderHeader(object valor, DataRow dataRow, string campo)
         {
-            //todo ACA IRÍA LA LÓGICA DE PERMISOS? SI UN USUARIO TIENE PERMISO PARA EDITAR DETERMINADO CAMPO O NO...
             //todo PRIMERO DETECTAR QUE FILA FUE LA DEL CAMBIO!!!!! ACÁ SE PASA EL UPDATE DE CUALQUIER COLUMA DEL GRID Y DE CUALQUIER USUARIO.!            
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -110,13 +109,21 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    if (PermisoValido(dataRow))
+                    // todo este usuario no puede modificar el estatus de una que no hizo el.
+                    if (campo == "Type" || campo == "Description")
                     {
-                        perfilPo.UpdateOrderHeader(userDB, Convert.ToInt32(dataRow["OrderHeaderID"]), valor, campo);
+                        if (userDB.UserID == dataRow["UserID"].ToString())
+                        {
+                            if (Convert.ToInt32(dataRow["StatusID"]) < 7)// Puede modificar hasta 6
+                            {
+                                perfilPo.UpdateOrderHeader(userDB, Convert.ToInt32(dataRow["OrderHeaderID"]), valor, campo);
+                                return true;
+                            }
+                        }
                     }
-                    break;
+                    return false;
                 case "UPR":
-                    if (PermisoValido(dataRow))
+                    if (Convert.ToInt32(dataRow["StatusID"]) < 3) // Puede modificar hasta 2
                     {
                         perfilPr.UpdateOrderHeader(userDB, Convert.ToInt32(dataRow["OrderHeaderID"]), valor, campo);
                     }
@@ -124,19 +131,12 @@ namespace PurchaseDesktop.Helpers
                 case "VAL":
                     break;
             }
+            return false;
         }
 
-        private bool PermisoValido(DataRow dataRow)
+
+        public bool DeleteOrderHeader(DataRow dataRow)
         {
-            //  1   Pre PRequisition
-            //  2   Active PRequisition
-            //  3   Pre POrden
-            //  4   Active POrder
-            //  5   Valid POrder
-            //  6   POrder on Supplier
-            //  7   Agree by Supplier
-            //  8   POrder in Process
-            //  9   POrder Complete   
             switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
@@ -144,22 +144,24 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    if (Convert.ToInt32(dataRow["StatusID"]) > 6) // Puede modificar hasta 6
+                    if (Convert.ToInt32(dataRow["StatusID"]) == 3)// Puede eliminar en 3 (de momento, podría elliminar en cualquier fase con advertencias)
                     {
-                        return false;
+                        perfilPo.DeleteOrderHeader(Convert.ToInt32(dataRow["OrderHeaderID"]));
+                        return true;
                     }
+
                     break;
                 case "UPR":
-                    if (Convert.ToInt32(dataRow["StatusID"]) > 2) // Puede modificar hasta 2
+                    if (Convert.ToInt32(dataRow["StatusID"]) == 1) // Puede eliminar sólo en 1
                     {
-                        return false;
+                        perfilPr.DeleteOrderHeader(Convert.ToInt32(dataRow["OrderHeaderID"]));
+                        return true;
                     }
                     break;
                 case "VAL":
                     break;
             }
-
-            return true;
+            return false;
         }
 
         #endregion

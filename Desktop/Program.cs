@@ -28,25 +28,24 @@ namespace Desktop
             PerfilVAL perfilVal = new PerfilVAL(new PurchaseManagerContext());
 
             OrderUsers user;
-            var cia = new OrderCompanies().GetList();
-            var states = new OrderStatus().GetList();
 
             using (var contextDB = new PurchaseManagerContext())
             {
 
-                var PR = "25406408";
+                //var P = "25406408";
+                var P = "13779971";
                 //UserDB user = new UserDB().GetUserDB("13779971");   //? TESTER PO
                 //UserDB user = new UserDB().GetUserDB("15325038"); //? TESTER VAL 
 
 
-                user = contextDB.OrderUsers.Find(PR);
+                user = contextDB.OrderUsers.Find(P);
                 contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
                 //CargarUPR(10);
                 //CargaUPO(4, "13779971"); // Booorador PO (Po user)
             }
 
             PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, user);
-            FPrincipal f = new FPrincipal(facade, cia, states);
+            FPrincipal f = new FPrincipal(facade);
             Application.Run(f);
         }
 

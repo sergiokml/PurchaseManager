@@ -38,10 +38,13 @@ namespace PurchaseDesktop.Profiles
             //  8   POrder in Process
             //  9   POrder Complete
             //todo TENGO QUE UNIR LA LISTA DE LAS Po EMITIDAS POR ESTE USUARIO.
-            var l = rContext.vOrderByMinTran.Where(c => c
+            using (var rContext = new PurchaseManagerContext())
+            {
+                var l = rContext.vOrderByMinTran.Where(c => c
             .StatusID > 1 && c.StatusID < 10)
                 .OrderByDescending(c => c.DateLast).ToList();
-            return this.ToDataTable<vOrderByMinTran>(l);
+                return this.ToDataTable<vOrderByMinTran>(l);
+            }
         }
 
         public iGrid SetGridBeging(iGrid grid, List<OrderStatus> status)
@@ -103,11 +106,48 @@ namespace PurchaseDesktop.Profiles
             return tran;
         }
 
-        public void UpdateOrderHeader(OrderUsers userDB, int id, object field, string prop)
+        public void UpdateOrderHeader(OrderUsers userDB, int id, object valor, string campo)
         {
             var pr = rContext.OrderHeader.Find(id);
             pr.OrderTransactions.Add(InsertTranHistory(pr, "UPDATE_PR", userDB));
-            pr.Description = UCase.ToTitleCase(field.ToString().ToLower());
+            switch (campo)
+            {
+                case "Description":
+                    pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
+                    GuardarCambios();
+                    break;
+                case "Type":
+                    pr.Type = Convert.ToByte(valor);
+                    GuardarCambios();
+                    break;
+                case "StatusID":
+                    pr.StatusID = Convert.ToByte(valor);
+                    GuardarCambios();
+                    break;
+                case "CompanyID":
+                    pr.CompanyID = valor.ToString();
+                    GuardarCambios();
+                    break;
+                case "CurrencyID":
+                    pr.CurrencyID = valor.ToString();
+                    GuardarCambios();
+                    break;
+                case "SupplierID":
+                    pr.SupplierID = valor.ToString();
+                    GuardarCambios();
+                    break;
+                default:
+                    break;
+            }
+
+
+        }
+
+        public void DeleteOrderHeader(int id)
+        {
+            var pr = rContext.OrderHeader.Find(id);
+            rContext.OrderTransactions.RemoveRange(pr.OrderTransactions);
+            rContext.OrderHeader.Remove(pr);
             GuardarCambios();
         }
     }

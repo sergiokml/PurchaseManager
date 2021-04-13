@@ -62,5 +62,10 @@ namespace PurchaseDesktop.Profiles
         {
             throw new System.NotImplementedException();
         }
+
+        public void DeleteOrderHeader(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

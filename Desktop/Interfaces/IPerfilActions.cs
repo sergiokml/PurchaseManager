@@ -3,9 +3,9 @@ using System.Data;
 
 using PurchaseData.DataModel;
 
-using PurchaseDesktop.Helpers;
-
 using TenTec.Windows.iGridLib;
+
+using static PurchaseDesktop.Helpers.PerfilAbstract;
 
 namespace PurchaseDesktop.Interfaces
 {
@@ -16,8 +16,8 @@ namespace PurchaseDesktop.Interfaces
         DataTable GetVista(OrderUsers userDB);
         iGrid SetGridBeging(iGrid grid, List<OrderStatus> status);
         void GuardarCambios(int wait);
-        void InsertOrderHeader(OrderCompanies company, PerfilAbstract.OrderType type, OrderUsers userDB);
-        //void UpdateOrderHeader(int id, string field);
+        void InsertOrderHeader(OrderCompanies company, OrderType type, OrderUsers userDB);
+        void DeleteOrderHeader(int id);
         void UpdateOrderHeader(OrderUsers userDB, int id, object field, string prop);
         OrderTransactions InsertTranHistory(OrderHeader order, string evento, OrderUsers userDB);
 

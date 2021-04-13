@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Windows.Forms;
@@ -19,14 +18,10 @@ namespace PurchaseDesktop.Formularios
     {
         private readonly PerfilFachada rFachada;
         public TextInfo UCase { get; set; }
-        private readonly List<OrderCompanies> companies;
-        private readonly List<OrderStatus> status;
 
-        public FPrincipal(PerfilFachada rFachada, List<OrderCompanies> companies, List<OrderStatus> status)
+        public FPrincipal(PerfilFachada rFachada)
         {
             this.rFachada = rFachada;
-            this.companies = companies;
-            this.status = status;
             InitializeComponent();
         }
 
@@ -48,9 +43,9 @@ namespace PurchaseDesktop.Formularios
                 rFachada.InsertOrderHeader((OrderCompanies)CboCompany.SelectedItem
                     , (OrderType)CboType.SelectedItem);
                 LlenarGrid();
-                Grid.Rows[0].EnsureVisible();
+                //Grid.Rows[0].EnsureVisible();
                 ClearControles();
-                Grid.CurRow = Grid.Rows[0];
+                //Grid.CurRow = Grid.Rows[0];
             }
         }
 
@@ -58,8 +53,8 @@ namespace PurchaseDesktop.Formularios
         {
             //Icon = Desktop.Properties.Resources.icons8_sort_window;
             //! Company
-            CboCompany.DataSource = companies; //! ACA ESTA EL ERROR?!!! SE LLAMA A OTRO CONTEXTO AL UPFATE!!!
-            CboCompany.DisplayMember = "CompanyName";
+            CboCompany.DataSource = new OrderCompanies().GetList();
+            CboCompany.DisplayMember = "Name";
             CboCompany.SelectedIndex = -1;
             CboCompany.ValueMember = "CompanyID";
 
@@ -73,7 +68,7 @@ namespace PurchaseDesktop.Formularios
             Grid.BeforeCommitEdit += Grid_BeforeCommitEdit;
 
             //! Grid Principal
-            Grid = rFachada.CargarBefore(Grid, status);
+            Grid = rFachada.CargarBefore(Grid, new OrderStatus().GetList());
             LlenarGrid();
 
         }
@@ -112,17 +107,19 @@ namespace PurchaseDesktop.Formularios
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             CboCompany.SelectedValue = current.ItemArray[9].ToString();
             CboType.SelectedIndex = Convert.ToInt32(current.ItemArray[7]) - 1;
+
+
             SetControles();
         }
 
         public bool ValidarControles()
         {
             //! Company
-            if (CboCompany.SelectedIndex == -1)
+            if (CboCompany.SelectedValue.ToString() == string.Empty)
             {
                 return false;
             }
-            else if (CboType.SelectedIndex == -1)
+            else if (CboType.SelectedValue.ToString() == string.Empty)
             {
                 return false;
             }
@@ -136,15 +133,16 @@ namespace PurchaseDesktop.Formularios
         public void ClearControles()
         {
             CboCompany.SelectedIndex = -1;
+            CboCompany.Text = string.Empty;
             CboType.SelectedIndex = -1;
-            TxtCompanyName.Text = string.Empty;
+            //TxtCompanyName.Text = string.Empty;
         }
 
         public void SetControles()
         {
             //! Company
             var cbo = (OrderCompanies)CboCompany.SelectedItem;
-            TxtCompanyName.Text = cbo.Name;
+            //TxtCompanyName.Text = cbo.Name;
 
             //Grid.BeginUpdate();
             //FillGrid();
@@ -200,30 +198,50 @@ namespace PurchaseDesktop.Formularios
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (!current[Grid.Cols[e.ColIndex].Key].Equals(e.NewValue))
             {
-                rFachada.UpdateOrderHeader(e.NewValue, (DataRow)Grid.Rows[e.RowIndex]
-                    .Tag, Grid.Cols[e.ColIndex].Key);
-                LlenarGrid();
+                if (rFachada.UpdateOrderHeader(e.NewValue, current, Grid.Cols[e.ColIndex].Key))
+                {
+                    LlenarGrid();
+                }
+                else
+                {
+                    e.Result = iGEditResult.Cancel;
+
+                    //Grid.Cols[e.ColIndex].Cells[e.RowIndex].Value = "3";
+                }
+
             }
         }
 
-        //public void GridDeleteButton_CellButtonClick(object sender, GridAuxButton.iGCellButtonClickEventArgs e)
-        //{
-        //    if (e.ColIndex == Grid.Cols["delete"].Index)
-        //    {
-        //        //rContext.DeletePr();
-        //        ClearControles();
-
-        //    }
-        //}
-
         private void CboCompany_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            SetControles();
+            //SetControles();
         }
 
         private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
         {
             Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
+        }
+
+        private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
+        {
+            Grid.DrawAsFocused = true;
+            var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            if (e.ColIndex == 16) // delete
+            {
+                if (rFachada.DeleteOrderHeader(current))
+                {
+                    LlenarGrid();
+                    ClearControles();
+                    Grid.Focus();
+                    Grid.DrawAsFocused = false;
+                }
+                else
+                {
+                    LblMsg.Text += "No se puede eliminar";
+                }
+
+
+            }
         }
     }
 }

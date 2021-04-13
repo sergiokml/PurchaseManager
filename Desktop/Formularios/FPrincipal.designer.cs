@@ -30,10 +30,6 @@ namespace PurchaseDesktop.Formularios
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPrincipal));
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             TenTec.Windows.iGridLib.iGColPattern iGColPattern1 = new TenTec.Windows.iGridLib.iGColPattern();
             TenTec.Windows.iGridLib.iGColPattern iGColPattern2 = new TenTec.Windows.iGridLib.iGColPattern();
             TenTec.Windows.iGridLib.iGColPattern iGColPattern3 = new TenTec.Windows.iGridLib.iGColPattern();
@@ -95,7 +91,6 @@ namespace PurchaseDesktop.Formularios
             this.PanelDash = new System.Windows.Forms.Panel();
             this.GroupBox = new Bunifu.UI.WinForms.BunifuGroupBox();
             this.CboType = new System.Windows.Forms.ComboBox();
-            this.TxtCompanyName = new Bunifu.UI.WinForms.BunifuTextBox();
             this.CboCompany = new System.Windows.Forms.ComboBox();
             this.BtnInsert = new Bunifu.UI.WinForms.BunifuImageButton();
             this.PanelBtns = new System.Windows.Forms.Panel();
@@ -138,9 +133,21 @@ namespace PurchaseDesktop.Formularios
             // 
             this.GridCol9CellStyle.ReadOnly = TenTec.Windows.iGridLib.iGBool.True;
             // 
+            // GridCol18CellStyle
+            // 
+            this.GridCol18CellStyle.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
+            // 
+            // GridCol18CellStyle1
+            // 
+            this.GridCol18CellStyle1.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
+            // 
             // GridCol14CellStyle
             // 
             this.GridCol14CellStyle.ReadOnly = TenTec.Windows.iGridLib.iGBool.True;
+            // 
+            // GridCol16CellStyle
+            // 
+            this.GridCol16CellStyle.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
             // 
             // PanelHeader
             // 
@@ -207,7 +214,6 @@ namespace PurchaseDesktop.Formularios
             this.GroupBox.BorderRadius = 1;
             this.GroupBox.BorderThickness = 1;
             this.GroupBox.Controls.Add(this.CboType);
-            this.GroupBox.Controls.Add(this.TxtCompanyName);
             this.GroupBox.Controls.Add(this.CboCompany);
             this.GroupBox.Controls.Add(this.BtnInsert);
             this.GroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -234,80 +240,6 @@ namespace PurchaseDesktop.Formularios
             this.CboType.Name = "CboType";
             this.CboType.Size = new System.Drawing.Size(182, 21);
             this.CboType.TabIndex = 5;
-            // 
-            // TxtCompanyName
-            // 
-            this.TxtCompanyName.AcceptsReturn = false;
-            this.TxtCompanyName.AcceptsTab = false;
-            this.TxtCompanyName.AnimationSpeed = 200;
-            this.TxtCompanyName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
-            this.TxtCompanyName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtCompanyName.BackColor = System.Drawing.Color.Transparent;
-            this.TxtCompanyName.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtCompanyName.BackgroundImage")));
-            this.TxtCompanyName.BorderColorActive = System.Drawing.Color.DodgerBlue;
-            this.TxtCompanyName.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.TxtCompanyName.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            this.TxtCompanyName.BorderColorIdle = System.Drawing.Color.Silver;
-            this.TxtCompanyName.BorderRadius = 1;
-            this.TxtCompanyName.BorderThickness = 1;
-            this.TxtCompanyName.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.TxtCompanyName.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtCompanyName.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
-            this.TxtCompanyName.DefaultText = "";
-            this.TxtCompanyName.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.TxtCompanyName.HideSelection = true;
-            this.TxtCompanyName.IconLeft = null;
-            this.TxtCompanyName.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtCompanyName.IconPadding = 10;
-            this.TxtCompanyName.IconRight = null;
-            this.TxtCompanyName.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtCompanyName.Lines = new string[0];
-            this.TxtCompanyName.Location = new System.Drawing.Point(13, 43);
-            this.TxtCompanyName.MaxLength = 32767;
-            this.TxtCompanyName.MinimumSize = new System.Drawing.Size(1, 1);
-            this.TxtCompanyName.Modified = false;
-            this.TxtCompanyName.Multiline = false;
-            this.TxtCompanyName.Name = "TxtCompanyName";
-            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties1.FillColor = System.Drawing.Color.Empty;
-            stateProperties1.ForeColor = System.Drawing.Color.Empty;
-            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtCompanyName.OnActiveState = stateProperties1;
-            stateProperties2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            stateProperties2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            stateProperties2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            stateProperties2.PlaceholderForeColor = System.Drawing.Color.DarkGray;
-            this.TxtCompanyName.OnDisabledState = stateProperties2;
-            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties3.FillColor = System.Drawing.Color.Empty;
-            stateProperties3.ForeColor = System.Drawing.Color.Empty;
-            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtCompanyName.OnHoverState = stateProperties3;
-            stateProperties4.BorderColor = System.Drawing.Color.Silver;
-            stateProperties4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            stateProperties4.ForeColor = System.Drawing.Color.Empty;
-            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtCompanyName.OnIdleState = stateProperties4;
-            this.TxtCompanyName.Padding = new System.Windows.Forms.Padding(3);
-            this.TxtCompanyName.PasswordChar = '\0';
-            this.TxtCompanyName.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.TxtCompanyName.PlaceholderText = "Enter text";
-            this.TxtCompanyName.ReadOnly = false;
-            this.TxtCompanyName.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.TxtCompanyName.SelectedText = "";
-            this.TxtCompanyName.SelectionLength = 0;
-            this.TxtCompanyName.SelectionStart = 0;
-            this.TxtCompanyName.ShortcutsEnabled = true;
-            this.TxtCompanyName.Size = new System.Drawing.Size(240, 37);
-            this.TxtCompanyName.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
-            this.TxtCompanyName.TabIndex = 4;
-            this.TxtCompanyName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.TxtCompanyName.TextMarginBottom = 0;
-            this.TxtCompanyName.TextMarginLeft = 3;
-            this.TxtCompanyName.TextMarginTop = 0;
-            this.TxtCompanyName.TextPlaceholder = "Enter text";
-            this.TxtCompanyName.UseSystemPasswordChar = false;
-            this.TxtCompanyName.WordWrap = true;
             // 
             // CboCompany
             // 
@@ -554,6 +486,7 @@ namespace PurchaseDesktop.Formularios
             this.Grid.Size = new System.Drawing.Size(1100, 415);
             this.Grid.TabIndex = 8;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
+            this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
             // 
             // FPrincipal
             // 
@@ -626,7 +559,6 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol16ColHdrStyle;
         private System.Windows.Forms.ComboBox CboCompany;
         private System.Windows.Forms.Label label1;
-        private Bunifu.UI.WinForms.BunifuTextBox TxtCompanyName;
         private System.Windows.Forms.Label LblMsg;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol19CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol19ColHdrStyle;

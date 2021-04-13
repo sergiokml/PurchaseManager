@@ -35,14 +35,13 @@ namespace PurchaseDesktop.Profiles
             //  6   POrder on Supplier
             //  7   Agree by Supplier
             //  8   POrder in Process
-            //  9   POrder Complete 
-
+            //  9   POrder Complete
             //var algo = rContext.ViewOderByActions.Where(c => c.User_ID == userDB.UserDBID);
             using (var rContext = new PurchaseManagerContext())
             {
                 var l = rContext.vOrderByMinTran
-                          .Where(c => c.UserID == userDB.UserID && c.StatusID < 3)
-                          .OrderByDescending(c => c.DateLast).ToList();
+                      .Where(c => c.UserID == userDB.UserID && c.StatusID < 3)
+                      .OrderByDescending(c => c.DateLast).ToList();
                 return this.ToDataTable<vOrderByMinTran>(l);
             }
 
@@ -117,23 +116,23 @@ namespace PurchaseDesktop.Profiles
                     pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
                     GuardarCambios();
                     break;
-                case "Order_Type":
+                case "Type":
                     pr.Type = Convert.ToByte(valor);
                     GuardarCambios();
                     break;
-                case "Status_Id":
+                case "StatusID":
                     pr.StatusID = Convert.ToByte(valor);
                     GuardarCambios();
                     break;
-                case "IDCompany":
+                case "CompanyID":
                     pr.CompanyID = valor.ToString();
                     GuardarCambios();
                     break;
-                case "IDCurrency":
+                case "CurrencyID":
                     pr.CurrencyID = valor.ToString();
                     GuardarCambios();
                     break;
-                case "IDSupplier":
+                case "SupplierID":
                     pr.SupplierID = valor.ToString();
                     GuardarCambios();
                     break;
@@ -142,6 +141,14 @@ namespace PurchaseDesktop.Profiles
             }
 
 
+        }
+
+        public void DeleteOrderHeader(int id)
+        {
+            var pr = rContext.OrderHeader.Find(id);
+            rContext.OrderTransactions.RemoveRange(pr.OrderTransactions);
+            rContext.OrderHeader.Remove(pr);
+            GuardarCambios();
         }
     }
 }
