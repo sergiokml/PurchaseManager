@@ -31,7 +31,7 @@
           <Property Name="CompanyID" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NameBiz" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="OrderCurrencies">
@@ -59,7 +59,7 @@
           <Key>
             <PropertyRef Name="OrderHeaderID" />
           </Key>
-          <Property Name="OrderHeaderID" Type="int" Nullable="false" />
+          <Property Name="OrderHeaderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="100" />
           <Property Name="Type" Type="tinyint" />
           <Property Name="Code" Type="nvarchar" MaxLength="12" StoreGeneratedPattern="Computed" Nullable="false" />
@@ -112,7 +112,7 @@
           <Key>
             <PropertyRef Name="TransactionID" />
           </Key>
-          <Property Name="TransactionID" Type="int" Nullable="false" />
+          <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Event" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="UserID" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="DateTran" Type="datetime2" Precision="7" Nullable="false" />
@@ -186,7 +186,7 @@
             <PropertyRef Name="ProfileID" />
           </Key>
           <Property Name="ProfileID" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTran' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -528,15 +528,95 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTran' no tien
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PurchaseManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PurchaseManagerContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="OrderAccounts" EntityType="PurchaseManagerModel.OrderAccounts" />
+          <EntitySet Name="OrderAttaches" EntityType="PurchaseManagerModel.OrderAttaches" />
+          <EntitySet Name="OrderCompanies" EntityType="PurchaseManagerModel.OrderCompanies" />
+          <EntitySet Name="OrderCurrencies" EntityType="PurchaseManagerModel.OrderCurrencies" />
+          <EntitySet Name="OrderDetails" EntityType="PurchaseManagerModel.OrderDetails" />
+          <EntitySet Name="OrderHeader" EntityType="PurchaseManagerModel.OrderHeader" />
+          <EntitySet Name="OrderHitos" EntityType="PurchaseManagerModel.OrderHitos" />
+          <EntitySet Name="OrderNotes" EntityType="PurchaseManagerModel.OrderNotes" />
+          <EntitySet Name="OrderStatus" EntityType="PurchaseManagerModel.OrderStatus" />
+          <EntitySet Name="OrderTransactions" EntityType="PurchaseManagerModel.OrderTransactions" />
+          <EntitySet Name="OrderUsers" EntityType="PurchaseManagerModel.OrderUsers" />
+          <EntitySet Name="SupplierBanks" EntityType="PurchaseManagerModel.SupplierBanks" />
+          <EntitySet Name="SupplierCountries" EntityType="PurchaseManagerModel.SupplierCountries" />
+          <EntitySet Name="Suppliers" EntityType="PurchaseManagerModel.Suppliers" />
+          <EntitySet Name="sysdiagrams" EntityType="PurchaseManagerModel.sysdiagrams" />
+          <EntitySet Name="UserCosts" EntityType="PurchaseManagerModel.UserCosts" />
+          <EntitySet Name="UserProfiles" EntityType="PurchaseManagerModel.UserProfiles" />
+          <EntitySet Name="vOrderByMinTran" EntityType="PurchaseManagerModel.vOrderByMinTran" />
+          <AssociationSet Name="FK_OrderDetails_OrderAccounts" Association="PurchaseManagerModel.FK_OrderDetails_OrderAccounts">
+            <End Role="OrderAccounts" EntitySet="OrderAccounts" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderAttaches_OrderHeader" Association="PurchaseManagerModel.FK_OrderAttaches_OrderHeader">
+            <End Role="OrderHeader" EntitySet="OrderHeader" />
+            <End Role="OrderAttaches" EntitySet="OrderAttaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderHeader_OrderCompanies" Association="PurchaseManagerModel.FK_OrderHeader_OrderCompanies">
+            <End Role="OrderCompanies" EntitySet="OrderCompanies" />
+            <End Role="OrderHeader" EntitySet="OrderHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderHeader_OrderCurrencies" Association="PurchaseManagerModel.FK_OrderHeader_OrderCurrencies">
+            <End Role="OrderCurrencies" EntitySet="OrderCurrencies" />
+            <End Role="OrderHeader" EntitySet="OrderHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_OrderHeader" Association="PurchaseManagerModel.FK_OrderDetails_OrderHeader">
+            <End Role="OrderHeader" EntitySet="OrderHeader" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderHeader_OrderStatus" Association="PurchaseManagerModel.FK_OrderHeader_OrderStatus">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrderHeader" EntitySet="OrderHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderHeader_Suppliers" Association="PurchaseManagerModel.FK_OrderHeader_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="OrderHeader" EntitySet="OrderHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderHitos_OrderHeader" Association="PurchaseManagerModel.FK_OrderHitos_OrderHeader">
+            <End Role="OrderHeader" EntitySet="OrderHeader" />
+            <End Role="OrderHitos" EntitySet="OrderHitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderNotes_OrderHeader" Association="PurchaseManagerModel.FK_OrderNotes_OrderHeader">
+            <End Role="OrderHeader" EntitySet="OrderHeader" />
+            <End Role="OrderNotes" EntitySet="OrderNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderTransactions_OrderUsers" Association="PurchaseManagerModel.FK_OrderTransactions_OrderUsers">
+            <End Role="OrderUsers" EntitySet="OrderUsers" />
+            <End Role="OrderTransactions" EntitySet="OrderTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderUsers_UserCosts" Association="PurchaseManagerModel.FK_OrderUsers_UserCosts">
+            <End Role="UserCosts" EntitySet="UserCosts" />
+            <End Role="OrderUsers" EntitySet="OrderUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderUsers_UserProfiles" Association="PurchaseManagerModel.FK_OrderUsers_UserProfiles">
+            <End Role="UserProfiles" EntitySet="UserProfiles" />
+            <End Role="OrderUsers" EntitySet="OrderUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupplierBanks_SupplierCountries" Association="PurchaseManagerModel.FK_SupplierBanks_SupplierCountries">
+            <End Role="SupplierCountries" EntitySet="SupplierCountries" />
+            <End Role="SupplierBanks" EntitySet="SupplierBanks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Suppliers_SupplierBanks" Association="PurchaseManagerModel.FK_Suppliers_SupplierBanks">
+            <End Role="SupplierBanks" EntitySet="SupplierBanks" />
+            <End Role="Suppliers" EntitySet="Suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="OrderHeaderTranHistory" Association="PurchaseManagerModel.OrderHeaderTranHistory">
+            <End Role="OrderHeader" EntitySet="OrderHeader" />
+            <End Role="OrderTransactions" EntitySet="OrderTransactions" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="OrderAccounts">
           <Key>
             <PropertyRef Name="AccountID" />
           </Key>
-          <Property Name="AccountID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccountID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_OrderAccounts" FromRole="OrderAccounts" ToRole="OrderDetails" />
+          <NavigationProperty Name="OrderDetails" Relationship="PurchaseManagerModel.FK_OrderDetails_OrderAccounts" FromRole="OrderAccounts" ToRole="OrderDetails" />
         </EntityType>
         <EntityType Name="OrderAttaches">
           <Key>
@@ -547,26 +627,26 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTran' no tien
           <Property Name="OrderHeaderID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="OrderHeader" Relationship="Self.FK_OrderAttaches_OrderHeader" FromRole="OrderAttaches" ToRole="OrderHeader" />
+          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.FK_OrderAttaches_OrderHeader" FromRole="OrderAttaches" ToRole="OrderHeader" />
         </EntityType>
         <EntityType Name="OrderCompanies">
           <Key>
             <PropertyRef Name="CompanyID" />
           </Key>
-          <Property Name="CompanyID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NameBiz" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NameBiz" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="OrderHeader" Relationship="Self.FK_OrderHeader_OrderCompanies" FromRole="OrderCompanies" ToRole="OrderHeader" />
+          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.FK_OrderHeader_OrderCompanies" FromRole="OrderCompanies" ToRole="OrderHeader" />
         </EntityType>
         <EntityType Name="OrderCurrencies">
           <Key>
             <PropertyRef Name="CurrencyID" />
           </Key>
-          <Property Name="CurrencyID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="OrderHeader" Relationship="Self.FK_OrderHeader_OrderCurrencies" FromRole="OrderCurrencies" ToRole="OrderHeader" />
+          <Property Name="CurrencyID" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.FK_OrderHeader_OrderCurrencies" FromRole="OrderCurrencies" ToRole="OrderHeader" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -575,41 +655,41 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTran' no tien
           </Key>
           <Property Name="DetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderHeaderID" Type="Int32" Nullable="false" />
-          <Property Name="NameProduct" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NameProduct" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DescriptionProduct" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Qty" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Int32" Nullable="false" />
           <Property Name="Total" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="AccountID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="OrderAccounts" Relationship="Self.FK_OrderDetails_OrderAccounts" FromRole="OrderDetails" ToRole="OrderAccounts" />
-          <NavigationProperty Name="OrderHeader" Relationship="Self.FK_OrderDetails_OrderHeader" FromRole="OrderDetails" ToRole="OrderHeader" />
+          <NavigationProperty Name="OrderAccounts" Relationship="PurchaseManagerModel.FK_OrderDetails_OrderAccounts" FromRole="OrderDetails" ToRole="OrderAccounts" />
+          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.FK_OrderDetails_OrderHeader" FromRole="OrderDetails" ToRole="OrderHeader" />
         </EntityType>
         <EntityType Name="OrderHeader">
           <Key>
             <PropertyRef Name="OrderHeaderID" />
           </Key>
-          <Property Name="OrderHeaderID" Type="Int32" Nullable="false" />
+          <Property Name="OrderHeaderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Type" Type="Byte" />
-          <Property Name="Code" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Net" Type="Decimal" Precision="11" Scale="2" />
           <Property Name="Exent" Type="Decimal" Precision="11" Scale="2" />
-          <Property Name="Tax" Type="Decimal" Precision="14" Scale="4" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Total" Type="Decimal" Precision="16" Scale="4" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Tax" Type="Decimal" Nullable="false" Precision="14" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="16" Scale="4" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="HitoID" Type="Int32" />
           <Property Name="StatusID" Type="Byte" Nullable="false" />
-          <Property Name="CompanyID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="CurrencyID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="SupplierID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="OrderAttaches" Relationship="Self.FK_OrderAttaches_OrderHeader" FromRole="OrderHeader" ToRole="OrderAttaches" />
-          <NavigationProperty Name="OrderCompanies" Relationship="Self.FK_OrderHeader_OrderCompanies" FromRole="OrderHeader" ToRole="OrderCompanies" />
-          <NavigationProperty Name="OrderCurrencies" Relationship="Self.FK_OrderHeader_OrderCurrencies" FromRole="OrderHeader" ToRole="OrderCurrencies" />
-          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_OrderHeader" FromRole="OrderHeader" ToRole="OrderDetails" />
-          <NavigationProperty Name="OrderStatus" Relationship="Self.FK_OrderHeader_OrderStatus" FromRole="OrderHeader" ToRole="OrderStatus" />
-          <NavigationProperty Name="Suppliers" Relationship="Self.FK_OrderHeader_Suppliers" FromRole="OrderHeader" ToRole="Suppliers" />
-          <NavigationProperty Name="OrderHitos" Relationship="Self.FK_OrderHitos_OrderHeader" FromRole="OrderHeader" ToRole="OrderHitos" />
-          <NavigationProperty Name="OrderNotes" Relationship="Self.FK_OrderNotes_OrderHeader" FromRole="OrderHeader" ToRole="OrderNotes" />
-          <NavigationProperty Name="OrderTransactions" Relationship="Self.OrderHeaderTranHistory" FromRole="OrderHeader" ToRole="OrderTransactions" />
+          <NavigationProperty Name="OrderAttaches" Relationship="PurchaseManagerModel.FK_OrderAttaches_OrderHeader" FromRole="OrderHeader" ToRole="OrderAttaches" />
+          <NavigationProperty Name="OrderCompanies" Relationship="PurchaseManagerModel.FK_OrderHeader_OrderCompanies" FromRole="OrderHeader" ToRole="OrderCompanies" />
+          <NavigationProperty Name="OrderCurrencies" Relationship="PurchaseManagerModel.FK_OrderHeader_OrderCurrencies" FromRole="OrderHeader" ToRole="OrderCurrencies" />
+          <NavigationProperty Name="OrderDetails" Relationship="PurchaseManagerModel.FK_OrderDetails_OrderHeader" FromRole="OrderHeader" ToRole="OrderDetails" />
+          <NavigationProperty Name="OrderStatus" Relationship="PurchaseManagerModel.FK_OrderHeader_OrderStatus" FromRole="OrderHeader" ToRole="OrderStatus" />
+          <NavigationProperty Name="Suppliers" Relationship="PurchaseManagerModel.FK_OrderHeader_Suppliers" FromRole="OrderHeader" ToRole="Suppliers" />
+          <NavigationProperty Name="OrderHitos" Relationship="PurchaseManagerModel.FK_OrderHitos_OrderHeader" FromRole="OrderHeader" ToRole="OrderHitos" />
+          <NavigationProperty Name="OrderNotes" Relationship="PurchaseManagerModel.FK_OrderNotes_OrderHeader" FromRole="OrderHeader" ToRole="OrderNotes" />
+          <NavigationProperty Name="OrderTransactions" Relationship="PurchaseManagerModel.OrderHeaderTranHistory" FromRole="OrderHeader" ToRole="OrderTransactions" />
         </EntityType>
         <EntityType Name="OrderHitos">
           <Key>
@@ -618,10 +698,10 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTran' no tien
           </Key>
           <Property Name="HitoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderHeaderID" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Porcent" Type="Byte" Nullable="false" />
           <Property Name="Days" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="OrderHeader" Relationship="Self.FK_OrderHitos_OrderHeader" FromRole="OrderHitos" ToRole="OrderHeader" />
+          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.FK_OrderHitos_OrderHeader" FromRole="OrderHitos" ToRole="OrderHeader" />
         </EntityType>
         <EntityType Name="OrderNotes">
           <Key>
@@ -630,88 +710,88 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTran' no tien
           </Key>
           <Property Name="OrderNoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderHeaderID" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="OrderHeader" Relationship="Self.FK_OrderNotes_OrderHeader" FromRole="OrderNotes" ToRole="OrderHeader" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.FK_OrderNotes_OrderHeader" FromRole="OrderNotes" ToRole="OrderHeader" />
         </EntityType>
         <EntityType Name="OrderStatus">
           <Key>
             <PropertyRef Name="StatuID" />
           </Key>
           <Property Name="StatuID" Type="Byte" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="OrderHeader" Relationship="Self.FK_OrderHeader_OrderStatus" FromRole="OrderStatus" ToRole="OrderHeader" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.FK_OrderHeader_OrderStatus" FromRole="OrderStatus" ToRole="OrderHeader" />
         </EntityType>
         <EntityType Name="OrderTransactions">
           <Key>
             <PropertyRef Name="TransactionID" />
           </Key>
-          <Property Name="TransactionID" Type="Int32" Nullable="false" />
-          <Property Name="Event" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UserID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Event" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="DateTran" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="StatuID" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="OrderUsers" Relationship="Self.FK_OrderTransactions_OrderUsers" FromRole="OrderTransactions" ToRole="OrderUsers" />
-          <NavigationProperty Name="OrderHeader" Relationship="Self.OrderHeaderTranHistory" FromRole="OrderTransactions" ToRole="OrderHeader" />
+          <NavigationProperty Name="OrderUsers" Relationship="PurchaseManagerModel.FK_OrderTransactions_OrderUsers" FromRole="OrderTransactions" ToRole="OrderUsers" />
+          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.OrderHeaderTranHistory" FromRole="OrderTransactions" ToRole="OrderHeader" />
         </EntityType>
         <EntityType Name="OrderUsers">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="Binary" MaxLength="64" FixedLength="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastVisit" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="ProfileID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CostID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="OrderTransactions" Relationship="Self.FK_OrderTransactions_OrderUsers" FromRole="OrderUsers" ToRole="OrderTransactions" />
-          <NavigationProperty Name="UserCosts" Relationship="Self.FK_OrderUsers_UserCosts" FromRole="OrderUsers" ToRole="UserCosts" />
-          <NavigationProperty Name="UserProfiles" Relationship="Self.FK_OrderUsers_UserProfiles" FromRole="OrderUsers" ToRole="UserProfiles" />
+          <Property Name="ProfileID" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CostID" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderTransactions" Relationship="PurchaseManagerModel.FK_OrderTransactions_OrderUsers" FromRole="OrderUsers" ToRole="OrderTransactions" />
+          <NavigationProperty Name="UserCosts" Relationship="PurchaseManagerModel.FK_OrderUsers_UserCosts" FromRole="OrderUsers" ToRole="UserCosts" />
+          <NavigationProperty Name="UserProfiles" Relationship="PurchaseManagerModel.FK_OrderUsers_UserProfiles" FromRole="OrderUsers" ToRole="UserProfiles" />
         </EntityType>
         <EntityType Name="SupplierBanks">
           <Key>
             <PropertyRef Name="BankID" />
           </Key>
-          <Property Name="BankID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BankID" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SwiftCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CountryID" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CountryID" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="SupplierCountries" Relationship="Self.FK_SupplierBanks_SupplierCountries" FromRole="SupplierBanks" ToRole="SupplierCountries" />
-          <NavigationProperty Name="Suppliers" Relationship="Self.FK_Suppliers_SupplierBanks" FromRole="SupplierBanks" ToRole="Suppliers" />
+          <NavigationProperty Name="SupplierCountries" Relationship="PurchaseManagerModel.FK_SupplierBanks_SupplierCountries" FromRole="SupplierBanks" ToRole="SupplierCountries" />
+          <NavigationProperty Name="Suppliers" Relationship="PurchaseManagerModel.FK_Suppliers_SupplierBanks" FromRole="SupplierBanks" ToRole="Suppliers" />
         </EntityType>
         <EntityType Name="SupplierCountries">
           <Key>
             <PropertyRef Name="CountryID" />
           </Key>
-          <Property Name="CountryID" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="SupplierBanks" Relationship="Self.FK_SupplierBanks_SupplierCountries" FromRole="SupplierCountries" ToRole="SupplierBanks" />
+          <Property Name="CountryID" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SupplierBanks" Relationship="PurchaseManagerModel.FK_SupplierBanks_SupplierCountries" FromRole="SupplierCountries" ToRole="SupplierBanks" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
             <PropertyRef Name="SupplierID" />
           </Key>
-          <Property Name="SupplierID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SupplierID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TypeAccount" Type="Byte" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="BankID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CountryID" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="OrderHeader" Relationship="Self.FK_OrderHeader_Suppliers" FromRole="Suppliers" ToRole="OrderHeader" />
-          <NavigationProperty Name="SupplierBanks" Relationship="Self.FK_Suppliers_SupplierBanks" FromRole="Suppliers" ToRole="SupplierBanks" />
+          <Property Name="BankID" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CountryID" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.FK_OrderHeader_Suppliers" FromRole="Suppliers" ToRole="OrderHeader" />
+          <NavigationProperty Name="SupplierBanks" Relationship="PurchaseManagerModel.FK_Suppliers_SupplierBanks" FromRole="Suppliers" ToRole="SupplierBanks" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -721,278 +801,18 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTran' no tien
           <Key>
             <PropertyRef Name="CostID" />
           </Key>
-          <Property Name="CostID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="OrderUsers" Relationship="Self.FK_OrderUsers_UserCosts" FromRole="UserCosts" ToRole="OrderUsers" />
+          <Property Name="CostID" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderUsers" Relationship="PurchaseManagerModel.FK_OrderUsers_UserCosts" FromRole="UserCosts" ToRole="OrderUsers" />
         </EntityType>
         <EntityType Name="UserProfiles">
           <Key>
             <PropertyRef Name="ProfileID" />
           </Key>
-          <Property Name="ProfileID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="OrderUsers" Relationship="Self.FK_OrderUsers_UserProfiles" FromRole="UserProfiles" ToRole="OrderUsers" />
+          <Property Name="ProfileID" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderUsers" Relationship="PurchaseManagerModel.FK_OrderUsers_UserProfiles" FromRole="UserProfiles" ToRole="OrderUsers" />
         </EntityType>
-        <Association Name="FK_OrderDetails_OrderAccounts">
-          <End Role="OrderAccounts" Type="Self.OrderAccounts" Multiplicity="0..1" />
-          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderAccounts">
-              <PropertyRef Name="AccountID" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="AccountID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderAttaches_OrderHeader">
-          <End Role="OrderHeader" Type="Self.OrderHeader" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="OrderAttaches" Type="Self.OrderAttaches" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderHeader">
-              <PropertyRef Name="OrderHeaderID" />
-            </Principal>
-            <Dependent Role="OrderAttaches">
-              <PropertyRef Name="OrderHeaderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderHeader_OrderCompanies">
-          <End Role="OrderCompanies" Type="Self.OrderCompanies" Multiplicity="1" />
-          <End Role="OrderHeader" Type="Self.OrderHeader" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderCompanies">
-              <PropertyRef Name="CompanyID" />
-            </Principal>
-            <Dependent Role="OrderHeader">
-              <PropertyRef Name="CompanyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderHeader_OrderCurrencies">
-          <End Role="OrderCurrencies" Type="Self.OrderCurrencies" Multiplicity="0..1" />
-          <End Role="OrderHeader" Type="Self.OrderHeader" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderCurrencies">
-              <PropertyRef Name="CurrencyID" />
-            </Principal>
-            <Dependent Role="OrderHeader">
-              <PropertyRef Name="CurrencyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetails_OrderHeader">
-          <End Role="OrderHeader" Type="Self.OrderHeader" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderHeader">
-              <PropertyRef Name="OrderHeaderID" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="OrderHeaderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderHeader_OrderStatus">
-          <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
-          <End Role="OrderHeader" Type="Self.OrderHeader" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderStatus">
-              <PropertyRef Name="StatuID" />
-            </Principal>
-            <Dependent Role="OrderHeader">
-              <PropertyRef Name="StatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderHeader_Suppliers">
-          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
-          <End Role="OrderHeader" Type="Self.OrderHeader" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Suppliers">
-              <PropertyRef Name="SupplierID" />
-            </Principal>
-            <Dependent Role="OrderHeader">
-              <PropertyRef Name="SupplierID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderHitos_OrderHeader">
-          <End Role="OrderHeader" Type="Self.OrderHeader" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="OrderHitos" Type="Self.OrderHitos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderHeader">
-              <PropertyRef Name="OrderHeaderID" />
-            </Principal>
-            <Dependent Role="OrderHitos">
-              <PropertyRef Name="OrderHeaderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderNotes_OrderHeader">
-          <End Role="OrderHeader" Type="Self.OrderHeader" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="OrderNotes" Type="Self.OrderNotes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderHeader">
-              <PropertyRef Name="OrderHeaderID" />
-            </Principal>
-            <Dependent Role="OrderNotes">
-              <PropertyRef Name="OrderHeaderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderTransactions_OrderUsers">
-          <End Role="OrderUsers" Type="Self.OrderUsers" Multiplicity="1" />
-          <End Role="OrderTransactions" Type="Self.OrderTransactions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrderUsers">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="OrderTransactions">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderUsers_UserCosts">
-          <End Role="UserCosts" Type="Self.UserCosts" Multiplicity="1" />
-          <End Role="OrderUsers" Type="Self.OrderUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserCosts">
-              <PropertyRef Name="CostID" />
-            </Principal>
-            <Dependent Role="OrderUsers">
-              <PropertyRef Name="CostID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderUsers_UserProfiles">
-          <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
-          <End Role="OrderUsers" Type="Self.OrderUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfiles">
-              <PropertyRef Name="ProfileID" />
-            </Principal>
-            <Dependent Role="OrderUsers">
-              <PropertyRef Name="ProfileID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SupplierBanks_SupplierCountries">
-          <End Role="SupplierCountries" Type="Self.SupplierCountries" Multiplicity="1" />
-          <End Role="SupplierBanks" Type="Self.SupplierBanks" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SupplierCountries">
-              <PropertyRef Name="CountryID" />
-            </Principal>
-            <Dependent Role="SupplierBanks">
-              <PropertyRef Name="CountryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Suppliers_SupplierBanks">
-          <End Role="SupplierBanks" Type="Self.SupplierBanks" Multiplicity="1" />
-          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SupplierBanks">
-              <PropertyRef Name="BankID" />
-            </Principal>
-            <Dependent Role="Suppliers">
-              <PropertyRef Name="BankID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="OrderHeaderTranHistory">
-          <End Role="OrderHeader" Type="Self.OrderHeader" Multiplicity="*" />
-          <End Role="OrderTransactions" Type="Self.OrderTransactions" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="PurchaseManagerContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="OrderAccounts" EntityType="Self.OrderAccounts" />
-          <EntitySet Name="OrderAttaches" EntityType="Self.OrderAttaches" />
-          <EntitySet Name="OrderCompanies" EntityType="Self.OrderCompanies" />
-          <EntitySet Name="OrderCurrencies" EntityType="Self.OrderCurrencies" />
-          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" />
-          <EntitySet Name="OrderHeader" EntityType="Self.OrderHeader" />
-          <EntitySet Name="OrderHitos" EntityType="Self.OrderHitos" />
-          <EntitySet Name="OrderNotes" EntityType="Self.OrderNotes" />
-          <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" />
-          <EntitySet Name="OrderTransactions" EntityType="Self.OrderTransactions" />
-          <EntitySet Name="OrderUsers" EntityType="Self.OrderUsers" />
-          <EntitySet Name="SupplierBanks" EntityType="Self.SupplierBanks" />
-          <EntitySet Name="SupplierCountries" EntityType="Self.SupplierCountries" />
-          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="UserCosts" EntityType="Self.UserCosts" />
-          <EntitySet Name="UserProfiles" EntityType="Self.UserProfiles" />
-          <AssociationSet Name="FK_OrderDetails_OrderAccounts" Association="Self.FK_OrderDetails_OrderAccounts">
-            <End Role="OrderAccounts" EntitySet="OrderAccounts" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAttaches_OrderHeader" Association="Self.FK_OrderAttaches_OrderHeader">
-            <End Role="OrderHeader" EntitySet="OrderHeader" />
-            <End Role="OrderAttaches" EntitySet="OrderAttaches" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderHeader_OrderCompanies" Association="Self.FK_OrderHeader_OrderCompanies">
-            <End Role="OrderCompanies" EntitySet="OrderCompanies" />
-            <End Role="OrderHeader" EntitySet="OrderHeader" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderHeader_OrderCurrencies" Association="Self.FK_OrderHeader_OrderCurrencies">
-            <End Role="OrderCurrencies" EntitySet="OrderCurrencies" />
-            <End Role="OrderHeader" EntitySet="OrderHeader" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_OrderHeader" Association="Self.FK_OrderDetails_OrderHeader">
-            <End Role="OrderHeader" EntitySet="OrderHeader" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderHeader_OrderStatus" Association="Self.FK_OrderHeader_OrderStatus">
-            <End Role="OrderStatus" EntitySet="OrderStatus" />
-            <End Role="OrderHeader" EntitySet="OrderHeader" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderHeader_Suppliers" Association="Self.FK_OrderHeader_Suppliers">
-            <End Role="Suppliers" EntitySet="Suppliers" />
-            <End Role="OrderHeader" EntitySet="OrderHeader" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderHitos_OrderHeader" Association="Self.FK_OrderHitos_OrderHeader">
-            <End Role="OrderHeader" EntitySet="OrderHeader" />
-            <End Role="OrderHitos" EntitySet="OrderHitos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderNotes_OrderHeader" Association="Self.FK_OrderNotes_OrderHeader">
-            <End Role="OrderHeader" EntitySet="OrderHeader" />
-            <End Role="OrderNotes" EntitySet="OrderNotes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderTransactions_OrderUsers" Association="Self.FK_OrderTransactions_OrderUsers">
-            <End Role="OrderUsers" EntitySet="OrderUsers" />
-            <End Role="OrderTransactions" EntitySet="OrderTransactions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderUsers_UserCosts" Association="Self.FK_OrderUsers_UserCosts">
-            <End Role="UserCosts" EntitySet="UserCosts" />
-            <End Role="OrderUsers" EntitySet="OrderUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderUsers_UserProfiles" Association="Self.FK_OrderUsers_UserProfiles">
-            <End Role="UserProfiles" EntitySet="UserProfiles" />
-            <End Role="OrderUsers" EntitySet="OrderUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SupplierBanks_SupplierCountries" Association="Self.FK_SupplierBanks_SupplierCountries">
-            <End Role="SupplierCountries" EntitySet="SupplierCountries" />
-            <End Role="SupplierBanks" EntitySet="SupplierBanks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Suppliers_SupplierBanks" Association="Self.FK_Suppliers_SupplierBanks">
-            <End Role="SupplierBanks" EntitySet="SupplierBanks" />
-            <End Role="Suppliers" EntitySet="Suppliers" />
-          </AssociationSet>
-          <AssociationSet Name="OrderHeaderTranHistory" Association="Self.OrderHeaderTranHistory">
-            <End Role="OrderHeader" EntitySet="OrderHeader" />
-            <End Role="OrderTransactions" EntitySet="OrderTransactions" />
-          </AssociationSet>
-          <EntitySet Name="vOrderByMinTran" EntityType="PurchaseManagerModel.vOrderByMinTran" />
-        </EntityContainer>
         <EntityType Name="vOrderByMinTran">
           <Key>
             <PropertyRef Name="OrderHeaderID" />
@@ -1020,6 +840,186 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTran' no tien
           <Property Name="Event" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="SupplierID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
         </EntityType>
+        <Association Name="FK_OrderDetails_OrderAccounts">
+          <End Type="PurchaseManagerModel.OrderAccounts" Role="OrderAccounts" Multiplicity="0..1" />
+          <End Type="PurchaseManagerModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderAccounts">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderAttaches_OrderHeader">
+          <End Type="PurchaseManagerModel.OrderHeader" Role="OrderHeader" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PurchaseManagerModel.OrderAttaches" Role="OrderAttaches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderHeader">
+              <PropertyRef Name="OrderHeaderID" />
+            </Principal>
+            <Dependent Role="OrderAttaches">
+              <PropertyRef Name="OrderHeaderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderHeader_OrderCompanies">
+          <End Type="PurchaseManagerModel.OrderCompanies" Role="OrderCompanies" Multiplicity="1" />
+          <End Type="PurchaseManagerModel.OrderHeader" Role="OrderHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderCompanies">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="OrderHeader">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderHeader_OrderCurrencies">
+          <End Type="PurchaseManagerModel.OrderCurrencies" Role="OrderCurrencies" Multiplicity="0..1" />
+          <End Type="PurchaseManagerModel.OrderHeader" Role="OrderHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderCurrencies">
+              <PropertyRef Name="CurrencyID" />
+            </Principal>
+            <Dependent Role="OrderHeader">
+              <PropertyRef Name="CurrencyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_OrderHeader">
+          <End Type="PurchaseManagerModel.OrderHeader" Role="OrderHeader" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PurchaseManagerModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderHeader">
+              <PropertyRef Name="OrderHeaderID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="OrderHeaderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderHeader_OrderStatus">
+          <End Type="PurchaseManagerModel.OrderStatus" Role="OrderStatus" Multiplicity="1" />
+          <End Type="PurchaseManagerModel.OrderHeader" Role="OrderHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="StatuID" />
+            </Principal>
+            <Dependent Role="OrderHeader">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderHeader_Suppliers">
+          <End Type="PurchaseManagerModel.Suppliers" Role="Suppliers" Multiplicity="0..1" />
+          <End Type="PurchaseManagerModel.OrderHeader" Role="OrderHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="OrderHeader">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderHitos_OrderHeader">
+          <End Type="PurchaseManagerModel.OrderHeader" Role="OrderHeader" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PurchaseManagerModel.OrderHitos" Role="OrderHitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderHeader">
+              <PropertyRef Name="OrderHeaderID" />
+            </Principal>
+            <Dependent Role="OrderHitos">
+              <PropertyRef Name="OrderHeaderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderNotes_OrderHeader">
+          <End Type="PurchaseManagerModel.OrderHeader" Role="OrderHeader" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PurchaseManagerModel.OrderNotes" Role="OrderNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderHeader">
+              <PropertyRef Name="OrderHeaderID" />
+            </Principal>
+            <Dependent Role="OrderNotes">
+              <PropertyRef Name="OrderHeaderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderTransactions_OrderUsers">
+          <End Type="PurchaseManagerModel.OrderUsers" Role="OrderUsers" Multiplicity="1" />
+          <End Type="PurchaseManagerModel.OrderTransactions" Role="OrderTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="OrderTransactions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderUsers_UserCosts">
+          <End Type="PurchaseManagerModel.UserCosts" Role="UserCosts" Multiplicity="1" />
+          <End Type="PurchaseManagerModel.OrderUsers" Role="OrderUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserCosts">
+              <PropertyRef Name="CostID" />
+            </Principal>
+            <Dependent Role="OrderUsers">
+              <PropertyRef Name="CostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderUsers_UserProfiles">
+          <End Type="PurchaseManagerModel.UserProfiles" Role="UserProfiles" Multiplicity="1" />
+          <End Type="PurchaseManagerModel.OrderUsers" Role="OrderUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfiles">
+              <PropertyRef Name="ProfileID" />
+            </Principal>
+            <Dependent Role="OrderUsers">
+              <PropertyRef Name="ProfileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupplierBanks_SupplierCountries">
+          <End Type="PurchaseManagerModel.SupplierCountries" Role="SupplierCountries" Multiplicity="1" />
+          <End Type="PurchaseManagerModel.SupplierBanks" Role="SupplierBanks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierCountries">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="SupplierBanks">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Suppliers_SupplierBanks">
+          <End Type="PurchaseManagerModel.SupplierBanks" Role="SupplierBanks" Multiplicity="1" />
+          <End Type="PurchaseManagerModel.Suppliers" Role="Suppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplierBanks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Suppliers">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrderHeaderTranHistory">
+          <End Type="PurchaseManagerModel.OrderHeader" Role="OrderHeader" Multiplicity="*" />
+          <End Type="PurchaseManagerModel.OrderTransactions" Role="OrderTransactions" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1029,199 +1029,191 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTran' no tien
           <EntitySetMapping Name="OrderAccounts">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderAccounts">
               <MappingFragment StoreEntitySet="OrderAccounts">
-                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderAttaches">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderAttaches">
               <MappingFragment StoreEntitySet="OrderAttaches">
-                <ScalarProperty Name="AttachID" ColumnName="AttachID" />
-                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
+                <ScalarProperty Name="AttachID" ColumnName="AttachID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderCompanies">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderCompanies">
               <MappingFragment StoreEntitySet="OrderCompanies">
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="NameBiz" ColumnName="NameBiz" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="NameBiz" ColumnName="NameBiz" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderCurrencies">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderCurrencies">
               <MappingFragment StoreEntitySet="OrderCurrencies">
-                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderDetails">
               <MappingFragment StoreEntitySet="OrderDetails">
-                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
-                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
-                <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
-                <ScalarProperty Name="DescriptionProduct" ColumnName="DescriptionProduct" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="DescriptionProduct" ColumnName="DescriptionProduct" />
+                <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
+                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
+                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderHeader">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderHeader">
               <MappingFragment StoreEntitySet="OrderHeader">
-                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Net" ColumnName="Net" />
-                <ScalarProperty Name="Exent" ColumnName="Exent" />
-                <ScalarProperty Name="Tax" ColumnName="Tax" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="HitoID" ColumnName="HitoID" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="HitoID" ColumnName="HitoID" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Exent" ColumnName="Exent" />
+                <ScalarProperty Name="Net" ColumnName="Net" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderHitos">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderHitos">
               <MappingFragment StoreEntitySet="OrderHitos">
-                <ScalarProperty Name="HitoID" ColumnName="HitoID" />
-                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Porcent" ColumnName="Porcent" />
                 <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="Porcent" ColumnName="Porcent" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
+                <ScalarProperty Name="HitoID" ColumnName="HitoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderNotes">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderNotes">
               <MappingFragment StoreEntitySet="OrderNotes">
-                <ScalarProperty Name="OrderNoteID" ColumnName="OrderNoteID" />
-                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
+                <ScalarProperty Name="OrderNoteID" ColumnName="OrderNoteID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderStatus">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderStatus">
               <MappingFragment StoreEntitySet="OrderStatus">
-                <ScalarProperty Name="StatuID" ColumnName="StatuID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StatuID" ColumnName="StatuID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderTransactions">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderTransactions">
               <MappingFragment StoreEntitySet="OrderTransactions">
-                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
-                <ScalarProperty Name="Event" ColumnName="Event" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="DateTran" ColumnName="DateTran" />
                 <ScalarProperty Name="StatuID" ColumnName="StatuID" />
+                <ScalarProperty Name="DateTran" ColumnName="DateTran" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Event" ColumnName="Event" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderUsers">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderUsers">
               <MappingFragment StoreEntitySet="OrderUsers">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastVisit" ColumnName="LastVisit" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
                 <ScalarProperty Name="CostID" ColumnName="CostID" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="LastVisit" ColumnName="LastVisit" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SupplierBanks">
             <EntityTypeMapping TypeName="PurchaseManagerModel.SupplierBanks">
               <MappingFragment StoreEntitySet="SupplierBanks">
-                <ScalarProperty Name="BankID" ColumnName="BankID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="SwiftCode" ColumnName="SwiftCode" />
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="SwiftCode" ColumnName="SwiftCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SupplierCountries">
             <EntityTypeMapping TypeName="PurchaseManagerModel.SupplierCountries">
               <MappingFragment StoreEntitySet="SupplierCountries">
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="PurchaseManagerModel.Suppliers">
               <MappingFragment StoreEntitySet="Suppliers">
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="TypeAccount" ColumnName="TypeAccount" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="BankID" ColumnName="BankID" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="TypeAccount" ColumnName="TypeAccount" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="PurchaseManagerModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserCosts">
             <EntityTypeMapping TypeName="PurchaseManagerModel.UserCosts">
               <MappingFragment StoreEntitySet="UserCosts">
-                <ScalarProperty Name="CostID" ColumnName="CostID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CostID" ColumnName="CostID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserProfiles">
             <EntityTypeMapping TypeName="PurchaseManagerModel.UserProfiles">
               <MappingFragment StoreEntitySet="UserProfiles">
-                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="OrderHeaderTranHistory" TypeName="PurchaseManagerModel.OrderHeaderTranHistory" StoreEntitySet="OrderHeaderTranHistory">
-            <EndProperty Name="OrderHeader">
-              <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
-            </EndProperty>
-            <EndProperty Name="OrderTransactions">
-              <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="vOrderByMinTran">
             <EntityTypeMapping TypeName="PurchaseManagerModel.vOrderByMinTran">
               <MappingFragment StoreEntitySet="vOrderByMinTran">
@@ -1243,6 +1235,14 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTran' no tien
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="OrderHeaderTranHistory" TypeName="PurchaseManagerModel.OrderHeaderTranHistory" StoreEntitySet="OrderHeaderTranHistory">
+            <EndProperty Name="OrderTransactions">
+              <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+            </EndProperty>
+            <EndProperty Name="OrderHeader">
+              <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
