@@ -50,8 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\DACompany.cs" />
-    <Compile Include="DataAccess\DAUserDB.cs" />
+    <Compile Include="DataModel\DOrderStatus.cs" />
+    <Compile Include="DataModel\DACompany.cs" />
+    <Compile Include="DataModel\DAUserDB.cs" />
     <Compile Include="DataModel\Modelo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -118,15 +119,15 @@
     <Compile Include="DataModel\UserProfiles.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IPerfilActions.cs" />
-    <Compile Include="Profiles\PerfilFachada.cs" />
-    <Compile Include="Profiles\PerfilUPO.cs" />
-    <Compile Include="Profiles\PerfilUPR.cs" />
-    <Compile Include="Profiles\PerfilVAL.cs" />
+    <Compile Include="DataModel\vOrderByMinTran.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DataAccess\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

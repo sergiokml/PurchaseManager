@@ -1,7 +1,7 @@
 ﻿
 using TenTec.Windows.iGridLib;
 
-namespace PurchaseCtrl.Desktop.Interfaces
+namespace PurchaseDesktop.Interfaces
 {
     internal interface IGridCustom
     {

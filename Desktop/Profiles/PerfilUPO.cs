@@ -6,26 +6,27 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
-using PurchaseCtrl.DataBase.DataAccess;
-using PurchaseCtrl.Desktop.Interfaces;
-using PurchaseCtrl.Desktop.Utils;
+using PurchaseData.DataModel;
+
+using PurchaseDesktop.Helpers;
+using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-namespace PurchaseCtrl.Desktop.Profiles
+namespace PurchaseDesktop.Profiles
 {
     public class PerfilUPO : PerfilAbstract, IPerfilActions
     {
-        private readonly PurchaseCtrlEntities rContext;
+        private readonly PurchaseManagerContext rContext;
         //  public UserDB UserDB { get; set; }
         // public List<OrderStatu> OrderStatus { get; set; }
-        public List<Company> Companies { get; set; }
-        public PerfilUPO(PurchaseCtrlEntities rContext)
+        public List<OrderCompanies> Companies { get; set; }
+        public PerfilUPO(PurchaseManagerContext rContext)
         {
             this.rContext = rContext;
         }
         //todo ACTIONS PERFIL PO
-        public DataTable GetVista(UserDB userDB)
+        public DataTable GetVista(OrderUsers userDB)
         {
             //  1   Pre PRequisition
             //  2   Active PRequisition
@@ -37,13 +38,13 @@ namespace PurchaseCtrl.Desktop.Profiles
             //  8   POrder in Process
             //  9   POrder Complete
             //todo TENGO QUE UNIR LA LISTA DE LAS Po EMITIDAS POR ESTE USUARIO.
-            var l = rContext.ViewOderByActions.Where(c => c
-            .Status_ID > 1 && c.Status_ID < 10)
-                .OrderByDescending(c => c.Date_Last).ToList();
-            return this.ToDataTable<ViewOderByAction>(l);
+            var l = rContext.vOrderByMinTran.Where(c => c
+            .StatusID > 1 && c.StatusID < 10)
+                .OrderByDescending(c => c.DateLast).ToList();
+            return this.ToDataTable<vOrderByMinTran>(l);
         }
 
-        public iGrid SetGridBeging(iGrid grid, List<OrderStatu> status)
+        public iGrid SetGridBeging(iGrid grid, List<OrderStatus> status)
         {
             CargarBefore(grid, status);
             return Grid;
@@ -74,39 +75,39 @@ namespace PurchaseCtrl.Desktop.Profiles
             }
         }
 
-        public void InsertOrderHeader(Company company, OrderType type, UserDB userDB)
+        public void InsertOrderHeader(OrderCompanies company, OrderType type, OrderUsers userDB)
         {
 
             var pr = new OrderHeader
             {
-                IDCompany = company.CompanyID,
-                OrderType = (byte)type,
-                IDOrderStatus = 3,  //  3   Pre POrden
-                OrderDescription = string.Empty
+                CompanyID = company.CompanyID,
+                Type = (byte)type,
+                StatusID = 3,  //  3   Pre POrden
+                Description = string.Empty
             };
             ;
-            pr.TranHistories.Add(InsertTranHistory(pr, "CREATE_PO", userDB));
-            rContext.OrderHeaders.Add(pr);
+            pr.OrderTransactions.Add(InsertTranHistory(pr, "CREATE_PO", userDB));
+            rContext.OrderHeader.Add(pr);
             GuardarCambios();
         }
 
-        public TranHistory InsertTranHistory(OrderHeader order, string evento, UserDB userDB)
+        public OrderTransactions InsertTranHistory(OrderHeader order, string evento, OrderUsers userDB)
         {
-            var tran = new TranHistory
+            var tran = new OrderTransactions
             {
-                TranHistoyDescription = evento,
-                IDUserDB = userDB.UserDBID,
-                IDOrderStatus = order.IDOrderStatus,
-                TranHistoyDate = DateTime.Now
+                Event = evento,
+                UserID = userDB.UserID,
+                StatuID = order.StatusID,
+                DateTran = DateTime.Now
             };
             return tran;
         }
 
-        public void UpdateOrderHeader(UserDB userDB, int id, object field, string prop)
+        public void UpdateOrderHeader(OrderUsers userDB, int id, object field, string prop)
         {
-            var pr = rContext.OrderHeaders.Find(id);
-            pr.TranHistories.Add(InsertTranHistory(pr, "UPDATE_PR", userDB));
-            pr.OrderDescription = UCase.ToTitleCase(field.ToString().ToLower());
+            var pr = rContext.OrderHeader.Find(id);
+            pr.OrderTransactions.Add(InsertTranHistory(pr, "UPDATE_PR", userDB));
+            pr.Description = UCase.ToTitleCase(field.ToString().ToLower());
             GuardarCambios();
         }
     }

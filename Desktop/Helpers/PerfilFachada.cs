@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Data;
 
-using PurchaseCtrl.DataBase.DataAccess;
+using PurchaseData.DataModel;
+
+using PurchaseDesktop.Profiles;
 
 using TenTec.Windows.iGridLib;
 
-namespace PurchaseCtrl.Desktop.Profiles
+namespace PurchaseDesktop.Helpers
 {
     public class PerfilFachada
     {
@@ -13,9 +15,9 @@ namespace PurchaseCtrl.Desktop.Profiles
         protected PerfilUPO perfilPo;
         protected PerfilVAL perfilVal;
 
-        private readonly UserDB userDB;
+        private readonly OrderUsers userDB;
 
-        public PerfilFachada(PerfilUPR perfilPr, PerfilUPO perfilPo, PerfilVAL perfilVal, UserDB userDB)
+        public PerfilFachada(PerfilUPR perfilPr, PerfilUPO perfilPo, PerfilVAL perfilVal, OrderUsers userDB)
         {
             this.perfilPr = perfilPr;
             this.perfilPo = perfilPo;
@@ -34,7 +36,7 @@ namespace PurchaseCtrl.Desktop.Profiles
             //! Los parámetros pasados son la única vía para llegar el User, status, etc.
             //! Acá va la lpogica de definir qupe hacer según los perfiles.
             // todo LA LPOGICA DE SEPARAR LAS VISTA SES ACÁ. NO INICIALIZE OBJETOS ANTES.
-            switch (userDB.UserProfile.UserProfileID)
+            switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
                     break;
@@ -52,13 +54,13 @@ namespace PurchaseCtrl.Desktop.Profiles
 
         public string MsgTest()
         {
-            return userDB.IDUserProfile;
+            return userDB.ProfileID;
         }
 
         public iGrid CargarBefore(iGrid grid)
         {
-            var status = new OrderStatu().GetList();
-            switch (userDB.UserProfile.UserProfileID)
+            var status = new OrderStatus().GetList();
+            switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
                     break;
@@ -78,9 +80,9 @@ namespace PurchaseCtrl.Desktop.Profiles
             }
             return null;
         }
-        public void InsertOrderHeader(Company company, PerfilAbstract.OrderType type)
+        public void InsertOrderHeader(OrderCompanies company, PerfilAbstract.OrderType type)
         {
-            switch (userDB.UserProfile.UserProfileID)
+            switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
                     break;
@@ -101,7 +103,7 @@ namespace PurchaseCtrl.Desktop.Profiles
         {
             //todo ACA IRÍA LA LÓGICA DE PERMISOS? SI UN USUARIO TIENE PERMISO PARA EDITAR DETERMINADO CAMPO O NO...
             //todo PRIMERO DETECTAR QUE FILA FUE LA DEL CAMBIO!!!!! ACÁ SE PASA EL UPDATE DE CUALQUIER COLUMA DEL GRID Y DE CUALQUIER USUARIO.!            
-            switch (userDB.UserProfile.UserProfileID)
+            switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
                     break;
@@ -135,7 +137,7 @@ namespace PurchaseCtrl.Desktop.Profiles
             //  7   Agree by Supplier
             //  8   POrder in Process
             //  9   POrder Complete   
-            switch (userDB.UserProfile.UserProfileID)
+            switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
                     break;

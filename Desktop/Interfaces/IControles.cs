@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace PurchaseCtrl.Desktop.Interfaces
+namespace PurchaseDesktop.Interfaces
 {
     internal interface IControles
     {

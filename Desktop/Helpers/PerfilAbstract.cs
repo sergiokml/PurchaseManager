@@ -5,7 +5,11 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace PurchaseCtrl.Desktop.Profiles
+using PurchaseData.DataModel;
+
+using TenTec.Windows.iGridLib;
+
+namespace PurchaseDesktop.Helpers
 {
     public class PerfilAbstract
     {
@@ -16,7 +20,7 @@ namespace PurchaseCtrl.Desktop.Profiles
         public iGrid Grid { get; set; }
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
 
-        public void CargarBefore(iGrid grid, List<OrderStatu> status)
+        public void CargarBefore(iGrid grid, List<OrderStatus> status)
         {
             //! General
             grid.BackColor = Color.FromArgb(34, 34, 34);
@@ -80,8 +84,8 @@ namespace PurchaseCtrl.Desktop.Profiles
             foreach (var item in status)
             {
                 DataRow row = tablePr.NewRow();
-                row[0] = (int)item.OrderStatusID;
-                row[1] = item.OrderStatusDescription.ToString();
+                row[0] = (int)item.StatuID;
+                row[1] = item.Description.ToString();
                 tablePr.Rows.Add(row);
             }
             cboStates.FillWithData(tablePr, "Id", "Name");
@@ -115,9 +119,9 @@ namespace PurchaseCtrl.Desktop.Profiles
         private ImageList ListaImagenes()
         {
             ImageList lista = new ImageList();
-            lista.Images.Add(Properties.Resources.icons8_attach);
-            lista.Images.Add(Properties.Resources.icons8_delete_view); // Grid Principal
-            lista.Images.Add(Properties.Resources.icons8_delete_file); // Grid Details
+            //lista.Images.Add(Properties.Resources.icons8_attach);
+            //lista.Images.Add(Properties.Resources.icons8_delete_view); // Grid Principal
+            //lista.Images.Add(Properties.Resources.icons8_delete_file); // Grid Details
             return lista;
         }
     }

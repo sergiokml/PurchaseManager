@@ -2,26 +2,27 @@
 using System.Data;
 using System.Linq;
 
-using PurchaseCtrl.DataBase.DataAccess;
-using PurchaseCtrl.Desktop.Interfaces;
-using PurchaseCtrl.Desktop.Utils;
+using PurchaseData.DataModel;
+
+using PurchaseDesktop.Helpers;
+using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-namespace PurchaseCtrl.Desktop.Profiles
+namespace PurchaseDesktop.Profiles
 {
     public class PerfilVAL : PerfilAbstract, IPerfilActions
     {
-        private readonly PurchaseCtrlEntities rContext;
+        private readonly PurchaseManagerContext rContext;
         //  public UserDB UserDB { get; set; }
         //  public List<OrderStatu> OrderStatus { get; }
 
-        public PerfilVAL(PurchaseCtrlEntities rContext)
+        public PerfilVAL(PurchaseManagerContext rContext)
         {
             this.rContext = rContext;
         }
 
-        public DataTable GetVista(UserDB userDB)
+        public DataTable GetVista(OrderUsers userDB)
         {
             //  1   Pre PRequisition
             //  2   Active PRequisition
@@ -32,9 +33,9 @@ namespace PurchaseCtrl.Desktop.Profiles
             //  7   Agree by Supplier
             //  8   POrder in Process
             //  9   POrder Complete 
-            var l = rContext.ViewOderByActions
-              .Where(c => c.User_CC == userDB.IDUserCC && (c.Status_ID == 4 || c.Status_ID == 5)).ToList();
-            return this.ToDataTable<ViewOderByAction>(l);
+            var l = rContext.vOrderByMinTran
+              .Where(c => c.CostID == userDB.CostID && (c.StatusID == 4 || c.StatusID == 5)).ToList();
+            return this.ToDataTable<vOrderByMinTran>(l);
         }
 
         public void GuardarCambios(int wait)
@@ -42,22 +43,22 @@ namespace PurchaseCtrl.Desktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public iGrid SetGridBeging(iGrid grid, List<OrderStatu> status)
+        public iGrid SetGridBeging(iGrid grid, List<OrderStatus> status)
         {
             throw new System.NotImplementedException();
         }
 
-        public void InsertOrderHeader(Company company, OrderType type, UserDB userDB)
+        public void InsertOrderHeader(OrderCompanies company, OrderType type, OrderUsers userDB)
         {
             throw new System.NotImplementedException();
         }
 
-        public TranHistory InsertTranHistory(OrderHeader order, string evento, UserDB userDB)
+        public OrderTransactions InsertTranHistory(OrderHeader order, string evento, OrderUsers userDB)
         {
             throw new System.NotImplementedException();
         }
 
-        public void UpdateOrderHeader(UserDB userDB, int id, object field, string prop)
+        public void UpdateOrderHeader(OrderUsers userDB, int id, object field, string prop)
         {
             throw new System.NotImplementedException();
         }

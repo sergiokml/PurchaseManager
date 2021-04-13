@@ -42,5 +42,6 @@ namespace PurchaseData.DataModel
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UserCosts> UserCosts { get; set; }
         public virtual DbSet<UserProfiles> UserProfiles { get; set; }
+        public virtual DbSet<vOrderByMinTran> vOrderByMinTran { get; set; }
     }
 }

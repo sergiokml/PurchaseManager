@@ -37,6 +37,7 @@
         <AssociationConnector Association="PurchaseManagerModel.FK_SupplierBanks_SupplierCountries" ManuallyRouted="false" />
         <AssociationConnector Association="PurchaseManagerModel.FK_Suppliers_SupplierBanks" ManuallyRouted="false" />
         <AssociationConnector Association="PurchaseManagerModel.OrderHeaderTranHistory" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.vOrderByMinTran" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
