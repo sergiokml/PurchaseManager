@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 
 using PurchaseData.DataModel;
@@ -57,9 +58,8 @@ namespace PurchaseDesktop.Helpers
             return userDB.ProfileID;
         }
 
-        public iGrid CargarBefore(iGrid grid)
+        public iGrid CargarBefore(iGrid grid, List<OrderStatus> status)
         {
-            var status = new OrderStatus().GetList();
             switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
@@ -112,13 +112,13 @@ namespace PurchaseDesktop.Helpers
                 case "UPO":
                     if (PermisoValido(dataRow))
                     {
-                        perfilPo.UpdateOrderHeader(userDB, Convert.ToInt32(dataRow["Order_ID"]), valor, campo);
+                        perfilPo.UpdateOrderHeader(userDB, Convert.ToInt32(dataRow["OrderHeaderID"]), valor, campo);
                     }
                     break;
                 case "UPR":
                     if (PermisoValido(dataRow))
                     {
-                        perfilPr.UpdateOrderHeader(userDB, Convert.ToInt32(dataRow["Order_ID"]), valor, campo);
+                        perfilPr.UpdateOrderHeader(userDB, Convert.ToInt32(dataRow["OrderHeaderID"]), valor, campo);
                     }
                     break;
                 case "VAL":
@@ -144,13 +144,13 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    if (Convert.ToInt32(dataRow["Status_Id"]) > 6) // Puede modificar hasta 6
+                    if (Convert.ToInt32(dataRow["StatusID"]) > 6) // Puede modificar hasta 6
                     {
                         return false;
                     }
                     break;
                 case "UPR":
-                    if (Convert.ToInt32(dataRow["Status_Id"]) > 2) // Puede modificar hasta 2
+                    if (Convert.ToInt32(dataRow["StatusID"]) > 2) // Puede modificar hasta 2
                     {
                         return false;
                     }

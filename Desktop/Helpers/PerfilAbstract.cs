@@ -89,7 +89,7 @@ namespace PurchaseDesktop.Helpers
                 tablePr.Rows.Add(row);
             }
             cboStates.FillWithData(tablePr, "Id", "Name");
-            grid.Cols["Status_ID"].CellStyle.DropDownControl = cboStates;
+            grid.Cols["StatusID"].CellStyle.DropDownControl = cboStates;
 
             //! Order Type            
             iGDropDownList cbotype = new iGDropDownList();
@@ -104,7 +104,7 @@ namespace PurchaseDesktop.Helpers
                 tablePr.Rows.Add(row);
             }
             cbotype.FillWithData(tablePr, "id", "Name");
-            grid.Cols["Order_Type"].CellStyle.DropDownControl = cbotype;
+            grid.Cols["Type"].CellStyle.DropDownControl = cbotype;
 
             Grid = grid;
         }

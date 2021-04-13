@@ -5,6 +5,10 @@ using System.Windows.Forms;
 
 using PurchaseData.DataModel;
 
+using PurchaseDesktop.Formularios;
+using PurchaseDesktop.Helpers;
+using PurchaseDesktop.Profiles;
+
 namespace Desktop
 {
     internal static class Program
@@ -18,16 +22,32 @@ namespace Desktop
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
+            //! Los Perfiles: 
+            PerfilUPO perfilPo = new PerfilUPO(new PurchaseManagerContext());
+            PerfilUPR perfilPr = new PerfilUPR(new PurchaseManagerContext());
+            PerfilVAL perfilVal = new PerfilVAL(new PurchaseManagerContext());
+
+            OrderUsers user;
+            var cia = new OrderCompanies().GetList();
+            var states = new OrderStatus().GetList();
 
             using (var contextDB = new PurchaseManagerContext())
             {
-                var PR = "25406408";
 
-                var user = contextDB.OrderUsers.Find(PR);
+                var PR = "25406408";
+                //UserDB user = new UserDB().GetUserDB("13779971");   //? TESTER PO
+                //UserDB user = new UserDB().GetUserDB("15325038"); //? TESTER VAL 
+
+
+                user = contextDB.OrderUsers.Find(PR);
                 contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
-                CargarUPR(10);
+                //CargarUPR(10);
                 //CargaUPO(4, "13779971"); // Booorador PO (Po user)
             }
+
+            PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, user);
+            FPrincipal f = new FPrincipal(facade, cia, states);
+            Application.Run(f);
         }
 
         private static void CargarUPR(int veces)

@@ -36,15 +36,15 @@ namespace PurchaseDesktop.Profiles
             //  7   Agree by Supplier
             //  8   POrder in Process
             //  9   POrder Complete 
-            //rContext.Entry(rContext.ViewOderByActions).Reload();
+
             //var algo = rContext.ViewOderByActions.Where(c => c.User_ID == userDB.UserDBID);
-            //using (var con = new PurchaseCtrlEntities())
-            //{
-            var l = rContext.vOrderByMinTran
-                   .Where(c => c.UserID == userDB.UserID && c.StatusID < 3)
-                   .OrderByDescending(c => c.DateLast).ToList();
-            return this.ToDataTable<vOrderByMinTran>(l);
-            // }
+            using (var rContext = new PurchaseManagerContext())
+            {
+                var l = rContext.vOrderByMinTran
+                          .Where(c => c.UserID == userDB.UserID && c.StatusID < 3)
+                          .OrderByDescending(c => c.DateLast).ToList();
+                return this.ToDataTable<vOrderByMinTran>(l);
+            }
 
         }
 
@@ -56,7 +56,7 @@ namespace PurchaseDesktop.Profiles
 
         public void GuardarCambios(int wait = 0)
         {
-            // TODO ESTO ELIMINARLO? PUEDE ESTAR EN LA CLASE GridCustom, PERO HABRÁ DIFERENVCIA ENTRE GUARDAR CAMBIOS PO VS PR?
+            // TODO ESTO ELIMINARLO? PUEDE ESTAR EN LA CLASE GridCustom, PERO HABRÁ DIFERENVCIA ENTRE GUARDAR CAMBIOS PO VS PR?        
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -113,7 +113,7 @@ namespace PurchaseDesktop.Profiles
             pr.OrderTransactions.Add(InsertTranHistory(pr, "UPDATE_PR", userDB));
             switch (campo)
             {
-                case "Order_Description":
+                case "Description":
                     pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
                     GuardarCambios();
                     break;
