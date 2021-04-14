@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
@@ -18,14 +19,13 @@ namespace PurchaseDesktop.Profiles
     public class PerfilUPO : PerfilAbstract, IPerfilActions
     {
         private readonly PurchaseManagerContext rContext;
-        //  public UserDB UserDB { get; set; }
-        // public List<OrderStatu> OrderStatus { get; set; }
+
         public List<OrderCompanies> Companies { get; set; }
         public PerfilUPO(PurchaseManagerContext rContext)
         {
             this.rContext = rContext;
         }
-        //todo ACTIONS PERFIL PO
+
         public DataTable GetVista(OrderUsers userDB)
         {
             //  1   Pre PRequisition
@@ -47,18 +47,13 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public iGrid SetGridBeging(iGrid grid, List<OrderStatus> status)
-        {
-            CargarBefore(grid, status);
-            return Grid;
-        }
 
         public void GuardarCambios(int wait = 0)
         {
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                // Thread.Sleep(wait);
+                Thread.Sleep(wait);
                 rContext.SaveChanges();
                 Cursor.Current = Cursors.Default;
             }
@@ -80,7 +75,6 @@ namespace PurchaseDesktop.Profiles
 
         public void InsertOrderHeader(OrderCompanies company, OrderType type, OrderUsers userDB)
         {
-
             var pr = new OrderHeader
             {
                 CompanyID = company.CompanyID,
@@ -89,16 +83,16 @@ namespace PurchaseDesktop.Profiles
                 Description = string.Empty
             };
             ;
-            pr.OrderTransactions.Add(InsertTranHistory(pr, "CREATE_PO", userDB));
+            pr.OrderTransactions.Add(InsertTranHistory(pr, userDB, EventUserPO.CREATE_PO));
             rContext.OrderHeader.Add(pr);
             GuardarCambios();
         }
 
-        public OrderTransactions InsertTranHistory(OrderHeader order, string evento, OrderUsers userDB)
+        public OrderTransactions InsertTranHistory(OrderHeader order, OrderUsers userDB, Enum @evento)
         {
             var tran = new OrderTransactions
             {
-                Event = evento,
+                Event = evento.ToString(),
                 UserID = userDB.UserID,
                 StatuID = order.StatusID,
                 DateTran = DateTime.Now
@@ -109,38 +103,31 @@ namespace PurchaseDesktop.Profiles
         public void UpdateOrderHeader(OrderUsers userDB, int id, object valor, string campo)
         {
             var pr = rContext.OrderHeader.Find(id);
-            pr.OrderTransactions.Add(InsertTranHistory(pr, "UPDATE_PR", userDB));
             switch (campo)
             {
                 case "Description":
                     pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
-                    GuardarCambios();
                     break;
                 case "Type":
                     pr.Type = Convert.ToByte(valor);
-                    GuardarCambios();
                     break;
                 case "StatusID":
                     pr.StatusID = Convert.ToByte(valor);
-                    GuardarCambios();
                     break;
                 case "CompanyID":
                     pr.CompanyID = valor.ToString();
-                    GuardarCambios();
                     break;
                 case "CurrencyID":
                     pr.CurrencyID = valor.ToString();
-                    GuardarCambios();
                     break;
                 case "SupplierID":
                     pr.SupplierID = valor.ToString();
-                    GuardarCambios();
                     break;
                 default:
                     break;
             }
-
-
+            pr.OrderTransactions.Add(InsertTranHistory(pr, userDB, EventUserPO.UPDATE_PO));
+            GuardarCambios();
         }
 
         public void DeleteOrderHeader(int id)
@@ -149,6 +136,22 @@ namespace PurchaseDesktop.Profiles
             rContext.OrderTransactions.RemoveRange(pr.OrderTransactions);
             rContext.OrderHeader.Remove(pr);
             GuardarCambios();
+        }
+
+        public enum EventUserPO
+        {
+            CREATE_PO = 1,
+            UPDATE_PO = 2
+        }
+
+        public DataTable GetVistaSuppliers()
+        {
+            return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
+        }
+
+        public iGrid SetGridBeging(iGrid grid, List<OrderStatus> status)
+        {
+            throw new NotImplementedException();
         }
     }
 }

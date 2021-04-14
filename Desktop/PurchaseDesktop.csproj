@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2F804D1A-5D36-4A99-8170-462E1BB8A024}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Desktop</RootNamespace>
-    <AssemblyName>Desktop</AssemblyName>
+    <RootNamespace>PurchaseDesktop</RootNamespace>
+    <AssemblyName>PurchaseDesktop</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -159,11 +159,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formularios\FDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FDetails.designer.cs">
+      <DependentUpon>FDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FOrderAttach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FOrderAttach.designer.cs">
+      <DependentUpon>FOrderAttach.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\FPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FPrincipal.designer.cs">
       <DependentUpon>FPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FSupplier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FSupplier.Designer.cs">
+      <DependentUpon>FSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ExtendsReport.cs" />
     <Compile Include="Helpers\PerfilAbstract.cs" />
@@ -176,8 +194,17 @@
     <Compile Include="Profiles\PerfilVAL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formularios\FDetails.resx">
+      <DependentUpon>FDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FOrderAttach.resx">
+      <DependentUpon>FOrderAttach.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FPrincipal.resx">
       <DependentUpon>FPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FSupplier.resx">
+      <DependentUpon>FSupplier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -188,6 +215,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

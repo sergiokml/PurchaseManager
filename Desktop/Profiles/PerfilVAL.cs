@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -53,10 +54,6 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public OrderTransactions InsertTranHistory(OrderHeader order, string evento, OrderUsers userDB)
-        {
-            throw new System.NotImplementedException();
-        }
 
         public void UpdateOrderHeader(OrderUsers userDB, int id, object field, string prop)
         {
@@ -66,6 +63,16 @@ namespace PurchaseDesktop.Profiles
         public void DeleteOrderHeader(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public OrderTransactions InsertTranHistory(OrderHeader order, OrderUsers userDB, Enum evento)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable GetVistaSuppliers()
+        {
+            throw new NotImplementedException();
         }
     }
 }

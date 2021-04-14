@@ -45,7 +45,8 @@ namespace Desktop
             }
 
             PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, user);
-            FPrincipal f = new FPrincipal(facade);
+            var fSupplier = new FSupplier(facade);
+            FPrincipal f = new FPrincipal(facade, fSupplier);
             Application.Run(f);
         }
 

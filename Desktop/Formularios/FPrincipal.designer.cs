@@ -48,6 +48,7 @@ namespace PurchaseDesktop.Formularios
             TenTec.Windows.iGridLib.iGColPattern iGColPattern16 = new TenTec.Windows.iGridLib.iGColPattern();
             TenTec.Windows.iGridLib.iGColPattern iGColPattern17 = new TenTec.Windows.iGridLib.iGColPattern();
             TenTec.Windows.iGridLib.iGColPattern iGColPattern18 = new TenTec.Windows.iGridLib.iGColPattern();
+            TenTec.Windows.iGridLib.iGColPattern iGColPattern19 = new TenTec.Windows.iGridLib.iGColPattern();
             this.GridCol0CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol0ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol1CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
@@ -98,6 +99,8 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.FDock = new Bunifu.UI.WinForms.BunifuFormDock();
             this.Grid = new TenTec.Windows.iGridLib.iGrid();
+            this.GridCol18CellStyle2 = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.GridCol18ColHdrStyle2 = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
             this.GroupBox.SuspendLayout();
@@ -231,9 +234,8 @@ namespace PurchaseDesktop.Formularios
             // 
             // CboType
             // 
-            this.CboType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CboType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CboType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.CboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CboType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CboType.ForeColor = System.Drawing.Color.White;
             this.CboType.Location = new System.Drawing.Point(13, 74);
@@ -377,17 +379,17 @@ namespace PurchaseDesktop.Formularios
             iGColPattern1.Text = "ID";
             iGColPattern1.Width = 33;
             iGColPattern2.AllowSizing = false;
-            iGColPattern2.CellStyle = this.GridCol1CellStyle;
-            iGColPattern2.ColHdrStyle = this.GridCol1ColHdrStyle;
-            iGColPattern2.Key = "Code";
-            iGColPattern2.Text = "Code";
-            iGColPattern2.Width = 47;
+            iGColPattern2.CellStyle = this.GridCol2CellStyle;
+            iGColPattern2.ColHdrStyle = this.GridCol2ColHdrStyle;
+            iGColPattern2.Key = "Description";
+            iGColPattern2.Text = "Description";
+            iGColPattern2.Width = 196;
             iGColPattern3.AllowSizing = false;
-            iGColPattern3.CellStyle = this.GridCol2CellStyle;
-            iGColPattern3.ColHdrStyle = this.GridCol2ColHdrStyle;
-            iGColPattern3.Key = "Description";
-            iGColPattern3.Text = "Description";
-            iGColPattern3.Width = 196;
+            iGColPattern3.CellStyle = this.GridCol1CellStyle;
+            iGColPattern3.ColHdrStyle = this.GridCol1ColHdrStyle;
+            iGColPattern3.Key = "Code";
+            iGColPattern3.Text = "Code";
+            iGColPattern3.Width = 47;
             iGColPattern4.AllowSizing = false;
             iGColPattern4.CellStyle = this.GridCol3CellStyle;
             iGColPattern4.ColHdrStyle = this.GridCol3ColHdrStyle;
@@ -400,65 +402,70 @@ namespace PurchaseDesktop.Formularios
             iGColPattern5.Key = "Type";
             iGColPattern5.Text = "Type";
             iGColPattern5.Width = 93;
-            iGColPattern6.CellStyle = this.GridCol6CellStyle;
-            iGColPattern6.ColHdrStyle = this.GridCol6ColHdrStyle;
-            iGColPattern6.Key = "Net";
-            iGColPattern6.Text = "Net";
-            iGColPattern6.Width = 46;
-            iGColPattern7.CellStyle = this.GridCol7CellStyle;
-            iGColPattern7.ColHdrStyle = this.GridCol7ColHdrStyle;
-            iGColPattern7.Key = "Exent";
-            iGColPattern7.Text = "Exent";
-            iGColPattern8.CellStyle = this.GridCol8CellStyle;
-            iGColPattern8.ColHdrStyle = this.GridCol8ColHdrStyle;
-            iGColPattern8.Key = "Tax";
-            iGColPattern8.Text = "Tax";
-            iGColPattern9.CellStyle = this.GridCol9CellStyle;
-            iGColPattern9.ColHdrStyle = this.GridCol9ColHdrStyle;
-            iGColPattern9.Key = "Total";
-            iGColPattern9.Text = "Total";
-            iGColPattern10.CellStyle = this.GridCol18CellStyle;
-            iGColPattern10.ColHdrStyle = this.GridCol18ColHdrStyle;
-            iGColPattern10.Key = "details";
-            iGColPattern10.Width = 21;
-            iGColPattern11.CellStyle = this.GridCol18CellStyle1;
-            iGColPattern11.ColHdrStyle = this.GridCol18ColHdrStyle1;
-            iGColPattern11.Key = "attach";
-            iGColPattern11.Width = 22;
-            iGColPattern12.AllowSizing = false;
-            iGColPattern12.CellStyle = this.GridCol10CellStyle;
-            iGColPattern12.ColHdrStyle = this.GridCol10ColHdrStyle;
-            iGColPattern12.Key = "StatusID";
-            iGColPattern12.Text = "ID";
-            iGColPattern12.Width = 121;
-            iGColPattern13.CellStyle = this.GridCol14CellStyle;
-            iGColPattern13.ColHdrStyle = this.GridCol14ColHdrStyle;
-            iGColPattern13.Key = "Event";
-            iGColPattern13.Text = "Action";
-            iGColPattern13.Width = 54;
-            iGColPattern14.CellStyle = this.GridCol12CellStyle;
-            iGColPattern14.ColHdrStyle = this.GridCol12ColHdrStyle;
-            iGColPattern14.Key = "DateLast";
-            iGColPattern14.Text = "Action Date";
-            iGColPattern14.Width = 84;
-            iGColPattern15.CellStyle = this.GridCol13CellStyle;
-            iGColPattern15.ColHdrStyle = this.GridCol13ColHdrStyle;
-            iGColPattern15.Key = "UserID";
-            iGColPattern15.Text = "User ID";
+            iGColPattern6.AllowSizing = false;
+            iGColPattern6.CellStyle = this.GridCol10CellStyle;
+            iGColPattern6.ColHdrStyle = this.GridCol10ColHdrStyle;
+            iGColPattern6.Key = "StatusID";
+            iGColPattern6.Text = "ID";
+            iGColPattern6.Width = 121;
+            iGColPattern7.CellStyle = this.GridCol19CellStyle;
+            iGColPattern7.ColHdrStyle = this.GridCol19ColHdrStyle;
+            iGColPattern7.Key = "SupplierId";
+            iGColPattern7.Text = "Supplier ID";
+            iGColPattern8.CellStyle = this.GridCol18CellStyle2;
+            iGColPattern8.ColHdrStyle = this.GridCol18ColHdrStyle2;
+            iGColPattern8.Key = "supplier";
+            iGColPattern8.Width = 22;
+            iGColPattern9.CellStyle = this.GridCol6CellStyle;
+            iGColPattern9.ColHdrStyle = this.GridCol6ColHdrStyle;
+            iGColPattern9.Key = "Net";
+            iGColPattern9.Text = "Net";
+            iGColPattern9.Width = 46;
+            iGColPattern10.CellStyle = this.GridCol7CellStyle;
+            iGColPattern10.ColHdrStyle = this.GridCol7ColHdrStyle;
+            iGColPattern10.Key = "Exent";
+            iGColPattern10.Text = "Exent";
+            iGColPattern11.CellStyle = this.GridCol8CellStyle;
+            iGColPattern11.ColHdrStyle = this.GridCol8ColHdrStyle;
+            iGColPattern11.Key = "Tax";
+            iGColPattern11.Text = "Tax";
+            iGColPattern12.CellStyle = this.GridCol9CellStyle;
+            iGColPattern12.ColHdrStyle = this.GridCol9ColHdrStyle;
+            iGColPattern12.Key = "Total";
+            iGColPattern12.Text = "Total";
+            iGColPattern13.CellStyle = this.GridCol18CellStyle;
+            iGColPattern13.ColHdrStyle = this.GridCol18ColHdrStyle;
+            iGColPattern13.Key = "details";
+            iGColPattern13.Width = 21;
+            iGColPattern14.CellStyle = this.GridCol18CellStyle1;
+            iGColPattern14.ColHdrStyle = this.GridCol18ColHdrStyle1;
+            iGColPattern14.Key = "attach";
+            iGColPattern14.Width = 22;
+            iGColPattern15.CellStyle = this.GridCol14CellStyle;
+            iGColPattern15.ColHdrStyle = this.GridCol14ColHdrStyle;
+            iGColPattern15.Key = "Event";
+            iGColPattern15.Text = "Action";
             iGColPattern15.Visible = false;
-            iGColPattern15.Width = 59;
-            iGColPattern16.CellStyle = this.GridCol15CellStyle;
-            iGColPattern16.ColHdrStyle = this.GridCol15ColHdrStyle;
-            iGColPattern16.Key = "CostID";
-            iGColPattern16.Text = "User CC";
-            iGColPattern17.CellStyle = this.GridCol16CellStyle;
-            iGColPattern17.ColHdrStyle = this.GridCol16ColHdrStyle;
-            iGColPattern17.Key = "delete";
-            iGColPattern17.Width = 22;
-            iGColPattern18.CellStyle = this.GridCol19CellStyle;
-            iGColPattern18.ColHdrStyle = this.GridCol19ColHdrStyle;
-            iGColPattern18.Key = "SupplierId";
-            iGColPattern18.Text = "Supplier ID";
+            iGColPattern15.Width = 54;
+            iGColPattern16.CellStyle = this.GridCol12CellStyle;
+            iGColPattern16.ColHdrStyle = this.GridCol12ColHdrStyle;
+            iGColPattern16.Key = "DateLast";
+            iGColPattern16.Text = "Action Date";
+            iGColPattern16.Visible = false;
+            iGColPattern16.Width = 84;
+            iGColPattern17.CellStyle = this.GridCol13CellStyle;
+            iGColPattern17.ColHdrStyle = this.GridCol13ColHdrStyle;
+            iGColPattern17.Key = "UserID";
+            iGColPattern17.Text = "User ID";
+            iGColPattern17.Width = 59;
+            iGColPattern18.CellStyle = this.GridCol15CellStyle;
+            iGColPattern18.ColHdrStyle = this.GridCol15ColHdrStyle;
+            iGColPattern18.Key = "CostID";
+            iGColPattern18.Text = "User CC";
+            iGColPattern19.CellStyle = this.GridCol16CellStyle;
+            iGColPattern19.ColHdrStyle = this.GridCol16ColHdrStyle;
+            iGColPattern19.Key = "delete";
+            iGColPattern19.Width = 22;
             this.Grid.Cols.AddRange(new TenTec.Windows.iGridLib.iGColPattern[] {
             iGColPattern1,
             iGColPattern2,
@@ -477,7 +484,11 @@ namespace PurchaseDesktop.Formularios
             iGColPattern15,
             iGColPattern16,
             iGColPattern17,
-            iGColPattern18});
+            iGColPattern18,
+            iGColPattern19});
+            this.Grid.DefaultAutoGroupRow.Height = 20;
+            this.Grid.DefaultRow.Height = 20;
+            this.Grid.DefaultRow.NormalCellHeight = 20;
             this.Grid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Grid.GroupBox.Visible = true;
             this.Grid.Header.Height = 20;
@@ -487,6 +498,10 @@ namespace PurchaseDesktop.Formularios
             this.Grid.TabIndex = 8;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
+            // 
+            // GridCol18CellStyle2
+            // 
+            this.GridCol18CellStyle2.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
             // 
             // FPrincipal
             // 
@@ -563,6 +578,8 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGCellStyle GridCol19CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol19ColHdrStyle;
         private System.Windows.Forms.ComboBox CboType;
+        private TenTec.Windows.iGridLib.iGCellStyle GridCol18CellStyle2;
+        private TenTec.Windows.iGridLib.iGColHdrStyle GridCol18ColHdrStyle2;
     }
 }
 

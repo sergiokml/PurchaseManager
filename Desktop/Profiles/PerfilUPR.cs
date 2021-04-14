@@ -24,7 +24,7 @@ namespace PurchaseDesktop.Profiles
         {
             this.rContext = rContext;
         }
-        //todo ACTIONS PERFIL PR
+
         public DataTable GetVista(OrderUsers userDB)
         {
             //  1   Pre PRequisition
@@ -44,13 +44,11 @@ namespace PurchaseDesktop.Profiles
                       .OrderByDescending(c => c.DateLast).ToList();
                 return this.ToDataTable<vOrderByMinTran>(l);
             }
-
         }
 
-        public iGrid SetGridBeging(iGrid grid, List<OrderStatus> status)
+        public DataTable GetVistaSuppliers()
         {
-            CargarBefore(grid, status);
-            return Grid; // retorno el mismo?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
         }
 
         public void GuardarCambios(int wait = 0)
@@ -89,16 +87,16 @@ namespace PurchaseDesktop.Profiles
                 Description = string.Empty
             };
             ;
-            pr.OrderTransactions.Add(InsertTranHistory(pr, "CREATE_PR", userDB));
+            pr.OrderTransactions.Add(InsertTranHistory(pr, userDB, EventUserPR.CREATE_PR));
             rContext.OrderHeader.Add(pr);
             GuardarCambios();
         }
 
-        public OrderTransactions InsertTranHistory(OrderHeader order, string evento, OrderUsers userDB)
+        public OrderTransactions InsertTranHistory(OrderHeader order, OrderUsers userDB, Enum @evento)
         {
             var tran = new OrderTransactions
             {
-                Event = evento,
+                Event = evento.ToString(),
                 UserID = userDB.UserID,
                 StatuID = order.StatusID,
                 DateTran = DateTime.Now
@@ -109,38 +107,31 @@ namespace PurchaseDesktop.Profiles
         public void UpdateOrderHeader(OrderUsers userDB, int id, object valor, string campo)
         {
             var pr = rContext.OrderHeader.Find(id);
-            pr.OrderTransactions.Add(InsertTranHistory(pr, "UPDATE_PR", userDB));
             switch (campo)
             {
                 case "Description":
                     pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
-                    GuardarCambios();
                     break;
                 case "Type":
                     pr.Type = Convert.ToByte(valor);
-                    GuardarCambios();
                     break;
                 case "StatusID":
                     pr.StatusID = Convert.ToByte(valor);
-                    GuardarCambios();
                     break;
                 case "CompanyID":
                     pr.CompanyID = valor.ToString();
-                    GuardarCambios();
                     break;
                 case "CurrencyID":
                     pr.CurrencyID = valor.ToString();
-                    GuardarCambios();
                     break;
                 case "SupplierID":
                     pr.SupplierID = valor.ToString();
-                    GuardarCambios();
                     break;
                 default:
                     break;
             }
-
-
+            pr.OrderTransactions.Add(InsertTranHistory(pr, userDB, EventUserPR.UPDATE_PR));
+            GuardarCambios();
         }
 
         public void DeleteOrderHeader(int id)
@@ -149,6 +140,24 @@ namespace PurchaseDesktop.Profiles
             rContext.OrderTransactions.RemoveRange(pr.OrderTransactions);
             rContext.OrderHeader.Remove(pr);
             GuardarCambios();
+        }
+
+        public iGrid SetGridBeging(iGrid grid, List<OrderStatus> status)
+        {
+            throw new NotImplementedException();
+        }
+
+        public enum StatusUserPR
+        {
+            PrePRequisition = 1,
+            ActivePRequisition = 2
+
+        }
+
+        public enum EventUserPR
+        {
+            CREATE_PR = 1,
+            UPDATE_PR = 2
         }
     }
 }

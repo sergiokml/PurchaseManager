@@ -17,10 +17,13 @@ namespace PurchaseDesktop.Formularios
     public partial class FPrincipal : Form, IControles, IGridCustom
     {
         private readonly PerfilFachada rFachada;
-        public TextInfo UCase { get; set; }
 
-        public FPrincipal(PerfilFachada rFachada)
+        public TextInfo UCase { get; set; }
+        public FSupplier FSupplier { get; set; }
+
+        public FPrincipal(PerfilFachada rFachada, FSupplier fSupplier)
         {
+            FSupplier = fSupplier;
             this.rFachada = rFachada;
             InitializeComponent();
         }
@@ -68,7 +71,8 @@ namespace PurchaseDesktop.Formularios
             Grid.BeforeCommitEdit += Grid_BeforeCommitEdit;
 
             //! Grid Principal
-            Grid = rFachada.CargarBefore(Grid, new OrderStatus().GetList());
+            Grid = rFachada.PintarGrid(Grid);
+            Grid = rFachada.ControlesGrid(Grid, new OrderStatus().GetList());
             LlenarGrid();
 
         }
@@ -107,7 +111,7 @@ namespace PurchaseDesktop.Formularios
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             CboCompany.SelectedValue = current.ItemArray[9].ToString();
             CboType.SelectedIndex = Convert.ToInt32(current.ItemArray[7]) - 1;
-
+            LblMsg.Text = $"Ha Seleccionado el ID:{current["OrderHeaderID"].ToString()}";
 
             SetControles();
         }
@@ -115,11 +119,11 @@ namespace PurchaseDesktop.Formularios
         public bool ValidarControles()
         {
             //! Company
-            if (CboCompany.SelectedValue.ToString() == string.Empty)
+            if (CboCompany.SelectedIndex == -1)
             {
                 return false;
             }
-            else if (CboType.SelectedValue.ToString() == string.Empty)
+            else if (CboType.SelectedIndex == -1)
             {
                 return false;
             }
@@ -133,9 +137,10 @@ namespace PurchaseDesktop.Formularios
         public void ClearControles()
         {
             CboCompany.SelectedIndex = -1;
-            CboCompany.Text = string.Empty;
+            CboCompany.Select(1, 0);
             CboType.SelectedIndex = -1;
-            //TxtCompanyName.Text = string.Empty;
+            CboType.Select(1, 0);
+
         }
 
         public void SetControles()
@@ -205,8 +210,7 @@ namespace PurchaseDesktop.Formularios
                 else
                 {
                     e.Result = iGEditResult.Cancel;
-
-                    //Grid.Cols[e.ColIndex].Cells[e.RowIndex].Value = "3";
+                    LblMsg.Text = "No se puede actualizar el dato.";
                 }
 
             }
@@ -226,7 +230,7 @@ namespace PurchaseDesktop.Formularios
         {
             Grid.DrawAsFocused = true;
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            if (e.ColIndex == 16) // delete
+            if (Grid.Cols["delete"].Index == 16)
             {
                 if (rFachada.DeleteOrderHeader(current))
                 {
@@ -239,8 +243,10 @@ namespace PurchaseDesktop.Formularios
                 {
                     LblMsg.Text += "No se puede eliminar";
                 }
-
-
+            }
+            else if (Grid.Cols["supplier"].Index == e.ColIndex)
+            {
+                rFachada.EditarSupplier(FSupplier);
             }
         }
     }

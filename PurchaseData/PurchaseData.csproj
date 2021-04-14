@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModel\DASupplierCountries.cs" />
+    <Compile Include="DataModel\DABank.cs" />
+    <Compile Include="DataModel\DASuppliers.cs" />
     <Compile Include="DataModel\DOrderStatus.cs" />
     <Compile Include="DataModel\DACompany.cs" />
     <Compile Include="DataModel\DAUserDB.cs" />

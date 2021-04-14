@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Windows.Forms;
 
 using PurchaseData.DataModel;
 
+using PurchaseDesktop.Formularios;
 using PurchaseDesktop.Profiles;
 
 using TenTec.Windows.iGridLib;
@@ -27,8 +29,12 @@ namespace PurchaseDesktop.Helpers
         }
 
         #region Functions
-        public DataTable GetVista(iGrid grid) //? PODRIA HACER VISTAS AHRA POR PERFILES!!!?
+        public DataTable GetVista(iGrid grid)
         {
+            if (grid is null)
+            {
+                throw new ArgumentNullException(nameof(grid));
+            }
             //ADM   Admin user
             //BAS   Basic
             //UPO   PO user
@@ -58,7 +64,43 @@ namespace PurchaseDesktop.Helpers
             return userDB.ProfileID;
         }
 
-        public iGrid CargarBefore(iGrid grid, List<OrderStatus> status)
+        public DataTable GetVistaSuppliers()
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    return perfilPo.GetVistaSuppliers();
+                case "UPR":
+                    return perfilPr.GetVistaSuppliers();
+                case "VAL":
+                    return perfilVal.GetVistaSuppliers();
+            }
+            return null;
+        }
+
+        public iGrid PintarGrid(iGrid grid)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    return perfilPo.FactoryGrid(grid, PerfilAbstract.EtapasGrid.PintarGrid);
+                case "UPR":
+                    return perfilPr.FactoryGrid(grid, PerfilAbstract.EtapasGrid.PintarGrid);
+                case "VAL":
+                    return perfilVal.FactoryGrid(grid, PerfilAbstract.EtapasGrid.PintarGrid);
+            }
+            return null;
+        }
+
+        public iGrid ControlesGrid(iGrid grid, List<OrderStatus> status)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -69,17 +111,18 @@ namespace PurchaseDesktop.Helpers
                 case "UPO":
                     status.RemoveRange(0, 1); // remove 1PRE REQ
                     //status.RemoveRange(3,1); // Sí ve las validadas
-                    return perfilPo.SetGridBeging(grid, status);
+                    return perfilPo.FactoryGrid(grid, PerfilAbstract.EtapasGrid.ControlesGris, status);
                 case "UPR":
                     status.RemoveRange(2, status.Count - 2); // remove 3PRE ORDER A AL FINAL
-                    return perfilPr.SetGridBeging(grid, status);
+                    return perfilPr.FactoryGrid(grid, PerfilAbstract.EtapasGrid.ControlesGris, status);
                 case "VAL":
                     status.RemoveRange(0, 3); // remove 1PRE ORDER A 3PRE ORDER
                     status.RemoveRange(2, status.Count - 2); // remove 
-                    return perfilPr.SetGridBeging(grid, status);
+                    return perfilVal.FactoryGrid(grid, PerfilAbstract.EtapasGrid.ControlesGris, status);
             }
             return null;
         }
+
         public void InsertOrderHeader(OrderCompanies company, PerfilAbstract.OrderType type)
         {
             switch (userDB.UserProfiles.ProfileID)
@@ -99,9 +142,9 @@ namespace PurchaseDesktop.Helpers
             }
         }
 
-        public bool UpdateOrderHeader(object valor, DataRow dataRow, string campo)
+        public bool UpdateOrderHeader(object nuevovalor, DataRow dataRow, string campo)
         {
-            //todo PRIMERO DETECTAR QUE FILA FUE LA DEL CAMBIO!!!!! ACÁ SE PASA EL UPDATE DE CUALQUIER COLUMA DEL GRID Y DE CUALQUIER USUARIO.!            
+            var idHeader = Convert.ToInt32(dataRow["OrderHeaderID"]);
             switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
@@ -109,34 +152,100 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    // todo este usuario no puede modificar el estatus de una que no hizo el.
+                    //! Puede DELETE y UPDATE de PO emitidas por éste usuario.
                     if (campo == "Type" || campo == "Description")
                     {
                         if (userDB.UserID == dataRow["UserID"].ToString())
                         {
-                            if (Convert.ToInt32(dataRow["StatusID"]) < 7)// Puede modificar hasta 6
+                            if (Convert.ToInt32(dataRow["StatusID"]) < 7)// Puede modificar hasta 6 LAS PROPIAS
                             {
-                                perfilPo.UpdateOrderHeader(userDB, Convert.ToInt32(dataRow["OrderHeaderID"]), valor, campo);
+                                perfilPo.UpdateOrderHeader(userDB,
+                                    idHeader,
+                                    nuevovalor,
+                                    campo);
+                                return true;
+                            }
+                        }
+                    }
+                    else if (campo == "StatusID")
+                    {
+                        var val = Convert.ToInt32(nuevovalor);
+                        if (userDB.UserID == dataRow["UserID"].ToString()) // Es de PO
+                        {
+                            if (val >= 4 && val <= 9) // de 3 a 9
+                            {
+                                if (ValidarOrderHeader(dataRow))
+                                {
+                                    perfilPo.UpdateOrderHeader(userDB,
+                                        idHeader,
+                                        nuevovalor,
+                                        campo);
+                                    return true;
+                                }
+                            }
+                            else if (val == 3)
+                            {
+                                perfilPo.UpdateOrderHeader(userDB, idHeader, nuevovalor, campo);
+                                return true;
+                            }
+                        }
+                        else
+                        // No es de PO
+                        {
+                            if (val >= 4) // Valido solo si paso Active Y más
+                            {
+                                if (ValidarOrderHeader(dataRow))
+                                {
+                                    perfilPo.UpdateOrderHeader(userDB, idHeader, nuevovalor, campo);
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                perfilPo.UpdateOrderHeader(userDB, idHeader, nuevovalor, campo);
                                 return true;
                             }
                         }
                     }
                     return false;
                 case "UPR":
-                    if (Convert.ToInt32(dataRow["StatusID"]) < 3) // Puede modificar hasta 2
+                    if (campo == "Description" && nuevovalor != null)
                     {
-                        perfilPr.UpdateOrderHeader(userDB, Convert.ToInt32(dataRow["OrderHeaderID"]), valor, campo);
+                        //! No UPDATE en estado 2
+                        if (Convert.ToInt32(dataRow["StatusID"]) == 1)
+                        {
+                            perfilPr.UpdateOrderHeader(userDB, idHeader, nuevovalor, campo);
+                            return true;
+                        }
                     }
-                    break;
+                    else if (campo == "Type" || campo == "StatusID")
+                    {
+                        if (ValidarOrderHeader(dataRow))
+                        {
+                            perfilPr.UpdateOrderHeader(userDB, idHeader, nuevovalor, campo);
+                            return true;
+                        }
+                    }
+                    return false;
                 case "VAL":
                     break;
             }
             return false;
         }
 
+        private bool ValidarOrderHeader(DataRow dataRow)
+        {
+            var res = dataRow["Description"].ToString();
+            if (string.IsNullOrEmpty(dataRow["Description"].ToString()))
+            {
+                return false;
+            }
+            return true;
+        }
 
         public bool DeleteOrderHeader(DataRow dataRow)
         {
+            var idHeader = Convert.ToInt32(dataRow["OrderHeaderID"]);
             switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
@@ -146,7 +255,7 @@ namespace PurchaseDesktop.Helpers
                 case "UPO":
                     if (Convert.ToInt32(dataRow["StatusID"]) == 3)// Puede eliminar en 3 (de momento, podría elliminar en cualquier fase con advertencias)
                     {
-                        perfilPo.DeleteOrderHeader(Convert.ToInt32(dataRow["OrderHeaderID"]));
+                        perfilPo.DeleteOrderHeader(idHeader);
                         return true;
                     }
 
@@ -154,7 +263,7 @@ namespace PurchaseDesktop.Helpers
                 case "UPR":
                     if (Convert.ToInt32(dataRow["StatusID"]) == 1) // Puede eliminar sólo en 1
                     {
-                        perfilPr.DeleteOrderHeader(Convert.ToInt32(dataRow["OrderHeaderID"]));
+                        perfilPr.DeleteOrderHeader(idHeader);
                         return true;
                     }
                     break;
@@ -164,6 +273,25 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
+        public bool EditarSupplier(FSupplier fSupplier)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    fSupplier.StartPosition = FormStartPosition.CenterScreen;
+                    fSupplier.ShowDialog();
+                    break;
+                case "UPR":
+                    break;
+                case "VAL":
+                    break;
+            }
+            return false;
+        }
         #endregion
     }
 }
