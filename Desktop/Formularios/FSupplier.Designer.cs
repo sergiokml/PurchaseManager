@@ -68,8 +68,6 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail = new Bunifu.UI.WinForms.BunifuImageButton();
             this.TxtName = new Bunifu.UI.WinForms.BunifuTextBox();
             this.Grid = new TenTec.Windows.iGridLib.iGrid();
-            this.iGrid1DefaultCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.iGrid1DefaultColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.TxtEmail = new Bunifu.UI.WinForms.BunifuTextBox();
             this.CboBanks = new System.Windows.Forms.ComboBox();
             this.CboCountries = new System.Windows.Forms.ComboBox();
@@ -79,10 +77,19 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.FDock = new Bunifu.UI.WinForms.BunifuFormDock();
+            this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.PanelHeader.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // iGrid1Col1CellStyle
+            // 
+            this.iGrid1Col1CellStyle.ReadOnly = TenTec.Windows.iGridLib.iGBool.True;
+            // 
+            // iGrid1Col2CellStyle
+            // 
+            this.iGrid1Col2CellStyle.ReadOnly = TenTec.Windows.iGridLib.iGBool.True;
             // 
             // iGrid1Col3CellStyle
             // 
@@ -361,35 +368,34 @@ namespace PurchaseDesktop.Formularios
             iGColPattern1.CellStyle = this.iGrid1Col0CellStyle;
             iGColPattern1.ColHdrStyle = this.iGrid1Col0ColHdrStyle;
             iGColPattern1.Key = "nro";
+            iGColPattern1.Visible = false;
             iGColPattern1.Width = 28;
             iGColPattern2.CellStyle = this.iGrid1Col1CellStyle;
             iGColPattern2.ColHdrStyle = this.iGrid1Col1ColHdrStyle;
             iGColPattern2.Key = "SupplierID";
-            iGColPattern2.Width = 65;
+            iGColPattern2.Width = 58;
             iGColPattern3.CellStyle = this.iGrid1Col2CellStyle;
             iGColPattern3.ColHdrStyle = this.iGrid1Col2ColHdrStyle;
             iGColPattern3.Key = "Name";
-            iGColPattern3.Width = 273;
+            iGColPattern3.Width = 325;
             iGColPattern4.CellStyle = this.iGrid1Col3CellStyle;
             iGColPattern4.ColHdrStyle = this.iGrid1Col3ColHdrStyle;
             iGColPattern4.Key = "delete";
-            iGColPattern4.Width = 27;
+            iGColPattern4.Width = 22;
             this.Grid.Cols.AddRange(new TenTec.Windows.iGridLib.iGColPattern[] {
             iGColPattern1,
             iGColPattern2,
             iGColPattern3,
             iGColPattern4});
             this.Grid.DefaultAutoGroupRow.Height = 20;
-            this.Grid.DefaultCol.CellStyle = this.iGrid1DefaultCellStyle;
-            this.Grid.DefaultCol.ColHdrStyle = this.iGrid1DefaultColHdrStyle;
             this.Grid.DefaultRow.Height = 20;
             this.Grid.DefaultRow.NormalCellHeight = 20;
-            this.Grid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Grid.Header.Height = 20;
             this.Grid.Location = new System.Drawing.Point(0, 199);
             this.Grid.Name = "Grid";
-            this.Grid.Size = new System.Drawing.Size(403, 121);
+            this.Grid.Size = new System.Drawing.Size(403, 120);
             this.Grid.TabIndex = 31;
+            this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             // 
             // TxtEmail
             // 
@@ -650,12 +656,29 @@ namespace PurchaseDesktop.Formularios
             this.FDock.TitleBarOptions.TitleBarControl = this.PanelHeader;
             this.FDock.TitleBarOptions.UseBackColorOnDockingIndicators = false;
             // 
+            // bunifuSeparator1
+            // 
+            this.bunifuSeparator1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.bunifuSeparator1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuSeparator1.BackgroundImage")));
+            this.bunifuSeparator1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuSeparator1.DashCap = Bunifu.UI.WinForms.BunifuSeparator.CapStyles.Flat;
+            this.bunifuSeparator1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.bunifuSeparator1.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.Solid;
+            this.bunifuSeparator1.LineThickness = 1;
+            this.bunifuSeparator1.Location = new System.Drawing.Point(0, 319);
+            this.bunifuSeparator1.Name = "bunifuSeparator1";
+            this.bunifuSeparator1.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
+            this.bunifuSeparator1.Size = new System.Drawing.Size(403, 1);
+            this.bunifuSeparator1.TabIndex = 39;
+            // 
             // FSupplier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.ClientSize = new System.Drawing.Size(403, 320);
+            this.Controls.Add(this.bunifuSeparator1);
             this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.CboCountries);
@@ -683,8 +706,6 @@ namespace PurchaseDesktop.Formularios
         private Bunifu.UI.WinForms.BunifuImageButton BtnNewDetail;
         private Bunifu.UI.WinForms.BunifuTextBox TxtName;
         private TenTec.Windows.iGridLib.iGrid Grid;
-        private TenTec.Windows.iGridLib.iGCellStyle iGrid1DefaultCellStyle;
-        private TenTec.Windows.iGridLib.iGColHdrStyle iGrid1DefaultColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1Col0CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle iGrid1Col0ColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1Col1CellStyle;
@@ -702,5 +723,6 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button BtnCerrar;
         private Bunifu.UI.WinForms.BunifuFormDock FDock;
+        private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator1;
     }
 }

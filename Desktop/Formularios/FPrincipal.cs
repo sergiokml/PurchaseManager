@@ -84,7 +84,7 @@ namespace PurchaseDesktop.Formularios
             try
             {
 
-                var vista = rFachada.GetVista(Grid);
+                var vista = rFachada.GetVistaPrincipal(Grid);
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!
@@ -230,7 +230,7 @@ namespace PurchaseDesktop.Formularios
         {
             Grid.DrawAsFocused = true;
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            if (Grid.Cols["delete"].Index == 16)
+            if (Grid.Cols["delete"].Index == e.ColIndex)
             {
                 if (rFachada.DeleteOrderHeader(current))
                 {
@@ -247,6 +247,18 @@ namespace PurchaseDesktop.Formularios
             else if (Grid.Cols["supplier"].Index == e.ColIndex)
             {
                 rFachada.EditarSupplier(FSupplier);
+            }
+            else if (Grid.Cols["details"].Index == e.ColIndex)
+            {
+
+            }
+            else if (Grid.Cols["attach"].Index == e.ColIndex)
+            {
+
+            }
+            else if (Grid.Cols["hitos"].Index == e.ColIndex)
+            {
+
             }
         }
     }

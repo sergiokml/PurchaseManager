@@ -1,5 +1,5 @@
 ﻿
-namespace PurchaseCtrl.Desktop.Formularios
+namespace PurchaseDesktop.Formularios
 {
     partial class FOrderAttach
     {

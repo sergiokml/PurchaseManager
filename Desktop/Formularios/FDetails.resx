@@ -167,6 +167,13 @@
   <metadata name="FDock.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="bunifuSeparator1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAdoAAAABCAYAAAB5am/3AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAcSURBVEhLY1BSUvo/ikfxKB7Fo3gUj2JaYKX/AEbolSGT
+        P9hMAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="TxtPrice.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAFYAAAAZCAYAAACrWNlOAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8

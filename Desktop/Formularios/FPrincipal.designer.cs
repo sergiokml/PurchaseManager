@@ -49,16 +49,23 @@ namespace PurchaseDesktop.Formularios
             TenTec.Windows.iGridLib.iGColPattern iGColPattern17 = new TenTec.Windows.iGridLib.iGColPattern();
             TenTec.Windows.iGridLib.iGColPattern iGColPattern18 = new TenTec.Windows.iGridLib.iGColPattern();
             TenTec.Windows.iGridLib.iGColPattern iGColPattern19 = new TenTec.Windows.iGridLib.iGColPattern();
+            TenTec.Windows.iGridLib.iGColPattern iGColPattern20 = new TenTec.Windows.iGridLib.iGColPattern();
             this.GridCol0CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol0ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
-            this.GridCol1CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.GridCol1ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol2CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol2ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
+            this.GridCol1CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.GridCol1ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol3CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol3ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol5CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol5ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
+            this.GridCol10CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.GridCol10ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
+            this.GridCol19CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.GridCol19ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
+            this.GridCol18CellStyle2 = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.GridCol18ColHdrStyle2 = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol6CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol6ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol7CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
@@ -71,8 +78,6 @@ namespace PurchaseDesktop.Formularios
             this.GridCol18ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol18CellStyle1 = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol18ColHdrStyle1 = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
-            this.GridCol10CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.GridCol10ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol14CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol14ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol12CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
@@ -83,8 +88,6 @@ namespace PurchaseDesktop.Formularios
             this.GridCol15ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol16CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol16ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
-            this.GridCol19CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.GridCol19ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.BtnCloseFrm = new System.Windows.Forms.Button();
@@ -99,8 +102,8 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.FDock = new Bunifu.UI.WinForms.BunifuFormDock();
             this.Grid = new TenTec.Windows.iGridLib.iGrid();
-            this.GridCol18CellStyle2 = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.GridCol18ColHdrStyle2 = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
+            this.GridCol19CellStyle1 = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.GridCol19ColHdrStyle1 = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
             this.GroupBox.SuspendLayout();
@@ -119,6 +122,10 @@ namespace PurchaseDesktop.Formularios
             // GridCol3CellStyle
             // 
             this.GridCol3CellStyle.ReadOnly = TenTec.Windows.iGridLib.iGBool.True;
+            // 
+            // GridCol18CellStyle2
+            // 
+            this.GridCol18CellStyle2.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
             // 
             // GridCol6CellStyle
             // 
@@ -406,7 +413,7 @@ namespace PurchaseDesktop.Formularios
             iGColPattern6.CellStyle = this.GridCol10CellStyle;
             iGColPattern6.ColHdrStyle = this.GridCol10ColHdrStyle;
             iGColPattern6.Key = "StatusID";
-            iGColPattern6.Text = "ID";
+            iGColPattern6.Text = "Status";
             iGColPattern6.Width = 121;
             iGColPattern7.CellStyle = this.GridCol19CellStyle;
             iGColPattern7.ColHdrStyle = this.GridCol19ColHdrStyle;
@@ -429,6 +436,7 @@ namespace PurchaseDesktop.Formularios
             iGColPattern11.ColHdrStyle = this.GridCol8ColHdrStyle;
             iGColPattern11.Key = "Tax";
             iGColPattern11.Text = "Tax";
+            iGColPattern11.Visible = false;
             iGColPattern12.CellStyle = this.GridCol9CellStyle;
             iGColPattern12.ColHdrStyle = this.GridCol9ColHdrStyle;
             iGColPattern12.Key = "Total";
@@ -441,31 +449,35 @@ namespace PurchaseDesktop.Formularios
             iGColPattern14.ColHdrStyle = this.GridCol18ColHdrStyle1;
             iGColPattern14.Key = "attach";
             iGColPattern14.Width = 22;
-            iGColPattern15.CellStyle = this.GridCol14CellStyle;
-            iGColPattern15.ColHdrStyle = this.GridCol14ColHdrStyle;
-            iGColPattern15.Key = "Event";
-            iGColPattern15.Text = "Action";
-            iGColPattern15.Visible = false;
-            iGColPattern15.Width = 54;
-            iGColPattern16.CellStyle = this.GridCol12CellStyle;
-            iGColPattern16.ColHdrStyle = this.GridCol12ColHdrStyle;
-            iGColPattern16.Key = "DateLast";
-            iGColPattern16.Text = "Action Date";
+            iGColPattern15.CellStyle = this.GridCol19CellStyle1;
+            iGColPattern15.ColHdrStyle = this.GridCol19ColHdrStyle1;
+            iGColPattern15.Key = "hitos";
+            iGColPattern15.Width = 22;
+            iGColPattern16.CellStyle = this.GridCol14CellStyle;
+            iGColPattern16.ColHdrStyle = this.GridCol14ColHdrStyle;
+            iGColPattern16.Key = "Event";
+            iGColPattern16.Text = "Action";
             iGColPattern16.Visible = false;
-            iGColPattern16.Width = 84;
-            iGColPattern17.CellStyle = this.GridCol13CellStyle;
-            iGColPattern17.ColHdrStyle = this.GridCol13ColHdrStyle;
-            iGColPattern17.Key = "UserID";
-            iGColPattern17.Text = "User ID";
-            iGColPattern17.Width = 59;
-            iGColPattern18.CellStyle = this.GridCol15CellStyle;
-            iGColPattern18.ColHdrStyle = this.GridCol15ColHdrStyle;
-            iGColPattern18.Key = "CostID";
-            iGColPattern18.Text = "User CC";
-            iGColPattern19.CellStyle = this.GridCol16CellStyle;
-            iGColPattern19.ColHdrStyle = this.GridCol16ColHdrStyle;
-            iGColPattern19.Key = "delete";
-            iGColPattern19.Width = 22;
+            iGColPattern16.Width = 54;
+            iGColPattern17.CellStyle = this.GridCol12CellStyle;
+            iGColPattern17.ColHdrStyle = this.GridCol12ColHdrStyle;
+            iGColPattern17.Key = "DateLast";
+            iGColPattern17.Text = "Action Date";
+            iGColPattern17.Visible = false;
+            iGColPattern17.Width = 84;
+            iGColPattern18.CellStyle = this.GridCol13CellStyle;
+            iGColPattern18.ColHdrStyle = this.GridCol13ColHdrStyle;
+            iGColPattern18.Key = "UserID";
+            iGColPattern18.Text = "User ID";
+            iGColPattern18.Width = 59;
+            iGColPattern19.CellStyle = this.GridCol15CellStyle;
+            iGColPattern19.ColHdrStyle = this.GridCol15ColHdrStyle;
+            iGColPattern19.Key = "CostID";
+            iGColPattern19.Text = "User CC";
+            iGColPattern20.CellStyle = this.GridCol16CellStyle;
+            iGColPattern20.ColHdrStyle = this.GridCol16ColHdrStyle;
+            iGColPattern20.Key = "delete";
+            iGColPattern20.Width = 22;
             this.Grid.Cols.AddRange(new TenTec.Windows.iGridLib.iGColPattern[] {
             iGColPattern1,
             iGColPattern2,
@@ -485,7 +497,8 @@ namespace PurchaseDesktop.Formularios
             iGColPattern16,
             iGColPattern17,
             iGColPattern18,
-            iGColPattern19});
+            iGColPattern19,
+            iGColPattern20});
             this.Grid.DefaultAutoGroupRow.Height = 20;
             this.Grid.DefaultRow.Height = 20;
             this.Grid.DefaultRow.NormalCellHeight = 20;
@@ -499,9 +512,9 @@ namespace PurchaseDesktop.Formularios
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
             // 
-            // GridCol18CellStyle2
+            // GridCol19CellStyle1
             // 
-            this.GridCol18CellStyle2.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
+            this.GridCol19CellStyle1.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
             // 
             // FPrincipal
             // 
@@ -580,6 +593,8 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.ComboBox CboType;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol18CellStyle2;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol18ColHdrStyle2;
+        private TenTec.Windows.iGridLib.iGCellStyle GridCol19CellStyle1;
+        private TenTec.Windows.iGridLib.iGColHdrStyle GridCol19ColHdrStyle1;
     }
 }
 

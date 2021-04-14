@@ -674,4 +674,11 @@
   <metadata name="FDock.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="bunifuSeparator1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAZMAAAABCAYAAAAbxUOdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAbSURBVDhPY1BSUvo/ikfxKB7Fo3gUk4+V/gMA5eQyHoa8
+        RNgAAAAASUVORK5CYII=
+</value>
+  </data>
 </root>

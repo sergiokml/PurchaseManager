@@ -2,20 +2,22 @@
 using System.Globalization;
 using System.Windows.Forms;
 
+using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-namespace PurchaseCtrl.Desktop.Formularios
+namespace PurchaseDesktop.Formularios
 {
     public partial class FOrderAttach : Form, IControles, IGridCustom
     {
-        private readonly IPerfilActions rContext;
+        private readonly PerfilFachada rFachada;
+
         public TextInfo UCase { get; set; }
 
-        public FOrderAttach(IPerfilActions iRepoCtrl)
+        public FOrderAttach(PerfilFachada rFachada)
         {
-            rContext = iRepoCtrl;
+            this.rFachada = rFachada;
             InitializeComponent();
         }
 

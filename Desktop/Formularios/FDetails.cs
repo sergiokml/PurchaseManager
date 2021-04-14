@@ -1,11 +1,15 @@
 ﻿using System.Windows.Forms;
 
+using PurchaseDesktop.Helpers;
+
 namespace PurchaseDesktop.Formularios
 {
     public partial class FDetails : Form
     {
-        public FDetails()
+        private readonly PerfilFachada rFachada;
+        public FDetails(Helpers.PerfilFachada rFachada)
         {
+            this.rFachada = rFachada;
             InitializeComponent();
         }
 

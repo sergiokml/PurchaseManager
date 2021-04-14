@@ -40,6 +40,7 @@ namespace PurchaseDesktop.Helpers
 
         public iGrid FactoryGrid(iGrid igrid, EtapasGrid etapas, List<OrderStatus> status = null)
         {
+
             Grid = igrid;
             switch (etapas)
             {

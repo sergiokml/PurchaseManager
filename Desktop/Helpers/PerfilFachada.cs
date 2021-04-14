@@ -29,7 +29,7 @@ namespace PurchaseDesktop.Helpers
         }
 
         #region Functions
-        public DataTable GetVista(iGrid grid)
+        public DataTable GetVistaPrincipal(iGrid grid)
         {
             if (grid is null)
             {

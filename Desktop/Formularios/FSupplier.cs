@@ -57,7 +57,6 @@ namespace PurchaseDesktop.Formularios
                     Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
                 }
                 Grid.Refresh();
-
             }
             catch (Exception)
             {
@@ -74,6 +73,12 @@ namespace PurchaseDesktop.Formularios
             Corriente = 1,
             Vista = 2,
             Ahorros = 3
+        }
+
+        private void Grid_ColDividerDoubleClick(object sender, TenTec.Windows.iGridLib.iGColDividerDoubleClickEventArgs e)
+        {
+
+            Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
         }
     }
 }

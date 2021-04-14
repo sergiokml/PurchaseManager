@@ -23,6 +23,7 @@ namespace Desktop
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
             //! Los Perfiles: 
+            //var rContext = new PurchaseManagerContext();
             PerfilUPO perfilPo = new PerfilUPO(new PurchaseManagerContext());
             PerfilUPR perfilPr = new PerfilUPR(new PurchaseManagerContext());
             PerfilVAL perfilVal = new PerfilVAL(new PurchaseManagerContext());
@@ -46,6 +47,9 @@ namespace Desktop
 
             PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, user);
             var fSupplier = new FSupplier(facade);
+            var fDetails = new FDetails(facade);
+            var fAttach = new FOrderAttach(facade);
+
             FPrincipal f = new FPrincipal(facade, fSupplier);
             Application.Run(f);
         }
