@@ -74,5 +74,10 @@ namespace PurchaseDesktop.Profiles
         {
             throw new NotImplementedException();
         }
+
+        public void DeleteOrderDetail(OrderHeader header, int idDetailr, OrderUsers userDB)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

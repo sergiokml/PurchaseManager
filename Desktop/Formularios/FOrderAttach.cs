@@ -115,11 +115,6 @@ namespace PurchaseDesktop.Formularios
             //}
         }
 
-        private void BtnCerrar_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         public void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e)
         {
 
@@ -133,6 +128,11 @@ namespace PurchaseDesktop.Formularios
         public void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void BtnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         //public void GridAttachBtn_CellButtonClick(object sender, GridAuxButton.iGCellButtonClickEventArgs e)

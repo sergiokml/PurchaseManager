@@ -31,9 +31,33 @@ namespace PurchaseDesktop.Helpers
         {
             DataTable dataTable = new DataTable(typeof(T).Name);
             PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            //DataColumn column = new DataColumn
+            //{
+            //    DataType = System.Type.GetType("System.Int32"),
+            //    AutoIncrement = true,
+            //    AutoIncrementSeed = 1000,
+            //    AutoIncrementStep = 10
+            //};
+
+            //dataTable.Columns.Add(column);
+
+
+
             foreach (PropertyInfo prop in Props)
             {
+
+
+                //if (prop.PropertyType == typeof(decimal) || prop.PropertyType == typeof(decimal?))
+                //{
+                //    dataTable.Columns.Add(prop.Name, typeof(int));
+                //}
+                //else
+                //{
                 dataTable.Columns.Add(prop.Name);
+                //}
+
+
             }
             foreach (T item in items)
             {

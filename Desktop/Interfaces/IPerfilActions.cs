@@ -17,6 +17,7 @@ namespace PurchaseDesktop.Interfaces
         void GuardarCambios(int wait);
         void InsertOrderHeader(OrderCompanies company, OrderType type, OrderUsers userDB);
         void DeleteOrderHeader(int id);
+        void DeleteOrderDetail(OrderHeader header, int idDetailr, OrderUsers userDB);
         void UpdateOrderHeader(OrderUsers userDB, int id, object field, string prop);
         OrderTransactions InsertTranHistory(OrderHeader order, OrderUsers userDB, Enum @evento);
         DataTable GetVistaSuppliers();

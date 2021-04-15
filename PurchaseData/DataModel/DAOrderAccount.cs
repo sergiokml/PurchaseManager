@@ -2,19 +2,15 @@
 using System.Linq;
 
 namespace PurchaseData.DataModel
-
 {
-    public partial class OrderUsers
+    public partial class OrderAccounts
     {
-        //! login
-        public List<OrderUsers> GetList()
+        public List<OrderAccounts> GetList()
         {
             using (var contextDB = new PurchaseManagerContext())
             {
-                return contextDB.OrderUsers.ToList();
+                return contextDB.OrderAccounts.ToList();
             }
         }
-
-
     }
 }

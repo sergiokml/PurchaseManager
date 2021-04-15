@@ -59,5 +59,15 @@ namespace PurchaseDesktop.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon icons8_clear_symbol {
+            get {
+                object obj = ResourceManager.GetObject("icons8_clear_symbol", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

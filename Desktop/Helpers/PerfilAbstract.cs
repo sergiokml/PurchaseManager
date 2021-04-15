@@ -20,7 +20,6 @@ namespace PurchaseDesktop.Helpers
         public iGrid Grid { get; set; }
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
 
-
         public enum OrderType
         {
             Materiales = 1,
@@ -31,7 +30,7 @@ namespace PurchaseDesktop.Helpers
         private ImageList ListaImagenes()
         {
             ImageList lista = new ImageList();
-            //lista.Images.Add(Properties.Resources.icons8_attach);
+            lista.Images.Add(Properties.Resources.icons8_clear_symbol);
             //lista.Images.Add(Properties.Resources.icons8_delete_view); // Grid Principal
             //lista.Images.Add(Properties.Resources.icons8_delete_file); // Grid Details
             return lista;
@@ -53,6 +52,7 @@ namespace PurchaseDesktop.Helpers
                     Grid.RowMode = true;
                     Grid.ImageList = ListaImagenes();
                     Grid.BorderStyle = iGBorderStyle.None;
+                    //Grid.EllipsisButtonGlyph = Grid.ImageList.Images[0];
                     //grid.DefaultRow.Height = 21;
 
                     // Now we can use this call to get the optimal height for the rows with buttons.

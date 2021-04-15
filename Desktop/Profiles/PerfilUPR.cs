@@ -36,14 +36,14 @@ namespace PurchaseDesktop.Profiles
             //  7   Agree by Supplier
             //  8   POrder in Process
             //  9   POrder Complete
-            //var algo = rContext.ViewOderByActions.Where(c => c.User_ID == userDB.UserDBID);
-            using (var rContext = new PurchaseManagerContext())
-            {
-                var l = rContext.vOrderByMinTran
-                      .Where(c => c.UserID == userDB.UserID && c.StatusID < 3)
-                      .OrderByDescending(c => c.DateLast).ToList();
-                return this.ToDataTable<vOrderByMinTran>(l);
-            }
+            //var algo = rContext.vOrderByMinTran.Where(c => c.UserID == userDB.UserID);
+            //using (var rContext = new PurchaseManagerContext())
+            //{
+            var l = rContext.vOrderByMinTran
+                  .Where(c => c.UserID == userDB.UserID && c.StatusID < 3)
+                  .OrderByDescending(c => c.DateLast).ToList();
+            return this.ToDataTable<vOrderByMinTran>(l);
+            //}
         }
 
         public DataTable GetVistaSuppliers()
@@ -147,6 +147,18 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
+        public void DeleteOrderDetail(OrderHeader header, int idDetailr, OrderUsers userDB)
+        {
+            var tran = InsertTranHistory(new OrderHeader() { OrderHeaderID = header.OrderHeaderID }, userDB, EventUserPR.UPDATE_PR);
+
+            new OrderDetails().BorrarDetail(header, idDetailr);
+            //pr.OrderTransactions.Add(InsertTranHistory(pr, userDB, EventUserPR.UPDATE_PR));
+            //pr.OrderDetails.Remove(contextDB.OrderDetails.Find(idDetailr, header.OrderHeaderID));
+            GuardarCambios();
+
+
+        }
+
         public enum StatusUserPR
         {
             PrePRequisition = 1,
@@ -157,7 +169,7 @@ namespace PurchaseDesktop.Profiles
         public enum EventUserPR
         {
             CREATE_PR = 1,
-            UPDATE_PR = 2
+            UPDATE_PR = 2,
         }
     }
 }

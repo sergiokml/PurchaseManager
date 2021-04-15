@@ -1,24 +1,24 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
 
 using PurchaseDesktop.Helpers;
+using PurchaseDesktop.Interfaces;
 
 namespace PurchaseDesktop.Formularios
 {
-    public partial class FSupplier : Form
+    public partial class FSupplier : Form, IControles
     {
         private readonly PerfilFachada rFachada;
+
+        public TextInfo UCase { get; set; }
+
         public FSupplier(PerfilFachada rFachada)
         {
             this.rFachada = rFachada;
             InitializeComponent();
-        }
-
-        private void BtnCerrar_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void FSupplier_Load(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace PurchaseDesktop.Formularios
             try
             {
 
-                var vista = rFachada.GetVistaSuppliers();
+                var vista = rFachada.GetVistaSuppliers(); // todo Y SI TRAIGO EL LIST DE COMPANIES SIN DATATABLE????
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!
@@ -79,6 +79,26 @@ namespace PurchaseDesktop.Formularios
         {
 
             Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
+        }
+
+        private void BtnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        public bool ValidarControles()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ClearControles()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetControles()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -21,9 +21,9 @@ namespace Desktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
+
             //! Los Perfiles: 
-            //var rContext = new PurchaseManagerContext();
+
             PerfilUPO perfilPo = new PerfilUPO(new PurchaseManagerContext());
             PerfilUPR perfilPr = new PerfilUPR(new PurchaseManagerContext());
             PerfilVAL perfilVal = new PerfilVAL(new PurchaseManagerContext());
@@ -33,25 +33,31 @@ namespace Desktop
             using (var contextDB = new PurchaseManagerContext())
             {
 
-                //var P = "25406408";
-                var P = "13779971";
+                var P = "25406408";
+                //var P = "13779971";
                 //UserDB user = new UserDB().GetUserDB("13779971");   //? TESTER PO
                 //UserDB user = new UserDB().GetUserDB("15325038"); //? TESTER VAL 
 
 
                 user = contextDB.OrderUsers.Find(P);
                 contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
-                //CargarUPR(10);
+                //CargarUPR(100);
                 //CargaUPO(4, "13779971"); // Booorador PO (Po user)
             }
 
+            FLogin loginForm = new FLogin();
+            // Application.Run(loginForm);
+            //if (loginForm.UserSuccessfullyAuthenticated)
+            //{
             PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, user);
             var fSupplier = new FSupplier(facade);
             var fDetails = new FDetails(facade);
             var fAttach = new FOrderAttach(facade);
 
-            FPrincipal f = new FPrincipal(facade, fSupplier);
+            FPrincipal f = new FPrincipal(facade, fSupplier, fDetails, fAttach);
             Application.Run(f);
+            //}
+
         }
 
         private static void CargarUPR(int veces)

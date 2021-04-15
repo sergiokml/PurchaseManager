@@ -52,14 +52,16 @@ namespace PurchaseDesktop.Formularios
             TenTec.Windows.iGridLib.iGColPattern iGColPattern20 = new TenTec.Windows.iGridLib.iGColPattern();
             this.GridCol0CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol0ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
-            this.GridCol2CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.GridCol2ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol1CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol1ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
+            this.GridCol2CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.GridCol2ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol3CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol3ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol5CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol5ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
+            this.GridCol18CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.GridCol18ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol10CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol10ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol19CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
@@ -70,14 +72,14 @@ namespace PurchaseDesktop.Formularios
             this.GridCol6ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol7CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol7ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
-            this.GridCol8CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.GridCol8ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
+            this.GridCol20CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.GridCol20ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol9CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol9ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
-            this.GridCol18CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.GridCol18ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol18CellStyle1 = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol18ColHdrStyle1 = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
+            this.GridCol19CellStyle1 = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.GridCol19ColHdrStyle1 = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol14CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol14ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol12CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
@@ -89,10 +91,16 @@ namespace PurchaseDesktop.Formularios
             this.GridCol16CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol16ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.PanelHeader = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.BtnCloseFrm = new System.Windows.Forms.Button();
-            this.BtnMinFrm = new System.Windows.Forms.Button();
+            this.BtnMinimizar = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.LabelPanel = new System.Windows.Forms.Label();
             this.PanelDash = new System.Windows.Forms.Panel();
+            this.bunifuLabel3 = new Bunifu.UI.WinForms.BunifuLabel();
+            this.bunifuLabel2 = new Bunifu.UI.WinForms.BunifuLabel();
+            this.bunifuLabel1 = new Bunifu.UI.WinForms.BunifuLabel();
+            this.bunifuCircleProgress3 = new Bunifu.UI.WinForms.BunifuCircleProgress();
+            this.bunifuCircleProgress2 = new Bunifu.UI.WinForms.BunifuCircleProgress();
+            this.bunifuCircleProgress1 = new Bunifu.UI.WinForms.BunifuCircleProgress();
             this.GroupBox = new Bunifu.UI.WinForms.BunifuGroupBox();
             this.CboType = new System.Windows.Forms.ComboBox();
             this.CboCompany = new System.Windows.Forms.ComboBox();
@@ -102,8 +110,6 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.FDock = new Bunifu.UI.WinForms.BunifuFormDock();
             this.Grid = new TenTec.Windows.iGridLib.iGrid();
-            this.GridCol19CellStyle1 = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.GridCol19ColHdrStyle1 = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
             this.GroupBox.SuspendLayout();
@@ -113,7 +119,7 @@ namespace PurchaseDesktop.Formularios
             // 
             // GridCol0CellStyle
             // 
-            this.GridCol0CellStyle.ReadOnly = TenTec.Windows.iGridLib.iGBool.True;
+            this.GridCol0CellStyle.Selectable = TenTec.Windows.iGridLib.iGBool.NotSet;
             // 
             // GridCol1CellStyle
             // 
@@ -122,6 +128,14 @@ namespace PurchaseDesktop.Formularios
             // GridCol3CellStyle
             // 
             this.GridCol3CellStyle.ReadOnly = TenTec.Windows.iGridLib.iGBool.True;
+            // 
+            // GridCol18CellStyle
+            // 
+            this.GridCol18CellStyle.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
+            // 
+            // GridCol10CellStyle
+            // 
+            this.GridCol10CellStyle.ValueType = typeof(int);
             // 
             // GridCol18CellStyle2
             // 
@@ -135,21 +149,17 @@ namespace PurchaseDesktop.Formularios
             // 
             this.GridCol7CellStyle.ReadOnly = TenTec.Windows.iGridLib.iGBool.True;
             // 
-            // GridCol8CellStyle
-            // 
-            this.GridCol8CellStyle.ReadOnly = TenTec.Windows.iGridLib.iGBool.True;
-            // 
             // GridCol9CellStyle
             // 
             this.GridCol9CellStyle.ReadOnly = TenTec.Windows.iGridLib.iGBool.True;
             // 
-            // GridCol18CellStyle
-            // 
-            this.GridCol18CellStyle.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
-            // 
             // GridCol18CellStyle1
             // 
             this.GridCol18CellStyle1.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
+            // 
+            // GridCol19CellStyle1
+            // 
+            this.GridCol19CellStyle1.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
             // 
             // GridCol14CellStyle
             // 
@@ -162,61 +172,269 @@ namespace PurchaseDesktop.Formularios
             // PanelHeader
             // 
             this.PanelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.PanelHeader.Controls.Add(this.label1);
-            this.PanelHeader.Controls.Add(this.BtnCloseFrm);
-            this.PanelHeader.Controls.Add(this.BtnMinFrm);
+            this.PanelHeader.Controls.Add(this.BtnMinimizar);
+            this.PanelHeader.Controls.Add(this.BtnCerrar);
+            this.PanelHeader.Controls.Add(this.LabelPanel);
             this.PanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelHeader.Location = new System.Drawing.Point(0, 0);
             this.PanelHeader.Name = "PanelHeader";
             this.PanelHeader.Size = new System.Drawing.Size(1100, 25);
             this.PanelHeader.TabIndex = 0;
             // 
-            // label1
+            // BtnMinimizar
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 25);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Purshase Ctrl V 0.06042021";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnMinimizar.ActiveImage = null;
+            this.BtnMinimizar.AllowAnimations = true;
+            this.BtnMinimizar.AllowBuffering = false;
+            this.BtnMinimizar.AllowToggling = false;
+            this.BtnMinimizar.AllowZooming = true;
+            this.BtnMinimizar.AllowZoomingOnFocus = false;
+            this.BtnMinimizar.BackColor = System.Drawing.Color.Transparent;
+            this.BtnMinimizar.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnMinimizar.ErrorImage = null;
+            this.BtnMinimizar.FadeWhenInactive = false;
+            this.BtnMinimizar.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnMinimizar.Image = null;
+            this.BtnMinimizar.ImageActive = null;
+            this.BtnMinimizar.ImageLocation = null;
+            this.BtnMinimizar.ImageMargin = 5;
+            this.BtnMinimizar.ImageSize = new System.Drawing.Size(17, 17);
+            this.BtnMinimizar.ImageZoomSize = new System.Drawing.Size(22, 22);
+            this.BtnMinimizar.InitialImage = null;
+            this.BtnMinimizar.Location = new System.Drawing.Point(1047, 1);
+            this.BtnMinimizar.Name = "BtnMinimizar";
+            this.BtnMinimizar.Rotation = 0;
+            this.BtnMinimizar.ShowActiveImage = true;
+            this.BtnMinimizar.ShowCursorChanges = true;
+            this.BtnMinimizar.ShowImageBorders = true;
+            this.BtnMinimizar.ShowSizeMarkers = false;
+            this.BtnMinimizar.Size = new System.Drawing.Size(22, 22);
+            this.BtnMinimizar.TabIndex = 29;
+            this.BtnMinimizar.TabStop = false;
+            this.BtnMinimizar.ToolTipText = "";
+            this.BtnMinimizar.WaitOnLoad = false;
+            this.BtnMinimizar.Zoom = 5;
+            this.BtnMinimizar.ZoomSpeed = 10;
             // 
-            // BtnCloseFrm
+            // BtnCerrar
             // 
-            this.BtnCloseFrm.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnCloseFrm.BackgroundImage")));
-            this.BtnCloseFrm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnCloseFrm.FlatAppearance.BorderSize = 0;
-            this.BtnCloseFrm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnCloseFrm.Location = new System.Drawing.Point(1065, 1);
-            this.BtnCloseFrm.Name = "BtnCloseFrm";
-            this.BtnCloseFrm.Size = new System.Drawing.Size(21, 23);
-            this.BtnCloseFrm.TabIndex = 0;
-            this.BtnCloseFrm.UseVisualStyleBackColor = true;
-            this.BtnCloseFrm.Click += new System.EventHandler(this.BtnCloseFrm_Click);
+            this.BtnCerrar.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.ActiveImage")));
+            this.BtnCerrar.AllowAnimations = true;
+            this.BtnCerrar.AllowBuffering = false;
+            this.BtnCerrar.AllowToggling = false;
+            this.BtnCerrar.AllowZooming = true;
+            this.BtnCerrar.AllowZoomingOnFocus = false;
+            this.BtnCerrar.BackColor = System.Drawing.Color.Transparent;
+            this.BtnCerrar.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnCerrar.ErrorImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.ErrorImage")));
+            this.BtnCerrar.FadeWhenInactive = false;
+            this.BtnCerrar.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.Image")));
+            this.BtnCerrar.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.ImageActive")));
+            this.BtnCerrar.ImageLocation = null;
+            this.BtnCerrar.ImageMargin = 5;
+            this.BtnCerrar.ImageSize = new System.Drawing.Size(17, 17);
+            this.BtnCerrar.ImageZoomSize = new System.Drawing.Size(22, 22);
+            this.BtnCerrar.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.InitialImage")));
+            this.BtnCerrar.Location = new System.Drawing.Point(1075, 1);
+            this.BtnCerrar.Name = "BtnCerrar";
+            this.BtnCerrar.Rotation = 0;
+            this.BtnCerrar.ShowActiveImage = true;
+            this.BtnCerrar.ShowCursorChanges = true;
+            this.BtnCerrar.ShowImageBorders = true;
+            this.BtnCerrar.ShowSizeMarkers = false;
+            this.BtnCerrar.Size = new System.Drawing.Size(22, 22);
+            this.BtnCerrar.TabIndex = 28;
+            this.BtnCerrar.TabStop = false;
+            this.BtnCerrar.ToolTipText = "";
+            this.BtnCerrar.WaitOnLoad = false;
+            this.BtnCerrar.Zoom = 5;
+            this.BtnCerrar.ZoomSpeed = 10;
+            this.BtnCerrar.Click += new System.EventHandler(this.BtnCerrar_Click);
             // 
-            // BtnMinFrm
+            // LabelPanel
             // 
-            this.BtnMinFrm.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnMinFrm.BackgroundImage")));
-            this.BtnMinFrm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnMinFrm.FlatAppearance.BorderSize = 0;
-            this.BtnMinFrm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnMinFrm.Location = new System.Drawing.Point(1038, 1);
-            this.BtnMinFrm.Name = "BtnMinFrm";
-            this.BtnMinFrm.Size = new System.Drawing.Size(21, 23);
-            this.BtnMinFrm.TabIndex = 1;
-            this.BtnMinFrm.UseVisualStyleBackColor = true;
-            this.BtnMinFrm.Click += new System.EventHandler(this.BtnMinFrm_Click);
+            this.LabelPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelPanel.ForeColor = System.Drawing.Color.White;
+            this.LabelPanel.Location = new System.Drawing.Point(0, 0);
+            this.LabelPanel.Name = "LabelPanel";
+            this.LabelPanel.Size = new System.Drawing.Size(160, 25);
+            this.LabelPanel.TabIndex = 2;
+            this.LabelPanel.Text = "Purshase Ctrl V 0.06042021";
+            this.LabelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // PanelDash
             // 
+            this.PanelDash.Controls.Add(this.bunifuLabel3);
+            this.PanelDash.Controls.Add(this.bunifuLabel2);
+            this.PanelDash.Controls.Add(this.bunifuLabel1);
+            this.PanelDash.Controls.Add(this.bunifuCircleProgress3);
+            this.PanelDash.Controls.Add(this.bunifuCircleProgress2);
+            this.PanelDash.Controls.Add(this.bunifuCircleProgress1);
             this.PanelDash.Controls.Add(this.GroupBox);
             this.PanelDash.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelDash.Location = new System.Drawing.Point(0, 25);
             this.PanelDash.Name = "PanelDash";
             this.PanelDash.Size = new System.Drawing.Size(1100, 109);
             this.PanelDash.TabIndex = 3;
+            // 
+            // bunifuLabel3
+            // 
+            this.bunifuLabel3.AllowParentOverrides = false;
+            this.bunifuLabel3.AutoEllipsis = false;
+            this.bunifuLabel3.CursorType = null;
+            this.bunifuLabel3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bunifuLabel3.ForeColor = System.Drawing.Color.White;
+            this.bunifuLabel3.Location = new System.Drawing.Point(494, 41);
+            this.bunifuLabel3.Name = "bunifuLabel3";
+            this.bunifuLabel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.bunifuLabel3.Size = new System.Drawing.Size(41, 15);
+            this.bunifuLabel3.TabIndex = 21;
+            this.bunifuLabel3.Text = "10,25 M";
+            this.bunifuLabel3.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
+            this.bunifuLabel3.TextFormat = Bunifu.UI.WinForms.BunifuLabel.TextFormattingOptions.Default;
+            // 
+            // bunifuLabel2
+            // 
+            this.bunifuLabel2.AllowParentOverrides = false;
+            this.bunifuLabel2.AutoEllipsis = false;
+            this.bunifuLabel2.CursorType = null;
+            this.bunifuLabel2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bunifuLabel2.ForeColor = System.Drawing.Color.White;
+            this.bunifuLabel2.Location = new System.Drawing.Point(307, 41);
+            this.bunifuLabel2.Name = "bunifuLabel2";
+            this.bunifuLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.bunifuLabel2.Size = new System.Drawing.Size(41, 15);
+            this.bunifuLabel2.TabIndex = 20;
+            this.bunifuLabel2.Text = "10,25 M";
+            this.bunifuLabel2.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
+            this.bunifuLabel2.TextFormat = Bunifu.UI.WinForms.BunifuLabel.TextFormattingOptions.Default;
+            // 
+            // bunifuLabel1
+            // 
+            this.bunifuLabel1.AllowParentOverrides = false;
+            this.bunifuLabel1.AutoEllipsis = false;
+            this.bunifuLabel1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.bunifuLabel1.CursorType = System.Windows.Forms.Cursors.Default;
+            this.bunifuLabel1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bunifuLabel1.ForeColor = System.Drawing.Color.White;
+            this.bunifuLabel1.Location = new System.Drawing.Point(135, 41);
+            this.bunifuLabel1.Name = "bunifuLabel1";
+            this.bunifuLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.bunifuLabel1.Size = new System.Drawing.Size(41, 15);
+            this.bunifuLabel1.TabIndex = 19;
+            this.bunifuLabel1.Text = "10,25 M";
+            this.bunifuLabel1.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
+            this.bunifuLabel1.TextFormat = Bunifu.UI.WinForms.BunifuLabel.TextFormattingOptions.Default;
+            // 
+            // bunifuCircleProgress3
+            // 
+            this.bunifuCircleProgress3.Animated = false;
+            this.bunifuCircleProgress3.AnimationInterval = 1;
+            this.bunifuCircleProgress3.AnimationSpeed = 1;
+            this.bunifuCircleProgress3.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuCircleProgress3.CircleMargin = 10;
+            this.bunifuCircleProgress3.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold);
+            this.bunifuCircleProgress3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuCircleProgress3.IsPercentage = false;
+            this.bunifuCircleProgress3.LineProgressThickness = 10;
+            this.bunifuCircleProgress3.LineThickness = 10;
+            this.bunifuCircleProgress3.Location = new System.Drawing.Point(366, 0);
+            this.bunifuCircleProgress3.Name = "bunifuCircleProgress3";
+            this.bunifuCircleProgress3.ProgressAnimationSpeed = 200;
+            this.bunifuCircleProgress3.ProgressBackColor = System.Drawing.Color.Gainsboro;
+            this.bunifuCircleProgress3.ProgressColor = System.Drawing.Color.DodgerBlue;
+            this.bunifuCircleProgress3.ProgressColor2 = System.Drawing.Color.DodgerBlue;
+            this.bunifuCircleProgress3.ProgressEndCap = Bunifu.UI.WinForms.BunifuCircleProgress.CapStyles.Round;
+            this.bunifuCircleProgress3.ProgressFillStyle = Bunifu.UI.WinForms.BunifuCircleProgress.FillStyles.Solid;
+            this.bunifuCircleProgress3.ProgressStartCap = Bunifu.UI.WinForms.BunifuCircleProgress.CapStyles.Round;
+            this.bunifuCircleProgress3.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.bunifuCircleProgress3.Size = new System.Drawing.Size(103, 103);
+            this.bunifuCircleProgress3.SubScriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.bunifuCircleProgress3.SubScriptMargin = new System.Windows.Forms.Padding(5, -20, 0, 0);
+            this.bunifuCircleProgress3.SubScriptText = ".00";
+            this.bunifuCircleProgress3.SuperScriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.bunifuCircleProgress3.SuperScriptMargin = new System.Windows.Forms.Padding(5, 20, 0, 0);
+            this.bunifuCircleProgress3.SuperScriptText = "°C";
+            this.bunifuCircleProgress3.TabIndex = 18;
+            this.bunifuCircleProgress3.Text = "30";
+            this.bunifuCircleProgress3.TextMargin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.bunifuCircleProgress3.Value = 30;
+            this.bunifuCircleProgress3.ValueByTransition = 30;
+            this.bunifuCircleProgress3.ValueMargin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            // 
+            // bunifuCircleProgress2
+            // 
+            this.bunifuCircleProgress2.Animated = false;
+            this.bunifuCircleProgress2.AnimationInterval = 1;
+            this.bunifuCircleProgress2.AnimationSpeed = 1;
+            this.bunifuCircleProgress2.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuCircleProgress2.CircleMargin = 10;
+            this.bunifuCircleProgress2.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold);
+            this.bunifuCircleProgress2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuCircleProgress2.IsPercentage = false;
+            this.bunifuCircleProgress2.LineProgressThickness = 10;
+            this.bunifuCircleProgress2.LineThickness = 10;
+            this.bunifuCircleProgress2.Location = new System.Drawing.Point(182, 3);
+            this.bunifuCircleProgress2.Name = "bunifuCircleProgress2";
+            this.bunifuCircleProgress2.ProgressAnimationSpeed = 200;
+            this.bunifuCircleProgress2.ProgressBackColor = System.Drawing.Color.Gainsboro;
+            this.bunifuCircleProgress2.ProgressColor = System.Drawing.Color.DodgerBlue;
+            this.bunifuCircleProgress2.ProgressColor2 = System.Drawing.Color.DodgerBlue;
+            this.bunifuCircleProgress2.ProgressEndCap = Bunifu.UI.WinForms.BunifuCircleProgress.CapStyles.Round;
+            this.bunifuCircleProgress2.ProgressFillStyle = Bunifu.UI.WinForms.BunifuCircleProgress.FillStyles.Solid;
+            this.bunifuCircleProgress2.ProgressStartCap = Bunifu.UI.WinForms.BunifuCircleProgress.CapStyles.Round;
+            this.bunifuCircleProgress2.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.bunifuCircleProgress2.Size = new System.Drawing.Size(103, 103);
+            this.bunifuCircleProgress2.SubScriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.bunifuCircleProgress2.SubScriptMargin = new System.Windows.Forms.Padding(5, -20, 0, 0);
+            this.bunifuCircleProgress2.SubScriptText = ".00";
+            this.bunifuCircleProgress2.SuperScriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.bunifuCircleProgress2.SuperScriptMargin = new System.Windows.Forms.Padding(5, 20, 0, 0);
+            this.bunifuCircleProgress2.SuperScriptText = "°C";
+            this.bunifuCircleProgress2.TabIndex = 17;
+            this.bunifuCircleProgress2.Text = "30";
+            this.bunifuCircleProgress2.TextMargin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.bunifuCircleProgress2.Value = 30;
+            this.bunifuCircleProgress2.ValueByTransition = 30;
+            this.bunifuCircleProgress2.ValueMargin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            // 
+            // bunifuCircleProgress1
+            // 
+            this.bunifuCircleProgress1.Animated = false;
+            this.bunifuCircleProgress1.AnimationInterval = 1;
+            this.bunifuCircleProgress1.AnimationSpeed = 1;
+            this.bunifuCircleProgress1.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuCircleProgress1.CircleMargin = 10;
+            this.bunifuCircleProgress1.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold);
+            this.bunifuCircleProgress1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuCircleProgress1.IsPercentage = false;
+            this.bunifuCircleProgress1.LineProgressThickness = 10;
+            this.bunifuCircleProgress1.LineThickness = 10;
+            this.bunifuCircleProgress1.Location = new System.Drawing.Point(12, 6);
+            this.bunifuCircleProgress1.Name = "bunifuCircleProgress1";
+            this.bunifuCircleProgress1.ProgressAnimationSpeed = 200;
+            this.bunifuCircleProgress1.ProgressBackColor = System.Drawing.Color.Gainsboro;
+            this.bunifuCircleProgress1.ProgressColor = System.Drawing.Color.DodgerBlue;
+            this.bunifuCircleProgress1.ProgressColor2 = System.Drawing.Color.DodgerBlue;
+            this.bunifuCircleProgress1.ProgressEndCap = Bunifu.UI.WinForms.BunifuCircleProgress.CapStyles.Round;
+            this.bunifuCircleProgress1.ProgressFillStyle = Bunifu.UI.WinForms.BunifuCircleProgress.FillStyles.Solid;
+            this.bunifuCircleProgress1.ProgressStartCap = Bunifu.UI.WinForms.BunifuCircleProgress.CapStyles.Round;
+            this.bunifuCircleProgress1.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.bunifuCircleProgress1.Size = new System.Drawing.Size(103, 103);
+            this.bunifuCircleProgress1.SubScriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.bunifuCircleProgress1.SubScriptMargin = new System.Windows.Forms.Padding(5, -20, 0, 0);
+            this.bunifuCircleProgress1.SubScriptText = ".00";
+            this.bunifuCircleProgress1.SuperScriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.bunifuCircleProgress1.SuperScriptMargin = new System.Windows.Forms.Padding(5, 20, 0, 0);
+            this.bunifuCircleProgress1.SuperScriptText = "°C";
+            this.bunifuCircleProgress1.TabIndex = 16;
+            this.bunifuCircleProgress1.Text = "30";
+            this.bunifuCircleProgress1.TextMargin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.bunifuCircleProgress1.Value = 30;
+            this.bunifuCircleProgress1.ValueByTransition = 30;
+            this.bunifuCircleProgress1.ValueMargin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             // 
             // GroupBox
             // 
@@ -280,17 +498,17 @@ namespace PurchaseDesktop.Formularios
             this.BtnInsert.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnInsert.ImageActive")));
             this.BtnInsert.ImageLocation = null;
             this.BtnInsert.ImageMargin = 20;
-            this.BtnInsert.ImageSize = new System.Drawing.Size(30, 30);
-            this.BtnInsert.ImageZoomSize = new System.Drawing.Size(50, 50);
+            this.BtnInsert.ImageSize = new System.Drawing.Size(50, 50);
+            this.BtnInsert.ImageZoomSize = new System.Drawing.Size(70, 70);
             this.BtnInsert.InitialImage = null;
-            this.BtnInsert.Location = new System.Drawing.Point(261, 26);
+            this.BtnInsert.Location = new System.Drawing.Point(241, 25);
             this.BtnInsert.Name = "BtnInsert";
             this.BtnInsert.Rotation = 0;
             this.BtnInsert.ShowActiveImage = true;
             this.BtnInsert.ShowCursorChanges = true;
             this.BtnInsert.ShowImageBorders = true;
             this.BtnInsert.ShowSizeMarkers = false;
-            this.BtnInsert.Size = new System.Drawing.Size(50, 50);
+            this.BtnInsert.Size = new System.Drawing.Size(70, 70);
             this.BtnInsert.TabIndex = 1;
             this.BtnInsert.ToolTipText = "";
             this.BtnInsert.WaitOnLoad = false;
@@ -379,72 +597,69 @@ namespace PurchaseDesktop.Formularios
             // 
             // Grid
             // 
-            iGColPattern1.AllowSizing = false;
             iGColPattern1.CellStyle = this.GridCol0CellStyle;
             iGColPattern1.ColHdrStyle = this.GridCol0ColHdrStyle;
             iGColPattern1.Key = "OrderHeaderID";
             iGColPattern1.Text = "ID";
-            iGColPattern1.Width = 33;
-            iGColPattern2.AllowSizing = false;
-            iGColPattern2.CellStyle = this.GridCol2CellStyle;
-            iGColPattern2.ColHdrStyle = this.GridCol2ColHdrStyle;
-            iGColPattern2.Key = "Description";
-            iGColPattern2.Text = "Description";
-            iGColPattern2.Width = 196;
-            iGColPattern3.AllowSizing = false;
-            iGColPattern3.CellStyle = this.GridCol1CellStyle;
-            iGColPattern3.ColHdrStyle = this.GridCol1ColHdrStyle;
-            iGColPattern3.Key = "Code";
-            iGColPattern3.Text = "Code";
-            iGColPattern3.Width = 47;
+            iGColPattern1.Width = 39;
+            iGColPattern2.CellStyle = this.GridCol1CellStyle;
+            iGColPattern2.ColHdrStyle = this.GridCol1ColHdrStyle;
+            iGColPattern2.Key = "Code";
+            iGColPattern2.Text = "Code";
+            iGColPattern2.Width = 53;
+            iGColPattern3.CellStyle = this.GridCol2CellStyle;
+            iGColPattern3.ColHdrStyle = this.GridCol2ColHdrStyle;
+            iGColPattern3.Key = "Description";
+            iGColPattern3.Text = "Description";
+            iGColPattern3.Width = 196;
             iGColPattern4.AllowSizing = false;
             iGColPattern4.CellStyle = this.GridCol3CellStyle;
             iGColPattern4.ColHdrStyle = this.GridCol3ColHdrStyle;
             iGColPattern4.Key = "CompanyID";
-            iGColPattern4.Text = "Company ID";
-            iGColPattern4.Width = 74;
+            iGColPattern4.Text = "Company";
+            iGColPattern4.Width = 58;
             iGColPattern5.AllowSizing = false;
             iGColPattern5.CellStyle = this.GridCol5CellStyle;
             iGColPattern5.ColHdrStyle = this.GridCol5ColHdrStyle;
             iGColPattern5.Key = "Type";
             iGColPattern5.Text = "Type";
             iGColPattern5.Width = 93;
-            iGColPattern6.AllowSizing = false;
-            iGColPattern6.CellStyle = this.GridCol10CellStyle;
-            iGColPattern6.ColHdrStyle = this.GridCol10ColHdrStyle;
-            iGColPattern6.Key = "StatusID";
-            iGColPattern6.Text = "Status";
-            iGColPattern6.Width = 121;
-            iGColPattern7.CellStyle = this.GridCol19CellStyle;
-            iGColPattern7.ColHdrStyle = this.GridCol19ColHdrStyle;
-            iGColPattern7.Key = "SupplierId";
-            iGColPattern7.Text = "Supplier ID";
-            iGColPattern8.CellStyle = this.GridCol18CellStyle2;
-            iGColPattern8.ColHdrStyle = this.GridCol18ColHdrStyle2;
-            iGColPattern8.Key = "supplier";
-            iGColPattern8.Width = 22;
-            iGColPattern9.CellStyle = this.GridCol6CellStyle;
-            iGColPattern9.ColHdrStyle = this.GridCol6ColHdrStyle;
-            iGColPattern9.Key = "Net";
-            iGColPattern9.Text = "Net";
-            iGColPattern9.Width = 46;
-            iGColPattern10.CellStyle = this.GridCol7CellStyle;
-            iGColPattern10.ColHdrStyle = this.GridCol7ColHdrStyle;
-            iGColPattern10.Key = "Exent";
-            iGColPattern10.Text = "Exent";
-            iGColPattern11.CellStyle = this.GridCol8CellStyle;
-            iGColPattern11.ColHdrStyle = this.GridCol8ColHdrStyle;
-            iGColPattern11.Key = "Tax";
-            iGColPattern11.Text = "Tax";
-            iGColPattern11.Visible = false;
-            iGColPattern12.CellStyle = this.GridCol9CellStyle;
-            iGColPattern12.ColHdrStyle = this.GridCol9ColHdrStyle;
-            iGColPattern12.Key = "Total";
-            iGColPattern12.Text = "Total";
-            iGColPattern13.CellStyle = this.GridCol18CellStyle;
-            iGColPattern13.ColHdrStyle = this.GridCol18ColHdrStyle;
-            iGColPattern13.Key = "details";
-            iGColPattern13.Width = 21;
+            iGColPattern6.CellStyle = this.GridCol18CellStyle;
+            iGColPattern6.ColHdrStyle = this.GridCol18ColHdrStyle;
+            iGColPattern6.Key = "details";
+            iGColPattern6.Width = 21;
+            iGColPattern7.AllowSizing = false;
+            iGColPattern7.CellStyle = this.GridCol10CellStyle;
+            iGColPattern7.ColHdrStyle = this.GridCol10ColHdrStyle;
+            iGColPattern7.Key = "StatusID";
+            iGColPattern7.Text = "Status";
+            iGColPattern7.Width = 121;
+            iGColPattern8.CellStyle = this.GridCol19CellStyle;
+            iGColPattern8.ColHdrStyle = this.GridCol19ColHdrStyle;
+            iGColPattern8.Key = "SupplierId";
+            iGColPattern8.Text = "Supplier";
+            iGColPattern8.Width = 58;
+            iGColPattern9.CellStyle = this.GridCol18CellStyle2;
+            iGColPattern9.ColHdrStyle = this.GridCol18ColHdrStyle2;
+            iGColPattern9.Key = "supplier";
+            iGColPattern9.Width = 22;
+            iGColPattern10.CellStyle = this.GridCol6CellStyle;
+            iGColPattern10.ColHdrStyle = this.GridCol6ColHdrStyle;
+            iGColPattern10.Key = "Net";
+            iGColPattern10.Text = "Net";
+            iGColPattern10.Width = 46;
+            iGColPattern11.CellStyle = this.GridCol7CellStyle;
+            iGColPattern11.ColHdrStyle = this.GridCol7ColHdrStyle;
+            iGColPattern11.Key = "Exent";
+            iGColPattern11.Text = "Exent";
+            iGColPattern12.CellStyle = this.GridCol20CellStyle;
+            iGColPattern12.ColHdrStyle = this.GridCol20ColHdrStyle;
+            iGColPattern12.Key = "Tax";
+            iGColPattern12.Text = "Tax";
+            iGColPattern13.CellStyle = this.GridCol9CellStyle;
+            iGColPattern13.ColHdrStyle = this.GridCol9ColHdrStyle;
+            iGColPattern13.Key = "Total";
+            iGColPattern13.Text = "Total";
             iGColPattern14.CellStyle = this.GridCol18CellStyle1;
             iGColPattern14.ColHdrStyle = this.GridCol18ColHdrStyle1;
             iGColPattern14.Key = "attach";
@@ -469,11 +684,12 @@ namespace PurchaseDesktop.Formularios
             iGColPattern18.ColHdrStyle = this.GridCol13ColHdrStyle;
             iGColPattern18.Key = "UserID";
             iGColPattern18.Text = "User ID";
-            iGColPattern18.Width = 59;
+            iGColPattern18.Width = 58;
             iGColPattern19.CellStyle = this.GridCol15CellStyle;
             iGColPattern19.ColHdrStyle = this.GridCol15ColHdrStyle;
             iGColPattern19.Key = "CostID";
-            iGColPattern19.Text = "User CC";
+            iGColPattern19.Text = "CC";
+            iGColPattern19.Width = 29;
             iGColPattern20.CellStyle = this.GridCol16CellStyle;
             iGColPattern20.ColHdrStyle = this.GridCol16ColHdrStyle;
             iGColPattern20.Key = "delete";
@@ -512,10 +728,6 @@ namespace PurchaseDesktop.Formularios
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
             // 
-            // GridCol19CellStyle1
-            // 
-            this.GridCol19CellStyle1.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
-            // 
             // FPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -533,6 +745,7 @@ namespace PurchaseDesktop.Formularios
             this.Load += new System.EventHandler(this.FPrincipal_Load);
             this.PanelHeader.ResumeLayout(false);
             this.PanelDash.ResumeLayout(false);
+            this.PanelDash.PerformLayout();
             this.GroupBox.ResumeLayout(false);
             this.PanelBtns.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).EndInit();
@@ -544,9 +757,7 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.Panel PanelHeader;
         private System.Windows.Forms.Panel PanelDash;
         private System.Windows.Forms.Panel PanelBtns;
-        private System.Windows.Forms.Button BtnCloseFrm;
         private Bunifu.UI.WinForms.BunifuImageButton BtnInsert;
-        private System.Windows.Forms.Button BtnMinFrm;
         private Bunifu.UI.WinForms.BunifuFormDock FDock;
         private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator1;
         private Bunifu.UI.WinForms.BunifuGroupBox GroupBox;
@@ -565,8 +776,6 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol6ColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol7CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol7ColHdrStyle;
-        private TenTec.Windows.iGridLib.iGCellStyle GridCol8CellStyle;
-        private TenTec.Windows.iGridLib.iGColHdrStyle GridCol8ColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol9CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol9ColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol10CellStyle;
@@ -586,7 +795,7 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGCellStyle GridCol16CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol16ColHdrStyle;
         private System.Windows.Forms.ComboBox CboCompany;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LabelPanel;
         private System.Windows.Forms.Label LblMsg;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol19CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol19ColHdrStyle;
@@ -595,6 +804,16 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol18ColHdrStyle2;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol19CellStyle1;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol19ColHdrStyle1;
+        private Bunifu.UI.WinForms.BunifuCircleProgress bunifuCircleProgress3;
+        private Bunifu.UI.WinForms.BunifuCircleProgress bunifuCircleProgress2;
+        private Bunifu.UI.WinForms.BunifuCircleProgress bunifuCircleProgress1;
+        private Bunifu.UI.WinForms.BunifuLabel bunifuLabel3;
+        private Bunifu.UI.WinForms.BunifuLabel bunifuLabel2;
+        private Bunifu.UI.WinForms.BunifuLabel bunifuLabel1;
+        private TenTec.Windows.iGridLib.iGCellStyle GridCol20CellStyle;
+        private TenTec.Windows.iGridLib.iGColHdrStyle GridCol20ColHdrStyle;
+        private Bunifu.UI.WinForms.BunifuImageButton BtnMinimizar;
+        private Bunifu.UI.WinForms.BunifuImageButton BtnCerrar;
     }
 }
 

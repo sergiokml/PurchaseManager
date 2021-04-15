@@ -82,6 +82,28 @@ namespace PurchaseDesktop.Helpers
             return null;
         }
 
+        //public List<OrderDetails> GetOrderDetails()
+        //{
+        //    switch (userDB.UserProfiles.ProfileID)
+        //    {
+        //        case "ADM":
+        //            break;
+        //        case "BAS":
+        //            break;
+        //        case "UPO":
+        //            return perfilPo.GetVistaSuppliers();
+        //        case "UPR":
+        //            return perfilPr.GetVistaSuppliers();
+        //        case "VAL":
+        //            return perfilVal.GetVistaSuppliers();
+        //    }
+        //    return null;
+
+
+
+
+        //}
+
         public iGrid PintarGrid(iGrid grid)
         {
             switch (userDB.UserProfiles.ProfileID)
@@ -273,6 +295,36 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
+        public bool DeleteOrderDetail(OrderHeader orderHeader, int idDetail)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    if (orderHeader.StatusID < 6)
+                    {
+                        perfilPo.DeleteOrderDetail(orderHeader, idDetail, userDB);
+                        return true;
+                    }
+
+                    break;
+                case "UPR":
+                    if (orderHeader.StatusID < 6)
+                    {
+                        perfilPr.DeleteOrderDetail(orderHeader, idDetail, userDB);
+                        return true;
+                    }
+                    break;
+                case "VAL":
+                    break;
+            }
+
+            return false;
+        }
+
         public bool EditarSupplier(FSupplier fSupplier)
         {
             switch (userDB.UserProfiles.ProfileID)
@@ -286,6 +338,50 @@ namespace PurchaseDesktop.Helpers
                     fSupplier.ShowDialog();
                     break;
                 case "UPR":
+                    break;
+                case "VAL":
+                    break;
+            }
+            return false;
+        }
+        public bool EditarDetails(FDetails fDetails, DataRow dataRow)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    fDetails.OrderHeaderID = Convert.ToInt32(dataRow["OrderHeaderID"]);
+                    fDetails.StartPosition = FormStartPosition.CenterScreen;
+                    fDetails.ShowDialog();
+                    break;
+                case "UPR":
+                    fDetails.OrderHeaderID = Convert.ToInt32(dataRow["OrderHeaderID"]);
+                    fDetails.StartPosition = FormStartPosition.CenterScreen;
+                    fDetails.ShowDialog();
+                    break;
+                case "VAL":
+                    break;
+            }
+            return false;
+        }
+        public bool EditarAttach(FOrderAttach fAttach)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    fAttach.StartPosition = FormStartPosition.CenterScreen;
+                    fAttach.ShowDialog();
+                    break;
+                case "UPR":
+                    fAttach.StartPosition = FormStartPosition.CenterScreen;
+                    fAttach.ShowDialog();
                     break;
                 case "VAL":
                     break;

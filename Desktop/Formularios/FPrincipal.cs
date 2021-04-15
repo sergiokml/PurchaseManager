@@ -21,8 +21,12 @@ namespace PurchaseDesktop.Formularios
         public TextInfo UCase { get; set; }
         public FSupplier FSupplier { get; set; }
 
-        public FPrincipal(PerfilFachada rFachada, FSupplier fSupplier)
+        public FDetails FDetails { get; set; }
+        public FOrderAttach FAttach { get; set; }
+        public FPrincipal(PerfilFachada rFachada, FSupplier fSupplier, FDetails fDetails, FOrderAttach fAttach)
         {
+            FAttach = fAttach;
+            FDetails = fDetails;
             FSupplier = fSupplier;
             this.rFachada = rFachada;
             InitializeComponent();
@@ -35,7 +39,7 @@ namespace PurchaseDesktop.Formularios
 
         private void BtnMinFrm_Click(object sender, EventArgs e)
         {
-            WindowState = FormWindowState.Minimized;
+            //WindowState = FormWindowState.Minimized;
         }
 
         private void BtnInsert_Click(object sender, EventArgs e)
@@ -48,6 +52,8 @@ namespace PurchaseDesktop.Formularios
                 LlenarGrid();
                 //Grid.Rows[0].EnsureVisible();
                 ClearControles();
+
+                LblMsg.Text = $" Se ha cargado el Perfil: {rFachada.MsgTest()}  {Grid.Rows.Count}";
                 //Grid.CurRow = Grid.Rows[0];
             }
         }
@@ -94,7 +100,6 @@ namespace PurchaseDesktop.Formularios
                 }
                 Grid.Refresh();
 
-                LblMsg.Text = $"Se ha cargado el Perfil: {rFachada.MsgTest()}  {Grid.Rows.Count}";
             }
             catch (Exception)
             {
@@ -200,6 +205,10 @@ namespace PurchaseDesktop.Formularios
 
         public void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e)
         {
+            if (e.NewValue == null || string.IsNullOrEmpty(e.NewValue.ToString()))
+            {
+                return;
+            }
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (!current[Grid.Cols[e.ColIndex].Key].Equals(e.NewValue))
             {
@@ -250,16 +259,21 @@ namespace PurchaseDesktop.Formularios
             }
             else if (Grid.Cols["details"].Index == e.ColIndex)
             {
-
+                rFachada.EditarDetails(FDetails, current);
             }
             else if (Grid.Cols["attach"].Index == e.ColIndex)
             {
-
+                rFachada.EditarAttach(FAttach);
             }
             else if (Grid.Cols["hitos"].Index == e.ColIndex)
             {
-
+                //rFachada.EditarSupplier(FSupplier);
             }
+        }
+
+        private void BtnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
