@@ -12,13 +12,16 @@ namespace PurchaseData.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderAttaches
+    public partial class RequisitionDetails
     {
-        public int AttachID { get; set; }
-        public int OrderHeaderID { get; set; }
-        public string Description { get; set; }
-        public string FileName { get; set; }
+        public int DetailID { get; set; }
+        public int RequisitionHeaderID { get; set; }
+        public string NameProduct { get; set; }
+        public string DescriptionProduct { get; set; }
+        public int Qty { get; set; }
+        public string AccountID { get; set; }
     
-        public virtual OrderHeader OrderHeader { get; set; }
+        public virtual Accounts Accounts { get; set; }
+        public virtual RequisitionHeader RequisitionHeader { get; set; }
     }
 }

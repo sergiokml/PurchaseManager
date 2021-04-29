@@ -16,24 +16,21 @@ namespace PurchaseData.DataModel
 
         public void AddDetail(OrderDetails orderDetails, OrderHeader orderHeader)
         {
-
             using (var contextDB = new PurchaseManagerContext())
             {
                 var pr = contextDB.OrderHeader.Find(orderHeader.OrderHeaderID);
                 pr.OrderDetails.Add(orderDetails);
                 contextDB.SaveChanges();
             }
-
-
-
         }
 
-        public void BorrarDetail(OrderHeader orderHeader, int orderDetails)
+        public void BorrarDetail(OrderHeader orderHeader, int orderDetails, Transactions tran)
         {
             using (var contextDB = new PurchaseManagerContext())
             {
-                var pr = contextDB.OrderHeader.Find(orderHeader.OrderHeaderID);
-                pr.OrderDetails.Remove(new OrderDetails() { DetailID = orderDetails });
+                var detail = contextDB.OrderDetails.Find(orderDetails, orderHeader.OrderHeaderID);
+                contextDB.OrderDetails.Remove(detail);
+                contextDB.OrderHeader.Attach(orderHeader).Transactions.Add(tran);
                 contextDB.SaveChanges();
             }
         }

@@ -37,17 +37,12 @@ namespace PurchaseDesktop.Formularios
             Close();
         }
 
-        private void BtnMinFrm_Click(object sender, EventArgs e)
-        {
-            //WindowState = FormWindowState.Minimized;
-        }
-
         private void BtnInsert_Click(object sender, EventArgs e)
         {
             //! Validar Controles
             if (ValidarControles())
             {
-                rFachada.InsertOrderHeader((OrderCompanies)CboCompany.SelectedItem
+                rFachada.InsertOrderHeader((Companies)CboCompany.SelectedItem
                     , (OrderType)CboType.SelectedItem);
                 LlenarGrid();
                 //Grid.Rows[0].EnsureVisible();
@@ -62,7 +57,7 @@ namespace PurchaseDesktop.Formularios
         {
             //Icon = Desktop.Properties.Resources.icons8_sort_window;
             //! Company
-            CboCompany.DataSource = new OrderCompanies().GetList();
+            CboCompany.DataSource = new Companies().GetList();
             CboCompany.DisplayMember = "Name";
             CboCompany.SelectedIndex = -1;
             CboCompany.ValueMember = "CompanyID";
@@ -72,25 +67,23 @@ namespace PurchaseDesktop.Formularios
             CboType.SelectedIndex = -1;
 
             //! Events
-            Grid.AfterCommitEdit += Grid_AfterCommitEdit;
+            // Grid.AfterCommitEdit += Grid_AfterCommitEdit;
             Grid.CellMouseDown += Grid_CellMouseDown;
             Grid.BeforeCommitEdit += Grid_BeforeCommitEdit;
 
             //! Grid Principal
-            Grid = rFachada.PintarGrid(Grid);
-            Grid = rFachada.ControlesGrid(Grid, new OrderStatus().GetList());
+            Grid = rFachada.CargarGrid(Grid);
+            // Grid = rFachada.ControlesGrid(Grid, new OrderStatus().GetList());
             LlenarGrid();
 
         }
 
         private void LlenarGrid()
         {
-            //! Grid Principal
             Grid.BeginUpdate();
             try
             {
-
-                var vista = rFachada.GetVistaPrincipal(Grid);
+                var vista = rFachada.GetVistaPrincipal();
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!
@@ -99,7 +92,6 @@ namespace PurchaseDesktop.Formularios
                     Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
                 }
                 Grid.Refresh();
-
             }
             catch (Exception)
             {
@@ -113,12 +105,16 @@ namespace PurchaseDesktop.Formularios
 
         public void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e)
         {
-            var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            CboCompany.SelectedValue = current.ItemArray[9].ToString();
-            CboType.SelectedIndex = Convert.ToInt32(current.ItemArray[7]) - 1;
-            LblMsg.Text = $"Ha Seleccionado el ID:{current["OrderHeaderID"].ToString()}";
+            if (e.ColIndex > 0)
+            {
+                var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                CboCompany.SelectedValue = current["CompanyID"].ToString();
+                CboType.SelectedIndex = Convert.ToByte(current["Type"]) - 1;
+                // LblMsg.Text = $"Ha Seleccionado el ID:{current["OrderHeaderID"]}";
 
-            SetControles();
+                SetControles();
+            }
+
         }
 
         public bool ValidarControles()
@@ -151,56 +147,12 @@ namespace PurchaseDesktop.Formularios
         public void SetControles()
         {
             //! Company
-            var cbo = (OrderCompanies)CboCompany.SelectedItem;
+            var cbo = (Companies)CboCompany.SelectedItem;
             //TxtCompanyName.Text = cbo.Name;
 
             //Grid.BeginUpdate();
             //FillGrid();
             //Grid.EndUpdate();
-        }
-
-        public void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e)
-        {
-            //if (e.ColIndex == Grid.Cols["state"].Index)
-            //{
-            //    if (beforevaluestatus != Convert.ToInt32(Grid.Cols["state"].Cells[e.RowIndex].Value))
-            //    {
-            //        Grid.ReadOnly = true;
-            //        rContext.InsertTransaction(
-            //            Convert.ToInt32(Grid.Cols["state"].Cells[e.RowIndex].Value));
-            //        ClearControles();
-            //        FillGrid();
-            //        Grid.ReadOnly = false;
-            //    }
-            //}
-            //else if (e.ColIndex == Grid.Cols["typereq"].Index)
-            //{
-            //    if (beforevaluetypereq != Convert.ToInt32(Grid.Cols["typereq"].Cells[e.RowIndex].Value))
-            //    {
-            //        Grid.ReadOnly = true;
-            //        rContext.UpdatePrHeader(Convert.ToInt32(Grid.Cols["typereq"].Cells[e.RowIndex].Value), "typereq");
-            //        ClearControles();
-            //        FillGrid();
-            //        Grid.ReadOnly = false;
-            //    }
-            //}
-            //else if (Grid.Cols["description"].Cells[e.RowIndex].Value != null)
-            //{
-            //    if (beforevaluedescription != Grid.Cols["description"].Cells[e.RowIndex].Value.ToString())
-            //    {
-            //        DialogResult result = MessageBox.Show("Hay cambios, desea guardar?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //        if (result == DialogResult.Yes)
-            //        {
-            //            rContext.UpdatePrHeader(Grid.Cols["description"].Cells[e.RowIndex].Value, "description");
-            //            ClearControles();
-            //            FillGrid();
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    Grid.Cols["description"].Cells[e.RowIndex].Value = beforevaluedescription;
-            //}
         }
 
         public void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e)
@@ -212,7 +164,7 @@ namespace PurchaseDesktop.Formularios
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (!current[Grid.Cols[e.ColIndex].Key].Equals(e.NewValue))
             {
-                if (rFachada.UpdateOrderHeader(e.NewValue, current, Grid.Cols[e.ColIndex].Key))
+                if (rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key))
                 {
                     LlenarGrid();
                 }
@@ -230,10 +182,6 @@ namespace PurchaseDesktop.Formularios
             //SetControles();
         }
 
-        private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
-        {
-            Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
-        }
 
         private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
@@ -274,6 +222,29 @@ namespace PurchaseDesktop.Formularios
         private void BtnCerrar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
+        {
+            Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
+        }
+
+        private void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
+        {
+            if (e.ColIndex == 7)
+            {
+                Grid.EllipsisButtonGlyph = Grid.ImageList.Images[0];
+
+            }
+            else if (e.ColIndex == 8)
+            {
+                Grid.EllipsisButtonGlyph = Grid.ImageList.Images[2];
+            }
+        }
+
+        private void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
+        {
+
         }
     }
 }

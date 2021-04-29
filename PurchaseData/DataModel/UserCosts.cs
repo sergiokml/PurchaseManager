@@ -17,13 +17,13 @@ namespace PurchaseData.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserCosts()
         {
-            this.OrderUsers = new HashSet<OrderUsers>();
+            this.Users = new HashSet<Users>();
         }
     
         public string CostID { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderUsers> OrderUsers { get; set; }
+        public virtual ICollection<Users> Users { get; set; }
     }
 }

@@ -4,14 +4,14 @@ using System.Linq;
 namespace PurchaseData.DataModel
 
 {
-    public partial class OrderUsers
+    public partial class Users
     {
         //! login
-        public List<OrderUsers> GetList()
+        public List<Users> GetList()
         {
             using (var contextDB = new PurchaseManagerContext())
             {
-                return contextDB.OrderUsers.ToList();
+                return contextDB.Users.ToList();
             }
         }
 

@@ -3,13 +3,13 @@ using System.Linq;
 
 namespace PurchaseData.DataModel
 {
-    public partial class Companies
+    public partial class RequisitionStatus
     {
-        public List<Companies> GetList()
+        public List<RequisitionStatus> GetList()
         {
             using (var contextDB = new PurchaseManagerContext())
             {
-                return contextDB.Companies.ToList();
+                return contextDB.RequisitionStatus.ToList();
             }
         }
     }

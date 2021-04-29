@@ -14,6 +14,7 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
+
 namespace PurchaseDesktop.Profiles
 {
     public class PerfilUPR : PerfilAbstract, IPerfilActions
@@ -25,25 +26,15 @@ namespace PurchaseDesktop.Profiles
             this.rContext = rContext;
         }
 
-        public DataTable GetVista(OrderUsers userDB)
+        public DataTable GetVista(Users userDB)
         {
-            //  1   Pre PRequisition
-            //  2   Active PRequisition
-            //  3   Pre POrden
-            //  4   Active POrder
-            //  5   Valid POrder
-            //  6   POrder on Supplier
-            //  7   Agree by Supplier
-            //  8   POrder in Process
-            //  9   POrder Complete
-            //var algo = rContext.vOrderByMinTran.Where(c => c.UserID == userDB.UserID);
-            //using (var rContext = new PurchaseManagerContext())
-            //{
-            var l = rContext.vOrderByMinTran
-                  .Where(c => c.UserID == userDB.UserID && c.StatusID < 3)
+            using (var rContext = new PurchaseManagerContext())
+            {
+                var l = rContext.vRequisitionByMinTransaction
+                  .Where(c => c.UserID == userDB.UserID)
                   .OrderByDescending(c => c.DateLast).ToList();
-            return this.ToDataTable<vOrderByMinTran>(l);
-            //}
+                return this.ToDataTable<vRequisitionByMinTransaction>(l);
+            }
         }
 
         public DataTable GetVistaSuppliers()
@@ -77,24 +68,24 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public void InsertOrderHeader(OrderCompanies company, OrderType type, OrderUsers userDB)
+        public void InsertOrderHeader(Companies company, OrderType type, Users userDB)
         {
             var pr = new OrderHeader
             {
-                CompanyID = company.CompanyID,
+                //CompanyID = company.CompanyID,
                 Type = (byte)type,
                 StatusID = 1,   //  1   Pre PRequisition
                 Description = string.Empty
             };
             ;
-            pr.OrderTransactions.Add(InsertTranHistory(pr, userDB, EventUserPR.CREATE_PR));
+            pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPR.CREATE_PR));
             rContext.OrderHeader.Add(pr);
             GuardarCambios();
         }
 
-        public OrderTransactions InsertTranHistory(OrderHeader order, OrderUsers userDB, Enum @evento)
+        public Transactions InsertTranHistory(OrderHeader order, Users userDB, Enum @evento)
         {
-            var tran = new OrderTransactions
+            var tran = new Transactions
             {
                 Event = evento.ToString(),
                 UserID = userDB.UserID,
@@ -104,7 +95,7 @@ namespace PurchaseDesktop.Profiles
             return tran;
         }
 
-        public void UpdateOrderHeader(OrderUsers userDB, int id, object valor, string campo)
+        public void UpdateOrderHeader(Users userDB, int id, object valor, string campo)
         {
             var pr = rContext.OrderHeader.Find(id);
             switch (campo)
@@ -119,7 +110,7 @@ namespace PurchaseDesktop.Profiles
                     pr.StatusID = Convert.ToByte(valor);
                     break;
                 case "CompanyID":
-                    pr.CompanyID = valor.ToString();
+                    // pr.CompanyID = valor.ToString();
                     break;
                 case "CurrencyID":
                     pr.CurrencyID = valor.ToString();
@@ -130,14 +121,14 @@ namespace PurchaseDesktop.Profiles
                 default:
                     break;
             }
-            pr.OrderTransactions.Add(InsertTranHistory(pr, userDB, EventUserPR.UPDATE_PR));
+            pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPR.UPDATE_PR));
             GuardarCambios();
         }
 
         public void DeleteOrderHeader(int id)
         {
             var pr = rContext.OrderHeader.Find(id);
-            rContext.OrderTransactions.RemoveRange(pr.OrderTransactions);
+            rContext.Transactions.RemoveRange(pr.Transactions);
             rContext.OrderHeader.Remove(pr);
             GuardarCambios();
         }
@@ -147,16 +138,48 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void DeleteOrderDetail(OrderHeader header, int idDetailr, OrderUsers userDB)
+        public void DeleteOrderDetail(OrderHeader header, int idDetailr, Users userDB)
         {
-            var tran = InsertTranHistory(new OrderHeader() { OrderHeaderID = header.OrderHeaderID }, userDB, EventUserPR.UPDATE_PR);
 
-            new OrderDetails().BorrarDetail(header, idDetailr);
-            //pr.OrderTransactions.Add(InsertTranHistory(pr, userDB, EventUserPR.UPDATE_PR));
-            //pr.OrderDetails.Remove(contextDB.OrderDetails.Find(idDetailr, header.OrderHeaderID));
+            var tran = new Transactions
+            {
+                Event = EventUserPR.DELETE_DETAIL.ToString(),
+                UserID = userDB.UserID,
+                DateTran = DateTime.Now,
+                StatuID = header.StatusID
+            };
+            new OrderDetails().BorrarDetail(header, idDetailr, tran);
+        }
+
+        public void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo)
+        {
+            var pr = rContext.RequisitionHeader.Find(id);
+            switch (campo)
+            {
+                case "Description":
+                    pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
+                    break;
+                case "Type":
+                    pr.Type = Convert.ToByte(valor);
+                    break;
+                case "StatusID":
+                    pr.StatusID = Convert.ToByte(valor);
+                    break;
+                case "CompanyID":
+                    pr.CompanyID = valor.ToString();
+                    break;
+                default:
+                    break;
+            }
+            var tran = new Transactions
+            {
+                Event = EventUserPR.UPDATE_PR.ToString(),
+                UserID = userDB.UserID,
+                StatuID = pr.StatusID,
+                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            pr.Transactions.Add(tran);
             GuardarCambios();
-
-
         }
 
         public enum StatusUserPR
@@ -170,6 +193,7 @@ namespace PurchaseDesktop.Profiles
         {
             CREATE_PR = 1,
             UPDATE_PR = 2,
+            DELETE_DETAIL = 3
         }
     }
 }

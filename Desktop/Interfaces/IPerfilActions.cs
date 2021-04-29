@@ -12,14 +12,15 @@ namespace PurchaseDesktop.Interfaces
 {
     public interface IPerfilActions
     {
-        DataTable GetVista(OrderUsers userDB);
+        DataTable GetVista(Users userDB);
         iGrid SetGridBeging(iGrid grid, List<OrderStatus> status);
         void GuardarCambios(int wait);
-        void InsertOrderHeader(OrderCompanies company, OrderType type, OrderUsers userDB);
+        void InsertOrderHeader(Companies company, OrderType type, Users userDB);
         void DeleteOrderHeader(int id);
-        void DeleteOrderDetail(OrderHeader header, int idDetailr, OrderUsers userDB);
-        void UpdateOrderHeader(OrderUsers userDB, int id, object field, string prop);
-        OrderTransactions InsertTranHistory(OrderHeader order, OrderUsers userDB, Enum @evento);
+        void DeleteOrderDetail(OrderHeader header, int idDetailr, Users userDB);
+        void UpdateOrderHeader(Users userDB, int id, object valor, string campo);
+        void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo);
+        Transactions InsertTranHistory(OrderHeader order, Users userDB, Enum @evento);
         DataTable GetVistaSuppliers();
 
     }

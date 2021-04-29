@@ -36,7 +36,7 @@ namespace PurchaseDesktop.Formularios
             CboTypeAccount.DataSource = Enum.GetValues(typeof(TypeAccount));
             CboTypeAccount.SelectedIndex = -1;
 
-            Grid = rFachada.PintarGrid(Grid);
+            Grid = rFachada.CargarGrid(Grid);
             LlenarGrid();
 
         }

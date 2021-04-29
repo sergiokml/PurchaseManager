@@ -20,31 +20,24 @@ namespace PurchaseDesktop.Profiles
     {
         private readonly PurchaseManagerContext rContext;
 
-        public List<OrderCompanies> Companies { get; set; }
+        public List<Companies> Companies { get; set; }
         public PerfilUPO(PurchaseManagerContext rContext)
         {
             this.rContext = rContext;
         }
 
-        public DataTable GetVista(OrderUsers userDB)
+        public DataTable GetVista(Users userDB)
         {
-            //  1   Pre PRequisition
-            //  2   Active PRequisition
-            //  3   Pre POrden
-            //  4   Active POrder
-            //  5   Valid POrder
-            //  6   POrder on Supplier
-            //  7   Agree by Supplier
-            //  8   POrder in Process
-            //  9   POrder Complete
             //todo TENGO QUE UNIR LA LISTA DE LAS Po EMITIDAS POR ESTE USUARIO.
-            using (var rContext = new PurchaseManagerContext())
-            {
-                var l = rContext.vOrderByMinTran.Where(c => c
-            .StatusID > 1 && c.StatusID < 10)
-                .OrderByDescending(c => c.DateLast).ToList();
-                return this.ToDataTable<vOrderByMinTran>(l);
-            }
+            //using (var rContext = new PurchaseManagerContext())
+            //{
+            //    var l = rContext.vOrderByMinTran.Where(c => c
+            //.StatusID > 1 && c.StatusID < 10)
+            //    .OrderByDescending(c => c.DateLast).ToList();
+            //    return this.ToDataTable<vOrderByMinTran>(l);
+            //}
+
+            return null;
         }
 
 
@@ -73,24 +66,24 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public void InsertOrderHeader(OrderCompanies company, OrderType type, OrderUsers userDB)
+        public void InsertOrderHeader(Companies company, OrderType type, Users userDB)
         {
             var pr = new OrderHeader
             {
-                CompanyID = company.CompanyID,
+                //CompanyID = company.CompanyID,
                 Type = (byte)type,
                 StatusID = 3,  //  3   Pre POrden
                 Description = string.Empty
             };
             ;
-            pr.OrderTransactions.Add(InsertTranHistory(pr, userDB, EventUserPO.CREATE_PO));
+            pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPO.CREATE_PO));
             rContext.OrderHeader.Add(pr);
             GuardarCambios();
         }
 
-        public OrderTransactions InsertTranHistory(OrderHeader order, OrderUsers userDB, Enum @evento)
+        public Transactions InsertTranHistory(OrderHeader order, Users userDB, Enum @evento)
         {
-            var tran = new OrderTransactions
+            var tran = new Transactions
             {
                 Event = evento.ToString(),
                 UserID = userDB.UserID,
@@ -100,7 +93,7 @@ namespace PurchaseDesktop.Profiles
             return tran;
         }
 
-        public void UpdateOrderHeader(OrderUsers userDB, int id, object valor, string campo)
+        public void UpdateOrderHeader(Users userDB, int id, object valor, string campo)
         {
             var pr = rContext.OrderHeader.Find(id);
             switch (campo)
@@ -115,7 +108,7 @@ namespace PurchaseDesktop.Profiles
                     pr.StatusID = Convert.ToByte(valor);
                     break;
                 case "CompanyID":
-                    pr.CompanyID = valor.ToString();
+                    //pr.CompanyID = valor.ToString();
                     break;
                 case "CurrencyID":
                     pr.CurrencyID = valor.ToString();
@@ -126,14 +119,14 @@ namespace PurchaseDesktop.Profiles
                 default:
                     break;
             }
-            pr.OrderTransactions.Add(InsertTranHistory(pr, userDB, EventUserPO.UPDATE_PO));
+            pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPO.UPDATE_PO));
             GuardarCambios();
         }
 
         public void DeleteOrderHeader(int id)
         {
             var pr = rContext.OrderHeader.Find(id);
-            rContext.OrderTransactions.RemoveRange(pr.OrderTransactions);
+            rContext.Transactions.RemoveRange(pr.Transactions);
             rContext.OrderHeader.Remove(pr);
             GuardarCambios();
         }
@@ -154,7 +147,12 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void DeleteOrderDetail(OrderHeader header, int idDetailr, OrderUsers userDB)
+        public void DeleteOrderDetail(OrderHeader header, int idDetailr, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo)
         {
             throw new NotImplementedException();
         }

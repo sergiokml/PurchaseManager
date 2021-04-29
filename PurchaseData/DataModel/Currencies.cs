@@ -12,21 +12,17 @@ namespace PurchaseData.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderTransactions
+    public partial class Currencies
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderTransactions()
+        public Currencies()
         {
             this.OrderHeader = new HashSet<OrderHeader>();
         }
     
-        public int TransactionID { get; set; }
-        public string Event { get; set; }
-        public string UserID { get; set; }
-        public System.DateTime DateTran { get; set; }
-        public byte StatuID { get; set; }
+        public string CurrencyID { get; set; }
+        public string Description { get; set; }
     
-        public virtual OrderUsers OrderUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderHeader> OrderHeader { get; set; }
     }

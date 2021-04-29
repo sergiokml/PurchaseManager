@@ -41,7 +41,7 @@ namespace PurchaseDesktop.Formularios
 
             OrderHeader = new OrderHeader().GetById(OrderHeaderID);
 
-            Grid = rFachada.PintarGrid(Grid);
+            Grid = rFachada.CargarGrid(Grid);
             LlenarGrid();
         }
 
@@ -51,7 +51,7 @@ namespace PurchaseDesktop.Formularios
             {
                 var detail = new OrderDetails
                 {
-                    AccountID = ((OrderAccounts)CboAccount.SelectedItem).AccountID,
+                    //AccountID = ((OrderAccounts)CboAccount.SelectedItem).AccountID,
                     Qty = Convert.ToInt32(TxtQty.Text),
                     NameProduct = TxtName.Text,
                     DescriptionProduct = TxtName.Text
@@ -61,7 +61,10 @@ namespace PurchaseDesktop.Formularios
                 ClearControles();
             }
         }
-
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.FromArgb(0, 120, 215), ButtonBorderStyle.Solid);
+        //}
         private void LlenarGrid()
         {
             //! Grid Principal
@@ -78,7 +81,7 @@ namespace PurchaseDesktop.Formularios
                     myRow.Cells["DetailID"].Value = item.DetailID;
                     myRow.Cells["Qty"].Value = item.Qty;
                     myRow.Cells["NameProduct"].Value = item.NameProduct;
-                    myRow.Cells["AccountID"].Value = item.AccountID;
+                    //myRow.Cells["AccountID"].Value = item.AccountID;
                     nro++;
                     myRow.Cells["delete"].ImageIndex = 2;
                 }

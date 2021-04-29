@@ -12,21 +12,30 @@ namespace PurchaseData.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class SupplierCountries
+    public partial class RequisitionHeader
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SupplierCountries()
+        public RequisitionHeader()
         {
-            this.SupplierBanks = new HashSet<SupplierBanks>();
-            this.Suppliers = new HashSet<Suppliers>();
+            this.RequisitionDetails = new HashSet<RequisitionDetails>();
+            this.Attaches = new HashSet<Attaches>();
+            this.Transactions = new HashSet<Transactions>();
         }
     
-        public string CountryID { get; set; }
+        public int RequisitionHeaderID { get; set; }
         public string Description { get; set; }
+        public byte Type { get; set; }
+        public string CompanyID { get; set; }
+        public byte StatusID { get; set; }
+        public string Code { get; set; }
     
+        public virtual Companies Companies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupplierBanks> SupplierBanks { get; set; }
+        public virtual ICollection<RequisitionDetails> RequisitionDetails { get; set; }
+        public virtual RequisitionStatus RequisitionStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Suppliers> Suppliers { get; set; }
+        public virtual ICollection<Attaches> Attaches { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transactions> Transactions { get; set; }
     }
 }

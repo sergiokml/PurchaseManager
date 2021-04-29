@@ -53,9 +53,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModel\Accounts.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Attaches.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Companies.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Currencies.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\DAOrderAccount.cs" />
     <Compile Include="DataModel\DaOrderDetails.cs" />
     <Compile Include="DataModel\DAOrderHeader.cs" />
+    <Compile Include="DataModel\DARequisitionStatus.cs" />
     <Compile Include="DataModel\DASupplierCountries.cs" />
     <Compile Include="DataModel\DABank.cs" />
     <Compile Include="DataModel\DASuppliers.cs" />
@@ -77,18 +90,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Modelo.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\OrderAccounts.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\OrderAttaches.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\OrderCompanies.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\OrderCurrencies.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\OrderDetails.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -104,10 +105,13 @@
     <Compile Include="DataModel\OrderStatus.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\OrderTransactions.cs">
+    <Compile Include="DataModel\RequisitionDetails.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\OrderUsers.cs">
+    <Compile Include="DataModel\RequisitionHeader.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\RequisitionStatus.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\SupplierBanks.cs">
@@ -122,13 +126,22 @@
     <Compile Include="DataModel\sysdiagrams.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\Transactions.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\UserCosts.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\UserProfiles.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\vOrderByMinTran.cs">
+    <Compile Include="DataModel\Users.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\vOrderByMinTransaction.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\vRequisitionByMinTransaction.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

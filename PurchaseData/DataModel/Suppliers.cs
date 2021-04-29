@@ -32,6 +32,6 @@ namespace PurchaseData.DataModel
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderHeader> OrderHeader { get; set; }
-        public virtual SupplierBanks SupplierBanks { get; set; }
+        public virtual SupplierCountries SupplierCountries { get; set; }
     }
 }

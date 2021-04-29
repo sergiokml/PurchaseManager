@@ -28,20 +28,20 @@ namespace Desktop
             PerfilUPR perfilPr = new PerfilUPR(new PurchaseManagerContext());
             PerfilVAL perfilVal = new PerfilVAL(new PurchaseManagerContext());
 
-            OrderUsers user;
+            Users user;
 
             using (var contextDB = new PurchaseManagerContext())
             {
 
                 var P = "25406408";
                 //var P = "13779971";
-                //UserDB user = new UserDB().GetUserDB("13779971");   //? TESTER PO
-                //UserDB user = new UserDB().GetUserDB("15325038"); //? TESTER VAL 
+                //var P = "15325038";
 
 
-                user = contextDB.OrderUsers.Find(P);
+
+                user = contextDB.Users.Find(P);
                 contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
-                //CargarUPR(100);
+                //CargarUPR(50);
                 //CargaUPO(4, "13779971"); // Booorador PO (Po user)
             }
 
@@ -62,30 +62,29 @@ namespace Desktop
 
         private static void CargarUPR(int veces)
         {
-            List<OrderAccounts> acc;
-            List<OrderCompanies> companies;
-            List<OrderUsers> users;
-            using (PurchaseManagerContext contextDB = new PurchaseManagerContext())
+            List<Accounts> acc;
+            List<Companies> companies;
+            List<Users> users;
+            using (PurchaseManagerContext rContext = new PurchaseManagerContext())
             {
-                users = contextDB.OrderUsers.Where(c => c.ProfileID == "UPR").ToList();
-                companies = contextDB.OrderCompanies.ToList();
-                acc = contextDB.OrderAccounts.ToList();
-                foreach (OrderUsers user in users)
+                users = rContext.Users.Where(c => c.ProfileID == "UPR").ToList();
+                companies = rContext.Companies.ToList();
+                acc = rContext.Accounts.ToList();
+                foreach (Users user in users)
                 {
                     for (int i = 0; i < veces; i++)
                     {
                         var n = new Random(0).Next(4);
-                        OrderHeader pr = new OrderHeader
+                        RequisitionHeader pr = new RequisitionHeader
                         {
                             Description = $"Purchase Requisition N°{i + 1} [Borrador]",
                             Type = (byte)n,
                             StatusID = 1, // 1: Borrrador PR                        
                             CompanyID = companies[new Random().Next(companies.Count())].CompanyID,
                         };
-
                         for (int y = 0; y < 2; y++)
                         {
-                            OrderDetails detail = new OrderDetails
+                            RequisitionDetails detail = new RequisitionDetails
                             {
                                 AccountID = acc[new Random().Next(acc.Count())].AccountID,
                                 Qty = new Random(y).Next(10),
@@ -93,32 +92,27 @@ namespace Desktop
                                 DescriptionProduct = "Description Bar Lorem ipsum dolor sit amet"
                             };
                             // Thread.Sleep(500);
-                            pr.OrderDetails.Add(detail);
+                            pr.RequisitionDetails.Add(detail);
                         }
                         //! no se puede crear directo el dato de fecha en sql porque al crear la entidad así te pide el dato por aca.
                         // ! esta fecha se debe conseguir desde un método por ejemplo en savewait.!           
-
-                        OrderTransactions tran = new OrderTransactions
+                        Transactions tran = new Transactions
                         {
                             Event = "CREATE_PR",
-                            DateTran = contextDB.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single(),
+                            DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single(),
                             UserID = user.UserID,
                             StatuID = 1
                         };
-                        pr.OrderTransactions.Add(tran);
-                        OrderAttaches att = new OrderAttaches
+                        pr.Transactions.Add(tran);
+                        Attaches att = new Attaches
                         {
                             Description = $"Archivo_autocad_2018_A{new Random(i).Next(100)}",
                             FileName = @"C:\PurshaseCtrl\Files\Licencia_registro_animal_137182_1616120103375.pdf"
                         };
-                        pr.OrderAttaches.Add(att);
-                        contextDB.OrderHeader.Add(pr);
-                        contextDB.SaveChanges();
+                        pr.Attaches.Add(att);
+                        rContext.RequisitionHeader.Add(pr);
+                        rContext.SaveChanges();
                         // Thread.Sleep(500);
-
-
-
-
                         //var pragain = contextDB.OrderHeader.Find(pr.OrderHeaderID);
                         //OrderTransactions tran2 = new OrderTransactions
                         //{
@@ -130,10 +124,6 @@ namespace Desktop
                         //pragain.OrderTransactions.Add(tran2);
                         //pragain.StatusID = 2; // 2: Vigente PR    
                         //contextDB.SaveChanges();
-
-
-
-
                         // Thread.Sleep(500);
                     }
                 }

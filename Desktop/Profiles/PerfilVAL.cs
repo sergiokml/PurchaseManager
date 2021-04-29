@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 
 using PurchaseData.DataModel;
 
@@ -23,7 +22,7 @@ namespace PurchaseDesktop.Profiles
             this.rContext = rContext;
         }
 
-        public DataTable GetVista(OrderUsers userDB)
+        public DataTable GetVista(Users userDB)
         {
             //  1   Pre PRequisition
             //  2   Active PRequisition
@@ -34,9 +33,10 @@ namespace PurchaseDesktop.Profiles
             //  7   Agree by Supplier
             //  8   POrder in Process
             //  9   POrder Complete 
-            var l = rContext.vOrderByMinTran
-              .Where(c => c.CostID == userDB.CostID && (c.StatusID == 4 || c.StatusID == 5)).ToList();
-            return this.ToDataTable<vOrderByMinTran>(l);
+            //var l = rContext.vOrderByMinTran
+            //  .Where(c => c.CostID == userDB.CostID && (c.StatusID == 4 || c.StatusID == 5)).ToList();
+            //return this.ToDataTable<vOrderByMinTran>(l);
+            return null;
         }
 
         public void GuardarCambios(int wait)
@@ -49,13 +49,13 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public void InsertOrderHeader(OrderCompanies company, OrderType type, OrderUsers userDB)
+        public void InsertOrderHeader(Companies company, OrderType type, Users userDB)
         {
             throw new System.NotImplementedException();
         }
 
 
-        public void UpdateOrderHeader(OrderUsers userDB, int id, object field, string prop)
+        public void UpdateOrderHeader(Users userDB, int id, object field, string prop)
         {
             throw new System.NotImplementedException();
         }
@@ -65,7 +65,7 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public OrderTransactions InsertTranHistory(OrderHeader order, OrderUsers userDB, Enum evento)
+        public Transactions InsertTranHistory(OrderHeader order, Users userDB, Enum evento)
         {
             throw new NotImplementedException();
         }
@@ -75,7 +75,12 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void DeleteOrderDetail(OrderHeader header, int idDetailr, OrderUsers userDB)
+        public void DeleteOrderDetail(OrderHeader header, int idDetailr, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo)
         {
             throw new NotImplementedException();
         }

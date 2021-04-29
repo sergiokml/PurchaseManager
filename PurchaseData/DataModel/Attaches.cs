@@ -12,18 +12,22 @@ namespace PurchaseData.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderCurrencies
+    public partial class Attaches
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderCurrencies()
+        public Attaches()
         {
             this.OrderHeader = new HashSet<OrderHeader>();
+            this.RequisitionHeader = new HashSet<RequisitionHeader>();
         }
     
-        public string CurrencyID { get; set; }
+        public int AttachID { get; set; }
         public string Description { get; set; }
+        public string FileName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderHeader> OrderHeader { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionHeader> RequisitionHeader { get; set; }
     }
 }

@@ -12,21 +12,20 @@ namespace PurchaseData.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderCompanies
+    public partial class Accounts
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderCompanies()
+        public Accounts()
         {
-            this.OrderHeader = new HashSet<OrderHeader>();
+            this.RequisitionDetails = new HashSet<RequisitionDetails>();
         }
     
-        public string CompanyID { get; set; }
-        public string Name { get; set; }
-        public string NameBiz { get; set; }
+        public string AccountID { get; set; }
+        public string Description { get; set; }
         public string Code { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderHeader> OrderHeader { get; set; }
+        public virtual ICollection<RequisitionDetails> RequisitionDetails { get; set; }
     }
 }

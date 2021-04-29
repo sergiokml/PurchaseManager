@@ -12,22 +12,17 @@ namespace PurchaseData.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class vOrderByMinTran
+    public partial class vRequisitionByMinTransaction
     {
-        public int OrderHeaderID { get; set; }
+        public int RequisitionHeaderID { get; set; }
         public string Description { get; set; }
         public string Code { get; set; }
-        public Nullable<decimal> Net { get; set; }
-        public Nullable<decimal> Exent { get; set; }
-        public decimal Tax { get; set; }
-        public decimal Total { get; set; }
-        public Nullable<byte> Type { get; set; }
+        public byte Type { get; set; }
         public byte StatusID { get; set; }
-        public string CompanyID { get; set; }
         public string UserID { get; set; }
         public string CostID { get; set; }
         public Nullable<System.DateTime> DateLast { get; set; }
         public string Event { get; set; }
-        public string SupplierID { get; set; }
+        public string CompanyID { get; set; }
     }
 }

@@ -16,11 +16,11 @@ namespace PurchaseDesktop.Formularios
             InitializeComponent();
         }
 
-        public OrderUsers UserDB { get; set; }
+        public Users UserDB { get; set; }
         public bool UserSuccessfullyAuthenticated { get; private set; }
 
         // PRIVATE PROP
-        private IList<OrderUsers> list = new List<OrderUsers>();
+        private IList<Users> list = new List<Users>();
 
         private static readonly Encoding Encoding1252 = Encoding.GetEncoding(1252);
 
@@ -79,8 +79,7 @@ namespace PurchaseDesktop.Formularios
 
         private void FLogin_Load(object sender, EventArgs e)
         {
-            list = new OrderUsers().GetList();
-
+            list = new Users().GetList();
 
         }
 

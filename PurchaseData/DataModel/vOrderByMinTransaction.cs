@@ -12,20 +12,21 @@ namespace PurchaseData.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderAccounts
+    public partial class vOrderByMinTransaction
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderAccounts()
-        {
-            this.OrderDetails = new HashSet<OrderDetails>();
-        }
-    
-        public string AccountID { get; set; }
+        public int OrderHeaderID { get; set; }
         public string Description { get; set; }
         public string Code { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public Nullable<decimal> Net { get; set; }
+        public Nullable<decimal> Exent { get; set; }
+        public decimal Tax { get; set; }
+        public decimal Total { get; set; }
+        public Nullable<byte> Type { get; set; }
+        public byte StatusID { get; set; }
+        public string UserID { get; set; }
+        public string CostID { get; set; }
+        public Nullable<System.DateTime> DateLast { get; set; }
+        public string Event { get; set; }
+        public string SupplierID { get; set; }
     }
 }

@@ -25,23 +25,27 @@ namespace PurchaseData.DataModel
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<OrderAccounts> OrderAccounts { get; set; }
-        public virtual DbSet<OrderAttaches> OrderAttaches { get; set; }
-        public virtual DbSet<OrderCompanies> OrderCompanies { get; set; }
-        public virtual DbSet<OrderCurrencies> OrderCurrencies { get; set; }
+        public virtual DbSet<Accounts> Accounts { get; set; }
+        public virtual DbSet<Attaches> Attaches { get; set; }
+        public virtual DbSet<Companies> Companies { get; set; }
+        public virtual DbSet<Currencies> Currencies { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<OrderHeader> OrderHeader { get; set; }
         public virtual DbSet<OrderHitos> OrderHitos { get; set; }
         public virtual DbSet<OrderNotes> OrderNotes { get; set; }
         public virtual DbSet<OrderStatus> OrderStatus { get; set; }
-        public virtual DbSet<OrderTransactions> OrderTransactions { get; set; }
-        public virtual DbSet<OrderUsers> OrderUsers { get; set; }
+        public virtual DbSet<RequisitionDetails> RequisitionDetails { get; set; }
+        public virtual DbSet<RequisitionHeader> RequisitionHeader { get; set; }
+        public virtual DbSet<RequisitionStatus> RequisitionStatus { get; set; }
         public virtual DbSet<SupplierBanks> SupplierBanks { get; set; }
         public virtual DbSet<SupplierCountries> SupplierCountries { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Transactions> Transactions { get; set; }
         public virtual DbSet<UserCosts> UserCosts { get; set; }
         public virtual DbSet<UserProfiles> UserProfiles { get; set; }
-        public virtual DbSet<vOrderByMinTran> vOrderByMinTran { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<vOrderByMinTransaction> vOrderByMinTransaction { get; set; }
+        public virtual DbSet<vRequisitionByMinTransaction> vRequisitionByMinTransaction { get; set; }
     }
 }

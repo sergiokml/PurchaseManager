@@ -14,12 +14,6 @@ namespace PurchaseData.DataModel
     
     public partial class SupplierBanks
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SupplierBanks()
-        {
-            this.Suppliers = new HashSet<Suppliers>();
-        }
-    
         public string BankID { get; set; }
         public string Description { get; set; }
         public string SwiftCode { get; set; }
@@ -27,7 +21,5 @@ namespace PurchaseData.DataModel
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual SupplierCountries SupplierCountries { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Suppliers> Suppliers { get; set; }
     }
 }

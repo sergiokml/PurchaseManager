@@ -17,11 +17,11 @@ namespace PurchaseData.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OrderHeader()
         {
-            this.OrderAttaches = new HashSet<OrderAttaches>();
             this.OrderDetails = new HashSet<OrderDetails>();
             this.OrderHitos = new HashSet<OrderHitos>();
             this.OrderNotes = new HashSet<OrderNotes>();
-            this.OrderTransactions = new HashSet<OrderTransactions>();
+            this.Attaches = new HashSet<Attaches>();
+            this.Transactions = new HashSet<Transactions>();
         }
     
         public int OrderHeaderID { get; set; }
@@ -34,14 +34,11 @@ namespace PurchaseData.DataModel
         public decimal Total { get; set; }
         public Nullable<int> HitoID { get; set; }
         public byte StatusID { get; set; }
-        public string CompanyID { get; set; }
         public string CurrencyID { get; set; }
         public string SupplierID { get; set; }
+        public Nullable<int> RequisitionHeaderID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderAttaches> OrderAttaches { get; set; }
-        public virtual OrderCompanies OrderCompanies { get; set; }
-        public virtual OrderCurrencies OrderCurrencies { get; set; }
+        public virtual Currencies Currencies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
@@ -51,6 +48,8 @@ namespace PurchaseData.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderNotes> OrderNotes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderTransactions> OrderTransactions { get; set; }
+        public virtual ICollection<Attaches> Attaches { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transactions> Transactions { get; set; }
     }
 }

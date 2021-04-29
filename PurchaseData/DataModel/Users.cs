@@ -12,21 +12,28 @@ namespace PurchaseData.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class SupplierCountries
+    public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SupplierCountries()
+        public Users()
         {
-            this.SupplierBanks = new HashSet<SupplierBanks>();
-            this.Suppliers = new HashSet<Suppliers>();
+            this.Transactions = new HashSet<Transactions>();
         }
     
-        public string CountryID { get; set; }
-        public string Description { get; set; }
+        public string UserID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Position { get; set; }
+        public byte[] Password { get; set; }
+        public string Email { get; set; }
+        public Nullable<System.DateTime> LastVisit { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public string ProfileID { get; set; }
+        public string CostID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SupplierBanks> SupplierBanks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Suppliers> Suppliers { get; set; }
+        public virtual ICollection<Transactions> Transactions { get; set; }
+        public virtual UserCosts UserCosts { get; set; }
+        public virtual UserProfiles UserProfiles { get; set; }
     }
 }
