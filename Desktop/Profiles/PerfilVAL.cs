@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 
 using PurchaseData.DataModel;
 
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
-
-using TenTec.Windows.iGridLib;
 
 namespace PurchaseDesktop.Profiles
 {
@@ -44,11 +41,6 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public iGrid SetGridBeging(iGrid grid, List<OrderStatus> status)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void InsertOrderHeader(Companies company, OrderType type, Users userDB)
         {
             throw new System.NotImplementedException();
@@ -81,6 +73,11 @@ namespace PurchaseDesktop.Profiles
         }
 
         public void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteRequesitionHeader(int id)
         {
             throw new NotImplementedException();
         }

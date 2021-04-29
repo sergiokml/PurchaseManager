@@ -30,9 +30,9 @@ namespace PurchaseDesktop.Helpers
         private ImageList ListaImagenes()
         {
             ImageList lista = new ImageList();
-            lista.Images.Add(Properties.Resources.icons8_clear_symbol);
-            lista.Images.Add(Properties.Resources.icons8_send_16); // Grid Principal
-            lista.Images.Add(Properties.Resources.icons8_send); // Grid Details
+            lista.Images.Add(Properties.Resources.icons8_trash_can_32); // Delete
+            lista.Images.Add(Properties.Resources.icons8_send_email_32); // Send
+            //lista.Images.Add(Properties.Resources.icons8_send); // Grid Details
             return lista;
         }
 
@@ -47,7 +47,7 @@ namespace PurchaseDesktop.Helpers
             Grid.ImageList = ListaImagenes();
             Grid.BorderStyle = iGBorderStyle.None;
             Grid.DefaultRow.Height = Grid.GetPreferredRowHeight(true, false);
-
+            Grid.EllipsisButtonGlyph = Grid.ImageList.Images[0];
             //! Lineas
             iGPenStyle lineasStyle = new iGPenStyle
             {
@@ -158,6 +158,7 @@ namespace PurchaseDesktop.Helpers
 
                     iGCol = Grid.Cols.Add("Send", "", 22);
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+
 
 
                     break;

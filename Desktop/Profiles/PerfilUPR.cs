@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
@@ -11,8 +10,6 @@ using PurchaseData.DataModel;
 
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
-
-using TenTec.Windows.iGridLib;
 
 
 namespace PurchaseDesktop.Profiles
@@ -125,17 +122,12 @@ namespace PurchaseDesktop.Profiles
             GuardarCambios();
         }
 
-        public void DeleteOrderHeader(int id)
+        public void DeleteRequesitionHeader(int id)
         {
-            var pr = rContext.OrderHeader.Find(id);
+            var pr = rContext.RequisitionHeader.Find(id);
             rContext.Transactions.RemoveRange(pr.Transactions);
-            rContext.OrderHeader.Remove(pr);
+            rContext.RequisitionHeader.Remove(pr);
             GuardarCambios();
-        }
-
-        public iGrid SetGridBeging(iGrid grid, List<OrderStatus> status)
-        {
-            throw new NotImplementedException();
         }
 
         public void DeleteOrderDetail(OrderHeader header, int idDetailr, Users userDB)
@@ -180,6 +172,11 @@ namespace PurchaseDesktop.Profiles
             };
             pr.Transactions.Add(tran);
             GuardarCambios();
+        }
+
+        public void DeleteOrderHeader(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public enum StatusUserPR

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -189,7 +191,7 @@ namespace PurchaseDesktop.Formularios
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                if (rFachada.DeleteOrderHeader(current))
+                if (rFachada.DeleteItem(current))
                 {
                     LlenarGrid();
                     ClearControles();
@@ -200,6 +202,10 @@ namespace PurchaseDesktop.Formularios
                 {
                     LblMsg.Text += "No se puede eliminar";
                 }
+            }
+            else if (Grid.Cols["send"].Index == e.ColIndex)
+            {
+                rFachada.SendEmailTo(current);
             }
             else if (Grid.Cols["supplier"].Index == e.ColIndex)
             {
@@ -217,6 +223,7 @@ namespace PurchaseDesktop.Formularios
             {
                 //rFachada.EditarSupplier(FSupplier);
             }
+
         }
 
         private void BtnCerrar_Click(object sender, EventArgs e)
@@ -231,14 +238,45 @@ namespace PurchaseDesktop.Formularios
 
         private void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
         {
-            if (e.ColIndex == 7)
+            if (e.ColIndex == Grid.Cols["send"].Index || e.ColIndex == Grid.Cols["delete"].Index)
             {
-                Grid.EllipsisButtonGlyph = Grid.ImageList.Images[0];
+                #region Determine the colors of the background
+                Color myColor1, myColor2;
+                switch (e.State)
+                {
+                    case iGControlState.Pressed:
+                        myColor1 = SystemColors.ControlDark;
+                        myColor2 = SystemColors.ControlLightLight;
+                        break;
+                    case iGControlState.Hot:
+                        myColor1 = SystemColors.ControlLightLight;
+                        myColor2 = SystemColors.ControlDark;
+                        break;
+                    default:
+                        myColor1 = SystemColors.ControlLightLight;
+                        myColor2 = SystemColors.Control;
+                        break;
+                }
+                #endregion
 
-            }
-            else if (e.ColIndex == 8)
-            {
-                Grid.EllipsisButtonGlyph = Grid.ImageList.Images[2];
+                #region Draw the background
+                LinearGradientBrush myBrush = new LinearGradientBrush(e.Bounds, myColor1, myColor2, 45);
+                e.Graphics.FillRectangle(myBrush, e.Bounds);
+                e.Graphics.DrawRectangle(SystemPens.ControlDark, e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
+                #endregion
+
+                #region Notify the grid that the background has been drawn and there is no need to draw it
+                e.DoDefault = false;
+                #endregion
+
+                if (e.ColIndex == Grid.Cols["send"].Index)
+                {
+                    // Grid.EllipsisButtonGlyph = Grid.ImageList.Images[0];
+                }
+                else if (e.ColIndex == Grid.Cols["delete"].Index)
+                {
+                    //Grid.EllipsisButtonGlyph = Grid.ImageList.Images[1];
+                }
             }
         }
 

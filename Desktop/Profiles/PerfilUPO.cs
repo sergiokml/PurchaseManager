@@ -12,8 +12,6 @@ using PurchaseData.DataModel;
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
-using TenTec.Windows.iGridLib;
-
 namespace PurchaseDesktop.Profiles
 {
     public class PerfilUPO : PerfilAbstract, IPerfilActions
@@ -142,17 +140,17 @@ namespace PurchaseDesktop.Profiles
             return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
         }
 
-        public iGrid SetGridBeging(iGrid grid, List<OrderStatus> status)
-        {
-            throw new NotImplementedException();
-        }
-
         public void DeleteOrderDetail(OrderHeader header, int idDetailr, Users userDB)
         {
             throw new NotImplementedException();
         }
 
         public void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteRequesitionHeader(int id)
         {
             throw new NotImplementedException();
         }

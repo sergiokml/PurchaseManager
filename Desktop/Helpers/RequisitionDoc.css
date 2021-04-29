@@ -1,0 +1,137 @@
+﻿body
+{
+}
+#datos1 {
+    border: 2px solid #000;
+    padding: 5px;
+    min-width: 750px;
+    position: relative;
+    border-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox */
+    -webkit-border-radius: 6px; /* Safari y Chrome */
+}
+
+.paddingtopbottom {
+    height: 18px;
+}
+
+.tabladescripcion {
+    font-size: 10px;
+    border-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox */
+    -webkit-border-radius: 6px; /* Safari y Chrome */
+    border: 2px solid #000;
+}
+
+.tablatotal {
+    border-radius: 6px;
+    -moz-border-radius: 6px; /* Firefox */
+    -webkit-border-radius: 6px; /* Safari y Chrome */
+    border: 2px solid #000;
+    float: right;
+}
+
+.txt1 {
+    font-size: 13px;
+    color: #000;
+}
+
+.txt2 {
+    font-size: 12px;
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.txt3 {
+    font-size: 11px;
+    color: #000;
+    text-align: center;
+}
+
+.negrita1 {
+    font-weight: bold;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.mayuscula1 {
+    text-transform: uppercase;
+}
+
+.borde-der-abajo {
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-right-color: #000;
+    border-bottom-color: #000;
+}
+
+.borde-abajo {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #000;
+}
+
+.borde-der {
+    font-size: 12px;
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    border-right-width: 2px;
+    border-right-style: solid;
+    border-right-color: #000;
+    padding-right: 8px;
+}
+
+#cuadro-numfactura {
+    height: 120px;
+    width: 300px;
+    border: 2px solid #ff1107;
+    float: right;
+}
+
+.tit1 {
+    font-size: 20px;
+}
+
+.tit2 {
+    font-size: 14px;
+}
+
+.tit3 {
+    font-size: 16px;
+    color: #ff1107;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.margender {
+    margin-right: 5px;
+}
+
+.borde-puntos {
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
+    border-bottom-color: #666;
+}
+
+.justificado {
+    text-align: justify;
+}
+
+.margenizq {
+    margin-left: 5px;
+}
+.logo {
+    width: auto;
+    text-align: left;
+    padding: 20px;
+}
+
+#logo {
+    width: 80%;
+    height: 80%;
+   
+}

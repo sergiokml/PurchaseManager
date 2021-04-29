@@ -277,6 +277,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <PropertyRef Name="UserID" />
             <PropertyRef Name="Event" />
             <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="CompanyName" />
+            <PropertyRef Name="NameBiz" />
           </Key>
           <Property Name="RequisitionHeaderID" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="100" />
@@ -288,6 +290,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="DateLast" Type="datetime2" Precision="7" />
           <Property Name="Event" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="CompanyID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NameBiz" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_AttachesOrders_Attaches">
           <End Role="Attaches" Type="Self.Attaches" Multiplicity="1">
@@ -643,7 +647,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     [vRequisitionByMinTransaction].[CostID] AS [CostID], 
     [vRequisitionByMinTransaction].[DateLast] AS [DateLast], 
     [vRequisitionByMinTransaction].[Event] AS [Event], 
-    [vRequisitionByMinTransaction].[CompanyID] AS [CompanyID]
+    [vRequisitionByMinTransaction].[CompanyID] AS [CompanyID], 
+    [vRequisitionByMinTransaction].[CompanyName] AS [CompanyName], 
+    [vRequisitionByMinTransaction].[NameBiz] AS [NameBiz]
     FROM [dbo].[vRequisitionByMinTransaction] AS [vRequisitionByMinTransaction]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_AttachesOrders_Attaches" Association="Self.FK_AttachesOrders_Attaches">
@@ -1117,6 +1123,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <PropertyRef Name="UserID" />
             <PropertyRef Name="Event" />
             <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="CompanyName" />
+            <PropertyRef Name="NameBiz" />
           </Key>
           <Property Name="RequisitionHeaderID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -1128,6 +1136,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="DateLast" Type="DateTime" Precision="7" />
           <Property Name="Event" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NameBiz" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_RequisitionDetails_Accounts">
           <End Type="PurchaseManagerModel.Accounts" Role="Accounts" Multiplicity="0..1" />
@@ -1580,6 +1590,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySetMapping Name="vRequisitionByMinTransaction">
             <EntityTypeMapping TypeName="PurchaseManagerModel.vRequisitionByMinTransaction">
               <MappingFragment StoreEntitySet="vRequisitionByMinTransaction">
+                <ScalarProperty Name="NameBiz" ColumnName="NameBiz" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="Event" ColumnName="Event" />
                 <ScalarProperty Name="DateLast" ColumnName="DateLast" />

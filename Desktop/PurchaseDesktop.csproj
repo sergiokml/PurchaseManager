@@ -256,6 +256,23 @@
   <ItemGroup>
     <None Include="Resources\icons8_send.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8_send_email_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8_trash_can_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Helpers\RequisitionDoc.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Helpers\RequisitionDoc.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
