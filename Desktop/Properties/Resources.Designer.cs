@@ -63,9 +63,9 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_send_email_32 {
+        internal static System.Drawing.Bitmap delete_bin_15px {
             get {
-                object obj = ResourceManager.GetObject("icons8_send_email_32", resourceCulture);
+                object obj = ResourceManager.GetObject("delete_bin_15px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_trash_can_32 {
+        internal static System.Drawing.Bitmap logo_cve {
             get {
-                object obj = ResourceManager.GetObject("icons8_trash_can_32", resourceCulture);
+                object obj = ResourceManager.GetObject("logo_cve", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap logo {
+        internal static System.Drawing.Bitmap search_15px {
             get {
-                object obj = ResourceManager.GetObject("logo", resourceCulture);
+                object obj = ResourceManager.GetObject("search_15px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

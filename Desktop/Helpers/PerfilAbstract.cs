@@ -30,8 +30,8 @@ namespace PurchaseDesktop.Helpers
         private ImageList ListaImagenes()
         {
             ImageList lista = new ImageList();
-            lista.Images.Add(Properties.Resources.icons8_trash_can_32); // Delete
-            lista.Images.Add(Properties.Resources.icons8_send_email_32); // Send
+            lista.Images.Add(Properties.Resources.search_15px); // Ver Html
+            lista.Images.Add(Properties.Resources.delete_bin_15px); // Remove
             //lista.Images.Add(Properties.Resources.icons8_send); // Grid Details
             return lista;
         }
@@ -46,8 +46,9 @@ namespace PurchaseDesktop.Helpers
             Grid.RowMode = true;
             Grid.ImageList = ListaImagenes();
             Grid.BorderStyle = iGBorderStyle.None;
-            Grid.DefaultRow.Height = Grid.GetPreferredRowHeight(true, false);
-            Grid.EllipsisButtonGlyph = Grid.ImageList.Images[0];
+            //Grid.DefaultRow.Height = Grid.GetPreferredRowHeight(false, true);
+            //Grid.EllipsisButtonGlyph = Grid.ImageList.Images[0];
+            Grid.DefaultRow.Height = 21;
             //! Lineas
             iGPenStyle lineasStyle = new iGPenStyle
             {
@@ -153,10 +154,10 @@ namespace PurchaseDesktop.Helpers
 
                     Grid.Cols.Add("UserID", "User ID", 58);
 
-                    iGCol = Grid.Cols.Add("Delete", "", 22);
+                    iGCol = Grid.Cols.Add("delete", "", 22);
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
 
-                    iGCol = Grid.Cols.Add("Send", "", 22);
+                    iGCol = Grid.Cols.Add("view", "", 22);
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
 
 

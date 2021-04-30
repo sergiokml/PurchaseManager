@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Diagnostics;
-using System.IO;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
@@ -365,7 +364,7 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
-        public bool SendEmailTo(DataRow dataRow)
+        public bool VerItem(DataRow dataRow)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -377,19 +376,10 @@ namespace PurchaseDesktop.Helpers
 
                     break;
                 case "UPR":
-                    var content = File.ReadAllText(Environment.CurrentDirectory + @"\Helpers\RequisitionDoc.html");
-                    content = content.Replace("[CompanyID]", dataRow["CompanyID"].ToString())
-                        .Replace("[LOGO]", Environment.CurrentDirectory + @"\Resources\logo.png").
-                        Replace("[CompanyName]", dataRow["CompanyName"].ToString()).
-                        Replace("[RequisitionHeaderID]", dataRow["RequisitionHeaderID"].ToString());
-                    //content = content.Replace("[CSS]", Environment.CurrentDirectory + @"\Helpers\RequisitionDoc.css");
-                    var path = new HtmlToPdf().ConvertHtmlToPdf(content, dataRow["RequisitionHeaderID"].ToString());
 
-                    // File.WriteAllBytes(@"C:/Users/Developer/source/repos/PurchaseManager/Desktop/bin/Debug/" + dataRow["RequisitionHeaderID"].ToString() + ".pdf", contentPdf);
-                    Process.Start(path);
+                    //var path = new HtmlToPdf().ConvertHtmlToPdf(content, dataRow["RequisitionHeaderID"].ToString());
 
-
-
+                    Process.Start(new HtmlToPdf().ReemplazarDatos(dataRow, userDB));
                     break;
                 case "VAL":
                     break;

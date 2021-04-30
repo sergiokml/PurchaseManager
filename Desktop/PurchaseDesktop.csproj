@@ -242,35 +242,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8_send_16.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\PurchaseData\PurchaseData.csproj">
       <Project>{fb13b376-5494-42f2-89a8-64a50bb602bc}</Project>
       <Name>PurchaseData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8_clear_symbol.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8_send.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8_send_email_32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8_trash_can_32.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Helpers\RequisitionDoc.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Helpers\RequisitionDoc.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="Resources\search_15px.png" />
+    <None Include="Resources\delete_bin_15px.png" />
+    <None Include="Resources\logo_cve.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

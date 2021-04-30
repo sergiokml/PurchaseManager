@@ -279,6 +279,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <PropertyRef Name="CompanyID" />
             <PropertyRef Name="CompanyName" />
             <PropertyRef Name="NameBiz" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="CompanyCode" />
           </Key>
           <Property Name="RequisitionHeaderID" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="100" />
@@ -292,6 +295,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="CompanyID" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NameBiz" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyCode" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <Association Name="FK_AttachesOrders_Attaches">
           <End Role="Attaches" Type="Self.Attaches" Multiplicity="1">
@@ -649,7 +655,10 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     [vRequisitionByMinTransaction].[Event] AS [Event], 
     [vRequisitionByMinTransaction].[CompanyID] AS [CompanyID], 
     [vRequisitionByMinTransaction].[CompanyName] AS [CompanyName], 
-    [vRequisitionByMinTransaction].[NameBiz] AS [NameBiz]
+    [vRequisitionByMinTransaction].[NameBiz] AS [NameBiz], 
+    [vRequisitionByMinTransaction].[FirstName] AS [FirstName], 
+    [vRequisitionByMinTransaction].[LastName] AS [LastName], 
+    [vRequisitionByMinTransaction].[CompanyCode] AS [CompanyCode]
     FROM [dbo].[vRequisitionByMinTransaction] AS [vRequisitionByMinTransaction]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_AttachesOrders_Attaches" Association="Self.FK_AttachesOrders_Attaches">
@@ -1125,6 +1134,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <PropertyRef Name="CompanyID" />
             <PropertyRef Name="CompanyName" />
             <PropertyRef Name="NameBiz" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="CompanyCode" />
           </Key>
           <Property Name="RequisitionHeaderID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -1138,6 +1150,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NameBiz" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_RequisitionDetails_Accounts">
           <End Type="PurchaseManagerModel.Accounts" Role="Accounts" Multiplicity="0..1" />
@@ -1590,6 +1605,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySetMapping Name="vRequisitionByMinTransaction">
             <EntityTypeMapping TypeName="PurchaseManagerModel.vRequisitionByMinTransaction">
               <MappingFragment StoreEntitySet="vRequisitionByMinTransaction">
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="NameBiz" ColumnName="NameBiz" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
