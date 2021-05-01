@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 
 using PurchaseData.DataModel;
@@ -57,11 +58,6 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public Transactions InsertTranHistory(OrderHeader order, Users userDB, Enum evento)
-        {
-            throw new NotImplementedException();
-        }
-
         public DataTable GetVistaSuppliers()
         {
             throw new NotImplementedException();
@@ -78,6 +74,26 @@ namespace PurchaseDesktop.Profiles
         }
 
         public void DeleteRequesitionHeader(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<RequisitionDetails> GetRequisitionDetails(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Attaches> GetAttaches(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertRequisition(Companies company, OrderType type, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CargarDashBoard()
         {
             throw new NotImplementedException();
         }

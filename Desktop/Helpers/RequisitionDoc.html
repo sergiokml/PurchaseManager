@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <link rel="stylesheet" type="text/css" href="../Helpers/RequisitionDoc.css" />
+    <link rel="stylesheet" type="text/css" href="./Helpers/RequisitionDoc.css" />
     <!--<link rel="stylesheet" type="text/css" href="[CSS]" />-->
 </head>
 <body>
@@ -12,11 +12,12 @@
         <div id="invoice" class="effect2">
             <div id="invoice-top">
                 <div class="logo">
-                    <img src="../Resources/logo_cve.png" alt="Logo" />
+                    <img src="./Resources/logo_cve.png" alt="Logo" />
                 </div>
                 <div class="title">
                     <h1>
                         Purchase Requisition #
+
                         <span id="RequisitionHeaderID" class="invoiceVal invoice_num"></span>
                     </h1>
                 </div>
@@ -27,6 +28,7 @@
                 <div id="message">
                     <h2>
                         Hello
+
                         <span id="userName"></span>
                     </h2>
                     <p>
@@ -51,11 +53,11 @@
                                 <br>
                                 <span id="CompanyID"></span>
                                 <br>
-                                <span id="CompanyCode"></span> 
-                                <!--<span id="zip">12062</span>
+                                <span id="CompanyCode"></span>
                                 <br>
-                                <span id="tax_num">555-555-5555</span>
-                                <br>-->
+                                <br>
+                                <br />
+                                <span id="Description"></span>
                             </p>
                         </div>
                     </div>
@@ -63,7 +65,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>PO Details</th>
+                                    <th>PR Details</th>
                                     <th>Summary</th>
                                 </tr>
                             </thead>
@@ -75,42 +77,43 @@
                                     </td>
                                     <td>
                                         <span>Total</span>
-                                        <label id="po_amount">245.00</label>
+                                        <label id="po_amount">0</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span>Status</span>
-                                        <label id="status">Active</label>
+                                        <label id="Status"></label>
                                     </td>
                                     <td>
                                         <span>Quantity</span>
-                                        <label id="quantity">6.6</label>
+                                        <label id="quantity"></label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span>Authorization Status</span>
-                                        <label id="authorization_status">Active</label>
+                                        <label id="authorization_status">None</label>
                                     </td>
                                     <td>
                                         <span>Billed</span>
-                                        <label id="quantity_billed">2</label>
+                                        <label id="quantity_billed">0</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span>Approved Date</span>
-                                        <label id="approved_date">04 Mar 2018</label>
+                                        <label id="approved_date">0</label>
                                     </td>
                                     <td>
                                         <span>Received</span>
-                                        <label id="quantity_received">2</label>
+                                        <label id="quantity_received">0</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
                                         <span>Note</span>#
+
                                         <label id="note">None</label>
                                     </td>
                                 </tr>
@@ -126,42 +129,22 @@
                         <thead>
                             <tr class="tabletitle">
                                 <th>Line</th>
-                                <th>Item Code</th>
                                 <th>Description</th>
                                 <th>Quantity</th>
-                                <th>Unit Price</th>
-                                <th>Recieved</th>
-                                <th>Billed</th>
-                                <th>Amount</th>
-                                <th>Total</th>
+                                <th>Account</th>
                             </tr>
                         </thead>
-                        <tr class="list-item">
-                            <td data-label="Line" class="tableitem" id="line_num">1</td>
-                            <td data-label="Item Code" class="tableitem" id="item_code">DP20</td>
-                            <td data-label="Description" class="tableitem" id="item_description">Servizio EDI + Traffico mese di novembre 2017</td>
-                            <td data-label="Quantity" class="tableitem" id="quantity">46.6</td>
-                            <td data-label="Unit Price" class="tableitem" id="unit_price">1</td>
-                            <td data-label="Recieved" class="tableitem" id="quantity_received">20</td>
-                            <td data-label="Billed" class="tableitem" id="quantity_billed">46.6</td>
-                            <td data-label="Amount" class="tableitem" id="amount">20</td>
-                            <td data-label="Total" class="tableitem">55.92</td>
-                        </tr>
-                        <tr class="list-item">
-                            <td data-label="Line" class="tableitem" id="line_num">2</td>
-                            <td data-label="Item Code" class="tableitem" id="item_code">DP21</td>
-                            <td data-label="Description" class="tableitem" id="item_description">Traffico mese di novembre 2017 FRESSNAPF TIERNAHRUNGS GMBH riadd. Almo DE</td>
-                            <td data-label="Quantity" class="tableitem" id="quantity">4.4</td>
-                            <td data-label="Unit Price" class="tableitem" id="unit_price">1</td>
-                            <td data-label="Recieved" class="tableitem" id="quantity_received">12</td>
-                            <td data-label="Billed" class="tableitem" id="quantity_billed">13.2</td>
-                            <td data-label="Amount" class="tableitem" id="amount">15</td>
-                            <td data-label="Total" class="tableitem">55.92</td>
-                        </tr>
-                        <tr class="list-item total-row">
-                            <th colspan="8" class="tableitem">Grand Total</th>
-                            <td data-label="Grand Total" class="tableitem">111.84</td>
-                        </tr>
+                    </table>
+                </div>
+                <div id="table">
+                    <table class="table-main">
+                        <thead>
+                            <tr class="tabletitle">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
                     </table>
                 </div>
                 <!--End Table-->
@@ -175,8 +158,9 @@
                     <p class="col-right">
                         Our mailing address is:
 
+
                         <span class="email">
-                            <a href="mailto:supplier.portal@almonature.com">supplier.portal@almonature.com</a>
+                            <a href="mailto:purchase.manager@cvegroup.com">purchase.manager@cvegroup.com</a>
                         </span>
                     </p>
                 </div>

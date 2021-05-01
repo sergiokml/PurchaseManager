@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
@@ -10,7 +11,6 @@ using PurchaseData.DataModel;
 
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
-
 
 namespace PurchaseDesktop.Profiles
 {
@@ -67,59 +67,39 @@ namespace PurchaseDesktop.Profiles
 
         public void InsertOrderHeader(Companies company, OrderType type, Users userDB)
         {
-            var pr = new OrderHeader
-            {
-                //CompanyID = company.CompanyID,
-                Type = (byte)type,
-                StatusID = 1,   //  1   Pre PRequisition
-                Description = string.Empty
-            };
-            ;
-            pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPR.CREATE_PR));
-            rContext.OrderHeader.Add(pr);
-            GuardarCambios();
+            throw new NotImplementedException();
         }
 
-        public Transactions InsertTranHistory(OrderHeader order, Users userDB, Enum @evento)
-        {
-            var tran = new Transactions
-            {
-                Event = evento.ToString(),
-                UserID = userDB.UserID,
-                StatuID = order.StatusID,
-                DateTran = DateTime.Now
-            };
-            return tran;
-        }
+
 
         public void UpdateOrderHeader(Users userDB, int id, object valor, string campo)
         {
-            var pr = rContext.OrderHeader.Find(id);
-            switch (campo)
-            {
-                case "Description":
-                    pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
-                    break;
-                case "Type":
-                    pr.Type = Convert.ToByte(valor);
-                    break;
-                case "StatusID":
-                    pr.StatusID = Convert.ToByte(valor);
-                    break;
-                case "CompanyID":
-                    // pr.CompanyID = valor.ToString();
-                    break;
-                case "CurrencyID":
-                    pr.CurrencyID = valor.ToString();
-                    break;
-                case "SupplierID":
-                    pr.SupplierID = valor.ToString();
-                    break;
-                default:
-                    break;
-            }
-            pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPR.UPDATE_PR));
-            GuardarCambios();
+            //var pr = rContext.OrderHeader.Find(id);
+            //switch (campo)
+            //{
+            //    case "Description":
+            //        pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
+            //        break;
+            //    case "Type":
+            //        pr.Type = Convert.ToByte(valor);
+            //        break;
+            //    case "StatusID":
+            //        pr.StatusID = Convert.ToByte(valor);
+            //        break;
+            //    case "CompanyID":
+            //        // pr.CompanyID = valor.ToString();
+            //        break;
+            //    case "CurrencyID":
+            //        pr.CurrencyID = valor.ToString();
+            //        break;
+            //    case "SupplierID":
+            //        pr.SupplierID = valor.ToString();
+            //        break;
+            //    default:
+            //        break;
+            //}
+            //pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPR.UPDATE_PR));
+            //GuardarCambios();
         }
 
         public void DeleteRequesitionHeader(int id)
@@ -179,11 +159,48 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public enum StatusUserPR
+        public List<RequisitionDetails> GetRequisitionDetails(int id)
         {
-            PrePRequisition = 1,
-            ActivePRequisition = 2
+            var details = rContext.RequisitionHeader.Find(id).RequisitionDetails.ToList();
+            foreach (var item in details)
+            {
+                rContext.Entry(item).Reference(c => c.Accounts).Load();
+            }
+            return details;
+        }
 
+        public List<Attaches> GetAttaches(int id)
+        {
+            return rContext.RequisitionHeader.Find(id).Attaches.ToList(); ;
+        }
+
+        public void InsertRequisition(Companies company, OrderType type, Users userDB)
+        {
+            var pr = new RequisitionHeader
+            {
+                Type = (byte)type,
+                StatusID = 1,
+                Description = string.Empty,
+                CompanyID = company.CompanyID
+            };
+            var tran = new Transactions
+            {
+                Event = EventUserPR.CREATE_PR.ToString(),
+                UserID = userDB.UserID,
+                StatuID = pr.StatusID,
+                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            pr.Transactions.Add(tran);
+            rContext.RequisitionHeader.Add(pr);
+            GuardarCambios();
+        }
+
+        public void CargarDashBoard()
+        {
+            IQueryable<ufnGetReqGroupByCost_Result> a = rContext.ufnGetReqGroupByCost(2);
+
+            ReqGroupByCost_Results = rContext.ufnGetReqGroupByCost(2).ToList();
+            OrderGroupByStatus_Results = rContext.ufnGetOrderGroupByStatus().ToList();
         }
 
         public enum EventUserPR

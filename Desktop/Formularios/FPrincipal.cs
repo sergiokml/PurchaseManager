@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -43,7 +44,7 @@ namespace PurchaseDesktop.Formularios
             //! Validar Controles
             if (ValidarControles())
             {
-                rFachada.InsertOrderHeader((Companies)CboCompany.SelectedItem
+                rFachada.InsertItem((Companies)CboCompany.SelectedItem
                     , (OrderType)CboType.SelectedItem);
                 LlenarGrid();
                 //Grid.Rows[0].EnsureVisible();
@@ -76,6 +77,43 @@ namespace PurchaseDesktop.Formularios
             Grid = rFachada.CargarGrid(Grid);
             // Grid = rFachada.ControlesGrid(Grid, new OrderStatus().GetList());
             LlenarGrid();
+
+
+            List<Color> bgColors = new List<Color>
+            {
+                Color.FromArgb(3, 121, 213),
+                 Color.FromArgb(53, 146, 171),
+                  Color.FromArgb(77, 158, 150),
+                   Color.FromArgb(106, 172, 125),
+                    Color.FromArgb(130, 184, 105),
+                     Color.FromArgb(150, 194, 89)
+            };
+
+
+
+
+
+            ChartCanvas1.XAxesGridLines = false;
+            ChartCanvas1.ShowXAxis = false;
+            ChartCanvas1.YAxesGridLines = false;
+            ChartCanvas1.ShowYAxis = false;
+            ChartCanvas1.BackColor = Color.FromArgb(34, 34, 34);
+            ChartCanvas1.LegendDisplay = false;
+
+            ChartCanvas2.XAxesGridLines = false;
+            ChartCanvas2.YAxesGridLines = false;
+            ChartCanvas2.ShowXAxis = false;
+            ChartCanvas2.ShowYAxis = false;
+            ChartCanvas2.BackColor = Color.FromArgb(34, 34, 34);
+
+
+
+            PolarAreaChart1.BackgroundColor = bgColors;
+            PolarAreaChart1.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
+            PolarAreaChart2.BackgroundColor = bgColors;
+            PolarAreaChart2.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
+
+            rFachada.CargarDashBoard(PolarAreaChart1, PolarAreaChart2, ChartCanvas1);
 
         }
 
@@ -204,7 +242,7 @@ namespace PurchaseDesktop.Formularios
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
-                rFachada.VerItem(current);
+                rFachada.VerItemHtml(current);
                 Grid.Focus();
                 Grid.DrawAsFocused = false;
             }

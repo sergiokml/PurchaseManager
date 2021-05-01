@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -19,6 +20,9 @@ namespace PurchaseDesktop.Helpers
         public iGrid Grid { get; set; }
         public UserProfiles UserProfiles { get; set; }
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
+
+        public List<ufnGetReqGroupByCost_Result> ReqGroupByCost_Results { get; set; }
+        public List<ufnGetOrderGroupByStatus_Result> OrderGroupByStatus_Results { get; set; }
 
         public enum OrderType
         {
@@ -143,17 +147,20 @@ namespace PurchaseDesktop.Helpers
                     Grid.Cols.Add("Code", "Code", 53);
                     Grid.Cols.Add("Description", "Description", 196);
                     Grid.Cols.Add("CompanyID", "Company", 58);
+                    Grid.Cols.Add("CompanyName", "Company Name", 175);
+
+
 
                     iGCol = Grid.Cols.Add("Type", "Type", 93);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
 
-                    iGCol = Grid.Cols.Add("StatusID", "Status", 121);
+                    iGCol = Grid.Cols.Add("StatusID", "Status", 111);
                     iGCol.CellStyle.DropDownControl = cboStates;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
 
                     Grid.Cols.Add("UserID", "User ID", 58);
-
+                    Grid.Cols.Add("CostID", "CC", 27);
                     iGCol = Grid.Cols.Add("delete", "", 22);
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
 
@@ -165,6 +172,7 @@ namespace PurchaseDesktop.Helpers
                     break;
             }
         }
+
 
         //public iGrid FactoryGrid(iGrid igrid, EtapasGrid etapas, List<OrderStatus> status = null)
         //{
@@ -277,13 +285,6 @@ namespace PurchaseDesktop.Helpers
         //    }
         //    return Grid;
         //}
-        public enum EtapasGrid
-        {
 
-            PintarGrid = 1,     // Primera vez
-            ControlesGris = 2,  // Llenar controles
-            LLenarGrid = 3,     // LLenat gris con datos
-            DecorarGrid = 4     // Otros
-        }
     }
 }

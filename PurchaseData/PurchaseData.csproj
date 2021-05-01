@@ -72,7 +72,7 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\DAOrderAccount.cs" />
-    <Compile Include="DataModel\DaOrderDetails.cs" />
+    <Compile Include="DataModel\DAOrderDetails.cs" />
     <Compile Include="DataModel\DAOrderHeader.cs" />
     <Compile Include="DataModel\DARequisitionStatus.cs" />
     <Compile Include="DataModel\DASupplierCountries.cs" />
@@ -133,6 +133,12 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Transactions.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\ufnGetOrderGroupByStatus_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\ufnGetReqGroupByCost_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\UserCosts.cs">

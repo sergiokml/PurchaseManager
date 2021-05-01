@@ -16,6 +16,7 @@ namespace PurchaseData.DataModel
 
         public void AddDetail(OrderDetails orderDetails, OrderHeader orderHeader)
         {
+            //todo ESTO POR QUE NO ESTA EN EL PERFILPR??? 
             using (var contextDB = new PurchaseManagerContext())
             {
                 var pr = contextDB.OrderHeader.Find(orderHeader.OrderHeaderID);

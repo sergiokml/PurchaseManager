@@ -58,7 +58,7 @@ p {
 
 a {
     text-decoration: none;
-    color: #00a63f;
+    color: #9AC455;
 }
 
 #invoiceholder {
@@ -80,7 +80,7 @@ a {
 }
 
 #invoice-top {
-    border-bottom: 2px solid #00a63f;
+    border-bottom: 2px solid #9AC455;
 }
 
 #invoice-mid {
@@ -184,7 +184,7 @@ td {
 }
 
 .tabletitle th {
-    text-align: right;
+    text-align: left;
 }
 
     .tabletitle th:nth-child(3) {
@@ -203,7 +203,7 @@ th {
 }
 
 .list-item td {
-    text-align: right;
+    text-align: left;
 }
 
     .list-item td:nth-child(3) {
@@ -222,8 +222,7 @@ th {
 }
 
 footer {
-    border-top: 1px solid #eeeeee;
-    ;
+    border-top: 1px solid #eeeeee;    
     padding: 15px 20px;
 }
 

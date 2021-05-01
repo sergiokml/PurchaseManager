@@ -66,59 +66,49 @@ namespace PurchaseDesktop.Profiles
 
         public void InsertOrderHeader(Companies company, OrderType type, Users userDB)
         {
-            var pr = new OrderHeader
-            {
-                //CompanyID = company.CompanyID,
-                Type = (byte)type,
-                StatusID = 3,  //  3   Pre POrden
-                Description = string.Empty
-            };
-            ;
-            pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPO.CREATE_PO));
-            rContext.OrderHeader.Add(pr);
-            GuardarCambios();
+            //var pr = new OrderHeader
+            //{
+            //    //CompanyID = company.CompanyID,
+            //    Type = (byte)type,
+            //    StatusID = 3,  //  3   Pre POrden
+            //    Description = string.Empty
+            //};
+            //;
+            //pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPO.CREATE_PO));
+            //rContext.OrderHeader.Add(pr);
+            //GuardarCambios();
         }
 
-        public Transactions InsertTranHistory(OrderHeader order, Users userDB, Enum @evento)
-        {
-            var tran = new Transactions
-            {
-                Event = evento.ToString(),
-                UserID = userDB.UserID,
-                StatuID = order.StatusID,
-                DateTran = DateTime.Now
-            };
-            return tran;
-        }
+
 
         public void UpdateOrderHeader(Users userDB, int id, object valor, string campo)
         {
-            var pr = rContext.OrderHeader.Find(id);
-            switch (campo)
-            {
-                case "Description":
-                    pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
-                    break;
-                case "Type":
-                    pr.Type = Convert.ToByte(valor);
-                    break;
-                case "StatusID":
-                    pr.StatusID = Convert.ToByte(valor);
-                    break;
-                case "CompanyID":
-                    //pr.CompanyID = valor.ToString();
-                    break;
-                case "CurrencyID":
-                    pr.CurrencyID = valor.ToString();
-                    break;
-                case "SupplierID":
-                    pr.SupplierID = valor.ToString();
-                    break;
-                default:
-                    break;
-            }
-            pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPO.UPDATE_PO));
-            GuardarCambios();
+            //var pr = rContext.OrderHeader.Find(id);
+            //switch (campo)
+            //{
+            //    case "Description":
+            //        pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
+            //        break;
+            //    case "Type":
+            //        pr.Type = Convert.ToByte(valor);
+            //        break;
+            //    case "StatusID":
+            //        pr.StatusID = Convert.ToByte(valor);
+            //        break;
+            //    case "CompanyID":
+            //        //pr.CompanyID = valor.ToString();
+            //        break;
+            //    case "CurrencyID":
+            //        pr.CurrencyID = valor.ToString();
+            //        break;
+            //    case "SupplierID":
+            //        pr.SupplierID = valor.ToString();
+            //        break;
+            //    default:
+            //        break;
+            //}
+            //pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPO.UPDATE_PO));
+            //GuardarCambios();
         }
 
         public void DeleteOrderHeader(int id)
@@ -151,6 +141,26 @@ namespace PurchaseDesktop.Profiles
         }
 
         public void DeleteRequesitionHeader(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<RequisitionDetails> GetRequisitionDetails(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Attaches> GetAttaches(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertRequisition(Companies company, OrderType type, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CargarDashBoard()
         {
             throw new NotImplementedException();
         }

@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
+
+using Bunifu.Charts.WinForms;
+using Bunifu.Charts.WinForms.ChartTypes;
 
 using PurchaseData.DataModel;
 using PurchaseData.Helpers;
@@ -27,7 +32,6 @@ namespace PurchaseDesktop.Helpers
             this.perfilVal = perfilVal;
             this.userDB = userDB;
         }
-
 
         public DataTable GetVistaPrincipal()
         {
@@ -114,7 +118,7 @@ namespace PurchaseDesktop.Helpers
             return null;
         }
 
-        public void InsertOrderHeader(Companies company, PerfilAbstract.OrderType type)
+        public void InsertItem(Companies company, PerfilAbstract.OrderType type)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -126,7 +130,7 @@ namespace PurchaseDesktop.Helpers
                     perfilPo.InsertOrderHeader(company, type, userDB);
                     break;
                 case "UPR":
-                    perfilPr.InsertOrderHeader(company, type, userDB);
+                    perfilPr.InsertRequisition(company, type, userDB);
                     break;
                 case "VAL":
                     break;
@@ -364,7 +368,7 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
-        public bool VerItem(DataRow dataRow)
+        public bool VerItemHtml(DataRow dataRow)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -376,15 +380,56 @@ namespace PurchaseDesktop.Helpers
 
                     break;
                 case "UPR":
-
                     //var path = new HtmlToPdf().ConvertHtmlToPdf(content, dataRow["RequisitionHeaderID"].ToString());
-
-                    Process.Start(new HtmlToPdf().ReemplazarDatos(dataRow, userDB));
+                    var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    Process.Start(new HtmlToPdf().ReemplazarDatos(dataRow, userDB, details, attaches));
                     break;
                 case "VAL":
                     break;
             }
             return false;
+        }
+
+        public void CargarDashBoard(BunifuPolarAreaChart chart1,
+             BunifuPolarAreaChart chart2,
+             BunifuChartCanvas chartCanvas1)
+        {
+            List<string> labels = new List<string>();
+
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    break;
+                case "UPR":
+                    perfilPr.CargarDashBoard();
+                    var res1 = perfilPr.ReqGroupByCost_Results;
+                    var total1 = res1.Sum(c => c.Nro);
+                    foreach (var item in res1)
+                    {
+                        chart1.Data.Add(Convert.ToDouble((item.Nro * 100) / total1));
+                        labels.Add(item.Description);
+                    }
+                    var res2 = perfilPr.OrderGroupByStatus_Results;
+                    var total2 = res2.Sum(c => c.Nro);
+                    foreach (var item in res2)
+                    {
+                        chart2.Data.Add(Convert.ToDouble((item.Nro * 100) / total2));
+
+
+                    }
+
+                    chartCanvas1.Labels = labels.ToArray();
+
+
+                    break;
+                case "VAL":
+                    break;
+            }
         }
     }
 }

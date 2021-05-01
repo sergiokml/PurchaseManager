@@ -279,9 +279,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <PropertyRef Name="CompanyID" />
             <PropertyRef Name="CompanyName" />
             <PropertyRef Name="NameBiz" />
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="LastName" />
             <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="Status" />
           </Key>
           <Property Name="RequisitionHeaderID" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="100" />
@@ -295,9 +294,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="CompanyID" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NameBiz" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CompanyCode" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_AttachesOrders_Attaches">
           <End Role="Attaches" Type="Self.Attaches" Multiplicity="1">
@@ -599,6 +597,29 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ufnGetOrderGroupByStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Nro" Type="int" />
+                <Property Name="StatusID" Type="tinyint" Nullable="false" />
+                <Property Name="Description" Type="varchar" MaxLength="50" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="ufnGetReqGroupByCost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StatusID" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Nro" Type="int" />
+                <Property Name="CostID" Type="varchar" MaxLength="3" />
+                <Property Name="Description" Type="varchar" MaxLength="50" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <EntityContainer Name="PurchaseManagerModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attaches" EntityType="Self.Attaches" Schema="dbo" store:Type="Tables" />
@@ -656,9 +677,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     [vRequisitionByMinTransaction].[CompanyID] AS [CompanyID], 
     [vRequisitionByMinTransaction].[CompanyName] AS [CompanyName], 
     [vRequisitionByMinTransaction].[NameBiz] AS [NameBiz], 
-    [vRequisitionByMinTransaction].[FirstName] AS [FirstName], 
-    [vRequisitionByMinTransaction].[LastName] AS [LastName], 
-    [vRequisitionByMinTransaction].[CompanyCode] AS [CompanyCode]
+    [vRequisitionByMinTransaction].[CompanyCode] AS [CompanyCode], 
+    [vRequisitionByMinTransaction].[Status] AS [Status]
     FROM [dbo].[vRequisitionByMinTransaction] AS [vRequisitionByMinTransaction]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_AttachesOrders_Attaches" Association="Self.FK_AttachesOrders_Attaches">
@@ -759,6 +779,10 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     <edmx:ConceptualModels>
       <Schema Namespace="PurchaseManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PurchaseManagerContext" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="ufnGetReqGroupByCost" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetReqGroupByCost_Result)">
+          <Parameter Name="StatusID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ufnGetOrderGroupByStatus" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetOrderGroupByStatus_Result)" />
           <EntitySet Name="Accounts" EntityType="PurchaseManagerModel.Accounts" />
           <EntitySet Name="Attaches" EntityType="PurchaseManagerModel.Attaches" />
           <EntitySet Name="Companies" EntityType="PurchaseManagerModel.Companies" />
@@ -857,7 +881,21 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <End Role="RequisitionHeader" EntitySet="RequisitionHeader" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-        </EntityContainer>
+          <FunctionImport Name="ufnGetOrderGroupByStatus1" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetOrderGroupByStatus1_Result)" />
+          <FunctionImport Name="ufnGetReqGroupByCost1" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetReqGroupByCost1_Result)">
+          <Parameter Name="StatusID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          </EntityContainer>
+        <ComplexType Name="ufnGetReqGroupByCost_Result">
+          <Property Type="Int32" Name="Nro" Nullable="true" />
+          <Property Type="String" Name="CostID" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ufnGetOrderGroupByStatus_Result">
+          <Property Type="Int32" Name="Nro" Nullable="true" />
+          <Property Type="Byte" Name="StatusID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+        </ComplexType>
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -1134,9 +1172,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <PropertyRef Name="CompanyID" />
             <PropertyRef Name="CompanyName" />
             <PropertyRef Name="NameBiz" />
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="LastName" />
             <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="Status" />
           </Key>
           <Property Name="RequisitionHeaderID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -1150,9 +1187,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NameBiz" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_RequisitionDetails_Accounts">
           <End Type="PurchaseManagerModel.Accounts" Role="Accounts" Multiplicity="0..1" />
@@ -1358,6 +1394,16 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <End Type="PurchaseManagerModel.RequisitionHeader" Role="RequisitionHeader" Multiplicity="*" />
           <End Type="PurchaseManagerModel.Transactions" Role="Transactions" Multiplicity="*" />
         </Association>
+        <ComplexType Name="ufnGetOrderGroupByStatus1_Result">
+          <Property Type="Int32" Name="Nro" Nullable="true" />
+          <Property Type="Byte" Name="StatusID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ufnGetReqGroupByCost1_Result">
+          <Property Type="Int32" Name="Nro" Nullable="true" />
+          <Property Type="String" Name="CostID" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1605,9 +1651,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySetMapping Name="vRequisitionByMinTransaction">
             <EntityTypeMapping TypeName="PurchaseManagerModel.vRequisitionByMinTransaction">
               <MappingFragment StoreEntitySet="vRequisitionByMinTransaction">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="NameBiz" ColumnName="NameBiz" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1655,6 +1700,24 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <ScalarProperty Name="RequisitionHeaderID" ColumnName="RequisitionHeaderID" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="ufnGetOrderGroupByStatus1" FunctionName="PurchaseManagerModel.Store.ufnGetOrderGroupByStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PurchaseManagerModel.ufnGetOrderGroupByStatus1_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ufnGetReqGroupByCost1" FunctionName="PurchaseManagerModel.Store.ufnGetReqGroupByCost">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PurchaseManagerModel.ufnGetReqGroupByCost1_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="CostID" ColumnName="CostID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
