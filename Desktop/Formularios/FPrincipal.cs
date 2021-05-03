@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
@@ -114,6 +115,9 @@ namespace PurchaseDesktop.Formularios
             PolarAreaChart2.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
 
             rFachada.CargarDashBoard(PolarAreaChart1, PolarAreaChart2, ChartCanvas1);
+
+            var path = Directory.GetCurrentDirectory() + @"\HtmlBanner\Banner.html";
+            WBrowserBanner.Navigate(path);
 
         }
 

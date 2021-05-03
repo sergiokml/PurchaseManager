@@ -779,10 +779,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     <edmx:ConceptualModels>
       <Schema Namespace="PurchaseManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PurchaseManagerContext" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="ufnGetReqGroupByCost" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetReqGroupByCost_Result)">
-          <Parameter Name="StatusID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="ufnGetOrderGroupByStatus" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetOrderGroupByStatus_Result)" />
           <EntitySet Name="Accounts" EntityType="PurchaseManagerModel.Accounts" />
           <EntitySet Name="Attaches" EntityType="PurchaseManagerModel.Attaches" />
           <EntitySet Name="Companies" EntityType="PurchaseManagerModel.Companies" />
@@ -881,9 +877,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <End Role="RequisitionHeader" EntitySet="RequisitionHeader" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <FunctionImport Name="ufnGetOrderGroupByStatus1" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetOrderGroupByStatus1_Result)" />
-          <FunctionImport Name="ufnGetReqGroupByCost1" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetReqGroupByCost1_Result)">
-          <Parameter Name="StatusID" Mode="In" Type="Int32" />
+          <FunctionImport Name="ufnGetOrderGroupByStatus" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetOrderGroupByStatus_Result)" />
+          <FunctionImport Name="ufnGetReqGroupByCost" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetReqGroupByCost_Result)">
+            <Parameter Name="StatusID" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="ufnGetReqGroupByCost_Result">
@@ -894,6 +890,16 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
         <ComplexType Name="ufnGetOrderGroupByStatus_Result">
           <Property Type="Int32" Name="Nro" Nullable="true" />
           <Property Type="Byte" Name="StatusID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ufnGetOrderGroupByStatus1_Result">
+          <Property Type="Int32" Name="Nro" Nullable="true" />
+          <Property Type="Byte" Name="StatusID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ufnGetReqGroupByCost1_Result">
+          <Property Type="Int32" Name="Nro" Nullable="true" />
+          <Property Type="String" Name="CostID" Nullable="true" MaxLength="3" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
         </ComplexType>
         <EntityType Name="Accounts">
@@ -1394,12 +1400,12 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <End Type="PurchaseManagerModel.RequisitionHeader" Role="RequisitionHeader" Multiplicity="*" />
           <End Type="PurchaseManagerModel.Transactions" Role="Transactions" Multiplicity="*" />
         </Association>
-        <ComplexType Name="ufnGetOrderGroupByStatus1_Result">
+        <ComplexType Name="ufnGetOrderGroupByStatus_Result1">
           <Property Type="Int32" Name="Nro" Nullable="true" />
           <Property Type="Byte" Name="StatusID" Nullable="false" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
         </ComplexType>
-        <ComplexType Name="ufnGetReqGroupByCost1_Result">
+        <ComplexType Name="ufnGetReqGroupByCost_Result1">
           <Property Type="Int32" Name="Nro" Nullable="true" />
           <Property Type="String" Name="CostID" Nullable="true" MaxLength="3" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
@@ -1700,18 +1706,18 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <ScalarProperty Name="RequisitionHeaderID" ColumnName="RequisitionHeaderID" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="ufnGetOrderGroupByStatus1" FunctionName="PurchaseManagerModel.Store.ufnGetOrderGroupByStatus">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PurchaseManagerModel.ufnGetOrderGroupByStatus1_Result">
+          <FunctionImportMapping FunctionImportName="ufnGetOrderGroupByStatus" FunctionName="PurchaseManagerModel.Store.ufnGetOrderGroupByStatus">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="PurchaseManagerModel.ufnGetOrderGroupByStatus_Result">
                 <ScalarProperty Name="Nro" ColumnName="Nro" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ufnGetReqGroupByCost1" FunctionName="PurchaseManagerModel.Store.ufnGetReqGroupByCost">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PurchaseManagerModel.ufnGetReqGroupByCost1_Result">
+          <FunctionImportMapping FunctionImportName="ufnGetReqGroupByCost" FunctionName="PurchaseManagerModel.Store.ufnGetReqGroupByCost">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="PurchaseManagerModel.ufnGetReqGroupByCost_Result">
                 <ScalarProperty Name="Nro" ColumnName="Nro" />
                 <ScalarProperty Name="CostID" ColumnName="CostID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

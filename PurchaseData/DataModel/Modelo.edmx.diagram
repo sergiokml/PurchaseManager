@@ -5,28 +5,28 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="dba4843e1fa34d689278b7e3eb09c0df" Name="Diagram1">
-        <EntityTypeShape EntityType="PurchaseManagerModel.Accounts" Width="1.5" PointX="5.25" PointY="26.25" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.Attaches" Width="1.5" PointX="3" PointY="11.375" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.Companies" Width="1.5" PointX="3" PointY="17" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.Currencies" Width="1.5" PointX="3" PointY="13.875" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.OrderDetails" Width="1.5" PointX="7.5" PointY="13.625" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.OrderHeader" Width="1.5" PointX="5.25" PointY="7.125" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.OrderHitos" Width="1.5" PointX="7.5" PointY="11" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.OrderNotes" Width="1.5" PointX="7.5" PointY="8.625" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.OrderStatus" Width="1.5" PointX="3" PointY="2.25" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.RequisitionDetails" Width="1.5" PointX="7.5" PointY="18" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.RequisitionHeader" Width="1.5" PointX="5.25" PointY="17.75" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.RequisitionStatus" Width="1.5" PointX="3" PointY="19.75" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.SupplierBanks" Width="1.5" PointX="3" PointY="5.25" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.SupplierCountries" Width="1.5" PointX="0.75" PointY="7.125" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.Suppliers" Width="1.5" PointX="3" PointY="7.875" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.Transactions" Width="1.5" PointX="7.5" PointY="5.125" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.UserCosts" Width="1.5" PointX="3" PointY="24.125" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.UserProfiles" Width="1.5" PointX="3" PointY="21.875" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.Users" Width="1.5" PointX="5.25" PointY="22.125" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.vOrderByMinTransaction" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PurchaseManagerModel.vRequisitionByMinTransaction" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.Accounts" Width="1.5" PointX="8.25" PointY="8.5" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.Attaches" Width="1.5" PointX="3" PointY="2.5" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.Companies" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.Currencies" Width="1.5" PointX="3" PointY="14.25" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.OrderDetails" Width="1.5" PointX="7.5" PointY="11.25" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.OrderHeader" Width="1.5" PointX="5.25" PointY="7.375" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.OrderHitos" Width="1.5" PointX="7.5" PointY="14.25" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.OrderNotes" Width="1.5" PointX="7.5" PointY="6" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.OrderStatus" Width="1.5" PointX="3" PointY="12" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.RequisitionDetails" Width="1.5" PointX="10.5" PointY="1.25" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.RequisitionHeader" Width="1.5" PointX="8.25" PointY="1" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.RequisitionStatus" Width="1.5" PointX="6" PointY="3.625" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.SupplierBanks" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.SupplierCountries" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.Suppliers" Width="1.5" PointX="3" PointY="8.25" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="5" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.Transactions" Width="1.5" PointX="10.5" PointY="8.5" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.UserCosts" Width="1.5" PointX="6" PointY="17.25" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.UserProfiles" Width="1.5" PointX="6" PointY="19.375" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.Users" Width="1.5" PointX="8.25" PointY="17.5" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.vOrderByMinTransaction" Width="1.5" PointX="9.75" PointY="12" />
+        <EntityTypeShape EntityType="PurchaseManagerModel.vRequisitionByMinTransaction" Width="1.5" PointX="11.75" PointY="12" />
         <AssociationConnector Association="PurchaseManagerModel.FK_RequisitionDetails_Accounts" />
         <AssociationConnector Association="PurchaseManagerModel.FK_RequisitionHeader_Companies" />
         <AssociationConnector Association="PurchaseManagerModel.FK_OrderHeader_Currencies" />
