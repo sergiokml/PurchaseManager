@@ -51,9 +51,9 @@ namespace PurchaseDesktop.Helpers
             return null;
         }
 
-        public string MsgTest()
+        public Users GetUser()
         {
-            return userDB.ProfileID;
+            return userDB;
         }
 
         public DataTable GetVistaSuppliers()

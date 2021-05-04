@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
@@ -51,7 +52,7 @@ namespace PurchaseDesktop.Formularios
                 //Grid.Rows[0].EnsureVisible();
                 ClearControles();
 
-                LblMsg.Text = $" Se ha cargado el Perfil: {rFachada.MsgTest()}  {Grid.Rows.Count}";
+                LblMsg.Text = $" Se ha cargado el Perfil: {rFachada.GetUser().ProfileID}  {Grid.Rows.Count}";
                 //Grid.CurRow = Grid.Rows[0];
             }
         }
@@ -95,17 +96,25 @@ namespace PurchaseDesktop.Formularios
 
 
             ChartCanvas1.XAxesGridLines = false;
-            ChartCanvas1.ShowXAxis = false;
             ChartCanvas1.YAxesGridLines = false;
+            ChartCanvas1.ShowXAxis = false;
             ChartCanvas1.ShowYAxis = false;
-            ChartCanvas1.BackColor = Color.FromArgb(34, 34, 34);
             ChartCanvas1.LegendDisplay = false;
+            ChartCanvas1.BackColor = Color.FromArgb(37, 37, 38);
 
             ChartCanvas2.XAxesGridLines = false;
             ChartCanvas2.YAxesGridLines = false;
             ChartCanvas2.ShowXAxis = false;
             ChartCanvas2.ShowYAxis = false;
-            ChartCanvas2.BackColor = Color.FromArgb(34, 34, 34);
+            ChartCanvas2.LegendDisplay = false;
+            ChartCanvas2.BackColor = Color.FromArgb(37, 37, 38);
+
+            ChartCanvas3.XAxesGridLines = false;
+            ChartCanvas3.YAxesGridLines = false;
+            ChartCanvas3.ShowXAxis = false;
+            ChartCanvas3.ShowYAxis = false;
+            ChartCanvas3.LegendDisplay = false;
+            ChartCanvas3.BackColor = Color.FromArgb(37, 37, 38);
 
 
 
@@ -113,12 +122,16 @@ namespace PurchaseDesktop.Formularios
             PolarAreaChart1.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
             PolarAreaChart2.BackgroundColor = bgColors;
             PolarAreaChart2.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
+            PolarAreaChart3.BackgroundColor = bgColors;
+            PolarAreaChart3.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
+
 
             rFachada.CargarDashBoard(PolarAreaChart1, PolarAreaChart2, ChartCanvas1);
 
             var path = Directory.GetCurrentDirectory() + @"\HtmlBanner\Banner.html";
             WBrowserBanner.Navigate(path);
-
+            var user = rFachada.GetUser();
+            LblUser.Text = $"User: {user.FirstName} {user.LastName} | Profile: {user.ProfileID} | email: {user.Email}";
         }
 
         private void LlenarGrid()
@@ -225,7 +238,6 @@ namespace PurchaseDesktop.Formularios
             //SetControles();
         }
 
-
         private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
@@ -281,73 +293,21 @@ namespace PurchaseDesktop.Formularios
 
         private void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
         {
-            if (e.ColIndex == Grid.Cols["view"].Index)
+            if (e.ColIndex == Grid.Cols["delete"].Index || e.ColIndex == Grid.Cols["view"].Index)
             {
-                #region Determine the colors of the background
-                Color myColor1, myColor2;
-                Rectangle myBounds = e.Bounds;
                 switch (e.State)
                 {
-                    case iGControlState.Pressed:
-                        myColor1 = SystemColors.ControlDark;
-                        myColor2 = SystemColors.ControlLightLight;
+                    case iGControlState.HotPressed:
+                        e.Graphics.DrawRectangle(SystemPens.Highlight, e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
                         break;
                     case iGControlState.Hot:
                         e.Graphics.DrawRectangle(SystemPens.Highlight, e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
-                        //myColor1 = SystemColors.ControlLightLight;
-                        //myColor2 = SystemColors.ControlDark;
-                        break;
-                    default:
-                        myColor1 = Color.FromArgb(34, 34, 34);
-                        myColor2 = Color.FromArgb(34, 34, 34);
-                        break;
-                }
-                #endregion
-
-                #region Draw the background
-                Grid.ImageList.Draw(e.Graphics, myBounds.Location, 0);
-                //LinearGradientBrush myBrush = new LinearGradientBrush(e.Bounds, myColor1, myColor2, 45);
-                //e.Graphics.FillRectangle(myBrush, e.Bounds);
-                //e.Graphics.DrawRectangle(SystemPens.Highlight, e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
-                #endregion
-
-                #region Notify the grid that the background has been drawn and there is no need to draw it
-                e.DoDefault = false;
-                #endregion                
-            }
-            if (e.ColIndex == Grid.Cols["delete"].Index)
-            {
-                #region Determine the colors of the background
-                Color myColor1, myColor2;
-                Rectangle myBounds = e.Bounds;
-                switch (e.State)
-                {
-                    case iGControlState.Pressed:
-                        myColor1 = SystemColors.ControlDark;
-                        myColor2 = SystemColors.ControlLightLight;
-                        break;
-                    case iGControlState.Hot:
+                        LinearGradientBrush myBrush = new LinearGradientBrush(e.Bounds, Color.FromArgb(154, 196, 85), Color.FromArgb(154, 196, 85), 45);
+                        e.Graphics.FillRectangle(myBrush, e.Bounds);
                         e.Graphics.DrawRectangle(SystemPens.Highlight, e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
-                        //myColor1 = SystemColors.ControlLightLight;
-                        //myColor2 = SystemColors.ControlDark;
-                        break;
-                    default:
-                        myColor1 = Color.FromArgb(34, 34, 34);
-                        myColor2 = Color.FromArgb(34, 34, 34);
                         break;
                 }
-                #endregion
-
-                #region Draw the background
-                Grid.ImageList.Draw(e.Graphics, myBounds.Location, 1);
-                //LinearGradientBrush myBrush = new LinearGradientBrush(e.Bounds, myColor1, myColor2, 45);
-                // e.Graphics.FillRectangle(myBrush, e.Bounds);
-                //e.Graphics.DrawRectangle(SystemPens.Highlight, e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
-                #endregion
-
-                #region Notify the grid that the background has been drawn and there is no need to draw it
                 e.DoDefault = false;
-                #endregion                
             }
         }
 
@@ -355,76 +315,59 @@ namespace PurchaseDesktop.Formularios
         {
             if (e.ColIndex == Grid.Cols["delete"].Index)
             {
-                #region Determine the bounds of the foreground
                 Rectangle myBounds = e.Bounds;
-                //myBounds.Inflate(-1, -1);
-                #endregion
-
                 if (myBounds.Width > 0 || myBounds.Height > 0)
                 {
-                    #region Determine the colors of the foreground
-                    Color myColor1, myColor2;
-                    switch (e.State)
-                    {
-                        case iGControlState.Hot:
-                            myColor1 = Color.FromArgb(255, 205, 205);
-                            myColor2 = Color.FromArgb(255, 0, 0);
-                            break;
-                        default:
-                            myColor1 = Color.FromArgb(205, 205, 205);
-                            myColor2 = Color.FromArgb(205, 0, 0);
-                            break;
-                    }
-                    #endregion
-
-                    #region Draw the foreground
                     Grid.ImageList.Draw(e.Graphics, myBounds.Location, 1);
-                    //LinearGradientBrush myBrush = new LinearGradientBrush(myBounds, myColor1, myColor2, 45);
-                    //e.Graphics.FillRectangle(myBrush, myBounds);
-                    //e.Graphics.DrawRectangle(Pens.DarkRed, myBounds.X, myBounds.Y, myBounds.Width - 1, myBounds.Height - 1);
-                    #endregion
-
-                    #region Notify the grid that the foreground has been drawn, and there is no need to draw it
                     e.DoDefault = false;
-                    #endregion
                 }
             }
             if (e.ColIndex == Grid.Cols["view"].Index)
             {
-                #region Determine the bounds of the foreground
                 Rectangle myBounds = e.Bounds;
-                // myBounds.Inflate(-1, -1);
-                #endregion
-
                 if (myBounds.Width > 0 || myBounds.Height > 0)
                 {
-                    #region Determine the colors of the foreground
-                    Color myColor1, myColor2;
-                    switch (e.State)
-                    {
-                        case iGControlState.Hot:
-                            myColor1 = Color.FromArgb(255, 205, 205);
-                            myColor2 = Color.FromArgb(255, 0, 0);
-                            break;
-                        default:
-                            myColor1 = Color.FromArgb(205, 205, 205);
-                            myColor2 = Color.FromArgb(205, 0, 0);
-                            break;
-                    }
-                    #endregion
-
-                    #region Draw the foreground
                     Grid.ImageList.Draw(e.Graphics, myBounds.Location, 0);
-                    //LinearGradientBrush myBrush = new LinearGradientBrush(myBounds, myColor1, myColor2, 45);
-                    //e.Graphics.FillRectangle(myBrush, myBounds);
-                    //e.Graphics.DrawRectangle(Pens.DarkRed, myBounds.X, myBounds.Y, myBounds.Width - 1, myBounds.Height - 1);
-                    #endregion
-
-                    #region Notify the grid that the foreground has been drawn, and there is no need to draw it
                     e.DoDefault = false;
-                    #endregion
                 }
             }
+        }
+
+        private void bunifuImageButton2_Click(object sender, EventArgs e)
+        {
+            var f = new FDetails(rFachada);
+            f.Show();
+        }
+
+        private void bunifuImageButton3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Grid_AfterAutoGroupRowCreated(object sender, iGAfterAutoGroupRowCreatedEventArgs e)
+        {
+            //iGCell myGroupRowCell;
+            //Grid.GroupRowLevelStyles = new iGCellStyle[1];
+            //Grid.GroupRowLevelStyles[0] = new iGCellStyle
+            //{
+            //    BackColor = Color.FromArgb(37, 37, 38)
+
+            //};
+            //myGroupRowCell = Grid.RowTextCol.Cells[e.AutoGroupRowIndex];
+            //myGroupRowCell.Style = Grid.GroupRowLevelStyles[0].Clone();
+            //switch (Grid.Cols[e.GroupedColIndex].Key)
+            //{
+            //    case "Description":
+            //        Grid.GroupRowLevelStyles = new iGCellStyle[1];
+            //        Grid.GroupRowLevelStyles[0] = new iGCellStyle
+            //        {
+            //            BackColor = Color.FromArgb(37, 37, 38)
+
+            //        };
+            //        myGroupRowCell = Grid.RowTextCol.Cells[e.AutoGroupRowIndex];
+            //        myGroupRowCell.Style = Grid.GroupRowLevelStyles[0].Clone();
+            //        break;
+            //}
         }
     }
 }

@@ -260,8 +260,13 @@
     <Content Include="HtmlDocuments\RequisitionDoc.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="HtmlBanner\flags.png" />
-    <Content Include="HtmlBanner\sprite_crypto13.png" />
+    <Content Include="HtmlBanner\flags.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HtmlBanner\sprite_crypto13.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\view_15px.png" />
     <None Include="Resources\search_15px.png" />
     <None Include="Resources\delete_bin_15px.png" />
     <None Include="Resources\logo_cve.png">

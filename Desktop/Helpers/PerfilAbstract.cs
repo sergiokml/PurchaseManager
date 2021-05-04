@@ -36,14 +36,14 @@ namespace PurchaseDesktop.Helpers
             ImageList lista = new ImageList();
             lista.Images.Add(Properties.Resources.search_15px); // Ver Html
             lista.Images.Add(Properties.Resources.delete_bin_15px); // Remove
-            //lista.Images.Add(Properties.Resources.icons8_send); // Grid Details
+            //lista.Images.Add(Properties.Resources.view_15px); // Grid Details
             return lista;
         }
 
         public void PintarGrid()
         {
             //! General
-            Grid.BackColor = Color.FromArgb(34, 34, 34);
+            Grid.BackColor = Color.FromArgb(37, 37, 38); // Negro de fondo
             Grid.HScrollBar.Visibility = iGScrollBarVisibility.Hide; // nunca lo muestra
             Grid.Font = new Font(new FontFamily("Tahoma"), 8.25f);
             Grid.ForeColor = Color.White; // texto en general
@@ -52,7 +52,7 @@ namespace PurchaseDesktop.Helpers
             Grid.BorderStyle = iGBorderStyle.None;
             //Grid.DefaultRow.Height = Grid.GetPreferredRowHeight(false, true);
             //Grid.EllipsisButtonGlyph = Grid.ImageList.Images[0];
-            Grid.DefaultRow.Height = 21;
+            Grid.DefaultRow.Height = 22;
             //! Lineas
             iGPenStyle lineasStyle = new iGPenStyle
             {
@@ -75,9 +75,28 @@ namespace PurchaseDesktop.Helpers
             //! Group row
             Grid.GroupBox.BackColor = Color.FromArgb(45, 45, 48);
             Grid.GroupBox.HintBackColor = Color.FromArgb(37, 37, 38);
+            Grid.GroupBox.ColHdrBorderColor = Color.FromArgb(45, 45, 48);  // Color borde arrastrar celda al group
+            Grid.GridLines.GroupRows.Color = Color.FromArgb(45, 45, 48);
+            Grid.GridLines.GroupRows.Width = 2;
+            Grid.GroupRowLevelStyles = new iGCellStyle[1];
+            Grid.GroupRowLevelStyles[0] = new iGCellStyle
+            {
+                BackColor = Color.FromArgb(37, 37, 38)
+
+            };
+            //Grid.GroupRowLevelStyles = new iGCellStyle[1];
+            //Grid.GroupRowLevelStyles[0] = new iGCellStyle
+            //{
+            //    BackColor = Color.FromArgb(37, 37, 38),
+            //    ForeColor = Color.Red
+            //};
+
+
+
+
             //! Header        
-            Grid.Header.ControlsForeColor = Color.Red;
-            Grid.Header.SortInfoColor = Color.Red;
+            Grid.Header.ControlsForeColor = Color.FromArgb(154, 196, 85);
+            Grid.Header.SortInfoColor = Color.FromArgb(154, 196, 85);
             Grid.Header.Appearance = iGControlPaintAppearance.StyleFlat;
             Grid.Header.ForeColor = Color.White;
             Grid.Header.UseXPStyles = false;
@@ -86,7 +105,6 @@ namespace PurchaseDesktop.Helpers
             Grid.Header.SeparatingLine = lineasStyle;
             Grid.Header.BackColor = Color.FromArgb(37, 37, 38);
             Grid.Header.HotTrackForeColor = Color.FromArgb(154, 196, 85); // verde al seleccionar el header
-
 
 
             //iGCellStyle myCellStyle = new iGCellStyle
@@ -143,13 +161,27 @@ namespace PurchaseDesktop.Helpers
                     //! Cols
                     Grid.GroupBox.Visible = true;
                     Grid.Header.Height = 20;
-                    Grid.Cols.Add("RequisitionHeaderID", "ID", 39);
-                    Grid.Cols.Add("Code", "Code", 53);
-                    Grid.Cols.Add("Description", "Description", 196);
-                    Grid.Cols.Add("CompanyID", "Company", 58);
-                    Grid.Cols.Add("CompanyName", "Company Name", 175);
+
+                    iGCol = Grid.Cols.Add("RequisitionHeaderID", "ID", 39);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
 
 
+                    iGCol = Grid.Cols.Add("Code", "Code", 53);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+
+                    iGCol = Grid.Cols.Add("Description", "Description", 196);
+                    //iGCol.CellStyle.ReadOnly = iGBool.True;
+
+
+                    iGCol = Grid.Cols.Add("view", "", 22);
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+
+                    iGCol = Grid.Cols.Add("CompanyID", "Company", 58);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+                    iGCol = Grid.Cols.Add("CompanyName", "Company Name", 175);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
 
                     iGCol = Grid.Cols.Add("Type", "Type", 93);
                     iGCol.CellStyle.DropDownControl = cbotype;
@@ -159,14 +191,21 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.DropDownControl = cboStates;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
 
-                    Grid.Cols.Add("UserID", "User ID", 58);
-                    Grid.Cols.Add("CostID", "CC", 27);
+                    iGCol = Grid.Cols.Add("UserID", "User ID", 58);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+                    iGCol = Grid.Cols.Add("CostID", "CC", 27);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
                     iGCol = Grid.Cols.Add("delete", "", 22);
+                    iGCol.IncludeInSelect = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
 
-                    iGCol = Grid.Cols.Add("view", "", 22);
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
 
+                    foreach (iGColHdr item in Grid.Header.Cells)
+                    {
+                        item.TextAlign = iGContentAlignment.MiddleCenter;
+                    }
 
 
                     break;
@@ -182,7 +221,7 @@ namespace PurchaseDesktop.Helpers
         //    {
         //        case EtapasGrid.PintarGrid:
         //            //! General
-        //            Grid.BackColor = Color.FromArgb(34, 34, 34);
+        //            Grid.BackColor = Color.FromArgb(37, 37, 38);
         //            Grid.HScrollBar.Visibility = iGScrollBarVisibility.Hide; // nunca lo muestra
         //            Grid.Font = new Font(new FontFamily("Tahoma"), 8.25f);
         //            Grid.ForeColor = Color.White; // texto en general

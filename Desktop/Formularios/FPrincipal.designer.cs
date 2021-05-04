@@ -33,25 +33,32 @@ namespace PurchaseDesktop.Formularios
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPrincipal));
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.BtnMinimizar = new Bunifu.UI.WinForms.BunifuImageButton();
-            this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.LabelPanel = new System.Windows.Forms.Label();
             this.PanelDash = new System.Windows.Forms.Panel();
-            this.WBrowserBanner = new System.Windows.Forms.WebBrowser();
-            this.ChartCanvas2 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
-            this.ChartCanvas1 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
-            this.GroupBox = new Bunifu.UI.WinForms.BunifuGroupBox();
             this.CboType = new System.Windows.Forms.ComboBox();
             this.CboCompany = new System.Windows.Forms.ComboBox();
-            this.BtnInsert = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ChartCanvas3 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
+            this.ChartCanvas2 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
+            this.ChartCanvas1 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
+            this.WBrowserBanner = new System.Windows.Forms.WebBrowser();
             this.PanelBtns = new System.Windows.Forms.Panel();
             this.LblMsg = new System.Windows.Forms.Label();
-            this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.FDock = new Bunifu.UI.WinForms.BunifuFormDock();
             this.Grid = new TenTec.Windows.iGridLib.iGrid();
-            this.iGrid1DefaultCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.iGrid1DefaultColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.PolarAreaChart1 = new Bunifu.Charts.WinForms.ChartTypes.BunifuPolarAreaChart(this.components);
             this.PolarAreaChart2 = new Bunifu.Charts.WinForms.ChartTypes.BunifuPolarAreaChart(this.components);
+            this.PolarAreaChart3 = new Bunifu.Charts.WinForms.ChartTypes.BunifuPolarAreaChart(this.components);
+            this.iGrid1DefaultCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.iGrid1DefaultColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
+            this.bunifuImageButton3 = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.bunifuImageButton2 = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.bunifuImageButton1 = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.BtnInsert = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
+            this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.GridCol0CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol0ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.GridCol1CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
@@ -93,9 +100,9 @@ namespace PurchaseDesktop.Formularios
             this.GridCol16CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol16ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.iGrid1RowTextColCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.LblUser = new System.Windows.Forms.Label();
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
-            this.GroupBox.SuspendLayout();
             this.PanelBtns.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
             this.SuspendLayout();
@@ -147,42 +154,6 @@ namespace PurchaseDesktop.Formularios
             this.BtnMinimizar.Zoom = 5;
             this.BtnMinimizar.ZoomSpeed = 10;
             // 
-            // BtnCerrar
-            // 
-            this.BtnCerrar.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.ActiveImage")));
-            this.BtnCerrar.AllowAnimations = true;
-            this.BtnCerrar.AllowBuffering = false;
-            this.BtnCerrar.AllowToggling = false;
-            this.BtnCerrar.AllowZooming = true;
-            this.BtnCerrar.AllowZoomingOnFocus = false;
-            this.BtnCerrar.BackColor = System.Drawing.Color.Transparent;
-            this.BtnCerrar.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.BtnCerrar.ErrorImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.ErrorImage")));
-            this.BtnCerrar.FadeWhenInactive = false;
-            this.BtnCerrar.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
-            this.BtnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.Image")));
-            this.BtnCerrar.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.ImageActive")));
-            this.BtnCerrar.ImageLocation = null;
-            this.BtnCerrar.ImageMargin = 5;
-            this.BtnCerrar.ImageSize = new System.Drawing.Size(17, 17);
-            this.BtnCerrar.ImageZoomSize = new System.Drawing.Size(22, 22);
-            this.BtnCerrar.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.InitialImage")));
-            this.BtnCerrar.Location = new System.Drawing.Point(1075, 1);
-            this.BtnCerrar.Name = "BtnCerrar";
-            this.BtnCerrar.Rotation = 0;
-            this.BtnCerrar.ShowActiveImage = true;
-            this.BtnCerrar.ShowCursorChanges = true;
-            this.BtnCerrar.ShowImageBorders = true;
-            this.BtnCerrar.ShowSizeMarkers = false;
-            this.BtnCerrar.Size = new System.Drawing.Size(22, 22);
-            this.BtnCerrar.TabIndex = 28;
-            this.BtnCerrar.TabStop = false;
-            this.BtnCerrar.ToolTipText = "";
-            this.BtnCerrar.WaitOnLoad = false;
-            this.BtnCerrar.Zoom = 5;
-            this.BtnCerrar.ZoomSpeed = 10;
-            this.BtnCerrar.Click += new System.EventHandler(this.BtnCerrar_Click);
-            // 
             // LabelPanel
             // 
             this.LabelPanel.Dock = System.Windows.Forms.DockStyle.Left;
@@ -197,24 +168,138 @@ namespace PurchaseDesktop.Formularios
             // 
             // PanelDash
             // 
+            this.PanelDash.Controls.Add(this.bunifuImageButton3);
+            this.PanelDash.Controls.Add(this.bunifuImageButton2);
+            this.PanelDash.Controls.Add(this.bunifuImageButton1);
+            this.PanelDash.Controls.Add(this.CboType);
+            this.PanelDash.Controls.Add(this.CboCompany);
+            this.PanelDash.Controls.Add(this.BtnInsert);
+            this.PanelDash.Controls.Add(this.label3);
+            this.PanelDash.Controls.Add(this.label2);
+            this.PanelDash.Controls.Add(this.label1);
+            this.PanelDash.Controls.Add(this.ChartCanvas3);
             this.PanelDash.Controls.Add(this.ChartCanvas2);
             this.PanelDash.Controls.Add(this.ChartCanvas1);
-            this.PanelDash.Controls.Add(this.GroupBox);
             this.PanelDash.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PanelDash.Location = new System.Drawing.Point(0, 25);
+            this.PanelDash.Location = new System.Drawing.Point(0, 70);
             this.PanelDash.Name = "PanelDash";
             this.PanelDash.Size = new System.Drawing.Size(1100, 109);
             this.PanelDash.TabIndex = 3;
             // 
-            // WBrowserBanner
+            // CboType
             // 
-            this.WBrowserBanner.Dock = System.Windows.Forms.DockStyle.Top;
-            this.WBrowserBanner.Location = new System.Drawing.Point(0, 134);
-            this.WBrowserBanner.MinimumSize = new System.Drawing.Size(20, 20);
-            this.WBrowserBanner.Name = "WBrowserBanner";
-            this.WBrowserBanner.ScrollBarsEnabled = false;
-            this.WBrowserBanner.Size = new System.Drawing.Size(1100, 45);
-            this.WBrowserBanner.TabIndex = 11;
+            this.CboType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.CboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CboType.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CboType.ForeColor = System.Drawing.Color.White;
+            this.CboType.Location = new System.Drawing.Point(878, 42);
+            this.CboType.Name = "CboType";
+            this.CboType.Size = new System.Drawing.Size(136, 21);
+            this.CboType.TabIndex = 21;
+            // 
+            // CboCompany
+            // 
+            this.CboCompany.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.CboCompany.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CboCompany.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.CboCompany.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CboCompany.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CboCompany.ForeColor = System.Drawing.Color.White;
+            this.CboCompany.Location = new System.Drawing.Point(878, 6);
+            this.CboCompany.Name = "CboCompany";
+            this.CboCompany.Size = new System.Drawing.Size(212, 21);
+            this.CboCompany.TabIndex = 20;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(430, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 18);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "105 K";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(268, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 18);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "105 K";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(108, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 18);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "105 K";
+            // 
+            // ChartCanvas3
+            // 
+            this.ChartCanvas3.AnimationDuration = 1000;
+            this.ChartCanvas3.AnimationType = Bunifu.Charts.WinForms.BunifuChartCanvas.AnimationOptions.easeOutQuart;
+            this.ChartCanvas3.BackColor = System.Drawing.Color.White;
+            this.ChartCanvas3.CanvasPadding = new System.Windows.Forms.Padding(0);
+            this.ChartCanvas3.Labels = null;
+            this.ChartCanvas3.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
+            this.ChartCanvas3.LegendDisplay = true;
+            this.ChartCanvas3.LegendFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChartCanvas3.LegendForeColor = System.Drawing.Color.DarkGray;
+            this.ChartCanvas3.LegendFullWidth = true;
+            this.ChartCanvas3.LegendPosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
+            this.ChartCanvas3.LegendRevese = false;
+            this.ChartCanvas3.LegendRTL = false;
+            this.ChartCanvas3.Location = new System.Drawing.Point(324, 3);
+            this.ChartCanvas3.Name = "ChartCanvas3";
+            this.ChartCanvas3.ShowXAxis = true;
+            this.ChartCanvas3.ShowYAxis = true;
+            this.ChartCanvas3.Size = new System.Drawing.Size(100, 100);
+            this.ChartCanvas3.TabIndex = 14;
+            this.ChartCanvas3.Title = "";
+            this.ChartCanvas3.TitleLineHeight = 1.2D;
+            this.ChartCanvas3.TitlePadding = 10;
+            this.ChartCanvas3.TitlePosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
+            this.ChartCanvas3.TooltipBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas3.TooltipFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas3.TooltipForeColor = System.Drawing.Color.WhiteSmoke;
+            this.ChartCanvas3.TooltipMode = Bunifu.Charts.WinForms.BunifuChartCanvas.TooltipModeOptions.nearest;
+            this.ChartCanvas3.TooltipsEnabled = true;
+            this.ChartCanvas3.XAxesBeginAtZero = true;
+            this.ChartCanvas3.XAxesDrawTicks = true;
+            this.ChartCanvas3.XAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas3.XAxesForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas3.XAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas3.XAxesGridLines = true;
+            this.ChartCanvas3.XAxesLabel = "";
+            this.ChartCanvas3.XAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas3.XAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas3.XAxesLineWidth = 1;
+            this.ChartCanvas3.XAxesStacked = false;
+            this.ChartCanvas3.XAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas3.XAxesZeroLineWidth = 1;
+            this.ChartCanvas3.YAxesBeginAtZero = true;
+            this.ChartCanvas3.YAxesDrawTicks = true;
+            this.ChartCanvas3.YAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas3.YAxesForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas3.YAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas3.YAxesGridLines = true;
+            this.ChartCanvas3.YAxesLabel = "";
+            this.ChartCanvas3.YAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas3.YAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas3.YAxesLineWidth = 1;
+            this.ChartCanvas3.YAxesStacked = false;
+            this.ChartCanvas3.YAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas3.YAxesZeroLineWidth = 1;
             // 
             // ChartCanvas2
             // 
@@ -231,12 +316,12 @@ namespace PurchaseDesktop.Formularios
             this.ChartCanvas2.LegendPosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
             this.ChartCanvas2.LegendRevese = false;
             this.ChartCanvas2.LegendRTL = false;
-            this.ChartCanvas2.Location = new System.Drawing.Point(180, 3);
+            this.ChartCanvas2.Location = new System.Drawing.Point(162, 3);
             this.ChartCanvas2.Name = "ChartCanvas2";
             this.ChartCanvas2.ShowXAxis = true;
             this.ChartCanvas2.ShowYAxis = true;
-            this.ChartCanvas2.Size = new System.Drawing.Size(137, 99);
-            this.ChartCanvas2.TabIndex = 10;
+            this.ChartCanvas2.Size = new System.Drawing.Size(100, 100);
+            this.ChartCanvas2.TabIndex = 13;
             this.ChartCanvas2.Title = "";
             this.ChartCanvas2.TitleLineHeight = 1.2D;
             this.ChartCanvas2.TitlePadding = 10;
@@ -288,12 +373,12 @@ namespace PurchaseDesktop.Formularios
             this.ChartCanvas1.LegendPosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
             this.ChartCanvas1.LegendRevese = false;
             this.ChartCanvas1.LegendRTL = false;
-            this.ChartCanvas1.Location = new System.Drawing.Point(23, 3);
+            this.ChartCanvas1.Location = new System.Drawing.Point(0, 3);
             this.ChartCanvas1.Name = "ChartCanvas1";
             this.ChartCanvas1.ShowXAxis = true;
             this.ChartCanvas1.ShowYAxis = true;
-            this.ChartCanvas1.Size = new System.Drawing.Size(137, 99);
-            this.ChartCanvas1.TabIndex = 9;
+            this.ChartCanvas1.Size = new System.Drawing.Size(100, 100);
+            this.ChartCanvas1.TabIndex = 12;
             this.ChartCanvas1.Title = "";
             this.ChartCanvas1.TitleLineHeight = 1.2D;
             this.ChartCanvas1.TitlePadding = 10;
@@ -330,81 +415,20 @@ namespace PurchaseDesktop.Formularios
             this.ChartCanvas1.YAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ChartCanvas1.YAxesZeroLineWidth = 1;
             // 
-            // GroupBox
+            // WBrowserBanner
             // 
-            this.GroupBox.Controls.Add(this.CboType);
-            this.GroupBox.Controls.Add(this.CboCompany);
-            this.GroupBox.Controls.Add(this.BtnInsert);
-            this.GroupBox.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GroupBox.ForeColor = System.Drawing.Color.White;
-            this.GroupBox.Location = new System.Drawing.Point(777, 0);
-            this.GroupBox.Name = "GroupBox";
-            this.GroupBox.Size = new System.Drawing.Size(320, 103);
-            this.GroupBox.TabIndex = 0;
-            this.GroupBox.TabStop = false;
-            // 
-            // CboType
-            // 
-            this.CboType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.CboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CboType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CboType.ForeColor = System.Drawing.Color.White;
-            this.CboType.Location = new System.Drawing.Point(13, 74);
-            this.CboType.Name = "CboType";
-            this.CboType.Size = new System.Drawing.Size(182, 21);
-            this.CboType.TabIndex = 5;
-            // 
-            // CboCompany
-            // 
-            this.CboCompany.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CboCompany.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CboCompany.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.CboCompany.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CboCompany.ForeColor = System.Drawing.Color.White;
-            this.CboCompany.Location = new System.Drawing.Point(13, 16);
-            this.CboCompany.Name = "CboCompany";
-            this.CboCompany.Size = new System.Drawing.Size(215, 21);
-            this.CboCompany.TabIndex = 2;
-            this.CboCompany.SelectionChangeCommitted += new System.EventHandler(this.CboCompany_SelectionChangeCommitted);
-            // 
-            // BtnInsert
-            // 
-            this.BtnInsert.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnInsert.ActiveImage")));
-            this.BtnInsert.AllowAnimations = true;
-            this.BtnInsert.AllowBuffering = false;
-            this.BtnInsert.AllowToggling = false;
-            this.BtnInsert.AllowZooming = true;
-            this.BtnInsert.AllowZoomingOnFocus = false;
-            this.BtnInsert.BackColor = System.Drawing.Color.Transparent;
-            this.BtnInsert.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.BtnInsert.ErrorImage = null;
-            this.BtnInsert.FadeWhenInactive = false;
-            this.BtnInsert.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
-            this.BtnInsert.Image = ((System.Drawing.Image)(resources.GetObject("BtnInsert.Image")));
-            this.BtnInsert.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnInsert.ImageActive")));
-            this.BtnInsert.ImageLocation = null;
-            this.BtnInsert.ImageMargin = 20;
-            this.BtnInsert.ImageSize = new System.Drawing.Size(50, 50);
-            this.BtnInsert.ImageZoomSize = new System.Drawing.Size(70, 70);
-            this.BtnInsert.InitialImage = null;
-            this.BtnInsert.Location = new System.Drawing.Point(241, 25);
-            this.BtnInsert.Name = "BtnInsert";
-            this.BtnInsert.Rotation = 0;
-            this.BtnInsert.ShowActiveImage = true;
-            this.BtnInsert.ShowCursorChanges = true;
-            this.BtnInsert.ShowImageBorders = true;
-            this.BtnInsert.ShowSizeMarkers = false;
-            this.BtnInsert.Size = new System.Drawing.Size(70, 70);
-            this.BtnInsert.TabIndex = 1;
-            this.BtnInsert.ToolTipText = "";
-            this.BtnInsert.WaitOnLoad = false;
-            this.BtnInsert.Zoom = 20;
-            this.BtnInsert.ZoomSpeed = 10;
-            this.BtnInsert.Click += new System.EventHandler(this.BtnInsert_Click);
+            this.WBrowserBanner.Dock = System.Windows.Forms.DockStyle.Top;
+            this.WBrowserBanner.Location = new System.Drawing.Point(0, 25);
+            this.WBrowserBanner.MinimumSize = new System.Drawing.Size(20, 20);
+            this.WBrowserBanner.Name = "WBrowserBanner";
+            this.WBrowserBanner.ScrollBarsEnabled = false;
+            this.WBrowserBanner.Size = new System.Drawing.Size(1100, 45);
+            this.WBrowserBanner.TabIndex = 11;
             // 
             // PanelBtns
             // 
             this.PanelBtns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.PanelBtns.Controls.Add(this.LblUser);
             this.PanelBtns.Controls.Add(this.LblMsg);
             this.PanelBtns.Controls.Add(this.bunifuSeparator1);
             this.PanelBtns.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -424,22 +448,6 @@ namespace PurchaseDesktop.Formularios
             this.LblMsg.TabIndex = 3;
             this.LblMsg.Text = "...";
             this.LblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // bunifuSeparator1
-            // 
-            this.bunifuSeparator1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.bunifuSeparator1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuSeparator1.BackgroundImage")));
-            this.bunifuSeparator1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuSeparator1.DashCap = Bunifu.UI.WinForms.BunifuSeparator.CapStyles.Flat;
-            this.bunifuSeparator1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.bunifuSeparator1.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.Solid;
-            this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(0, 24);
-            this.bunifuSeparator1.Name = "bunifuSeparator1";
-            this.bunifuSeparator1.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
-            this.bunifuSeparator1.Size = new System.Drawing.Size(1100, 1);
-            this.bunifuSeparator1.TabIndex = 1;
             // 
             // FDock
             // 
@@ -495,6 +503,7 @@ namespace PurchaseDesktop.Formularios
             this.Grid.CustomDrawCellEllipsisButtonForeground += new TenTec.Windows.iGridLib.iGCustomDrawEllipsisButtonEventHandler(this.Grid_CustomDrawCellEllipsisButtonForeground);
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
+            this.Grid.AfterAutoGroupRowCreated += new TenTec.Windows.iGridLib.iGAfterAutoGroupRowCreatedEventHandler(this.Grid_AfterAutoGroupRowCreated);
             // 
             // PolarAreaChart1
             // 
@@ -521,6 +530,210 @@ namespace PurchaseDesktop.Formularios
             this.PolarAreaChart2.HoverBorderWidth = 0;
             this.PolarAreaChart2.Label = "Label here";
             this.PolarAreaChart2.TargetCanvas = this.ChartCanvas2;
+            // 
+            // PolarAreaChart3
+            // 
+            this.PolarAreaChart3.BackgroundColor = ((System.Collections.Generic.List<System.Drawing.Color>)(resources.GetObject("PolarAreaChart3.BackgroundColor")));
+            this.PolarAreaChart3.BorderAlign = Bunifu.Charts.WinForms.ChartTypes.BunifuPolarAreaChart.BorderAlignmentOptions.Centre;
+            this.PolarAreaChart3.BorderColor = ((System.Collections.Generic.List<System.Drawing.Color>)(resources.GetObject("PolarAreaChart3.BorderColor")));
+            this.PolarAreaChart3.BorderWidth = 0;
+            this.PolarAreaChart3.Data = ((System.Collections.Generic.List<double>)(resources.GetObject("PolarAreaChart3.Data")));
+            this.PolarAreaChart3.HoverBackgroundColor = System.Drawing.Color.Empty;
+            this.PolarAreaChart3.HoverBorderColor = System.Drawing.Color.Empty;
+            this.PolarAreaChart3.HoverBorderWidth = 0;
+            this.PolarAreaChart3.Label = "Label here";
+            this.PolarAreaChart3.TargetCanvas = this.ChartCanvas3;
+            // 
+            // bunifuImageButton3
+            // 
+            this.bunifuImageButton3.ActiveImage = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton3.ActiveImage")));
+            this.bunifuImageButton3.AllowAnimations = true;
+            this.bunifuImageButton3.AllowBuffering = false;
+            this.bunifuImageButton3.AllowToggling = false;
+            this.bunifuImageButton3.AllowZooming = true;
+            this.bunifuImageButton3.AllowZoomingOnFocus = false;
+            this.bunifuImageButton3.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuImageButton3.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.bunifuImageButton3.ErrorImage = null;
+            this.bunifuImageButton3.FadeWhenInactive = false;
+            this.bunifuImageButton3.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.bunifuImageButton3.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton3.Image")));
+            this.bunifuImageButton3.ImageActive = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton3.ImageActive")));
+            this.bunifuImageButton3.ImageLocation = null;
+            this.bunifuImageButton3.ImageMargin = 20;
+            this.bunifuImageButton3.ImageSize = new System.Drawing.Size(30, 30);
+            this.bunifuImageButton3.ImageZoomSize = new System.Drawing.Size(50, 50);
+            this.bunifuImageButton3.InitialImage = null;
+            this.bunifuImageButton3.Location = new System.Drawing.Point(627, 19);
+            this.bunifuImageButton3.Name = "bunifuImageButton3";
+            this.bunifuImageButton3.Rotation = 0;
+            this.bunifuImageButton3.ShowActiveImage = true;
+            this.bunifuImageButton3.ShowCursorChanges = true;
+            this.bunifuImageButton3.ShowImageBorders = true;
+            this.bunifuImageButton3.ShowSizeMarkers = false;
+            this.bunifuImageButton3.Size = new System.Drawing.Size(50, 50);
+            this.bunifuImageButton3.TabIndex = 24;
+            this.bunifuImageButton3.ToolTipText = "Hitos";
+            this.bunifuImageButton3.WaitOnLoad = false;
+            this.bunifuImageButton3.Zoom = 20;
+            this.bunifuImageButton3.ZoomSpeed = 10;
+            this.bunifuImageButton3.Click += new System.EventHandler(this.bunifuImageButton3_Click);
+            // 
+            // bunifuImageButton2
+            // 
+            this.bunifuImageButton2.ActiveImage = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton2.ActiveImage")));
+            this.bunifuImageButton2.AllowAnimations = true;
+            this.bunifuImageButton2.AllowBuffering = false;
+            this.bunifuImageButton2.AllowToggling = false;
+            this.bunifuImageButton2.AllowZooming = true;
+            this.bunifuImageButton2.AllowZoomingOnFocus = false;
+            this.bunifuImageButton2.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuImageButton2.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.bunifuImageButton2.ErrorImage = null;
+            this.bunifuImageButton2.FadeWhenInactive = false;
+            this.bunifuImageButton2.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.bunifuImageButton2.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton2.Image")));
+            this.bunifuImageButton2.ImageActive = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton2.ImageActive")));
+            this.bunifuImageButton2.ImageLocation = null;
+            this.bunifuImageButton2.ImageMargin = 20;
+            this.bunifuImageButton2.ImageSize = new System.Drawing.Size(30, 30);
+            this.bunifuImageButton2.ImageZoomSize = new System.Drawing.Size(50, 50);
+            this.bunifuImageButton2.InitialImage = null;
+            this.bunifuImageButton2.Location = new System.Drawing.Point(571, 19);
+            this.bunifuImageButton2.Name = "bunifuImageButton2";
+            this.bunifuImageButton2.Rotation = 0;
+            this.bunifuImageButton2.ShowActiveImage = true;
+            this.bunifuImageButton2.ShowCursorChanges = true;
+            this.bunifuImageButton2.ShowImageBorders = true;
+            this.bunifuImageButton2.ShowSizeMarkers = false;
+            this.bunifuImageButton2.Size = new System.Drawing.Size(50, 50);
+            this.bunifuImageButton2.TabIndex = 23;
+            this.bunifuImageButton2.ToolTipText = "Details";
+            this.bunifuImageButton2.WaitOnLoad = false;
+            this.bunifuImageButton2.Zoom = 20;
+            this.bunifuImageButton2.ZoomSpeed = 10;
+            this.bunifuImageButton2.Click += new System.EventHandler(this.bunifuImageButton2_Click);
+            // 
+            // bunifuImageButton1
+            // 
+            this.bunifuImageButton1.ActiveImage = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.ActiveImage")));
+            this.bunifuImageButton1.AllowAnimations = true;
+            this.bunifuImageButton1.AllowBuffering = false;
+            this.bunifuImageButton1.AllowToggling = false;
+            this.bunifuImageButton1.AllowZooming = true;
+            this.bunifuImageButton1.AllowZoomingOnFocus = false;
+            this.bunifuImageButton1.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuImageButton1.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.bunifuImageButton1.ErrorImage = null;
+            this.bunifuImageButton1.FadeWhenInactive = false;
+            this.bunifuImageButton1.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.bunifuImageButton1.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.Image")));
+            this.bunifuImageButton1.ImageActive = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.ImageActive")));
+            this.bunifuImageButton1.ImageLocation = null;
+            this.bunifuImageButton1.ImageMargin = 20;
+            this.bunifuImageButton1.ImageSize = new System.Drawing.Size(30, 30);
+            this.bunifuImageButton1.ImageZoomSize = new System.Drawing.Size(50, 50);
+            this.bunifuImageButton1.InitialImage = null;
+            this.bunifuImageButton1.Location = new System.Drawing.Point(515, 19);
+            this.bunifuImageButton1.Name = "bunifuImageButton1";
+            this.bunifuImageButton1.Rotation = 0;
+            this.bunifuImageButton1.ShowActiveImage = true;
+            this.bunifuImageButton1.ShowCursorChanges = true;
+            this.bunifuImageButton1.ShowImageBorders = true;
+            this.bunifuImageButton1.ShowSizeMarkers = false;
+            this.bunifuImageButton1.Size = new System.Drawing.Size(50, 50);
+            this.bunifuImageButton1.TabIndex = 22;
+            this.bunifuImageButton1.ToolTipText = "Suppliers";
+            this.bunifuImageButton1.WaitOnLoad = false;
+            this.bunifuImageButton1.Zoom = 20;
+            this.bunifuImageButton1.ZoomSpeed = 10;
+            // 
+            // BtnInsert
+            // 
+            this.BtnInsert.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnInsert.ActiveImage")));
+            this.BtnInsert.AllowAnimations = true;
+            this.BtnInsert.AllowBuffering = false;
+            this.BtnInsert.AllowToggling = false;
+            this.BtnInsert.AllowZooming = true;
+            this.BtnInsert.AllowZoomingOnFocus = false;
+            this.BtnInsert.BackColor = System.Drawing.Color.Transparent;
+            this.BtnInsert.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnInsert.ErrorImage = null;
+            this.BtnInsert.FadeWhenInactive = false;
+            this.BtnInsert.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnInsert.Image = ((System.Drawing.Image)(resources.GetObject("BtnInsert.Image")));
+            this.BtnInsert.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnInsert.ImageActive")));
+            this.BtnInsert.ImageLocation = null;
+            this.BtnInsert.ImageMargin = 20;
+            this.BtnInsert.ImageSize = new System.Drawing.Size(50, 50);
+            this.BtnInsert.ImageZoomSize = new System.Drawing.Size(70, 70);
+            this.BtnInsert.InitialImage = null;
+            this.BtnInsert.Location = new System.Drawing.Point(1020, 33);
+            this.BtnInsert.Name = "BtnInsert";
+            this.BtnInsert.Rotation = 0;
+            this.BtnInsert.ShowActiveImage = true;
+            this.BtnInsert.ShowCursorChanges = true;
+            this.BtnInsert.ShowImageBorders = true;
+            this.BtnInsert.ShowSizeMarkers = false;
+            this.BtnInsert.Size = new System.Drawing.Size(70, 70);
+            this.BtnInsert.TabIndex = 19;
+            this.BtnInsert.ToolTipText = "";
+            this.BtnInsert.WaitOnLoad = false;
+            this.BtnInsert.Zoom = 20;
+            this.BtnInsert.ZoomSpeed = 10;
+            this.BtnInsert.Click += new System.EventHandler(this.BtnInsert_Click);
+            // 
+            // bunifuSeparator1
+            // 
+            this.bunifuSeparator1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.bunifuSeparator1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuSeparator1.BackgroundImage")));
+            this.bunifuSeparator1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuSeparator1.DashCap = Bunifu.UI.WinForms.BunifuSeparator.CapStyles.Flat;
+            this.bunifuSeparator1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.bunifuSeparator1.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.Solid;
+            this.bunifuSeparator1.LineThickness = 1;
+            this.bunifuSeparator1.Location = new System.Drawing.Point(0, 24);
+            this.bunifuSeparator1.Name = "bunifuSeparator1";
+            this.bunifuSeparator1.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
+            this.bunifuSeparator1.Size = new System.Drawing.Size(1100, 1);
+            this.bunifuSeparator1.TabIndex = 1;
+            // 
+            // BtnCerrar
+            // 
+            this.BtnCerrar.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.ActiveImage")));
+            this.BtnCerrar.AllowAnimations = true;
+            this.BtnCerrar.AllowBuffering = false;
+            this.BtnCerrar.AllowToggling = false;
+            this.BtnCerrar.AllowZooming = true;
+            this.BtnCerrar.AllowZoomingOnFocus = false;
+            this.BtnCerrar.BackColor = System.Drawing.Color.Transparent;
+            this.BtnCerrar.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnCerrar.ErrorImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.ErrorImage")));
+            this.BtnCerrar.FadeWhenInactive = false;
+            this.BtnCerrar.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.Image")));
+            this.BtnCerrar.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.ImageActive")));
+            this.BtnCerrar.ImageLocation = null;
+            this.BtnCerrar.ImageMargin = 5;
+            this.BtnCerrar.ImageSize = new System.Drawing.Size(17, 17);
+            this.BtnCerrar.ImageZoomSize = new System.Drawing.Size(22, 22);
+            this.BtnCerrar.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.InitialImage")));
+            this.BtnCerrar.Location = new System.Drawing.Point(1075, 1);
+            this.BtnCerrar.Name = "BtnCerrar";
+            this.BtnCerrar.Rotation = 0;
+            this.BtnCerrar.ShowActiveImage = true;
+            this.BtnCerrar.ShowCursorChanges = true;
+            this.BtnCerrar.ShowImageBorders = true;
+            this.BtnCerrar.ShowSizeMarkers = false;
+            this.BtnCerrar.Size = new System.Drawing.Size(22, 22);
+            this.BtnCerrar.TabIndex = 28;
+            this.BtnCerrar.TabStop = false;
+            this.BtnCerrar.ToolTipText = "";
+            this.BtnCerrar.WaitOnLoad = false;
+            this.BtnCerrar.Zoom = 5;
+            this.BtnCerrar.ZoomSpeed = 10;
+            this.BtnCerrar.Click += new System.EventHandler(this.BtnCerrar_Click);
             // 
             // GridCol0CellStyle
             // 
@@ -576,16 +789,28 @@ namespace PurchaseDesktop.Formularios
             // 
             this.GridCol16CellStyle.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
             // 
+            // LblUser
+            // 
+            this.LblUser.Dock = System.Windows.Forms.DockStyle.Right;
+            this.LblUser.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblUser.ForeColor = System.Drawing.Color.White;
+            this.LblUser.Location = new System.Drawing.Point(627, 0);
+            this.LblUser.Name = "LblUser";
+            this.LblUser.Size = new System.Drawing.Size(473, 24);
+            this.LblUser.TabIndex = 4;
+            this.LblUser.Text = "...";
+            this.LblUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // FPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(1100, 574);
             this.Controls.Add(this.Grid);
+            this.Controls.Add(this.PanelDash);
             this.Controls.Add(this.WBrowserBanner);
             this.Controls.Add(this.PanelBtns);
-            this.Controls.Add(this.PanelDash);
             this.Controls.Add(this.PanelHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FPrincipal";
@@ -594,7 +819,7 @@ namespace PurchaseDesktop.Formularios
             this.Load += new System.EventHandler(this.FPrincipal_Load);
             this.PanelHeader.ResumeLayout(false);
             this.PanelDash.ResumeLayout(false);
-            this.GroupBox.ResumeLayout(false);
+            this.PanelDash.PerformLayout();
             this.PanelBtns.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).EndInit();
             this.ResumeLayout(false);
@@ -605,10 +830,8 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.Panel PanelHeader;
         private System.Windows.Forms.Panel PanelDash;
         private System.Windows.Forms.Panel PanelBtns;
-        private Bunifu.UI.WinForms.BunifuImageButton BtnInsert;
         private Bunifu.UI.WinForms.BunifuFormDock FDock;
         private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator1;
-        private Bunifu.UI.WinForms.BunifuGroupBox GroupBox;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol0CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol0ColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol1CellStyle;
@@ -641,12 +864,10 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol18ColHdrStyle1;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol16CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol16ColHdrStyle;
-        private System.Windows.Forms.ComboBox CboCompany;
         private System.Windows.Forms.Label LabelPanel;
         private System.Windows.Forms.Label LblMsg;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol19CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol19ColHdrStyle;
-        private System.Windows.Forms.ComboBox CboType;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol18CellStyle2;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol18ColHdrStyle2;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol19CellStyle1;
@@ -659,11 +880,23 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1DefaultCellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle iGrid1DefaultColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1RowTextColCellStyle;
-        private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas2;
-        private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas1;
         private Bunifu.Charts.WinForms.ChartTypes.BunifuPolarAreaChart PolarAreaChart1;
         private Bunifu.Charts.WinForms.ChartTypes.BunifuPolarAreaChart PolarAreaChart2;
         private System.Windows.Forms.WebBrowser WBrowserBanner;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas3;
+        private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas2;
+        private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas1;
+        private Bunifu.Charts.WinForms.ChartTypes.BunifuPolarAreaChart PolarAreaChart3;
+        private System.Windows.Forms.ComboBox CboType;
+        private System.Windows.Forms.ComboBox CboCompany;
+        private Bunifu.UI.WinForms.BunifuImageButton BtnInsert;
+        private Bunifu.UI.WinForms.BunifuImageButton bunifuImageButton1;
+        private Bunifu.UI.WinForms.BunifuImageButton bunifuImageButton2;
+        private Bunifu.UI.WinForms.BunifuImageButton bunifuImageButton3;
+        private System.Windows.Forms.Label LblUser;
     }
 }
 

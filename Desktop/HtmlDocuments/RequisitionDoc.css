@@ -114,6 +114,7 @@ a {
 #message {
     margin-bottom: 30px;
     display: block;
+    text-align: justify;
 }
 
 h2 {
