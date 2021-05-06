@@ -121,6 +121,9 @@
   <data name="delete_bin_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\delete_bin_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="forward_message_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\forward_message_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="logo_cve" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_cve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

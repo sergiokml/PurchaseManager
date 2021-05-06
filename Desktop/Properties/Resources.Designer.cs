@@ -73,6 +73,16 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap forward_message_15px {
+            get {
+                object obj = ResourceManager.GetObject("forward_message_15px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_cve {
             get {
                 object obj = ResourceManager.GetObject("logo_cve", resourceCulture);

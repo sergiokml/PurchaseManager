@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
@@ -76,11 +77,13 @@ namespace PurchaseDesktop.Formularios
             Grid.BeforeCommitEdit += Grid_BeforeCommitEdit;
 
             //! Grid Principal
-            Grid = rFachada.CargarGrid(Grid);
+            Grid = rFachada.CargarGrid(Grid); // Pintar y cargar columnas
             // Grid = rFachada.ControlesGrid(Grid, new OrderStatus().GetList());
             LlenarGrid();
 
+            Grid = rFachada.FormatearGrid(Grid);
 
+            var email = Properties.Settings.Default.Email;
             List<Color> bgColors = new List<Color>
             {
                 Color.FromArgb(3, 121, 213),
@@ -90,10 +93,6 @@ namespace PurchaseDesktop.Formularios
                     Color.FromArgb(130, 184, 105),
                      Color.FromArgb(150, 194, 89)
             };
-
-
-
-
 
             ChartCanvas1.XAxesGridLines = false;
             ChartCanvas1.YAxesGridLines = false;
@@ -258,7 +257,7 @@ namespace PurchaseDesktop.Formularios
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
-                rFachada.VerItemHtml(current);
+                Process.Start(rFachada.VerItemHtml(current));
                 Grid.Focus();
                 Grid.DrawAsFocused = false;
             }
@@ -293,7 +292,7 @@ namespace PurchaseDesktop.Formularios
 
         private void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
         {
-            if (e.ColIndex == Grid.Cols["delete"].Index || e.ColIndex == Grid.Cols["view"].Index)
+            if (e.ColIndex == Grid.Cols["delete"].Index || e.ColIndex == Grid.Cols["view"].Index || e.ColIndex == Grid.Cols["send"].Index)
             {
                 switch (e.State)
                 {
@@ -322,12 +321,21 @@ namespace PurchaseDesktop.Formularios
                     e.DoDefault = false;
                 }
             }
-            if (e.ColIndex == Grid.Cols["view"].Index)
+            else if (e.ColIndex == Grid.Cols["view"].Index)
             {
                 Rectangle myBounds = e.Bounds;
                 if (myBounds.Width > 0 || myBounds.Height > 0)
                 {
                     Grid.ImageList.Draw(e.Graphics, myBounds.Location, 0);
+                    e.DoDefault = false;
+                }
+            }
+            else if (e.ColIndex == Grid.Cols["send"].Index)
+            {
+                Rectangle myBounds = e.Bounds;
+                if (myBounds.Width > 0 || myBounds.Height > 0)
+                {
+                    Grid.ImageList.Draw(e.Graphics, myBounds.Location, 2);
                     e.DoDefault = false;
                 }
             }
@@ -344,30 +352,5 @@ namespace PurchaseDesktop.Formularios
 
         }
 
-        private void Grid_AfterAutoGroupRowCreated(object sender, iGAfterAutoGroupRowCreatedEventArgs e)
-        {
-            //iGCell myGroupRowCell;
-            //Grid.GroupRowLevelStyles = new iGCellStyle[1];
-            //Grid.GroupRowLevelStyles[0] = new iGCellStyle
-            //{
-            //    BackColor = Color.FromArgb(37, 37, 38)
-
-            //};
-            //myGroupRowCell = Grid.RowTextCol.Cells[e.AutoGroupRowIndex];
-            //myGroupRowCell.Style = Grid.GroupRowLevelStyles[0].Clone();
-            //switch (Grid.Cols[e.GroupedColIndex].Key)
-            //{
-            //    case "Description":
-            //        Grid.GroupRowLevelStyles = new iGCellStyle[1];
-            //        Grid.GroupRowLevelStyles[0] = new iGCellStyle
-            //        {
-            //            BackColor = Color.FromArgb(37, 37, 38)
-
-            //        };
-            //        myGroupRowCell = Grid.RowTextCol.Cells[e.AutoGroupRowIndex];
-            //        myGroupRowCell.Style = Grid.GroupRowLevelStyles[0].Clone();
-            //        break;
-            //}
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
@@ -48,14 +49,14 @@ namespace PurchaseDesktop.Helpers
             {
 
 
-                //if (prop.PropertyType == typeof(decimal) || prop.PropertyType == typeof(decimal?))
-                //{
-                //    dataTable.Columns.Add(prop.Name, typeof(int));
-                //}
-                //else
-                //{
-                dataTable.Columns.Add(prop.Name);
-                //}
+                if (prop.PropertyType == typeof(DateTime))
+                {
+                    dataTable.Columns.Add(prop.Name, typeof(DateTime));
+                }
+                else
+                {
+                    dataTable.Columns.Add(prop.Name);
+                }
 
 
             }

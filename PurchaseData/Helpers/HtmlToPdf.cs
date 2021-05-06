@@ -45,6 +45,7 @@ namespace PurchaseData.Helpers
             doc.GetElementbyId("Code").InnerHtml = $"{dataRow["Code"]}";
             DateTime date = Convert.ToDateTime(dataRow["DateLast"]);
             doc.GetElementbyId("DateLast").InnerHtml = $"{string.Format("{0:dd MMMM yyyy}", date)}";
+            doc.GetElementbyId("NOW").InnerHtml = $"{string.Format("{0:dd MMMM yyyy}", DateTime.Now)}";
             doc.GetElementbyId("Status").InnerHtml = $"{dataRow["Status"]}";
             doc.GetElementbyId("Description").InnerHtml = $"{dataRow["Description"]}";
 

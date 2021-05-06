@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -114,6 +113,26 @@ namespace PurchaseDesktop.Helpers
                     // return perfilPr.FactoryGrid(grid, PerfilAbstract.EtapasGrid.PintarGrid);
                     // case "VAL":
                     //return perfilVal.FactoryGrid(grid, PerfilAbstract.EtapasGrid.PintarGrid);
+            }
+            return null;
+        }
+
+        public iGrid FormatearGrid(iGrid grid)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    break;
+                case "UPR":
+                    perfilPr.Formatear();
+                    return perfilPr.Grid;
+
+                case "VAL":
+                    break;
             }
             return null;
         }
@@ -368,7 +387,7 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
-        public bool VerItemHtml(DataRow dataRow)
+        public string VerItemHtml(DataRow dataRow)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -383,12 +402,11 @@ namespace PurchaseDesktop.Helpers
                     //var path = new HtmlToPdf().ConvertHtmlToPdf(content, dataRow["RequisitionHeaderID"].ToString());
                     var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
                     var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-                    Process.Start(new HtmlToPdf().ReemplazarDatos(dataRow, userDB, details, attaches));
-                    break;
+                    return new HtmlToPdf().ReemplazarDatos(dataRow, userDB, details, attaches);
                 case "VAL":
                     break;
             }
-            return false;
+            return null;
         }
 
         public void CargarDashBoard(BunifuPolarAreaChart chart1,

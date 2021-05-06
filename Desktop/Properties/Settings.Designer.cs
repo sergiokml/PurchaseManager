@@ -22,5 +22,23 @@ namespace PurchaseDesktop.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("facturacionchile@capvertenergie.com")]
+        public string Email {
+            get {
+                return ((string)(this["Email"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Che@2019!")]
+        public string Password {
+            get {
+                return ((string)(this["Password"]));
+            }
+        }
     }
 }

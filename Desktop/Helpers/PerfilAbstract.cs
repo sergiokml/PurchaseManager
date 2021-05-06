@@ -34,9 +34,9 @@ namespace PurchaseDesktop.Helpers
         private ImageList ListaImagenes()
         {
             ImageList lista = new ImageList();
-            lista.Images.Add(Properties.Resources.search_15px); // Ver Html
+            lista.Images.Add(Properties.Resources.search_15px); // Ver Html 
             lista.Images.Add(Properties.Resources.delete_bin_15px); // Remove
-            //lista.Images.Add(Properties.Resources.view_15px); // Grid Details
+            lista.Images.Add(Properties.Resources.forward_message_15px); // Send
             return lista;
         }
 
@@ -50,6 +50,7 @@ namespace PurchaseDesktop.Helpers
             Grid.RowMode = true;
             Grid.ImageList = ListaImagenes();
             Grid.BorderStyle = iGBorderStyle.None;
+            Grid.DefaultAutoGroupRow.Expanded = false;
             //Grid.DefaultRow.Height = Grid.GetPreferredRowHeight(false, true);
             //Grid.EllipsisButtonGlyph = Grid.ImageList.Images[0];
             Grid.DefaultRow.Height = 22;
@@ -110,11 +111,24 @@ namespace PurchaseDesktop.Helpers
             //iGCellStyle myCellStyle = new iGCellStyle
             //{
             //    //0:#,0.00
-            //    FormatString = "{0:#,0.0}"
+            //    FormatString = "{0:dd MMMM yyyy}"
             //};
-            //Grid.Cols["Net"].CellStyle = myCellStyle;
+            //Grid.Cols["DateLast"].CellStyle = myCellStyle;
             //Grid.Cols["Tax"].CellStyle = myCellStyle;
             //Grid.Cols["Total"].CellStyle = myCellStyle;
+
+        }
+
+        public void Formatear()
+        {
+
+            iGCellStyle myCellStyle = new iGCellStyle
+            {
+                //0:#,0.00
+                FormatString = "{0:d}"
+            };
+
+            Grid.Cols["DateLast"].CellStyle = myCellStyle;
 
         }
 
@@ -176,6 +190,12 @@ namespace PurchaseDesktop.Helpers
 
                     iGCol = Grid.Cols.Add("view", "", 22);
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+                    //iGCol.IncludeInSelect = false;
+
+                    iGCol = Grid.Cols.Add("send", "", 22);
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+                    //iGCol.IncludeInSelect = false;
+
 
                     iGCol = Grid.Cols.Add("CompanyID", "Company", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -192,16 +212,22 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
 
                     iGCol = Grid.Cols.Add("UserID", "User ID", 58);
+                    //iGCol.CellStyle.FormatString = "{0:d}";
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
                     iGCol = Grid.Cols.Add("CostID", "CC", 27);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+                    iGCol = Grid.Cols.Add("DateLast", "Creation", 70);
+                    //iGCol.CellStyle.FormatString = "{0:d}";
+                    iGCol.CellStyle.ValueType = typeof(DateTime);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
                     iGCol = Grid.Cols.Add("delete", "", 22);
                     iGCol.IncludeInSelect = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
 
-
+                    //! Header
                     foreach (iGColHdr item in Grid.Header.Cells)
                     {
                         item.TextAlign = iGContentAlignment.MiddleCenter;

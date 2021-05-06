@@ -40,7 +40,6 @@ namespace PurchaseDesktop.Formularios
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.ChartCanvas3 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
             this.ChartCanvas2 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
             this.ChartCanvas1 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
             this.WBrowserBanner = new System.Windows.Forms.WebBrowser();
@@ -101,6 +100,7 @@ namespace PurchaseDesktop.Formularios
             this.GridCol16ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.iGrid1RowTextColCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.LblUser = new System.Windows.Forms.Label();
+            this.ChartCanvas3 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
             this.PanelBtns.SuspendLayout();
@@ -168,6 +168,8 @@ namespace PurchaseDesktop.Formularios
             // 
             // PanelDash
             // 
+            this.PanelDash.Controls.Add(this.ChartCanvas2);
+            this.PanelDash.Controls.Add(this.ChartCanvas3);
             this.PanelDash.Controls.Add(this.bunifuImageButton3);
             this.PanelDash.Controls.Add(this.bunifuImageButton2);
             this.PanelDash.Controls.Add(this.bunifuImageButton1);
@@ -177,8 +179,6 @@ namespace PurchaseDesktop.Formularios
             this.PanelDash.Controls.Add(this.label3);
             this.PanelDash.Controls.Add(this.label2);
             this.PanelDash.Controls.Add(this.label1);
-            this.PanelDash.Controls.Add(this.ChartCanvas3);
-            this.PanelDash.Controls.Add(this.ChartCanvas2);
             this.PanelDash.Controls.Add(this.ChartCanvas1);
             this.PanelDash.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelDash.Location = new System.Drawing.Point(0, 70);
@@ -244,63 +244,6 @@ namespace PurchaseDesktop.Formularios
             this.label1.TabIndex = 15;
             this.label1.Text = "105 K";
             // 
-            // ChartCanvas3
-            // 
-            this.ChartCanvas3.AnimationDuration = 1000;
-            this.ChartCanvas3.AnimationType = Bunifu.Charts.WinForms.BunifuChartCanvas.AnimationOptions.easeOutQuart;
-            this.ChartCanvas3.BackColor = System.Drawing.Color.White;
-            this.ChartCanvas3.CanvasPadding = new System.Windows.Forms.Padding(0);
-            this.ChartCanvas3.Labels = null;
-            this.ChartCanvas3.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
-            this.ChartCanvas3.LegendDisplay = true;
-            this.ChartCanvas3.LegendFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChartCanvas3.LegendForeColor = System.Drawing.Color.DarkGray;
-            this.ChartCanvas3.LegendFullWidth = true;
-            this.ChartCanvas3.LegendPosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
-            this.ChartCanvas3.LegendRevese = false;
-            this.ChartCanvas3.LegendRTL = false;
-            this.ChartCanvas3.Location = new System.Drawing.Point(324, 3);
-            this.ChartCanvas3.Name = "ChartCanvas3";
-            this.ChartCanvas3.ShowXAxis = true;
-            this.ChartCanvas3.ShowYAxis = true;
-            this.ChartCanvas3.Size = new System.Drawing.Size(100, 100);
-            this.ChartCanvas3.TabIndex = 14;
-            this.ChartCanvas3.Title = "";
-            this.ChartCanvas3.TitleLineHeight = 1.2D;
-            this.ChartCanvas3.TitlePadding = 10;
-            this.ChartCanvas3.TitlePosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
-            this.ChartCanvas3.TooltipBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas3.TooltipFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas3.TooltipForeColor = System.Drawing.Color.WhiteSmoke;
-            this.ChartCanvas3.TooltipMode = Bunifu.Charts.WinForms.BunifuChartCanvas.TooltipModeOptions.nearest;
-            this.ChartCanvas3.TooltipsEnabled = true;
-            this.ChartCanvas3.XAxesBeginAtZero = true;
-            this.ChartCanvas3.XAxesDrawTicks = true;
-            this.ChartCanvas3.XAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas3.XAxesForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas3.XAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas3.XAxesGridLines = true;
-            this.ChartCanvas3.XAxesLabel = "";
-            this.ChartCanvas3.XAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas3.XAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas3.XAxesLineWidth = 1;
-            this.ChartCanvas3.XAxesStacked = false;
-            this.ChartCanvas3.XAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas3.XAxesZeroLineWidth = 1;
-            this.ChartCanvas3.YAxesBeginAtZero = true;
-            this.ChartCanvas3.YAxesDrawTicks = true;
-            this.ChartCanvas3.YAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas3.YAxesForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas3.YAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas3.YAxesGridLines = true;
-            this.ChartCanvas3.YAxesLabel = "";
-            this.ChartCanvas3.YAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas3.YAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas3.YAxesLineWidth = 1;
-            this.ChartCanvas3.YAxesStacked = false;
-            this.ChartCanvas3.YAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas3.YAxesZeroLineWidth = 1;
-            // 
             // ChartCanvas2
             // 
             this.ChartCanvas2.AnimationDuration = 1000;
@@ -309,28 +252,28 @@ namespace PurchaseDesktop.Formularios
             this.ChartCanvas2.CanvasPadding = new System.Windows.Forms.Padding(0);
             this.ChartCanvas2.Labels = null;
             this.ChartCanvas2.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
-            this.ChartCanvas2.LegendDisplay = true;
+            this.ChartCanvas2.LegendDisplay = false;
             this.ChartCanvas2.LegendFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChartCanvas2.LegendForeColor = System.Drawing.Color.DarkGray;
-            this.ChartCanvas2.LegendFullWidth = true;
+            this.ChartCanvas2.LegendFullWidth = false;
             this.ChartCanvas2.LegendPosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
             this.ChartCanvas2.LegendRevese = false;
             this.ChartCanvas2.LegendRTL = false;
-            this.ChartCanvas2.Location = new System.Drawing.Point(162, 3);
+            this.ChartCanvas2.Location = new System.Drawing.Point(91, -16);
             this.ChartCanvas2.Name = "ChartCanvas2";
-            this.ChartCanvas2.ShowXAxis = true;
-            this.ChartCanvas2.ShowYAxis = true;
-            this.ChartCanvas2.Size = new System.Drawing.Size(100, 100);
+            this.ChartCanvas2.ShowXAxis = false;
+            this.ChartCanvas2.ShowYAxis = false;
+            this.ChartCanvas2.Size = new System.Drawing.Size(259, 139);
             this.ChartCanvas2.TabIndex = 13;
             this.ChartCanvas2.Title = "";
-            this.ChartCanvas2.TitleLineHeight = 1.2D;
-            this.ChartCanvas2.TitlePadding = 10;
+            this.ChartCanvas2.TitleLineHeight = 0D;
+            this.ChartCanvas2.TitlePadding = 0;
             this.ChartCanvas2.TitlePosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
             this.ChartCanvas2.TooltipBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ChartCanvas2.TooltipFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.ChartCanvas2.TooltipForeColor = System.Drawing.Color.WhiteSmoke;
-            this.ChartCanvas2.TooltipMode = Bunifu.Charts.WinForms.BunifuChartCanvas.TooltipModeOptions.nearest;
-            this.ChartCanvas2.TooltipsEnabled = true;
+            this.ChartCanvas2.TooltipMode = Bunifu.Charts.WinForms.BunifuChartCanvas.TooltipModeOptions.average;
+            this.ChartCanvas2.TooltipsEnabled = false;
             this.ChartCanvas2.XAxesBeginAtZero = true;
             this.ChartCanvas2.XAxesDrawTicks = true;
             this.ChartCanvas2.XAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -362,7 +305,7 @@ namespace PurchaseDesktop.Formularios
             // 
             this.ChartCanvas1.AnimationDuration = 1000;
             this.ChartCanvas1.AnimationType = Bunifu.Charts.WinForms.BunifuChartCanvas.AnimationOptions.easeOutQuart;
-            this.ChartCanvas1.BackColor = System.Drawing.Color.White;
+            this.ChartCanvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ChartCanvas1.CanvasPadding = new System.Windows.Forms.Padding(0);
             this.ChartCanvas1.Labels = null;
             this.ChartCanvas1.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
@@ -503,7 +446,6 @@ namespace PurchaseDesktop.Formularios
             this.Grid.CustomDrawCellEllipsisButtonForeground += new TenTec.Windows.iGridLib.iGCustomDrawEllipsisButtonEventHandler(this.Grid_CustomDrawCellEllipsisButtonForeground);
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
-            this.Grid.AfterAutoGroupRowCreated += new TenTec.Windows.iGridLib.iGAfterAutoGroupRowCreatedEventHandler(this.Grid_AfterAutoGroupRowCreated);
             // 
             // PolarAreaChart1
             // 
@@ -542,7 +484,7 @@ namespace PurchaseDesktop.Formularios
             this.PolarAreaChart3.HoverBorderColor = System.Drawing.Color.Empty;
             this.PolarAreaChart3.HoverBorderWidth = 0;
             this.PolarAreaChart3.Label = "Label here";
-            this.PolarAreaChart3.TargetCanvas = this.ChartCanvas3;
+            this.PolarAreaChart3.TargetCanvas = null;
             // 
             // bunifuImageButton3
             // 
@@ -801,6 +743,63 @@ namespace PurchaseDesktop.Formularios
             this.LblUser.Text = "...";
             this.LblUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // ChartCanvas3
+            // 
+            this.ChartCanvas3.AnimationDuration = 1000;
+            this.ChartCanvas3.AnimationType = Bunifu.Charts.WinForms.BunifuChartCanvas.AnimationOptions.easeOutQuart;
+            this.ChartCanvas3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.ChartCanvas3.CanvasPadding = new System.Windows.Forms.Padding(0);
+            this.ChartCanvas3.Labels = null;
+            this.ChartCanvas3.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
+            this.ChartCanvas3.LegendDisplay = true;
+            this.ChartCanvas3.LegendFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChartCanvas3.LegendForeColor = System.Drawing.Color.DarkGray;
+            this.ChartCanvas3.LegendFullWidth = true;
+            this.ChartCanvas3.LegendPosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
+            this.ChartCanvas3.LegendRevese = false;
+            this.ChartCanvas3.LegendRTL = false;
+            this.ChartCanvas3.Location = new System.Drawing.Point(326, 3);
+            this.ChartCanvas3.Name = "ChartCanvas3";
+            this.ChartCanvas3.ShowXAxis = true;
+            this.ChartCanvas3.ShowYAxis = true;
+            this.ChartCanvas3.Size = new System.Drawing.Size(100, 100);
+            this.ChartCanvas3.TabIndex = 25;
+            this.ChartCanvas3.Title = "";
+            this.ChartCanvas3.TitleLineHeight = 1.2D;
+            this.ChartCanvas3.TitlePadding = 10;
+            this.ChartCanvas3.TitlePosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
+            this.ChartCanvas3.TooltipBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas3.TooltipFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas3.TooltipForeColor = System.Drawing.Color.WhiteSmoke;
+            this.ChartCanvas3.TooltipMode = Bunifu.Charts.WinForms.BunifuChartCanvas.TooltipModeOptions.nearest;
+            this.ChartCanvas3.TooltipsEnabled = true;
+            this.ChartCanvas3.XAxesBeginAtZero = true;
+            this.ChartCanvas3.XAxesDrawTicks = true;
+            this.ChartCanvas3.XAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas3.XAxesForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas3.XAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas3.XAxesGridLines = true;
+            this.ChartCanvas3.XAxesLabel = "";
+            this.ChartCanvas3.XAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas3.XAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas3.XAxesLineWidth = 1;
+            this.ChartCanvas3.XAxesStacked = false;
+            this.ChartCanvas3.XAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas3.XAxesZeroLineWidth = 1;
+            this.ChartCanvas3.YAxesBeginAtZero = true;
+            this.ChartCanvas3.YAxesDrawTicks = true;
+            this.ChartCanvas3.YAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas3.YAxesForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas3.YAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas3.YAxesGridLines = true;
+            this.ChartCanvas3.YAxesLabel = "";
+            this.ChartCanvas3.YAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas3.YAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas3.YAxesLineWidth = 1;
+            this.ChartCanvas3.YAxesStacked = false;
+            this.ChartCanvas3.YAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas3.YAxesZeroLineWidth = 1;
+            // 
             // FPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -886,7 +885,6 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas3;
         private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas2;
         private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas1;
         private Bunifu.Charts.WinForms.ChartTypes.BunifuPolarAreaChart PolarAreaChart3;
@@ -897,6 +895,7 @@ namespace PurchaseDesktop.Formularios
         private Bunifu.UI.WinForms.BunifuImageButton bunifuImageButton2;
         private Bunifu.UI.WinForms.BunifuImageButton bunifuImageButton3;
         private System.Windows.Forms.Label LblUser;
+        private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas3;
     }
 }
 
