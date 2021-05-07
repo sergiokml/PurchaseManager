@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -16,14 +17,17 @@ namespace PurchaseDesktop.Formularios
         private readonly PerfilFachada rFachada;
 
         public TextInfo UCase { get; set; }
-        public int OrderHeaderID { get; set; }
+        public int ItemID { get; set; }
 
         private OrderHeader OrderHeader { get; set; }
 
-        public FDetails(PerfilFachada rFachada)
+        public List<RequisitionDetails> RequisitionDetails { get; set; }
+
+        public FDetails(PerfilFachada rFachada, List<RequisitionDetails> lista)
         {
             //! Este constructor vienen así.
             this.rFachada = rFachada;
+            RequisitionDetails = lista;
             InitializeComponent();
         }
 
@@ -34,14 +38,8 @@ namespace PurchaseDesktop.Formularios
 
         private void FDetails_Load(object sender, EventArgs e)
         {
-            CboAccount.DataSource = new OrderAccounts().GetList();
-            CboAccount.DisplayMember = "Description";
-            CboAccount.SelectedIndex = -1;
-            CboAccount.ValueMember = "AccountID";
-
-            OrderHeader = new OrderHeader().GetById(OrderHeaderID);
-
-            Grid = rFachada.CargarGrid(Grid);
+            SetControles();
+            //OrderHeader = new OrderHeader().GetById(ItemID); //todo Y EL REQ?
             LlenarGrid();
         }
 
@@ -49,14 +47,24 @@ namespace PurchaseDesktop.Formularios
         {
             if (ValidarControles())
             {
-                var detail = new OrderDetails
+                //var detail = new OrderDetails
+                //{
+                //    //AccountID = ((OrderAccounts)CboAccount.SelectedItem).AccountID,
+                //    Qty = Convert.ToInt32(TxtQty.Text),
+                //    NameProduct = TxtName.Text,
+                //    DescriptionProduct = TxtName.Text
+                //};
+                //new OrderDetails().AddDetail(detail, OrderHeader);
+
+                var PrDetail = new RequisitionDetails
                 {
-                    //AccountID = ((OrderAccounts)CboAccount.SelectedItem).AccountID,
+                    AccountID = ((Accounts)CboAccount.SelectedItem).AccountID,
                     Qty = Convert.ToInt32(TxtQty.Text),
-                    NameProduct = TxtName.Text,
-                    DescriptionProduct = TxtName.Text
+                    NameProduct = TxtName.Text.Trim(),
+                    DescriptionProduct = TxtDescription.Text.Trim()
                 };
-                new OrderDetails().AddDetail(detail, OrderHeader);
+                rFachada.InsertDetail(PrDetail, ItemID);
+
                 LlenarGrid();
                 ClearControles();
             }
@@ -71,20 +79,29 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
+                var vista = rFachada.GetVistaDetalles(ItemID);
                 Grid.Rows.Clear();
-                int nro = 1;
-                var total = new OrderDetails().GetList(OrderHeaderID).Count;
-                foreach (var item in new OrderDetails().GetList(OrderHeaderID))
+                Grid.FillWithData(vista, true);
+
+                for (int i = 0; i < Grid.Rows.Count; i++)
                 {
-                    iGRow myRow = Grid.Rows.Add();
-                    myRow.Cells["nro"].Value = nro;
-                    myRow.Cells["DetailID"].Value = item.DetailID;
-                    myRow.Cells["Qty"].Value = item.Qty;
-                    myRow.Cells["NameProduct"].Value = item.NameProduct;
-                    //myRow.Cells["AccountID"].Value = item.AccountID;
-                    nro++;
-                    myRow.Cells["delete"].ImageIndex = 2;
+                    Grid.Rows[i].Cells["nro"].Value = i + 1;
                 }
+
+
+                //int nro = 1;
+                //var total = RequisitionDetails.Count;
+                //foreach (var item in RequisitionDetails)
+                //{
+                //    iGRow myRow = Grid.Rows.Add();
+                //    myRow.Cells["nro"].Value = nro;
+                //    myRow.Cells["DetailID"].Value = item.DetailID;
+                //    myRow.Cells["Qty"].Value = item.Qty;
+                //    myRow.Cells["NameProduct"].Value = item.NameProduct;
+                //    myRow.Cells["AccountID"].Value = item.AccountID;
+                //    nro++;
+                //    myRow.Cells["delete"].ImageIndex = 2;
+                //}
                 Grid.Refresh();
             }
             catch (Exception)
@@ -122,9 +139,16 @@ namespace PurchaseDesktop.Formularios
             TxtQty.Text = string.Empty;
         }
 
+        public iGrid GetGrid()
+        {
+            return Grid;
+        }
         public void SetControles()
         {
-            throw new NotImplementedException();
+            CboAccount.DataSource = new Accounts().GetList();
+            CboAccount.DisplayMember = "Description";
+            CboAccount.SelectedIndex = -1;
+            CboAccount.ValueMember = "AccountID";
         }
 
         private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
@@ -148,5 +172,7 @@ namespace PurchaseDesktop.Formularios
                 }
             }
         }
+
+
     }
 }

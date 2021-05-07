@@ -61,12 +61,32 @@ namespace PurchaseDesktop.Properties {
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
         /// </summary>
-        internal static System.Drawing.Bitmap delete_bin_15px {
+        internal static System.Drawing.Icon icons8_envelope {
             get {
-                object obj = ResourceManager.GetObject("delete_bin_15px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("icons8_envelope", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon icons8_erase {
+            get {
+                object obj = ResourceManager.GetObject("icons8_erase", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon icons8_html_filetype {
+            get {
+                object obj = ResourceManager.GetObject("icons8_html_filetype", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -76,36 +96,6 @@ namespace PurchaseDesktop.Properties {
         internal static System.Drawing.Bitmap logo_cve {
             get {
                 object obj = ResourceManager.GetObject("logo_cve", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Sale_card_address_512 {
-            get {
-                object obj = ResourceManager.GetObject("Sale_card_address_512", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap search_15px {
-            get {
-                object obj = ResourceManager.GetObject("search_15px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap secured_letter_15px {
-            get {
-                object obj = ResourceManager.GetObject("secured_letter_15px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

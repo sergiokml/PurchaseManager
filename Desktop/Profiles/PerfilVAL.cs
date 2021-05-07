@@ -97,5 +97,10 @@ namespace PurchaseDesktop.Profiles
         {
             throw new NotImplementedException();
         }
+
+        public void InsertRequisitionDetail(RequisitionDetails detail, Users userDB, int idItem)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

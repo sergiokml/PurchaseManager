@@ -223,19 +223,19 @@
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -264,12 +264,9 @@
     <Content Include="HtmlBanner\sprite_crypto13.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\Sale-card-address-512.png" />
-    <None Include="Resources\secured_letter_15px.png" />
-    <None Include="Resources\forward_message_15px.png" />
-    <None Include="Resources\view_15px.png" />
-    <None Include="Resources\search_15px.png" />
-    <None Include="Resources\delete_bin_15px.png" />
+    <None Include="Resources\icons8_envelope.ico" />
+    <None Include="Resources\icons8_html_filetype.ico" />
+    <None Include="Resources\icons8_erase.ico" />
     <None Include="Resources\logo_cve.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

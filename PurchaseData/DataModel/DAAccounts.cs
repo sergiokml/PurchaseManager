@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace PurchaseData.DataModel
 {
-    public partial class OrderAccounts
+    public partial class Accounts
     {
         public List<Accounts> GetList()
         {

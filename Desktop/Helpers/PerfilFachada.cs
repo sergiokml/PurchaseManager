@@ -51,7 +51,25 @@ namespace PurchaseDesktop.Helpers
             }
             return null;
         }
-
+        public DataTable GetVistaDetalles(int ItemID)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    //return perfilPo.GetVista(userDB);
+                    break;
+                case "UPR":
+                    return perfilPr.GetVistaDetalles(ItemID);
+                case "VAL":
+                    //return perfilVal.GetVista(userDB);
+                    break;
+            }
+            return null;
+        }
         public Users GetUser()
         {
             return userDB;
@@ -323,6 +341,27 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
+        public bool InsertDetail(object item, int ItemId)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+
+                    break;
+                case "UPR":
+                    var detail = (RequisitionDetails)item;
+                    perfilPr.InsertRequisitionDetail(detail, userDB, ItemId);
+                    return true;
+                case "VAL":
+                    break;
+            }
+            return false;
+
+        }
         public bool EditarSupplier(FSupplier fSupplier)
         {
             switch (userDB.UserProfiles.ProfileID)
@@ -343,6 +382,33 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
+        public void OPenDetailForm(DataRow dataRow)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+
+                    break;
+                case "UPR":
+                    var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    var f = new FDetails(this, details);
+                    perfilPr.Grid = f.GetGrid();
+                    perfilPr.PintarGrid();
+                    f.StartPosition = FormStartPosition.CenterScreen;
+                    f.ItemID = Convert.ToInt32(dataRow["RequisitionHeaderID"]);
+
+                    f.Show();
+
+                    break;
+                case "VAL":
+                    break;
+            }
+
+        }
         public bool EditarDetails(FDetails fDetails, DataRow dataRow)
         {
             switch (userDB.UserProfiles.ProfileID)
@@ -352,12 +418,12 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    fDetails.OrderHeaderID = Convert.ToInt32(dataRow["OrderHeaderID"]);
+                    fDetails.ItemID = Convert.ToInt32(dataRow["OrderHeaderID"]);
                     fDetails.StartPosition = FormStartPosition.CenterScreen;
                     fDetails.ShowDialog();
                     break;
                 case "UPR":
-                    fDetails.OrderHeaderID = Convert.ToInt32(dataRow["OrderHeaderID"]);
+                    fDetails.ItemID = Convert.ToInt32(dataRow["OrderHeaderID"]);
                     fDetails.StartPosition = FormStartPosition.CenterScreen;
                     fDetails.ShowDialog();
                     break;

@@ -34,6 +34,16 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
+        public DataTable GetVistaDetalles(int IdItem)
+        {
+            //using (var rContext = new PurchaseManagerContext())
+            //{
+            return this.ToDataTable<RequisitionDetails>(rContext.RequisitionDetails
+               .Where(c => c.RequisitionHeaderID == IdItem).ToList());
+            // }
+
+        }
+
         public DataTable GetVistaSuppliers()
         {
             return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
@@ -69,8 +79,6 @@ namespace PurchaseDesktop.Profiles
         {
             throw new NotImplementedException();
         }
-
-
 
         public void UpdateOrderHeader(Users userDB, int id, object valor, string campo)
         {
@@ -117,8 +125,8 @@ namespace PurchaseDesktop.Profiles
             {
                 Event = EventUserPR.DELETE_DETAIL.ToString(),
                 UserID = userDB.UserID,
-                DateTran = DateTime.Now,
-                StatuID = header.StatusID
+                DateTran = DateTime.Now
+                //StatuID = header.StatusID
             };
             new OrderDetails().BorrarDetail(header, idDetailr, tran);
         }
@@ -147,7 +155,7 @@ namespace PurchaseDesktop.Profiles
             {
                 Event = EventUserPR.UPDATE_PR.ToString(),
                 UserID = userDB.UserID,
-                StatuID = pr.StatusID,
+                //StatuID = pr.StatusID
                 DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
             };
             pr.Transactions.Add(tran);
@@ -187,7 +195,7 @@ namespace PurchaseDesktop.Profiles
             {
                 Event = EventUserPR.CREATE_PR.ToString(),
                 UserID = userDB.UserID,
-                StatuID = pr.StatusID,
+                //StatuID = pr.StatusID,
                 DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
             };
             pr.Transactions.Add(tran);
@@ -203,11 +211,28 @@ namespace PurchaseDesktop.Profiles
             OrderGroupByStatus_Results = rContext.ufnGetOrderGroupByStatus().ToList();
         }
 
+        public void InsertRequisitionDetail(RequisitionDetails detail, Users userDB, int idItem)
+        {
+            var pr = rContext.RequisitionHeader.Find(idItem);
+            var tran = new Transactions
+            {
+                Event = EventUserPR.INSERT_DETAIL.ToString(),
+                UserID = userDB.UserID,
+                //StatuID = pr.StatusID,
+                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            pr.Transactions.Add(tran);
+            pr.RequisitionDetails.Add(detail);
+            GuardarCambios();
+
+        }
+
         public enum EventUserPR
         {
             CREATE_PR = 1,
             UPDATE_PR = 2,
-            DELETE_DETAIL = 3
+            DELETE_DETAIL = 3,
+            INSERT_DETAIL = 4
         }
     }
 }

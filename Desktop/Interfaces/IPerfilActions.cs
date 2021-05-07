@@ -15,6 +15,7 @@ namespace PurchaseDesktop.Interfaces
         void GuardarCambios(int wait);
         void InsertOrderHeader(Companies company, OrderType type, Users userDB);
         void InsertRequisition(Companies company, OrderType type, Users userDB);
+        void InsertRequisitionDetail(RequisitionDetails detail, Users userDB, int idItem);
         void DeleteOrderHeader(int id);
         void DeleteRequesitionHeader(int id);
         void DeleteOrderDetail(OrderHeader header, int idDetailr, Users userDB);

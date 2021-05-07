@@ -25,12 +25,12 @@ namespace PurchaseDesktop.Formularios
         public TextInfo UCase { get; set; }
         public FSupplier FSupplier { get; set; }
 
-        public FDetails FDetails { get; set; }
+        //public FDetails FDetails { get; set; }
         public FOrderAttach FAttach { get; set; }
-        public FPrincipal(PerfilFachada rFachada, FSupplier fSupplier, FDetails fDetails, FOrderAttach fAttach)
+        public FPrincipal(PerfilFachada rFachada, FSupplier fSupplier, FOrderAttach fAttach)
         {
             FAttach = fAttach;
-            FDetails = fDetails;
+            //FDetails = fDetails;
             FSupplier = fSupplier;
             this.rFachada = rFachada;
             InitializeComponent();
@@ -77,20 +77,18 @@ namespace PurchaseDesktop.Formularios
 
             //! Grid Principal
             Grid = rFachada.CargarGrid(Grid); // Pintar y cargar columnas
-            // Grid = rFachada.ControlesGrid(Grid, new OrderStatus().GetList());
             LlenarGrid();
-
             Grid = rFachada.FormatearGrid(Grid);
 
             var email = Properties.Settings.Default.Email;
             List<Color> bgColors = new List<Color>
             {
                 Color.FromArgb(3, 121, 213),
-                 Color.FromArgb(53, 146, 171),
-                  Color.FromArgb(77, 158, 150),
-                   Color.FromArgb(106, 172, 125),
-                    Color.FromArgb(130, 184, 105),
-                     Color.FromArgb(150, 194, 89)
+                Color.FromArgb(53, 146, 171),
+                Color.FromArgb(77, 158, 150),
+                Color.FromArgb(106, 172, 125),
+                Color.FromArgb(130, 184, 105),
+                Color.FromArgb(150, 194, 89)
             };
 
             ChartCanvas1.XAxesGridLines = false;
@@ -266,15 +264,15 @@ namespace PurchaseDesktop.Formularios
             }
             else if (Grid.Cols["supplier"].Index == e.ColIndex)
             {
-                rFachada.EditarSupplier(FSupplier);
+                //rFachada.EditarSupplier(FSupplier);
             }
             else if (Grid.Cols["details"].Index == e.ColIndex)
             {
-                rFachada.EditarDetails(FDetails, current);
+                //rFachada.EditarDetails(FDetails, current);
             }
             else if (Grid.Cols["attach"].Index == e.ColIndex)
             {
-                rFachada.EditarAttach(FAttach);
+                //rFachada.EditarAttach(FAttach);
             }
             else if (Grid.Cols["hitos"].Index == e.ColIndex)
             {
@@ -348,8 +346,12 @@ namespace PurchaseDesktop.Formularios
 
         private void bunifuImageButton2_Click(object sender, EventArgs e)
         {
-            var f = new FDetails(rFachada);
-            f.Show();
+            if (Grid.CurCell != null)
+            {
+                var current = (DataRow)Grid.CurRow.Tag;
+                rFachada.OPenDetailForm(current);
+
+            }
         }
 
         private void bunifuImageButton3_Click(object sender, EventArgs e)

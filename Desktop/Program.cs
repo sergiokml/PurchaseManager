@@ -51,10 +51,10 @@ namespace Desktop
             //{
             PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, user);
             var fSupplier = new FSupplier(facade);
-            var fDetails = new FDetails(facade);
+            //var fDetails = new FDetails(facade);
             var fAttach = new FOrderAttach(facade);
 
-            FPrincipal f = new FPrincipal(facade, fSupplier, fDetails, fAttach);
+            FPrincipal f = new FPrincipal(facade, fSupplier, fAttach);
             Application.Run(f);
             //}
 
@@ -100,8 +100,8 @@ namespace Desktop
                         {
                             Event = "CREATE_PR",
                             DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single(),
-                            UserID = user.UserID,
-                            StatuID = 1
+                            UserID = user.UserID
+                            //StatuID = 1
                         };
                         pr.Transactions.Add(tran);
                         Attaches att = new Attaches

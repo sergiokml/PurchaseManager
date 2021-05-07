@@ -1,7 +1,5 @@
-Bunifu.UI.WinForms.BunifuSeparator, Bunifu.UI.WinForms.BunifuSeparator, Version=5.0.5.0, Culture=neutral, PublicKeyToken=e8e24ccd28363fe9
-Bunifu.UI.WinForms.BunifuGroupBox, Bunifu.UI.WinForms.BunifuGroupBox, Version=5.0.5.0, Culture=neutral, PublicKeyToken=e8e24ccd28363fe9
-Bunifu.UI.WinForms.BunifuFormDock, Bunifu.UI.WinForms.BunifuFormDock, Version=5.0.5.0, Culture=neutral, PublicKeyToken=e8e24ccd28363fe9
-Bunifu.UI.WinForms.BunifuLabel, Bunifu.UI.WinForms.BunifuLabel, Version=5.0.5.0, Culture=neutral, PublicKeyToken=e8e24ccd28363fe9
-Bunifu.UI.WinForms.BunifuTextBox, Bunifu.UI.WinForms.BunifuTextBox, Version=5.0.5.0, Culture=neutral, PublicKeyToken=e8e24ccd28363fe9
+Bunifu.UI.WinForms.BunifuImageButton, Bunifu.UI.WinForms.BunifuImageButton, Version=5.0.6.0, Culture=neutral, PublicKeyToken=e8e24ccd28363fe9
+Bunifu.UI.WinForms.BunifuSeparator, Bunifu.UI.WinForms.BunifuSeparator, Version=5.0.6.0, Culture=neutral, PublicKeyToken=e8e24ccd28363fe9
+Bunifu.UI.WinForms.BunifuFormDock, Bunifu.UI.WinForms.BunifuFormDock, Version=5.0.6.0, Culture=neutral, PublicKeyToken=e8e24ccd28363fe9
+Bunifu.UI.WinForms.BunifuTextBox, Bunifu.UI.WinForms.BunifuTextBox, Version=5.0.6.0, Culture=neutral, PublicKeyToken=e8e24ccd28363fe9
 Bunifu.Charts.WinForms.ChartTypes.BunifuPolarAreaChart, Bunifu.Charts.WinForms, Version=1.0.5.0, Culture=neutral, PublicKeyToken=null
-Bunifu.UI.WinForms.BunifuImageButton, Bunifu.UI.WinForms.BunifuImageButton, Version=5.0.5.0, Culture=neutral, PublicKeyToken=e8e24ccd28363fe9

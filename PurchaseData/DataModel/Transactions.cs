@@ -25,7 +25,6 @@ namespace PurchaseData.DataModel
         public string Event { get; set; }
         public string UserID { get; set; }
         public System.DateTime DateTran { get; set; }
-        public byte StatuID { get; set; }
     
         public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

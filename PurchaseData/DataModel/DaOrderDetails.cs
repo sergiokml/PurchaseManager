@@ -5,7 +5,6 @@ namespace PurchaseData.DataModel
 {
     public partial class OrderDetails
     {
-
         public List<OrderDetails> GetList(int id)
         {
             using (var contextDB = new PurchaseManagerContext())
