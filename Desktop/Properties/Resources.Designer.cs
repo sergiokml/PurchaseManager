@@ -73,9 +73,9 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap forward_message_15px {
+        internal static System.Drawing.Bitmap logo_cve {
             get {
-                object obj = ResourceManager.GetObject("forward_message_15px", resourceCulture);
+                object obj = ResourceManager.GetObject("logo_cve", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap logo_cve {
+        internal static System.Drawing.Bitmap Sale_card_address_512 {
             get {
-                object obj = ResourceManager.GetObject("logo_cve", resourceCulture);
+                object obj = ResourceManager.GetObject("Sale_card_address_512", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap view_15px {
+        internal static System.Drawing.Bitmap secured_letter_15px {
             get {
-                object obj = ResourceManager.GetObject("view_15px", resourceCulture);
+                object obj = ResourceManager.GetObject("secured_letter_15px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

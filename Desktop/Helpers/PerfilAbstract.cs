@@ -36,7 +36,7 @@ namespace PurchaseDesktop.Helpers
             ImageList lista = new ImageList();
             lista.Images.Add(Properties.Resources.search_15px); // Ver Html 
             lista.Images.Add(Properties.Resources.delete_bin_15px); // Remove
-            lista.Images.Add(Properties.Resources.forward_message_15px); // Send
+            lista.Images.Add(Properties.Resources.secured_letter_15px); // Send
             return lista;
         }
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Bunifu.Charts.WinForms;
@@ -399,10 +401,46 @@ namespace PurchaseDesktop.Helpers
 
                     break;
                 case "UPR":
-                    //var path = new HtmlToPdf().ConvertHtmlToPdf(content, dataRow["RequisitionHeaderID"].ToString());
                     var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    if (details.Count == 0)
+                    {
+                        return "This requisition has no products.";
+                    }
                     var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-                    return new HtmlToPdf().ReemplazarDatos(dataRow, userDB, details, attaches);
+                    Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details, attaches));
+                    return "Opening...";
+                case "VAL":
+                    break;
+            }
+            return null;
+        }
+
+        public async Task<string> SendItem(DataRow dataRow)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    break;
+                case "UPR":
+                    var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    if (details.Count == 0)
+                    {
+                        return "This requisition has no products.";
+                    }
+                    var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+
+                    var pathHtml = new HtmlManipulate();
+
+                    var path = pathHtml.ReemplazarDatos(dataRow, userDB, details, attaches);
+                    var send = new SendEmailTo(Properties.Settings.Default.Email, Properties.Settings.Default.Password);
+                    var x = await send.SendEmail(path, asunto: "Purchase Manager: Requisition document", userDB);
+
+                    return send.MessageResult;
+
                 case "VAL":
                     break;
             }

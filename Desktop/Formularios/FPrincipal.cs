@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
@@ -237,7 +236,7 @@ namespace PurchaseDesktop.Formularios
             //SetControles();
         }
 
-        private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
+        private async void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
@@ -257,9 +256,13 @@ namespace PurchaseDesktop.Formularios
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
-                Process.Start(rFachada.VerItemHtml(current));
+                LblMsg.Text = rFachada.VerItemHtml(current);
                 Grid.Focus();
                 Grid.DrawAsFocused = false;
+            }
+            else if (Grid.Cols["send"].Index == e.ColIndex)
+            {
+                LblMsg.Text = await rFachada.SendItem(current);
             }
             else if (Grid.Cols["supplier"].Index == e.ColIndex)
             {
@@ -294,16 +297,18 @@ namespace PurchaseDesktop.Formularios
         {
             if (e.ColIndex == Grid.Cols["delete"].Index || e.ColIndex == Grid.Cols["view"].Index || e.ColIndex == Grid.Cols["send"].Index)
             {
+                Rectangle myBounds = e.Bounds;
+                myBounds.Inflate(2, 1);
+                LinearGradientBrush myBrush;
                 switch (e.State)
                 {
                     case iGControlState.HotPressed:
-                        e.Graphics.DrawRectangle(SystemPens.Highlight, e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
+                        myBrush = new LinearGradientBrush(e.Bounds, Color.FromArgb(37, 37, 38), Color.FromArgb(37, 37, 38), 1);
+                        e.Graphics.FillRectangle(myBrush, myBounds);
                         break;
                     case iGControlState.Hot:
-                        e.Graphics.DrawRectangle(SystemPens.Highlight, e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
-                        LinearGradientBrush myBrush = new LinearGradientBrush(e.Bounds, Color.FromArgb(154, 196, 85), Color.FromArgb(154, 196, 85), 45);
-                        e.Graphics.FillRectangle(myBrush, e.Bounds);
-                        e.Graphics.DrawRectangle(SystemPens.Highlight, e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
+                        myBrush = new LinearGradientBrush(e.Bounds, Color.FromArgb(154, 196, 85), Color.FromArgb(154, 196, 85), 1);
+                        e.Graphics.FillRectangle(myBrush, myBounds);
                         break;
                 }
                 e.DoDefault = false;

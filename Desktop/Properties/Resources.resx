@@ -121,16 +121,16 @@
   <data name="delete_bin_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\delete_bin_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="forward_message_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\forward_message_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="logo_cve" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_cve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Sale_card_address_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sale-card-address-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="search_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\search_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="view_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\view_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="secured_letter_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\secured_letter_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
