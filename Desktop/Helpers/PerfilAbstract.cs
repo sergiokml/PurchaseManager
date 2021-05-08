@@ -131,7 +131,7 @@ namespace PurchaseDesktop.Helpers
             //style.ForeColor = Color.Red;
         }
 
-        public void CargarColumnas()
+        public void CargarColumnasFPrincipal()
         {
             iGCol iGCol;
             switch (UserProfiles.ProfileID)
@@ -219,7 +219,59 @@ namespace PurchaseDesktop.Helpers
 
                     iGCol = Grid.Cols.Add("DateLast", "Creation", 66);
                     //iGCol.CellStyle.FormatString = "{0:d}";
-                    iGCol.CellStyle.ValueType = typeof(DateTime);
+                    //iGCol.CellStyle.ValueType = typeof(DateTime);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+                    iGCol = Grid.Cols.Add("delete", "", 22);
+                    iGCol.IncludeInSelect = false;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+
+                    //! Header
+                    foreach (iGColHdr item in Grid.Header.Cells)
+                    {
+                        item.TextAlign = iGContentAlignment.MiddleCenter;
+                    }
+
+
+                    break;
+            }
+        }
+
+        public void CargarColumnasFDetail()
+        {
+            iGCol iGCol;
+            switch (UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    break;
+                case "UPR":
+                    //! Cols     
+                    Grid.Header.Height = 20;
+                    iGCol = Grid.Cols.Add("nro", "N°", 21);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+                    iGCol = Grid.Cols.Add("DetailID", "");
+                    iGCol.Visible = false;
+
+                    iGCol = Grid.Cols.Add("RequisitionHeaderID", "");
+                    iGCol.Visible = false;
+
+                    iGCol = Grid.Cols.Add("Qty", "Qty", 39);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+
+                    iGCol = Grid.Cols.Add("NameProduct", "Product", 286);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+                    //iGCol = Grid.Cols.Add("DescriptionProduct", "Description", 175);
+                    //iGCol.CellStyle.ReadOnly = iGBool.True;
+
+
+                    iGCol = Grid.Cols.Add("AccountID", "Account", 106);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
                     iGCol = Grid.Cols.Add("delete", "", 22);

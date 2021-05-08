@@ -30,14 +30,6 @@ namespace PurchaseDesktop.Formularios
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FDetails));
-            TenTec.Windows.iGridLib.iGColPattern iGColPattern9 = new TenTec.Windows.iGridLib.iGColPattern();
-            TenTec.Windows.iGridLib.iGColPattern iGColPattern10 = new TenTec.Windows.iGridLib.iGColPattern();
-            TenTec.Windows.iGridLib.iGColPattern iGColPattern11 = new TenTec.Windows.iGridLib.iGColPattern();
-            TenTec.Windows.iGridLib.iGColPattern iGColPattern12 = new TenTec.Windows.iGridLib.iGColPattern();
-            TenTec.Windows.iGridLib.iGColPattern iGColPattern13 = new TenTec.Windows.iGridLib.iGColPattern();
-            TenTec.Windows.iGridLib.iGColPattern iGColPattern14 = new TenTec.Windows.iGridLib.iGColPattern();
-            TenTec.Windows.iGridLib.iGColPattern iGColPattern15 = new TenTec.Windows.iGridLib.iGColPattern();
-            TenTec.Windows.iGridLib.iGColPattern iGColPattern16 = new TenTec.Windows.iGridLib.iGColPattern();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties25 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties26 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties27 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
@@ -58,10 +50,6 @@ namespace PurchaseDesktop.Formularios
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties22 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties23 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties24 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            this.GridCol7CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.GridCol7ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
-            this.GridCol6CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.GridCol6ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.LabelPanel = new System.Windows.Forms.Label();
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
@@ -78,10 +66,6 @@ namespace PurchaseDesktop.Formularios
             this.PanelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
             this.SuspendLayout();
-            // 
-            // GridCol7CellStyle
-            // 
-            this.GridCol7CellStyle.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
             // 
             // PanelHeader
             // 
@@ -184,53 +168,6 @@ namespace PurchaseDesktop.Formularios
             // 
             // Grid
             // 
-            iGColPattern9.AllowMoving = false;
-            iGColPattern9.AllowSizing = false;
-            iGColPattern9.Key = "nro";
-            iGColPattern9.Text = "N";
-            iGColPattern9.Width = 22;
-            iGColPattern10.AllowMoving = false;
-            iGColPattern10.AllowSizing = false;
-            iGColPattern10.CellStyle = this.GridCol7CellStyle;
-            iGColPattern10.ColHdrStyle = this.GridCol7ColHdrStyle;
-            iGColPattern10.Key = "DetailID";
-            iGColPattern10.Visible = false;
-            iGColPattern11.Key = "idrow";
-            iGColPattern11.Visible = false;
-            iGColPattern12.AllowMoving = false;
-            iGColPattern12.AllowSizing = false;
-            iGColPattern12.Key = "Qty";
-            iGColPattern12.Text = "Qty";
-            iGColPattern12.Width = 38;
-            iGColPattern13.AllowMoving = false;
-            iGColPattern13.AllowSizing = false;
-            iGColPattern13.Key = "NameProduct";
-            iGColPattern13.Text = "Product";
-            iGColPattern13.Width = 174;
-            iGColPattern14.AllowMoving = false;
-            iGColPattern14.AllowSizing = false;
-            iGColPattern14.Key = "AccountID";
-            iGColPattern14.Text = "Account";
-            iGColPattern14.Width = 137;
-            iGColPattern15.AllowMoving = false;
-            iGColPattern15.AllowSizing = false;
-            iGColPattern15.CellStyle = this.GridCol6CellStyle;
-            iGColPattern15.ColHdrStyle = this.GridCol6ColHdrStyle;
-            iGColPattern15.Key = "Price";
-            iGColPattern15.Text = "Price";
-            iGColPattern15.Width = 72;
-            iGColPattern16.CellStyle = this.GridCol7CellStyle;
-            iGColPattern16.Key = "delete";
-            iGColPattern16.Width = 24;
-            this.Grid.Cols.AddRange(new TenTec.Windows.iGridLib.iGColPattern[] {
-            iGColPattern9,
-            iGColPattern10,
-            iGColPattern11,
-            iGColPattern12,
-            iGColPattern13,
-            iGColPattern14,
-            iGColPattern15,
-            iGColPattern16});
             this.Grid.DefaultAutoGroupRow.Height = 20;
             this.Grid.DefaultRow.Height = 20;
             this.Grid.DefaultRow.NormalCellHeight = 20;
@@ -240,6 +177,7 @@ namespace PurchaseDesktop.Formularios
             this.Grid.Name = "Grid";
             this.Grid.Size = new System.Drawing.Size(474, 191);
             this.Grid.TabIndex = 18;
+            this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
             // 
             // TxtPrice
@@ -249,7 +187,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPrice.AnimationSpeed = 200;
             this.TxtPrice.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
             this.TxtPrice.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtPrice.BackColor = System.Drawing.Color.Transparent;
+            this.TxtPrice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtPrice.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtPrice.BackgroundImage")));
             this.TxtPrice.BorderColorActive = System.Drawing.Color.DodgerBlue;
             this.TxtPrice.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
@@ -306,7 +244,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPrice.SelectionStart = 0;
             this.TxtPrice.ShortcutsEnabled = true;
             this.TxtPrice.Size = new System.Drawing.Size(86, 25);
-            this.TxtPrice.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
+            this.TxtPrice.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtPrice.TabIndex = 24;
             this.TxtPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtPrice.TextMarginBottom = 0;
@@ -323,7 +261,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtDescription.AnimationSpeed = 200;
             this.TxtDescription.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
             this.TxtDescription.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtDescription.BackColor = System.Drawing.Color.Transparent;
+            this.TxtDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtDescription.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtDescription.BackgroundImage")));
             this.TxtDescription.BorderColorActive = System.Drawing.Color.DodgerBlue;
             this.TxtDescription.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
@@ -380,7 +318,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtDescription.SelectionStart = 0;
             this.TxtDescription.ShortcutsEnabled = true;
             this.TxtDescription.Size = new System.Drawing.Size(361, 25);
-            this.TxtDescription.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
+            this.TxtDescription.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtDescription.TabIndex = 22;
             this.TxtDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtDescription.TextMarginBottom = 0;
@@ -408,7 +346,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtQty.AnimationSpeed = 200;
             this.TxtQty.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
             this.TxtQty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtQty.BackColor = System.Drawing.Color.Transparent;
+            this.TxtQty.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtQty.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtQty.BackgroundImage")));
             this.TxtQty.BorderColorActive = System.Drawing.Color.DodgerBlue;
             this.TxtQty.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
@@ -465,7 +403,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtQty.SelectionStart = 0;
             this.TxtQty.ShortcutsEnabled = true;
             this.TxtQty.Size = new System.Drawing.Size(56, 25);
-            this.TxtQty.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
+            this.TxtQty.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtQty.TabIndex = 20;
             this.TxtQty.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtQty.TextMarginBottom = 0;
@@ -482,7 +420,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtName.AnimationSpeed = 200;
             this.TxtName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
             this.TxtName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtName.BackColor = System.Drawing.Color.Transparent;
+            this.TxtName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtName.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtName.BackgroundImage")));
             this.TxtName.BorderColorActive = System.Drawing.Color.DodgerBlue;
             this.TxtName.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
@@ -539,7 +477,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtName.SelectionStart = 0;
             this.TxtName.ShortcutsEnabled = true;
             this.TxtName.Size = new System.Drawing.Size(299, 25);
-            this.TxtName.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
+            this.TxtName.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtName.TabIndex = 21;
             this.TxtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtName.TextMarginBottom = 0;
@@ -608,7 +546,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtTotal.AnimationSpeed = 200;
             this.TxtTotal.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
             this.TxtTotal.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtTotal.BackColor = System.Drawing.Color.Transparent;
+            this.TxtTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtTotal.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtTotal.BackgroundImage")));
             this.TxtTotal.BorderColorActive = System.Drawing.Color.DodgerBlue;
             this.TxtTotal.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
@@ -665,7 +603,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtTotal.SelectionStart = 0;
             this.TxtTotal.ShortcutsEnabled = true;
             this.TxtTotal.Size = new System.Drawing.Size(103, 25);
-            this.TxtTotal.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
+            this.TxtTotal.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtTotal.TabIndex = 27;
             this.TxtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtTotal.TextMarginBottom = 0;
@@ -715,10 +653,6 @@ namespace PurchaseDesktop.Formularios
         private Bunifu.UI.WinForms.BunifuImageButton BtnNewDetail;
         private Bunifu.UI.WinForms.BunifuImageButton BtnCerrar;
         private System.Windows.Forms.Label LabelPanel;
-        private TenTec.Windows.iGridLib.iGCellStyle GridCol7CellStyle;
-        private TenTec.Windows.iGridLib.iGColHdrStyle GridCol7ColHdrStyle;
-        private TenTec.Windows.iGridLib.iGCellStyle GridCol6CellStyle;
-        private TenTec.Windows.iGridLib.iGColHdrStyle GridCol6ColHdrStyle;
         private Bunifu.UI.WinForms.BunifuTextBox TxtTotal;
     }
 }

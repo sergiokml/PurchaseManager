@@ -30,6 +30,8 @@ namespace Desktop
 
             Users user;
 
+
+
             using (var contextDB = new PurchaseManagerContext())
             {
 
@@ -41,7 +43,7 @@ namespace Desktop
 
                 user = contextDB.Users.Find(P);
                 contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
-                //CargarUPR(50);
+                //CargarUPR(5);
                 //CargaUPO(4, "13779971"); // Booorador PO (Po user)
             }
 
@@ -52,7 +54,7 @@ namespace Desktop
             PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, user);
             var fSupplier = new FSupplier(facade);
             //var fDetails = new FDetails(facade);
-            var fAttach = new FOrderAttach(facade);
+            var fAttach = new FAttach(facade);
 
             FPrincipal f = new FPrincipal(facade, fSupplier, fAttach);
             Application.Run(f);

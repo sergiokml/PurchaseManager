@@ -9,13 +9,13 @@ using TenTec.Windows.iGridLib;
 
 namespace PurchaseDesktop.Formularios
 {
-    public partial class FOrderAttach : Form, IControles, IGridCustom
+    public partial class FAttach : Form, IControles, IGridCustom
     {
         private readonly PerfilFachada rFachada;
 
         public TextInfo UCase { get; set; }
 
-        public FOrderAttach(PerfilFachada rFachada)
+        public FAttach(PerfilFachada rFachada)
         {
             this.rFachada = rFachada;
             InitializeComponent();

@@ -39,7 +39,8 @@ namespace PurchaseDesktop.Formularios
         private void FDetails_Load(object sender, EventArgs e)
         {
             SetControles();
-            //OrderHeader = new OrderHeader().GetById(ItemID); //todo Y EL REQ?
+            //! Grid Principal
+            Grid = rFachada.CargarGrid(Grid, "FDetails");
             LlenarGrid();
         }
 
@@ -47,15 +48,6 @@ namespace PurchaseDesktop.Formularios
         {
             if (ValidarControles())
             {
-                //var detail = new OrderDetails
-                //{
-                //    //AccountID = ((OrderAccounts)CboAccount.SelectedItem).AccountID,
-                //    Qty = Convert.ToInt32(TxtQty.Text),
-                //    NameProduct = TxtName.Text,
-                //    DescriptionProduct = TxtName.Text
-                //};
-                //new OrderDetails().AddDetail(detail, OrderHeader);
-
                 var PrDetail = new RequisitionDetails
                 {
                     AccountID = ((Accounts)CboAccount.SelectedItem).AccountID,
@@ -64,15 +56,11 @@ namespace PurchaseDesktop.Formularios
                     DescriptionProduct = TxtDescription.Text.Trim()
                 };
                 rFachada.InsertDetail(PrDetail, ItemID);
-
                 LlenarGrid();
                 ClearControles();
             }
         }
-        //protected override void OnPaint(PaintEventArgs e)
-        //{
-        //    ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.FromArgb(0, 120, 215), ButtonBorderStyle.Solid);
-        //}
+
         private void LlenarGrid()
         {
             //! Grid Principal
@@ -87,21 +75,6 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[i].Cells["nro"].Value = i + 1;
                 }
-
-
-                //int nro = 1;
-                //var total = RequisitionDetails.Count;
-                //foreach (var item in RequisitionDetails)
-                //{
-                //    iGRow myRow = Grid.Rows.Add();
-                //    myRow.Cells["nro"].Value = nro;
-                //    myRow.Cells["DetailID"].Value = item.DetailID;
-                //    myRow.Cells["Qty"].Value = item.Qty;
-                //    myRow.Cells["NameProduct"].Value = item.NameProduct;
-                //    myRow.Cells["AccountID"].Value = item.AccountID;
-                //    nro++;
-                //    myRow.Cells["delete"].ImageIndex = 2;
-                //}
                 Grid.Refresh();
             }
             catch (Exception)
@@ -173,6 +146,9 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-
+        private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
+        {
+            Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
+        }
     }
 }

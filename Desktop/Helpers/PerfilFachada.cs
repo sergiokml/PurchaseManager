@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -111,7 +112,7 @@ namespace PurchaseDesktop.Helpers
         //    return null;
         //}
 
-        public iGrid CargarGrid(iGrid grid)
+        public iGrid CargarGrid(iGrid grid, string form)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -120,19 +121,26 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                // return perfilPo.CargarGrid();
-                //grid = perfilPo.FactoryGrid(grid, PerfilAbstract.EtapasGrid.PintarGrid);
-                //return grid;
+
                 case "UPR":
                     perfilPr.Grid = grid;
                     perfilPr.UserProfiles = userDB.UserProfiles;
                     perfilPr.PintarGrid();
-                    perfilPr.CargarColumnas();
+                    switch (form)
+                    {
+                        case "FPrincipal":
+                            perfilPr.CargarColumnasFPrincipal();
+                            break;
+                        case "FDetails":
+                            perfilPr.CargarColumnasFDetail();
+                            break;
+                        case "FAttach":
+                            break;
+                    }
                     return perfilPr.Grid;
+                case "VAL":
+                    break;
 
-                    // return perfilPr.FactoryGrid(grid, PerfilAbstract.EtapasGrid.PintarGrid);
-                    // case "VAL":
-                    //return perfilVal.FactoryGrid(grid, PerfilAbstract.EtapasGrid.PintarGrid);
             }
             return null;
         }
@@ -400,9 +408,7 @@ namespace PurchaseDesktop.Helpers
                     perfilPr.PintarGrid();
                     f.StartPosition = FormStartPosition.CenterScreen;
                     f.ItemID = Convert.ToInt32(dataRow["RequisitionHeaderID"]);
-
-                    f.Show();
-
+                    f.ShowDialog();
                     break;
                 case "VAL":
                     break;
@@ -433,7 +439,7 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
-        public bool EditarAttach(FOrderAttach fAttach)
+        public bool EditarAttach(FAttach fAttach)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -472,8 +478,8 @@ namespace PurchaseDesktop.Helpers
                     {
                         return "This requisition has no products.";
                     }
-                    var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-                    Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details, attaches));
+                    //var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details));
                     return "Opening...";
                 case "VAL":
                     break;
@@ -497,11 +503,8 @@ namespace PurchaseDesktop.Helpers
                     {
                         return "This requisition has no products.";
                     }
-                    var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-
-                    var pathHtml = new HtmlManipulate();
-
-                    var path = pathHtml.ReemplazarDatos(dataRow, userDB, details, attaches);
+                    // var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    var path = new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details);
                     var send = new SendEmailTo(Properties.Settings.Default.Email, Properties.Settings.Default.Password);
                     var x = await send.SendEmail(path, asunto: "Purchase Manager: Requisition document", userDB);
 
@@ -513,9 +516,8 @@ namespace PurchaseDesktop.Helpers
             return null;
         }
 
-        public void CargarDashBoard(BunifuPolarAreaChart chart1,
-             BunifuPolarAreaChart chart2,
-             BunifuChartCanvas chartCanvas1)
+        public void CargarDashBoard(BunifuPieChart chart1, BunifuPieChart chart2,
+             BunifuChartCanvas chartCanvas1, BunifuChartCanvas chartCanvas2)
         {
             List<string> labels = new List<string>();
 
@@ -538,20 +540,100 @@ namespace PurchaseDesktop.Helpers
                     }
                     var res2 = perfilPr.OrderGroupByStatus_Results;
                     var total2 = res2.Sum(c => c.Nro);
-                    foreach (var item in res2)
+                    foreach (var item in res1)
                     {
-                        chart2.Data.Add(Convert.ToDouble((item.Nro * 100) / total2));
+                        chart2.Data.Add(Convert.ToDouble((item.Nro * 100) / total1));
 
 
                     }
 
+                    chart1.TargetCanvas = chartCanvas1;
+                    chart2.TargetCanvas = chartCanvas2;
+
                     chartCanvas1.Labels = labels.ToArray();
+                    chartCanvas2.Labels = labels.ToArray();
 
 
+                    chartCanvas1.XAxesGridLines = false;
+                    chartCanvas1.YAxesGridLines = false;
+                    chartCanvas1.ShowXAxis = false;
+                    chartCanvas1.ShowYAxis = false;
+                    chartCanvas1.LegendDisplay = false;
+                    chartCanvas1.LegendPosition = BunifuChartCanvas.PositionOptions.left;
+                    chartCanvas1.BackColor = Color.FromArgb(37, 37, 38);
+
+                    chartCanvas2.XAxesGridLines = false;
+                    chartCanvas2.YAxesGridLines = false;
+                    chartCanvas2.ShowXAxis = false;
+                    chartCanvas2.ShowYAxis = false;
+                    chartCanvas2.LegendDisplay = false;
+                    chartCanvas2.BackColor = Color.FromArgb(37, 37, 38);
+
+                    List<Color> bgColors = new List<Color>();
+                    //{
+                    //    Color.FromArgb(3, 121, 213),
+                    //    Color.FromArgb(53, 146, 171),
+                    //    Color.FromArgb(77, 158, 150),
+                    //    Color.FromArgb(106, 172, 125),
+                    //    Color.FromArgb(130, 184, 105),
+                    //    Color.FromArgb(150, 194, 89)
+                    //    };
+
+                    for (int i = 0; i < 100; i++)
+                    {
+                        bgColors.Add(RandomColors.GetNext());
+                    }
+
+                    chart1.BackgroundColor = bgColors;
+                    chart1.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
+                    chart2.BackgroundColor = bgColors;
+                    chart2.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
                     break;
                 case "VAL":
                     break;
             }
+        }
+
+        public string CargarBanner()
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    break;
+                case "UPR":
+                    return new HtmlManipulate().ReemplazarDatos();
+                case "VAL":
+                    break;
+            }
+            return null;
+        }
+    }
+    public class RandomColors
+    {
+        private static Color lastColor = Color.Empty;
+        //private static readonly KnownColor[] colorValues = (KnownColor[])Enum.GetValues(typeof(KnownColor));
+        private static readonly Random rnd = new Random();
+        private const int MaxColor = 256;
+        static RandomColors()
+        {
+            lastColor = Color.FromArgb(rnd.Next(MaxColor), rnd.Next(MaxColor), rnd.Next(MaxColor));
+        }
+
+        public static Color GetNext()
+        {
+            // use the previous value as a mix color as demonstrated by David Crow
+            // https://stackoverflow.com/a/43235/578411
+            Color nextColor = Color.FromArgb(
+                (rnd.Next(MaxColor) + lastColor.R) / 2,
+                (rnd.Next(MaxColor) + lastColor.G) / 2,
+                (rnd.Next(MaxColor) + lastColor.B) / 2
+                );
+            lastColor = nextColor;
+            return nextColor;
         }
     }
 }

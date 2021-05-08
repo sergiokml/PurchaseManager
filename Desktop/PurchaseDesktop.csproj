@@ -176,11 +176,11 @@
     <Compile Include="Formularios\FLogin.designer.cs">
       <DependentUpon>FLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FOrderAttach.cs">
+    <Compile Include="Formularios\FAttach.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FOrderAttach.designer.cs">
-      <DependentUpon>FOrderAttach.cs</DependentUpon>
+    <Compile Include="Formularios\FAttach.designer.cs">
+      <DependentUpon>FAttach.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FPrincipal.cs">
       <SubType>Form</SubType>
@@ -211,8 +211,8 @@
     <EmbeddedResource Include="Formularios\FLogin.resx">
       <DependentUpon>FLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FOrderAttach.resx">
-      <DependentUpon>FOrderAttach.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FAttach.resx">
+      <DependentUpon>FAttach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FPrincipal.resx">
       <DependentUpon>FPrincipal.cs</DependentUpon>

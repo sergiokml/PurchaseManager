@@ -171,6 +171,10 @@ a {
         background-position: -112px -143px
     }
 
+    .flag.flag-cl {
+        background-position: -144px -22px
+    }
+
 body {
     font-family: Arial,sans-serif
 }

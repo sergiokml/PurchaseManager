@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
-using System.IO;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
@@ -26,8 +24,8 @@ namespace PurchaseDesktop.Formularios
         public FSupplier FSupplier { get; set; }
 
         //public FDetails FDetails { get; set; }
-        public FOrderAttach FAttach { get; set; }
-        public FPrincipal(PerfilFachada rFachada, FSupplier fSupplier, FOrderAttach fAttach)
+        public FAttach FAttach { get; set; }
+        public FPrincipal(PerfilFachada rFachada, FSupplier fSupplier, FAttach fAttach)
         {
             FAttach = fAttach;
             //FDetails = fDetails;
@@ -70,62 +68,20 @@ namespace PurchaseDesktop.Formularios
             CboType.DataSource = Enum.GetValues(typeof(OrderType));
             CboType.SelectedIndex = -1;
 
-            //! Events
-            // Grid.AfterCommitEdit += Grid_AfterCommitEdit;
-            Grid.CellMouseDown += Grid_CellMouseDown;
-            Grid.BeforeCommitEdit += Grid_BeforeCommitEdit;
-
             //! Grid Principal
-            Grid = rFachada.CargarGrid(Grid); // Pintar y cargar columnas
+            Grid = rFachada.CargarGrid(Grid, "FPrincipal"); // Pintar y cargar columnas
             LlenarGrid();
             Grid = rFachada.FormatearGrid(Grid);
 
-            var email = Properties.Settings.Default.Email;
-            List<Color> bgColors = new List<Color>
-            {
-                Color.FromArgb(3, 121, 213),
-                Color.FromArgb(53, 146, 171),
-                Color.FromArgb(77, 158, 150),
-                Color.FromArgb(106, 172, 125),
-                Color.FromArgb(130, 184, 105),
-                Color.FromArgb(150, 194, 89)
-            };
+            //! DashBoard
+            rFachada.CargarDashBoard(PieChart1, PieChart2, ChartCanvas1, ChartCanvas2);
 
-            ChartCanvas1.XAxesGridLines = false;
-            ChartCanvas1.YAxesGridLines = false;
-            ChartCanvas1.ShowXAxis = false;
-            ChartCanvas1.ShowYAxis = false;
-            ChartCanvas1.LegendDisplay = false;
-            ChartCanvas1.BackColor = Color.FromArgb(37, 37, 38);
+            //! Banner
+            //var path = Directory.GetCurrentDirectory() + @"\HtmlBanner\Banner.html";
 
-            ChartCanvas2.XAxesGridLines = false;
-            ChartCanvas2.YAxesGridLines = false;
-            ChartCanvas2.ShowXAxis = false;
-            ChartCanvas2.ShowYAxis = false;
-            ChartCanvas2.LegendDisplay = false;
-            ChartCanvas2.BackColor = Color.FromArgb(37, 37, 38);
+            WBrowserBanner.Navigate(rFachada.CargarBanner());
 
-            ChartCanvas3.XAxesGridLines = false;
-            ChartCanvas3.YAxesGridLines = false;
-            ChartCanvas3.ShowXAxis = false;
-            ChartCanvas3.ShowYAxis = false;
-            ChartCanvas3.LegendDisplay = false;
-            ChartCanvas3.BackColor = Color.FromArgb(37, 37, 38);
-
-
-
-            PolarAreaChart1.BackgroundColor = bgColors;
-            PolarAreaChart1.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
-            PolarAreaChart2.BackgroundColor = bgColors;
-            PolarAreaChart2.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
-            PolarAreaChart3.BackgroundColor = bgColors;
-            PolarAreaChart3.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
-
-
-            rFachada.CargarDashBoard(PolarAreaChart1, PolarAreaChart2, ChartCanvas1);
-
-            var path = Directory.GetCurrentDirectory() + @"\HtmlBanner\Banner.html";
-            WBrowserBanner.Navigate(path);
+            //! Otros
             var user = rFachada.GetUser();
             LblUser.Text = $"User: {user.FirstName} {user.LastName} | Profile: {user.ProfileID} | email: {user.Email}";
         }

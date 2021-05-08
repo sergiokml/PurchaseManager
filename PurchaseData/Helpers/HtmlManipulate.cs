@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 
 using HtmlAgilityPack;
 
 using OpenHtmlToPdf;
 
 using PurchaseData.DataModel;
+using PurchaseData.Indicadores;
 
 namespace PurchaseData.Helpers
 {
@@ -19,7 +21,6 @@ namespace PurchaseData.Helpers
         public HtmlManipulate()
         {
             HtmlDoc = new HtmlDocument();
-            HtmlDoc.Load(Environment.CurrentDirectory + @"\HtmlDocuments\RequisitionDoc.html");
         }
 
         public string ConvertHtmlToPdf(string path, string id)
@@ -36,9 +37,9 @@ namespace PurchaseData.Helpers
             return Path.GetTempPath() + id + ".pdf";
         }
 
-
-        public string ReemplazarDatos(DataRow dataRow, Users user, List<RequisitionDetails> details, List<Attaches> attaches)
+        public string ReemplazarDatos(DataRow dataRow, Users user, List<RequisitionDetails> details)
         {
+            HtmlDoc.Load(Environment.CurrentDirectory + @"\HtmlDocuments\RequisitionDoc.html");
             string userName = $"{user.FirstName} {user.LastName}";
             var line = 1;
             HtmlDoc.GetElementbyId("userName").InnerHtml = userName;
@@ -123,6 +124,52 @@ namespace PurchaseData.Helpers
             //              Replace("[RequisitionHeaderID]", dataRow["RequisitionHeaderID"].ToString());
 
             //File.WriteAllText(path, doc.Text);
+            return path;
+        }
+
+        public string ReemplazarDatos()
+        {
+            var path = Environment.CurrentDirectory + @"\HtmlBanner\Banner.html";
+            HtmlDoc.Load(path);
+            //HtmlDoc.GetElementbyId("").InnerHtml = "";
+            var table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]");
+            var semana = DateTime.Now.AddDays(-7);
+            List<Indicador> dolar = new IndicadorDolar().GetPosterior(semana).Dolar;
+            double ultimo = 0;
+            double penultimo = 0;
+            if (dolar.Count > 1)
+            {
+                ultimo = Convert.ToDouble(dolar[dolar.Count() - 1].Valor); // today
+                penultimo = Convert.ToDouble(dolar[dolar.Count() - 2].Valor);
+            }
+            //! USD
+            var node = $"<a class='currency inc'>";
+            node += "<div></div>";
+            node += $"<div class='currency-name'>USD</div>/";
+            node += "<div class='flag flag-us'></div>";
+            node += $"<div class='currency-name'>CLP</div>";
+            node += $"<div class='rate'>{ultimo}</div>";
+            node += $"<div class='change'>{Convert.ToDouble(ultimo) - Convert.ToDouble(penultimo)}</div></a>";
+            table.AppendChild(HtmlNode.CreateNode(node));
+
+            //! EURO
+            List<Indicador> euro = new IndicadorEuro().GetPosterior(semana).Euro;
+            if (euro.Count > 1)
+            {
+                ultimo = Convert.ToDouble(euro[euro.Count() - 1].Valor); // today
+                penultimo = Convert.ToDouble(euro[euro.Count() - 2].Valor);
+            }
+            node = $"<a class='currency inc'>";
+            node += "<div></div>";
+            node += $"<div class='currency-name'>EUR</div>/";
+            node += "<div class='flag flag-us'></div>";
+            node += $"<div class='currency-name'>CLP</div>";
+            node += $"<div class='rate'>{ultimo}</div>";
+            node += $"<div class='change'>{(Convert.ToDouble(ultimo) - Convert.ToDouble(penultimo)).ToString("+0;-#")}</div></a>";
+            table.AppendChild(HtmlNode.CreateNode(node));
+
+            //! Save
+            HtmlDoc.Save(path, System.Text.Encoding.UTF8);
             return path;
         }
     }
