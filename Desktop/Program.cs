@@ -43,7 +43,7 @@ namespace Desktop
 
                 user = contextDB.Users.Find(P);
                 contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
-                //CargarUPR(5);
+                // CargarUPR(20);
                 //CargaUPO(4, "13779971"); // Booorador PO (Po user)
             }
 
@@ -81,7 +81,7 @@ namespace Desktop
                         {
                             Description = $"Purchase Requisition N°{i + 1} [Borrador]",
                             Type = (byte)n,
-                            StatusID = 1, // 1: Borrrador PR                        
+                            StatusID = 2, // 1: Borrrador PR                        
                             CompanyID = companies[new Random().Next(companies.Count())].CompanyID,
                         };
                         for (int y = 0; y < 2; y++)

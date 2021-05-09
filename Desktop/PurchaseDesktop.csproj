@@ -265,6 +265,11 @@
     <Content Include="HtmlBanner\sprite_crypto13.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\checked_18px.png" />
+    <None Include="Resources\timer_18px.png" />
+    <None Include="Resources\error_18px.png" />
+    <None Include="Resources\send_18px.png" />
+    <None Include="Resources\vote_20px.png" />
     <None Include="Resources\error_20px.png" />
     <None Include="Resources\send_20px.png" />
     <None Include="Resources\icons8_send.ico" />

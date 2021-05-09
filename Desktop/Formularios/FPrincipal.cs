@@ -25,6 +25,8 @@ namespace PurchaseDesktop.Formularios
 
         public bool IsSending { get; set; }
 
+        public string Espaciosimage { get; set; } = "       ";
+
         //public FDetails FDetails { get; set; }
         public FAttach FAttach { get; set; }
         public FPrincipal(PerfilFachada rFachada, FSupplier fSupplier, FAttach fAttach)
@@ -84,7 +86,7 @@ namespace PurchaseDesktop.Formularios
             //! Grid Principal
             Grid = rFachada.CargarGrid(Grid, "FPrincipal"); // Pintar y cargar columnas
             LlenarGrid();
-            Grid = rFachada.FormatearGrid(Grid);
+
 
             //! DashBoard
             CargarDashboard();
@@ -113,7 +115,12 @@ namespace PurchaseDesktop.Formularios
                     Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
                 }
                 Grid.Refresh();
-                LblMsg.Text = $"You have {vista.Rows.Count} documents issued and showing.";
+                LblMsg.Text = $"{Espaciosimage}You have {vista.Rows.Count} documents issued and showing.";
+                LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
+                LblMsg.Image = Properties.Resources.checked_18px;
+
+
+                Grid = rFachada.FormatearGrid(Grid);
             }
             catch (Exception)
             {
@@ -190,7 +197,9 @@ namespace PurchaseDesktop.Formularios
                 {
                     e.Result = iGEditResult.Cancel;
                     LblMsg.Text = string.Empty;
-                    LblMsg.Text = "This document cannot be updated.";
+                    LblMsg.Text = $"{Espaciosimage}This document cannot be updated.";
+                    LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
+                    LblMsg.Image = Properties.Resources.error_18px;
                 }
                 else
                 {
@@ -226,12 +235,14 @@ namespace PurchaseDesktop.Formularios
                 }
                 else
                 {
-                    LblMsg.Text += "No se puede eliminar";
+                    LblMsg.Text = $"{Espaciosimage}This document cannot be deleted.";
+                    LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
+                    LblMsg.Image = Properties.Resources.error_18px;
                 }
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
-                LblMsg.Text = rFachada.VerItemHtml(current);
+                LblMsg.Text = $"{Espaciosimage}{rFachada.VerItemHtml(current)}";
                 Grid.Focus();
                 Grid.DrawAsFocused = false;
             }
@@ -240,23 +251,22 @@ namespace PurchaseDesktop.Formularios
                 if (!IsSending)
                 {
                     IsSending = true;
-                    var espaciosimage = "       ";
-                    LblMsg.Text = $"{espaciosimage}Sending message, please wait.";
+                    LblMsg.Text = $"{Espaciosimage}Sending message, please wait.";
                     LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
                     LblMsg.Image = Properties.Resources.loading;
                     var respuesta = await rFachada.SendItem(current);
                     if (respuesta == "NODETAILS")
                     {
-                        LblMsg.Text = $"{espaciosimage}This requisition has no products.";
+                        LblMsg.Text = $"{Espaciosimage}This requisition has no products.";
                         LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                        LblMsg.Image = Properties.Resources.error_20px;
+                        LblMsg.Image = Properties.Resources.error_18px;
                         IsSending = false;
                     }
                     else
                     {
                         LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                        LblMsg.Text = $"{espaciosimage}{respuesta}";
-                        LblMsg.Image = Properties.Resources.send_20px;
+                        LblMsg.Text = $"{Espaciosimage}{respuesta}";
+                        LblMsg.Image = Properties.Resources.send_18px;
                         IsSending = false;
                     }
                 }

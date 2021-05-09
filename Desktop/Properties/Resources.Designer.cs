@@ -63,9 +63,19 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap error_20px {
+        internal static System.Drawing.Bitmap checked_18px {
             get {
-                object obj = ResourceManager.GetObject("error_20px", resourceCulture);
+                object obj = ResourceManager.GetObject("checked_18px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap error_18px {
+            get {
+                object obj = ResourceManager.GetObject("error_18px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +143,19 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap send_20px {
+        internal static System.Drawing.Bitmap send_18px {
             get {
-                object obj = ResourceManager.GetObject("send_20px", resourceCulture);
+                object obj = ResourceManager.GetObject("send_18px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap timer_18px {
+            get {
+                object obj = ResourceManager.GetObject("timer_18px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
