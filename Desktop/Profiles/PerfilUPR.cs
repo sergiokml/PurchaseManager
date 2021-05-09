@@ -14,7 +14,7 @@ using PurchaseDesktop.Interfaces;
 
 namespace PurchaseDesktop.Profiles
 {
-    public class PerfilUPR : PerfilAbstract, IPerfilActions
+    public class PerfilUPR : HFunctions, IPerfilActions
     {
         private readonly PurchaseManagerContext rContext;
 
@@ -203,12 +203,12 @@ namespace PurchaseDesktop.Profiles
             GuardarCambios();
         }
 
-        public void CargarDashBoard()
+        public void GetFunciones()
         {
             IQueryable<ufnGetReqGroupByCost_Result> a = rContext.ufnGetReqGroupByCost(2);
-
             ReqGroupByCost_Results = rContext.ufnGetReqGroupByCost(2).ToList();
             OrderGroupByStatus_Results = rContext.ufnGetOrderGroupByStatus().ToList();
+            //Label1.Text = rContext.;
         }
 
         public void InsertRequisitionDetail(RequisitionDetails detail, Users userDB, int idItem)

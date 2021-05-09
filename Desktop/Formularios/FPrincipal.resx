@@ -118,6 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="bunifuSeparator2.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAABEwAAAABCAYAAADEiDsbAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAiSURBVFhH7cNBDQAACAQgS14589hLX7aAjerJqqqqqvqz
+        BzTclX6y7dQNAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="BtnCerrar.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAWhJREFUWEft
@@ -594,7 +601,7 @@
         RK5CYII=
 </value>
   </data>
-  <data name="bunifuImageButton3.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnHitos.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAlZJREFUeF7t
         m7FqHDEQhu8VUuQFDHkDP0IK97fawlUgZa43Jl1CIIUrF+Z2F18bbHBh3ARS+SQVadJcZZMYDHGRJq9w
@@ -610,7 +617,7 @@
         AAAASUVORK5CYII=
 </value>
   </data>
-  <data name="bunifuImageButton3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnHitos.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAlZJREFUeF7t
         m7FqHDEQhu8VUuQFDHkDP0IK97fawlUgZa43Jl1CIIUrF+Z2F18bbHBh3ARS+SQVadJcZZMYDHGRJq9w
@@ -626,7 +633,7 @@
         AAAASUVORK5CYII=
 </value>
   </data>
-  <data name="bunifuImageButton3.ImageActive" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnHitos.ImageActive" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAlZJREFUeF7t
         m7FqHDEQhu8VUuQFDHkDP0IK97fawlUgZa43Jl1CIIUrF+Z2F18bbHBh3ARS+SQVadJcZZMYDHGRJq9w
@@ -642,7 +649,7 @@
         AAAASUVORK5CYII=
 </value>
   </data>
-  <data name="bunifuImageButton2.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnDetails.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAABaVJREFUeF7t
         W1toHFUYXu93RcUb3hUUxQdBfBBURESMWKFxzmytVxTqi4qgYNCXKChqwUtMm52ZNJX6oAaVgte2wtrM
@@ -672,7 +679,7 @@
         V3rPTLGaAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="bunifuImageButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnDetails.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAABaVJREFUeF7t
         W1toHFUYXu93RcUb3hUUxQdBfBBURESMWKFxzmytVxTqi4qgYNCXKChqwUtMm52ZNJX6oAaVgte2wtrM
@@ -702,7 +709,7 @@
         V3rPTLGaAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="bunifuImageButton2.ImageActive" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnDetails.ImageActive" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAABaVJREFUeF7t
         W1toHFUYXu93RcUb3hUUxQdBfBBURESMWKFxzmytVxTqi4qgYNCXKChqwUtMm52ZNJX6oAaVgte2wtrM
@@ -732,7 +739,7 @@
         V3rPTLGaAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="bunifuImageButton1.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnSupplier.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAA7VJREFUeF7t
         m0toE0EYx1VEUPHgAy+KCOpBQREV9OjFk1pos7PxgQf1JiJiDwoi9qIn8YGPZHatYCuCogdFxdZDaWc2
@@ -754,7 +761,7 @@
         YII=
 </value>
   </data>
-  <data name="bunifuImageButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnSupplier.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAA7VJREFUeF7t
         m0toE0EYx1VEUPHgAy+KCOpBQREV9OjFk1pos7PxgQf1JiJiDwoi9qIn8YGPZHatYCuCogdFxdZDaWc2
@@ -776,7 +783,7 @@
         YII=
 </value>
   </data>
-  <data name="bunifuImageButton1.ImageActive" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BtnSupplier.ImageActive" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAA7VJREFUeF7t
         m0toE0EYx1VEUPHgAy+KCOpBQREV9OjFk1pos7PxgQf1JiJiDwoi9qIn8YGPZHatYCuCogdFxdZDaWc2
@@ -885,8 +892,8 @@
   <data name="bunifuSeparator1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABEwAAAABCAYAAADEiDsbAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAhSURBVFhH7cMxDQAACAMwzAz/DseFizbpJFtVVVVV//YA
-        sWEpT0+p0Q4AAAAASUVORK5CYII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAiSURBVFhH7cNBDQAACAQgS14589hLX7aAjerJqqqqqvqz
+        BzTclX6y7dQNAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="FDock.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

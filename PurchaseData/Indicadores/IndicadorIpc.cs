@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
@@ -28,6 +29,20 @@ namespace PurchaseData.Indicadores
                 if (r.Ipc.Count > 0)
                 {
                     return r.Ipc[0];
+                }
+                return null;
+            }
+        }
+        public IndicadorIpc GetPosterior(DateTime d)
+        {
+            using (WebClient)
+            {
+                var url = $"ipc/posteriores/{d.Year}/{d.Month}/?apikey={ApiKey}&formato=json";
+                var response = WebClient.DownloadString(url);
+                var r = JsonSerializer.Deserialize<IndicadorIpc>(response);
+                if (r != null)
+                {
+                    return r;
                 }
                 return null;
             }

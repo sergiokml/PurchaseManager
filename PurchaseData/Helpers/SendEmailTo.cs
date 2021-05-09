@@ -48,7 +48,7 @@ namespace PurchaseData.Helpers
                 await client.AuthenticateAsync(Email, Password);
                 await client.SendAsync(Message);
                 await client.DisconnectAsync(true);
-                MessageResult = "exitooooooooooooooooooooooooo";
+                MessageResult = $"Message sent successfully to: {Message.To[0].Name}.";
                 return MessageResult;
             }
         }

@@ -9,7 +9,7 @@ using PurchaseDesktop.Interfaces;
 
 namespace PurchaseDesktop.Profiles
 {
-    public class PerfilVAL : PerfilAbstract, IPerfilActions
+    public class PerfilVAL : HFunctions, IPerfilActions
     {
         private readonly PurchaseManagerContext rContext;
         //  public UserDB UserDB { get; set; }
@@ -93,7 +93,7 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void CargarDashBoard()
+        public void GetFunciones()
         {
             throw new NotImplementedException();
         }

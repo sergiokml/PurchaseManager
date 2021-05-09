@@ -1,17 +1,17 @@
 ﻿/*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2017 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
+* Bootstrap v3.3.7 (http://getbootstrap.com)
+* Copyright 2011-2017 Twitter, Inc.
+* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+*/
 
 /*!
- * Generated using the Bootstrap Customizer (https://getbootstrap.com/docs/3.3/customize/?id=2a825e5f2657f0c71ed7b87e7a70c179)
- * Config saved to config.json and https://gist.github.com/2a825e5f2657f0c71ed7b87e7a70c179
- */ /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */ /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+* Generated using the Bootstrap Customizer (https://getbootstrap.com/docs/3.3/customize/?id=2a825e5f2657f0c71ed7b87e7a70c179)
+* Config saved to config.json and https://gist.github.com/2a825e5f2657f0c71ed7b87e7a70c179
+*/ /*!
+* Bootstrap v3.3.7 (http://getbootstrap.com)
+* Copyright 2011-2016 Twitter, Inc.
+* Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+*/ /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 html {
     font-family: sans-serif;
@@ -108,23 +108,24 @@ a {
 }
 /*
 @media (min-width:768px) {
-    .container {
-        width: 750px
-    }
+.container {
+width: 750px
+}
 }*/
+
 
 
 
 @media (min-width:1200px) {
     .container {
-        width: 1200px      
+        width: 1200px
     }
 }
 
 .row {
     margin-left: -15px;
-    margin-right: -15px; 
-    margin-top:5px;
+    margin-right: -15px;
+    margin-top: 5px;
 }
 
 .col-sm-12 {
@@ -157,8 +158,8 @@ a {
     width: device-width
 }
 /*!
- * Generated with CSS Flag Sprite generator (https://www.flag-sprites.com/)
- */
+* Generated with CSS Flag Sprite generator (https://www.flag-sprites.com/)
+*/
 
 .flag {
     display: inline-block;
@@ -180,13 +181,13 @@ body {
 }
 
 .grey-underline {
-   /* border-bottom: 1px solid #eee;*/
+    /* border-bottom: 1px solid #eee;*/
     padding-bottom: 0px;
     padding-top: 0px
 }
 
 .top-rates-toolbar {
-    margin-top: 0px;  
+    margin-top: 0px;
     display: block;
     overflow: hidden;
     white-space: nowrap;
@@ -233,6 +234,9 @@ body {
 
         .top-rates-toolbar .currency.inc .change {
             color: green
+        }
+        .top-rates-toolbar .currency.dec .change {
+            color: red;
         }
 
 .flag.alt {

@@ -38,6 +38,7 @@ namespace PurchaseDesktop.Formularios
 
         private void FDetails_Load(object sender, EventArgs e)
         {
+            Icon = Properties.Resources.icons8_survey;
             SetControles();
             //! Grid Principal
             Grid = rFachada.CargarGrid(Grid, "FDetails");

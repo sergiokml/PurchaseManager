@@ -3,7 +3,7 @@ using System.Data;
 
 using PurchaseData.DataModel;
 
-using static PurchaseDesktop.Helpers.PerfilAbstract;
+using static PurchaseDesktop.Helpers.HFunctions;
 
 namespace PurchaseDesktop.Interfaces
 {
@@ -22,7 +22,7 @@ namespace PurchaseDesktop.Interfaces
         void UpdateOrderHeader(Users userDB, int id, object valor, string campo);
         void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo);
         DataTable GetVistaSuppliers();
-        void CargarDashBoard();
+        void GetFunciones();
 
     }
 }

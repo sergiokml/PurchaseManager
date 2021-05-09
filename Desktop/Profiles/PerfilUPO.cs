@@ -14,7 +14,7 @@ using PurchaseDesktop.Interfaces;
 
 namespace PurchaseDesktop.Profiles
 {
-    public class PerfilUPO : PerfilAbstract, IPerfilActions
+    public class PerfilUPO : HFunctions, IPerfilActions
     {
         private readonly PurchaseManagerContext rContext;
 
@@ -160,7 +160,7 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void CargarDashBoard()
+        public void GetFunciones()
         {
             throw new NotImplementedException();
         }

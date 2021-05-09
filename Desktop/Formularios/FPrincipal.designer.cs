@@ -32,17 +32,27 @@ namespace PurchaseDesktop.Formularios
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPrincipal));
             this.PanelHeader = new System.Windows.Forms.Panel();
+            this.LabelPanel = new System.Windows.Forms.Label();
+            this.bunifuSeparator2 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.BtnMinimizar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
-            this.LabelPanel = new System.Windows.Forms.Label();
             this.PanelDash = new System.Windows.Forms.Panel();
-            this.bunifuImageButton3 = new Bunifu.UI.WinForms.BunifuImageButton();
-            this.bunifuImageButton2 = new Bunifu.UI.WinForms.BunifuImageButton();
-            this.bunifuImageButton1 = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.LblTitulo2 = new System.Windows.Forms.Label();
+            this.LblTitulo1 = new System.Windows.Forms.Label();
+            this.Lbl4 = new System.Windows.Forms.Label();
+            this.Lbl6 = new System.Windows.Forms.Label();
+            this.Lbl5 = new System.Windows.Forms.Label();
+            this.Lbl1 = new System.Windows.Forms.Label();
+            this.Lbl3 = new System.Windows.Forms.Label();
+            this.Lbl2 = new System.Windows.Forms.Label();
+            this.ChartCanvas1 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
+            this.ChartCanvas2 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
+            this.BtnHitos = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.BtnDetails = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.BtnSupplier = new Bunifu.UI.WinForms.BunifuImageButton();
             this.CboType = new System.Windows.Forms.ComboBox();
             this.CboCompany = new System.Windows.Forms.ComboBox();
             this.BtnInsert = new Bunifu.UI.WinForms.BunifuImageButton();
-            this.label3 = new System.Windows.Forms.Label();
             this.WBrowserBanner = new System.Windows.Forms.WebBrowser();
             this.PanelBtns = new System.Windows.Forms.Panel();
             this.LblUser = new System.Windows.Forms.Label();
@@ -93,17 +103,8 @@ namespace PurchaseDesktop.Formularios
             this.GridCol16CellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.GridCol16ColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.iGrid1RowTextColCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.PieChart1 = new Bunifu.Charts.WinForms.ChartTypes.BunifuPieChart(this.components);
-            this.ChartCanvas2 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
-            this.ChartCanvas1 = new Bunifu.Charts.WinForms.BunifuChartCanvas();
             this.PieChart2 = new Bunifu.Charts.WinForms.ChartTypes.BunifuPieChart(this.components);
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
             this.PanelBtns.SuspendLayout();
@@ -113,14 +114,43 @@ namespace PurchaseDesktop.Formularios
             // PanelHeader
             // 
             this.PanelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.PanelHeader.Controls.Add(this.LabelPanel);
+            this.PanelHeader.Controls.Add(this.bunifuSeparator2);
             this.PanelHeader.Controls.Add(this.BtnMinimizar);
             this.PanelHeader.Controls.Add(this.BtnCerrar);
-            this.PanelHeader.Controls.Add(this.LabelPanel);
             this.PanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelHeader.Location = new System.Drawing.Point(0, 0);
             this.PanelHeader.Name = "PanelHeader";
             this.PanelHeader.Size = new System.Drawing.Size(1100, 25);
             this.PanelHeader.TabIndex = 0;
+            // 
+            // LabelPanel
+            // 
+            this.LabelPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelPanel.ForeColor = System.Drawing.Color.White;
+            this.LabelPanel.Location = new System.Drawing.Point(0, 1);
+            this.LabelPanel.Name = "LabelPanel";
+            this.LabelPanel.Size = new System.Drawing.Size(160, 24);
+            this.LabelPanel.TabIndex = 2;
+            this.LabelPanel.Text = "Purshase Ctrl V 0.06042021";
+            this.LabelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // bunifuSeparator2
+            // 
+            this.bunifuSeparator2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.bunifuSeparator2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuSeparator2.BackgroundImage")));
+            this.bunifuSeparator2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuSeparator2.DashCap = Bunifu.UI.WinForms.BunifuSeparator.CapStyles.Flat;
+            this.bunifuSeparator2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
+            this.bunifuSeparator2.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.Solid;
+            this.bunifuSeparator2.LineThickness = 1;
+            this.bunifuSeparator2.Location = new System.Drawing.Point(0, 0);
+            this.bunifuSeparator2.Name = "bunifuSeparator2";
+            this.bunifuSeparator2.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
+            this.bunifuSeparator2.Size = new System.Drawing.Size(1100, 1);
+            this.bunifuSeparator2.TabIndex = 29;
             // 
             // BtnMinimizar
             // 
@@ -193,33 +223,21 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar.ZoomSpeed = 10;
             this.BtnCerrar.Click += new System.EventHandler(this.BtnCerrar_Click);
             // 
-            // LabelPanel
-            // 
-            this.LabelPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelPanel.ForeColor = System.Drawing.Color.White;
-            this.LabelPanel.Location = new System.Drawing.Point(0, 0);
-            this.LabelPanel.Name = "LabelPanel";
-            this.LabelPanel.Size = new System.Drawing.Size(160, 25);
-            this.LabelPanel.TabIndex = 2;
-            this.LabelPanel.Text = "Purshase Ctrl V 0.06042021";
-            this.LabelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // PanelDash
             // 
-            this.PanelDash.Controls.Add(this.label8);
-            this.PanelDash.Controls.Add(this.label7);
-            this.PanelDash.Controls.Add(this.label4);
-            this.PanelDash.Controls.Add(this.label5);
-            this.PanelDash.Controls.Add(this.label6);
-            this.PanelDash.Controls.Add(this.label3);
-            this.PanelDash.Controls.Add(this.label2);
-            this.PanelDash.Controls.Add(this.label1);
+            this.PanelDash.Controls.Add(this.LblTitulo2);
+            this.PanelDash.Controls.Add(this.LblTitulo1);
+            this.PanelDash.Controls.Add(this.Lbl4);
+            this.PanelDash.Controls.Add(this.Lbl6);
+            this.PanelDash.Controls.Add(this.Lbl5);
+            this.PanelDash.Controls.Add(this.Lbl1);
+            this.PanelDash.Controls.Add(this.Lbl3);
+            this.PanelDash.Controls.Add(this.Lbl2);
             this.PanelDash.Controls.Add(this.ChartCanvas1);
             this.PanelDash.Controls.Add(this.ChartCanvas2);
-            this.PanelDash.Controls.Add(this.bunifuImageButton3);
-            this.PanelDash.Controls.Add(this.bunifuImageButton2);
-            this.PanelDash.Controls.Add(this.bunifuImageButton1);
+            this.PanelDash.Controls.Add(this.BtnHitos);
+            this.PanelDash.Controls.Add(this.BtnDetails);
+            this.PanelDash.Controls.Add(this.BtnSupplier);
             this.PanelDash.Controls.Add(this.CboType);
             this.PanelDash.Controls.Add(this.CboCompany);
             this.PanelDash.Controls.Add(this.BtnInsert);
@@ -229,109 +247,313 @@ namespace PurchaseDesktop.Formularios
             this.PanelDash.Size = new System.Drawing.Size(1100, 109);
             this.PanelDash.TabIndex = 3;
             // 
-            // bunifuImageButton3
+            // LblTitulo2
             // 
-            this.bunifuImageButton3.ActiveImage = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton3.ActiveImage")));
-            this.bunifuImageButton3.AllowAnimations = true;
-            this.bunifuImageButton3.AllowBuffering = false;
-            this.bunifuImageButton3.AllowToggling = false;
-            this.bunifuImageButton3.AllowZooming = true;
-            this.bunifuImageButton3.AllowZoomingOnFocus = false;
-            this.bunifuImageButton3.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuImageButton3.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.bunifuImageButton3.ErrorImage = null;
-            this.bunifuImageButton3.FadeWhenInactive = false;
-            this.bunifuImageButton3.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
-            this.bunifuImageButton3.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton3.Image")));
-            this.bunifuImageButton3.ImageActive = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton3.ImageActive")));
-            this.bunifuImageButton3.ImageLocation = null;
-            this.bunifuImageButton3.ImageMargin = 20;
-            this.bunifuImageButton3.ImageSize = new System.Drawing.Size(30, 30);
-            this.bunifuImageButton3.ImageZoomSize = new System.Drawing.Size(50, 50);
-            this.bunifuImageButton3.InitialImage = null;
-            this.bunifuImageButton3.Location = new System.Drawing.Point(627, 19);
-            this.bunifuImageButton3.Name = "bunifuImageButton3";
-            this.bunifuImageButton3.Rotation = 0;
-            this.bunifuImageButton3.ShowActiveImage = true;
-            this.bunifuImageButton3.ShowCursorChanges = true;
-            this.bunifuImageButton3.ShowImageBorders = true;
-            this.bunifuImageButton3.ShowSizeMarkers = false;
-            this.bunifuImageButton3.Size = new System.Drawing.Size(50, 50);
-            this.bunifuImageButton3.TabIndex = 24;
-            this.bunifuImageButton3.ToolTipText = "Hitos";
-            this.bunifuImageButton3.WaitOnLoad = false;
-            this.bunifuImageButton3.Zoom = 20;
-            this.bunifuImageButton3.ZoomSpeed = 10;
-            this.bunifuImageButton3.Click += new System.EventHandler(this.bunifuImageButton3_Click);
+            this.LblTitulo2.AutoSize = true;
+            this.LblTitulo2.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblTitulo2.ForeColor = System.Drawing.Color.White;
+            this.LblTitulo2.Location = new System.Drawing.Point(258, 96);
+            this.LblTitulo2.Name = "LblTitulo2";
+            this.LblTitulo2.Size = new System.Drawing.Size(61, 11);
+            this.LblTitulo2.TabIndex = 31;
+            this.LblTitulo2.Text = "PR By Status";
+            this.LblTitulo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // bunifuImageButton2
+            // LblTitulo1
             // 
-            this.bunifuImageButton2.ActiveImage = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton2.ActiveImage")));
-            this.bunifuImageButton2.AllowAnimations = true;
-            this.bunifuImageButton2.AllowBuffering = false;
-            this.bunifuImageButton2.AllowToggling = false;
-            this.bunifuImageButton2.AllowZooming = true;
-            this.bunifuImageButton2.AllowZoomingOnFocus = false;
-            this.bunifuImageButton2.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuImageButton2.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.bunifuImageButton2.ErrorImage = null;
-            this.bunifuImageButton2.FadeWhenInactive = false;
-            this.bunifuImageButton2.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
-            this.bunifuImageButton2.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton2.Image")));
-            this.bunifuImageButton2.ImageActive = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton2.ImageActive")));
-            this.bunifuImageButton2.ImageLocation = null;
-            this.bunifuImageButton2.ImageMargin = 20;
-            this.bunifuImageButton2.ImageSize = new System.Drawing.Size(30, 30);
-            this.bunifuImageButton2.ImageZoomSize = new System.Drawing.Size(50, 50);
-            this.bunifuImageButton2.InitialImage = null;
-            this.bunifuImageButton2.Location = new System.Drawing.Point(571, 19);
-            this.bunifuImageButton2.Name = "bunifuImageButton2";
-            this.bunifuImageButton2.Rotation = 0;
-            this.bunifuImageButton2.ShowActiveImage = true;
-            this.bunifuImageButton2.ShowCursorChanges = true;
-            this.bunifuImageButton2.ShowImageBorders = true;
-            this.bunifuImageButton2.ShowSizeMarkers = false;
-            this.bunifuImageButton2.Size = new System.Drawing.Size(50, 50);
-            this.bunifuImageButton2.TabIndex = 23;
-            this.bunifuImageButton2.ToolTipText = "Details";
-            this.bunifuImageButton2.WaitOnLoad = false;
-            this.bunifuImageButton2.Zoom = 20;
-            this.bunifuImageButton2.ZoomSpeed = 10;
-            this.bunifuImageButton2.Click += new System.EventHandler(this.bunifuImageButton2_Click);
+            this.LblTitulo1.AutoSize = true;
+            this.LblTitulo1.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblTitulo1.ForeColor = System.Drawing.Color.White;
+            this.LblTitulo1.Location = new System.Drawing.Point(30, 96);
+            this.LblTitulo1.Name = "LblTitulo1";
+            this.LblTitulo1.Size = new System.Drawing.Size(85, 11);
+            this.LblTitulo1.TabIndex = 30;
+            this.LblTitulo1.Text = "PR By Center Cost";
+            this.LblTitulo1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // bunifuImageButton1
+            // Lbl4
             // 
-            this.bunifuImageButton1.ActiveImage = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.ActiveImage")));
-            this.bunifuImageButton1.AllowAnimations = true;
-            this.bunifuImageButton1.AllowBuffering = false;
-            this.bunifuImageButton1.AllowToggling = false;
-            this.bunifuImageButton1.AllowZooming = true;
-            this.bunifuImageButton1.AllowZoomingOnFocus = false;
-            this.bunifuImageButton1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuImageButton1.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.bunifuImageButton1.ErrorImage = null;
-            this.bunifuImageButton1.FadeWhenInactive = false;
-            this.bunifuImageButton1.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
-            this.bunifuImageButton1.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.Image")));
-            this.bunifuImageButton1.ImageActive = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.ImageActive")));
-            this.bunifuImageButton1.ImageLocation = null;
-            this.bunifuImageButton1.ImageMargin = 20;
-            this.bunifuImageButton1.ImageSize = new System.Drawing.Size(30, 30);
-            this.bunifuImageButton1.ImageZoomSize = new System.Drawing.Size(50, 50);
-            this.bunifuImageButton1.InitialImage = null;
-            this.bunifuImageButton1.Location = new System.Drawing.Point(515, 19);
-            this.bunifuImageButton1.Name = "bunifuImageButton1";
-            this.bunifuImageButton1.Rotation = 0;
-            this.bunifuImageButton1.ShowActiveImage = true;
-            this.bunifuImageButton1.ShowCursorChanges = true;
-            this.bunifuImageButton1.ShowImageBorders = true;
-            this.bunifuImageButton1.ShowSizeMarkers = false;
-            this.bunifuImageButton1.Size = new System.Drawing.Size(50, 50);
-            this.bunifuImageButton1.TabIndex = 22;
-            this.bunifuImageButton1.ToolTipText = "Suppliers";
-            this.bunifuImageButton1.WaitOnLoad = false;
-            this.bunifuImageButton1.Zoom = 20;
-            this.bunifuImageButton1.ZoomSpeed = 10;
+            this.Lbl4.AutoSize = true;
+            this.Lbl4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.Lbl4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl4.ForeColor = System.Drawing.Color.White;
+            this.Lbl4.Location = new System.Drawing.Point(357, 2);
+            this.Lbl4.Name = "Lbl4";
+            this.Lbl4.Size = new System.Drawing.Size(0, 18);
+            this.Lbl4.TabIndex = 29;
+            // 
+            // Lbl6
+            // 
+            this.Lbl6.AutoSize = true;
+            this.Lbl6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.Lbl6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl6.ForeColor = System.Drawing.Color.White;
+            this.Lbl6.Location = new System.Drawing.Point(357, 62);
+            this.Lbl6.Name = "Lbl6";
+            this.Lbl6.Size = new System.Drawing.Size(0, 18);
+            this.Lbl6.TabIndex = 28;
+            // 
+            // Lbl5
+            // 
+            this.Lbl5.AutoSize = true;
+            this.Lbl5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.Lbl5.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl5.ForeColor = System.Drawing.Color.White;
+            this.Lbl5.Location = new System.Drawing.Point(357, 32);
+            this.Lbl5.Name = "Lbl5";
+            this.Lbl5.Size = new System.Drawing.Size(0, 18);
+            this.Lbl5.TabIndex = 27;
+            // 
+            // Lbl1
+            // 
+            this.Lbl1.AutoSize = true;
+            this.Lbl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.Lbl1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Lbl1.ForeColor = System.Drawing.Color.White;
+            this.Lbl1.Location = new System.Drawing.Point(138, 6);
+            this.Lbl1.Name = "Lbl1";
+            this.Lbl1.Size = new System.Drawing.Size(0, 14);
+            this.Lbl1.TabIndex = 17;
+            // 
+            // Lbl3
+            // 
+            this.Lbl3.AutoSize = true;
+            this.Lbl3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.Lbl3.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Italic);
+            this.Lbl3.ForeColor = System.Drawing.Color.White;
+            this.Lbl3.Location = new System.Drawing.Point(138, 66);
+            this.Lbl3.Name = "Lbl3";
+            this.Lbl3.Size = new System.Drawing.Size(0, 14);
+            this.Lbl3.TabIndex = 16;
+            // 
+            // Lbl2
+            // 
+            this.Lbl2.AutoSize = true;
+            this.Lbl2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.Lbl2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Italic);
+            this.Lbl2.ForeColor = System.Drawing.Color.White;
+            this.Lbl2.Location = new System.Drawing.Point(138, 36);
+            this.Lbl2.Name = "Lbl2";
+            this.Lbl2.Size = new System.Drawing.Size(0, 14);
+            this.Lbl2.TabIndex = 15;
+            // 
+            // ChartCanvas1
+            // 
+            this.ChartCanvas1.AnimationDuration = 1000;
+            this.ChartCanvas1.AnimationType = Bunifu.Charts.WinForms.BunifuChartCanvas.AnimationOptions.easeOutQuart;
+            this.ChartCanvas1.BackColor = System.Drawing.Color.White;
+            this.ChartCanvas1.CanvasPadding = new System.Windows.Forms.Padding(0);
+            this.ChartCanvas1.Labels = null;
+            this.ChartCanvas1.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
+            this.ChartCanvas1.LegendDisplay = true;
+            this.ChartCanvas1.LegendFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChartCanvas1.LegendForeColor = System.Drawing.Color.DarkGray;
+            this.ChartCanvas1.LegendFullWidth = true;
+            this.ChartCanvas1.LegendPosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
+            this.ChartCanvas1.LegendRevese = false;
+            this.ChartCanvas1.LegendRTL = false;
+            this.ChartCanvas1.Location = new System.Drawing.Point(-27, -7);
+            this.ChartCanvas1.Name = "ChartCanvas1";
+            this.ChartCanvas1.ShowXAxis = true;
+            this.ChartCanvas1.ShowYAxis = true;
+            this.ChartCanvas1.Size = new System.Drawing.Size(205, 103);
+            this.ChartCanvas1.TabIndex = 26;
+            this.ChartCanvas1.Title = "";
+            this.ChartCanvas1.TitleLineHeight = 1.2D;
+            this.ChartCanvas1.TitlePadding = 10;
+            this.ChartCanvas1.TitlePosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
+            this.ChartCanvas1.TooltipBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas1.TooltipFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas1.TooltipForeColor = System.Drawing.Color.WhiteSmoke;
+            this.ChartCanvas1.TooltipMode = Bunifu.Charts.WinForms.BunifuChartCanvas.TooltipModeOptions.nearest;
+            this.ChartCanvas1.TooltipsEnabled = true;
+            this.ChartCanvas1.XAxesBeginAtZero = true;
+            this.ChartCanvas1.XAxesDrawTicks = true;
+            this.ChartCanvas1.XAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas1.XAxesForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas1.XAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas1.XAxesGridLines = true;
+            this.ChartCanvas1.XAxesLabel = "";
+            this.ChartCanvas1.XAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas1.XAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas1.XAxesLineWidth = 1;
+            this.ChartCanvas1.XAxesStacked = false;
+            this.ChartCanvas1.XAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas1.XAxesZeroLineWidth = 1;
+            this.ChartCanvas1.YAxesBeginAtZero = true;
+            this.ChartCanvas1.YAxesDrawTicks = true;
+            this.ChartCanvas1.YAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas1.YAxesForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas1.YAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas1.YAxesGridLines = true;
+            this.ChartCanvas1.YAxesLabel = "";
+            this.ChartCanvas1.YAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas1.YAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas1.YAxesLineWidth = 1;
+            this.ChartCanvas1.YAxesStacked = false;
+            this.ChartCanvas1.YAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas1.YAxesZeroLineWidth = 1;
+            // 
+            // ChartCanvas2
+            // 
+            this.ChartCanvas2.AnimationDuration = 1000;
+            this.ChartCanvas2.AnimationType = Bunifu.Charts.WinForms.BunifuChartCanvas.AnimationOptions.easeOutQuart;
+            this.ChartCanvas2.BackColor = System.Drawing.Color.White;
+            this.ChartCanvas2.CanvasPadding = new System.Windows.Forms.Padding(0);
+            this.ChartCanvas2.Labels = null;
+            this.ChartCanvas2.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
+            this.ChartCanvas2.LegendDisplay = true;
+            this.ChartCanvas2.LegendFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChartCanvas2.LegendForeColor = System.Drawing.Color.DarkGray;
+            this.ChartCanvas2.LegendFullWidth = true;
+            this.ChartCanvas2.LegendPosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
+            this.ChartCanvas2.LegendRevese = false;
+            this.ChartCanvas2.LegendRTL = false;
+            this.ChartCanvas2.Location = new System.Drawing.Point(193, -7);
+            this.ChartCanvas2.Name = "ChartCanvas2";
+            this.ChartCanvas2.ShowXAxis = true;
+            this.ChartCanvas2.ShowYAxis = true;
+            this.ChartCanvas2.Size = new System.Drawing.Size(205, 103);
+            this.ChartCanvas2.TabIndex = 25;
+            this.ChartCanvas2.Title = "";
+            this.ChartCanvas2.TitleLineHeight = 1.2D;
+            this.ChartCanvas2.TitlePadding = 10;
+            this.ChartCanvas2.TitlePosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
+            this.ChartCanvas2.TooltipBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas2.TooltipFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas2.TooltipForeColor = System.Drawing.Color.WhiteSmoke;
+            this.ChartCanvas2.TooltipMode = Bunifu.Charts.WinForms.BunifuChartCanvas.TooltipModeOptions.nearest;
+            this.ChartCanvas2.TooltipsEnabled = true;
+            this.ChartCanvas2.XAxesBeginAtZero = true;
+            this.ChartCanvas2.XAxesDrawTicks = true;
+            this.ChartCanvas2.XAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas2.XAxesForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas2.XAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas2.XAxesGridLines = true;
+            this.ChartCanvas2.XAxesLabel = "";
+            this.ChartCanvas2.XAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas2.XAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas2.XAxesLineWidth = 1;
+            this.ChartCanvas2.XAxesStacked = false;
+            this.ChartCanvas2.XAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas2.XAxesZeroLineWidth = 1;
+            this.ChartCanvas2.YAxesBeginAtZero = true;
+            this.ChartCanvas2.YAxesDrawTicks = true;
+            this.ChartCanvas2.YAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas2.YAxesForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas2.YAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas2.YAxesGridLines = true;
+            this.ChartCanvas2.YAxesLabel = "";
+            this.ChartCanvas2.YAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ChartCanvas2.YAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
+            this.ChartCanvas2.YAxesLineWidth = 1;
+            this.ChartCanvas2.YAxesStacked = false;
+            this.ChartCanvas2.YAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ChartCanvas2.YAxesZeroLineWidth = 1;
+            // 
+            // BtnHitos
+            // 
+            this.BtnHitos.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnHitos.ActiveImage")));
+            this.BtnHitos.AllowAnimations = true;
+            this.BtnHitos.AllowBuffering = false;
+            this.BtnHitos.AllowToggling = false;
+            this.BtnHitos.AllowZooming = true;
+            this.BtnHitos.AllowZoomingOnFocus = false;
+            this.BtnHitos.BackColor = System.Drawing.Color.Transparent;
+            this.BtnHitos.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnHitos.ErrorImage = null;
+            this.BtnHitos.FadeWhenInactive = false;
+            this.BtnHitos.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnHitos.Image = ((System.Drawing.Image)(resources.GetObject("BtnHitos.Image")));
+            this.BtnHitos.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnHitos.ImageActive")));
+            this.BtnHitos.ImageLocation = null;
+            this.BtnHitos.ImageMargin = 20;
+            this.BtnHitos.ImageSize = new System.Drawing.Size(30, 30);
+            this.BtnHitos.ImageZoomSize = new System.Drawing.Size(50, 50);
+            this.BtnHitos.InitialImage = null;
+            this.BtnHitos.Location = new System.Drawing.Point(627, 19);
+            this.BtnHitos.Name = "BtnHitos";
+            this.BtnHitos.Rotation = 0;
+            this.BtnHitos.ShowActiveImage = true;
+            this.BtnHitos.ShowCursorChanges = true;
+            this.BtnHitos.ShowImageBorders = true;
+            this.BtnHitos.ShowSizeMarkers = false;
+            this.BtnHitos.Size = new System.Drawing.Size(50, 50);
+            this.BtnHitos.TabIndex = 24;
+            this.BtnHitos.ToolTipText = "Hitos";
+            this.BtnHitos.WaitOnLoad = false;
+            this.BtnHitos.Zoom = 20;
+            this.BtnHitos.ZoomSpeed = 10;
+            this.BtnHitos.Click += new System.EventHandler(this.bunifuImageButton3_Click);
+            // 
+            // BtnDetails
+            // 
+            this.BtnDetails.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnDetails.ActiveImage")));
+            this.BtnDetails.AllowAnimations = true;
+            this.BtnDetails.AllowBuffering = false;
+            this.BtnDetails.AllowToggling = false;
+            this.BtnDetails.AllowZooming = true;
+            this.BtnDetails.AllowZoomingOnFocus = false;
+            this.BtnDetails.BackColor = System.Drawing.Color.Transparent;
+            this.BtnDetails.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnDetails.ErrorImage = null;
+            this.BtnDetails.FadeWhenInactive = false;
+            this.BtnDetails.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnDetails.Image = ((System.Drawing.Image)(resources.GetObject("BtnDetails.Image")));
+            this.BtnDetails.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnDetails.ImageActive")));
+            this.BtnDetails.ImageLocation = null;
+            this.BtnDetails.ImageMargin = 20;
+            this.BtnDetails.ImageSize = new System.Drawing.Size(30, 30);
+            this.BtnDetails.ImageZoomSize = new System.Drawing.Size(50, 50);
+            this.BtnDetails.InitialImage = null;
+            this.BtnDetails.Location = new System.Drawing.Point(571, 19);
+            this.BtnDetails.Name = "BtnDetails";
+            this.BtnDetails.Rotation = 0;
+            this.BtnDetails.ShowActiveImage = true;
+            this.BtnDetails.ShowCursorChanges = true;
+            this.BtnDetails.ShowImageBorders = true;
+            this.BtnDetails.ShowSizeMarkers = false;
+            this.BtnDetails.Size = new System.Drawing.Size(50, 50);
+            this.BtnDetails.TabIndex = 23;
+            this.BtnDetails.ToolTipText = "Details";
+            this.BtnDetails.WaitOnLoad = false;
+            this.BtnDetails.Zoom = 20;
+            this.BtnDetails.ZoomSpeed = 10;
+            this.BtnDetails.Click += new System.EventHandler(this.bunifuImageButton2_Click);
+            // 
+            // BtnSupplier
+            // 
+            this.BtnSupplier.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnSupplier.ActiveImage")));
+            this.BtnSupplier.AllowAnimations = true;
+            this.BtnSupplier.AllowBuffering = false;
+            this.BtnSupplier.AllowToggling = false;
+            this.BtnSupplier.AllowZooming = true;
+            this.BtnSupplier.AllowZoomingOnFocus = false;
+            this.BtnSupplier.BackColor = System.Drawing.Color.Transparent;
+            this.BtnSupplier.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnSupplier.ErrorImage = null;
+            this.BtnSupplier.FadeWhenInactive = false;
+            this.BtnSupplier.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnSupplier.Image = ((System.Drawing.Image)(resources.GetObject("BtnSupplier.Image")));
+            this.BtnSupplier.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnSupplier.ImageActive")));
+            this.BtnSupplier.ImageLocation = null;
+            this.BtnSupplier.ImageMargin = 20;
+            this.BtnSupplier.ImageSize = new System.Drawing.Size(30, 30);
+            this.BtnSupplier.ImageZoomSize = new System.Drawing.Size(50, 50);
+            this.BtnSupplier.InitialImage = null;
+            this.BtnSupplier.Location = new System.Drawing.Point(515, 19);
+            this.BtnSupplier.Name = "BtnSupplier";
+            this.BtnSupplier.Rotation = 0;
+            this.BtnSupplier.ShowActiveImage = true;
+            this.BtnSupplier.ShowCursorChanges = true;
+            this.BtnSupplier.ShowImageBorders = true;
+            this.BtnSupplier.ShowSizeMarkers = false;
+            this.BtnSupplier.Size = new System.Drawing.Size(50, 50);
+            this.BtnSupplier.TabIndex = 22;
+            this.BtnSupplier.ToolTipText = "Suppliers";
+            this.BtnSupplier.WaitOnLoad = false;
+            this.BtnSupplier.Zoom = 20;
+            this.BtnSupplier.ZoomSpeed = 10;
             // 
             // CboType
             // 
@@ -393,17 +615,6 @@ namespace PurchaseDesktop.Formularios
             this.BtnInsert.ZoomSpeed = 10;
             this.BtnInsert.Click += new System.EventHandler(this.BtnInsert_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(138, 19);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 18);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "105 K";
-            // 
             // WBrowserBanner
             // 
             this.WBrowserBanner.Dock = System.Windows.Forms.DockStyle.Top;
@@ -447,7 +658,6 @@ namespace PurchaseDesktop.Formularios
             this.LblMsg.Name = "LblMsg";
             this.LblMsg.Size = new System.Drawing.Size(520, 24);
             this.LblMsg.TabIndex = 3;
-            this.LblMsg.Text = "...";
             this.LblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // bunifuSeparator1
@@ -457,7 +667,7 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bunifuSeparator1.DashCap = Bunifu.UI.WinForms.BunifuSeparator.CapStyles.Flat;
             this.bunifuSeparator1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
             this.bunifuSeparator1.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.Solid;
             this.bunifuSeparator1.LineThickness = 1;
             this.bunifuSeparator1.Location = new System.Drawing.Point(0, 24);
@@ -575,28 +785,6 @@ namespace PurchaseDesktop.Formularios
             // 
             this.GridCol16CellStyle.TypeFlags = TenTec.Windows.iGridLib.iGCellTypeFlags.HasEllipsisButton;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(138, 49);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 18);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "105 K";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(138, 79);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 18);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "105 K";
-            // 
             // PieChart1
             // 
             this.PieChart1.BackgroundColor = ((System.Collections.Generic.List<System.Drawing.Color>)(resources.GetObject("PieChart1.BackgroundColor")));
@@ -609,120 +797,6 @@ namespace PurchaseDesktop.Formularios
             this.PieChart1.Label = "Label here";
             this.PieChart1.TargetCanvas = null;
             // 
-            // ChartCanvas2
-            // 
-            this.ChartCanvas2.AnimationDuration = 1000;
-            this.ChartCanvas2.AnimationType = Bunifu.Charts.WinForms.BunifuChartCanvas.AnimationOptions.easeOutQuart;
-            this.ChartCanvas2.BackColor = System.Drawing.Color.White;
-            this.ChartCanvas2.CanvasPadding = new System.Windows.Forms.Padding(0);
-            this.ChartCanvas2.Labels = null;
-            this.ChartCanvas2.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
-            this.ChartCanvas2.LegendDisplay = true;
-            this.ChartCanvas2.LegendFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChartCanvas2.LegendForeColor = System.Drawing.Color.DarkGray;
-            this.ChartCanvas2.LegendFullWidth = true;
-            this.ChartCanvas2.LegendPosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
-            this.ChartCanvas2.LegendRevese = false;
-            this.ChartCanvas2.LegendRTL = false;
-            this.ChartCanvas2.Location = new System.Drawing.Point(193, -7);
-            this.ChartCanvas2.Name = "ChartCanvas2";
-            this.ChartCanvas2.ShowXAxis = true;
-            this.ChartCanvas2.ShowYAxis = true;
-            this.ChartCanvas2.Size = new System.Drawing.Size(205, 103);
-            this.ChartCanvas2.TabIndex = 25;
-            this.ChartCanvas2.Title = "";
-            this.ChartCanvas2.TitleLineHeight = 1.2D;
-            this.ChartCanvas2.TitlePadding = 10;
-            this.ChartCanvas2.TitlePosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
-            this.ChartCanvas2.TooltipBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas2.TooltipFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas2.TooltipForeColor = System.Drawing.Color.WhiteSmoke;
-            this.ChartCanvas2.TooltipMode = Bunifu.Charts.WinForms.BunifuChartCanvas.TooltipModeOptions.nearest;
-            this.ChartCanvas2.TooltipsEnabled = true;
-            this.ChartCanvas2.XAxesBeginAtZero = true;
-            this.ChartCanvas2.XAxesDrawTicks = true;
-            this.ChartCanvas2.XAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas2.XAxesForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas2.XAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas2.XAxesGridLines = true;
-            this.ChartCanvas2.XAxesLabel = "";
-            this.ChartCanvas2.XAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas2.XAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas2.XAxesLineWidth = 1;
-            this.ChartCanvas2.XAxesStacked = false;
-            this.ChartCanvas2.XAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas2.XAxesZeroLineWidth = 1;
-            this.ChartCanvas2.YAxesBeginAtZero = true;
-            this.ChartCanvas2.YAxesDrawTicks = true;
-            this.ChartCanvas2.YAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas2.YAxesForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas2.YAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas2.YAxesGridLines = true;
-            this.ChartCanvas2.YAxesLabel = "";
-            this.ChartCanvas2.YAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas2.YAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas2.YAxesLineWidth = 1;
-            this.ChartCanvas2.YAxesStacked = false;
-            this.ChartCanvas2.YAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas2.YAxesZeroLineWidth = 1;
-            // 
-            // ChartCanvas1
-            // 
-            this.ChartCanvas1.AnimationDuration = 1000;
-            this.ChartCanvas1.AnimationType = Bunifu.Charts.WinForms.BunifuChartCanvas.AnimationOptions.easeOutQuart;
-            this.ChartCanvas1.BackColor = System.Drawing.Color.White;
-            this.ChartCanvas1.CanvasPadding = new System.Windows.Forms.Padding(0);
-            this.ChartCanvas1.Labels = null;
-            this.ChartCanvas1.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
-            this.ChartCanvas1.LegendDisplay = true;
-            this.ChartCanvas1.LegendFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChartCanvas1.LegendForeColor = System.Drawing.Color.DarkGray;
-            this.ChartCanvas1.LegendFullWidth = true;
-            this.ChartCanvas1.LegendPosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
-            this.ChartCanvas1.LegendRevese = false;
-            this.ChartCanvas1.LegendRTL = false;
-            this.ChartCanvas1.Location = new System.Drawing.Point(-27, -7);
-            this.ChartCanvas1.Name = "ChartCanvas1";
-            this.ChartCanvas1.ShowXAxis = true;
-            this.ChartCanvas1.ShowYAxis = true;
-            this.ChartCanvas1.Size = new System.Drawing.Size(205, 103);
-            this.ChartCanvas1.TabIndex = 26;
-            this.ChartCanvas1.Title = "";
-            this.ChartCanvas1.TitleLineHeight = 1.2D;
-            this.ChartCanvas1.TitlePadding = 10;
-            this.ChartCanvas1.TitlePosition = Bunifu.Charts.WinForms.BunifuChartCanvas.PositionOptions.top;
-            this.ChartCanvas1.TooltipBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas1.TooltipFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas1.TooltipForeColor = System.Drawing.Color.WhiteSmoke;
-            this.ChartCanvas1.TooltipMode = Bunifu.Charts.WinForms.BunifuChartCanvas.TooltipModeOptions.nearest;
-            this.ChartCanvas1.TooltipsEnabled = true;
-            this.ChartCanvas1.XAxesBeginAtZero = true;
-            this.ChartCanvas1.XAxesDrawTicks = true;
-            this.ChartCanvas1.XAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas1.XAxesForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas1.XAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas1.XAxesGridLines = true;
-            this.ChartCanvas1.XAxesLabel = "";
-            this.ChartCanvas1.XAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas1.XAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas1.XAxesLineWidth = 1;
-            this.ChartCanvas1.XAxesStacked = false;
-            this.ChartCanvas1.XAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas1.XAxesZeroLineWidth = 1;
-            this.ChartCanvas1.YAxesBeginAtZero = true;
-            this.ChartCanvas1.YAxesDrawTicks = true;
-            this.ChartCanvas1.YAxesFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas1.YAxesForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas1.YAxesGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas1.YAxesGridLines = true;
-            this.ChartCanvas1.YAxesLabel = "";
-            this.ChartCanvas1.YAxesLabelFont = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ChartCanvas1.YAxesLabelForeColor = System.Drawing.SystemColors.ControlText;
-            this.ChartCanvas1.YAxesLineWidth = 1;
-            this.ChartCanvas1.YAxesStacked = false;
-            this.ChartCanvas1.YAxesZeroLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChartCanvas1.YAxesZeroLineWidth = 1;
-            // 
             // PieChart2
             // 
             this.PieChart2.BackgroundColor = ((System.Collections.Generic.List<System.Drawing.Color>)(resources.GetObject("PieChart2.BackgroundColor")));
@@ -734,63 +808,6 @@ namespace PurchaseDesktop.Formularios
             this.PieChart2.HoverBorderWidth = 0;
             this.PieChart2.Label = "Label here";
             this.PieChart2.TargetCanvas = null;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(357, 15);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 18);
-            this.label4.TabIndex = 29;
-            this.label4.Text = "105 K";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(357, 75);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 18);
-            this.label5.TabIndex = 28;
-            this.label5.Text = "105 K";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(357, 45);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 18);
-            this.label6.TabIndex = 27;
-            this.label6.Text = "105 K";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(30, 96);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(85, 11);
-            this.label7.TabIndex = 30;
-            this.label7.Text = "PR By Center Cost";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(258, 96);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(61, 11);
-            this.label8.TabIndex = 31;
-            this.label8.Text = "PR By Status";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FPrincipal
             // 
@@ -872,25 +889,26 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGColHdrStyle iGrid1DefaultColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1RowTextColCellStyle;
         private System.Windows.Forms.WebBrowser WBrowserBanner;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label Lbl1;
         private System.Windows.Forms.ComboBox CboType;
         private System.Windows.Forms.ComboBox CboCompany;
         private Bunifu.UI.WinForms.BunifuImageButton BtnInsert;
-        private Bunifu.UI.WinForms.BunifuImageButton bunifuImageButton1;
-        private Bunifu.UI.WinForms.BunifuImageButton bunifuImageButton2;
-        private Bunifu.UI.WinForms.BunifuImageButton bunifuImageButton3;
+        private Bunifu.UI.WinForms.BunifuImageButton BtnSupplier;
+        private Bunifu.UI.WinForms.BunifuImageButton BtnDetails;
+        private Bunifu.UI.WinForms.BunifuImageButton BtnHitos;
         private System.Windows.Forms.Label LblUser;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label Lbl3;
+        private System.Windows.Forms.Label Lbl2;
         private Bunifu.Charts.WinForms.ChartTypes.BunifuPieChart PieChart1;
         private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas2;
         private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas1;
         private Bunifu.Charts.WinForms.ChartTypes.BunifuPieChart PieChart2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label Lbl4;
+        private System.Windows.Forms.Label Lbl6;
+        private System.Windows.Forms.Label Lbl5;
+        private System.Windows.Forms.Label LblTitulo1;
+        private System.Windows.Forms.Label LblTitulo2;
+        private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator2;
     }
 }
 

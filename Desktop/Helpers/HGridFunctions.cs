@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -11,18 +10,15 @@ using TenTec.Windows.iGridLib;
 
 namespace PurchaseDesktop.Helpers
 {
-    public class PerfilAbstract
+    public partial class HFunctions
     {
-        public PerfilAbstract()
+        public HFunctions()
         {
             //! Esto se carga por herencia, el grid es NULL aquí.
         }
         public iGrid Grid { get; set; }
-        public UserProfiles UserProfiles { get; set; }
+        // public UserProfiles UserProfiles { get; set; }
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
-
-        public List<ufnGetReqGroupByCost_Result> ReqGroupByCost_Results { get; set; }
-        public List<ufnGetOrderGroupByStatus_Result> OrderGroupByStatus_Results { get; set; }
 
         public enum OrderType
         {
@@ -134,7 +130,7 @@ namespace PurchaseDesktop.Helpers
         public void CargarColumnasFPrincipal()
         {
             iGCol iGCol;
-            switch (UserProfiles.ProfileID)
+            switch (User.ProfileID)
             {
                 case "ADM":
                     break;
@@ -240,7 +236,7 @@ namespace PurchaseDesktop.Helpers
         public void CargarColumnasFDetail()
         {
             iGCol iGCol;
-            switch (UserProfiles.ProfileID)
+            switch (User.ProfileID)
             {
                 case "ADM":
                     break;

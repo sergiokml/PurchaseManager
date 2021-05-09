@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
@@ -28,6 +29,20 @@ namespace PurchaseData.Indicadores
                 if (r.Uf.Count > 0)
                 {
                     return r.Uf[0];
+                }
+                return null;
+            }
+        }
+        public IndicadorUf GetPosterior(DateTime d)
+        {
+            using (WebClient)
+            {
+                var url = $"uf/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json";
+                var response = WebClient.DownloadString(url);
+                var r = JsonSerializer.Deserialize<IndicadorUf>(response);
+                if (r != null)
+                {
+                    return r;
                 }
                 return null;
             }

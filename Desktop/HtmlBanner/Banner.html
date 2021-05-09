@@ -116,32 +116,10 @@
     <!--<script src="<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>"></script>-->
 
     <script>
-        $(function () {
-            if ($('#back-to-top').length) {
-                var scrollTrigger = 200,
-                    // px
-                    backToTop = function () {
-                        var scrollTop = $(window).scrollTop();
-                        if (scrollTop > scrollTrigger) {
-                            $('#back-to-top').addClass('show');
-                        } else {
-                            $('#back-to-top').removeClass('show');
-                        }
-                    };
-                backToTop();
-                $(window).on('scroll', function () {
-                    backToTop();
-                });
-                $('#back-to-top').on('click', function (e) {
-                    e.preventDefault();
-                    $('html,body').animate({
-                        scrollTop: 0
-                    }, 700);
-                });
-            }
+        $(function () {      
             $('.marquee').marquee({
                 duplicated: true,
-                speed: 40,
+                speed: 20,
                 pauseOnHover: true,
                 startVisible: true,
                 delayBeforeStart: 2000

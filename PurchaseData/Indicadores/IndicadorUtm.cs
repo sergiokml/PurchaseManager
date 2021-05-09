@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
@@ -28,6 +29,20 @@ namespace PurchaseData.Indicadores
                 if (r.Utm.Count > 0)
                 {
                     return r.Utm[0];
+                }
+                return null;
+            }
+        }
+        public IndicadorUtm GetPosterior(DateTime d)
+        {
+            using (WebClient)
+            {
+                var url = $"utm/posteriores/{d.Year}/{d.Month}/?apikey={ApiKey}&formato=json";
+                var response = WebClient.DownloadString(url);
+                var r = JsonSerializer.Deserialize<IndicadorUtm>(response);
+                if (r != null)
+                {
+                    return r;
                 }
                 return null;
             }

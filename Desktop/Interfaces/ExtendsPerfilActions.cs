@@ -6,7 +6,7 @@ using PurchaseDesktop.Interfaces;
 
 namespace PurchaseDesktop.Helpers
 {
-    public static class ExtendsReport
+    public static class ExtendsPerfilActions
     {
         public static DataTable ToDataTable<T>(this IPerfilActions input, List<T> items)
         {

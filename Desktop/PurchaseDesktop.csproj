@@ -194,8 +194,9 @@
     <Compile Include="Formularios\FSupplier.Designer.cs">
       <DependentUpon>FSupplier.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ExtendsReport.cs" />
-    <Compile Include="Helpers\PerfilAbstract.cs" />
+    <Compile Include="Helpers\HDashBoardFunctions.cs" />
+    <Compile Include="Interfaces\ExtendsPerfilActions.cs" />
+    <Compile Include="Helpers\HGridFunctions.cs" />
     <Compile Include="Helpers\PerfilFachada.cs" />
     <Compile Include="Interfaces\IControles.cs" />
     <Compile Include="Interfaces\IGridCustom.cs" />
@@ -264,6 +265,12 @@
     <Content Include="HtmlBanner\sprite_crypto13.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\error_20px.png" />
+    <None Include="Resources\send_20px.png" />
+    <None Include="Resources\icons8_send.ico" />
+    <None Include="Resources\loading.gif" />
+    <None Include="Resources\icons8_survey.ico" />
+    <None Include="Resources\icons8_survey_64.png" />
     <None Include="Resources\icons8_envelope.ico" />
     <None Include="Resources\icons8_html_filetype.ico" />
     <None Include="Resources\icons8_erase.ico" />

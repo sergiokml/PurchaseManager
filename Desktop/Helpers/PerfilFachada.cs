@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -124,7 +121,8 @@ namespace PurchaseDesktop.Helpers
 
                 case "UPR":
                     perfilPr.Grid = grid;
-                    perfilPr.UserProfiles = userDB.UserProfiles;
+                    //perfilPr.UserProfiles = userDB.UserProfiles;
+                    perfilPr.User = userDB;
                     perfilPr.PintarGrid();
                     switch (form)
                     {
@@ -165,7 +163,7 @@ namespace PurchaseDesktop.Helpers
             return null;
         }
 
-        public void InsertItem(Companies company, PerfilAbstract.OrderType type)
+        public void InsertItem(Companies company, HFunctions.OrderType type)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -415,6 +413,7 @@ namespace PurchaseDesktop.Helpers
             }
 
         }
+
         public bool EditarDetails(FDetails fDetails, DataRow dataRow)
         {
             switch (userDB.UserProfiles.ProfileID)
@@ -501,7 +500,7 @@ namespace PurchaseDesktop.Helpers
                     var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
                     if (details.Count == 0)
                     {
-                        return "This requisition has no products.";
+                        return "NODETAILS";
                     }
                     // var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
                     var path = new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details);
@@ -517,81 +516,17 @@ namespace PurchaseDesktop.Helpers
         }
 
         public void CargarDashBoard(BunifuPieChart chart1, BunifuPieChart chart2,
-             BunifuChartCanvas chartCanvas1, BunifuChartCanvas chartCanvas2)
+             BunifuChartCanvas chartCanvas1, BunifuChartCanvas chartCanvas2, Label label1, Label label2, Label label3)
         {
-            List<string> labels = new List<string>();
 
-            switch (userDB.UserProfiles.ProfileID)
-            {
-                case "ADM":
-                    break;
-                case "BAS":
-                    break;
-                case "UPO":
-                    break;
-                case "UPR":
-                    perfilPr.CargarDashBoard();
-                    var res1 = perfilPr.ReqGroupByCost_Results;
-                    var total1 = res1.Sum(c => c.Nro);
-                    foreach (var item in res1)
-                    {
-                        chart1.Data.Add(Convert.ToDouble((item.Nro * 100) / total1));
-                        labels.Add(item.Description);
-                    }
-                    var res2 = perfilPr.OrderGroupByStatus_Results;
-                    var total2 = res2.Sum(c => c.Nro);
-                    foreach (var item in res1)
-                    {
-                        chart2.Data.Add(Convert.ToDouble((item.Nro * 100) / total1));
+            //perfilPr.PieChart1 = chart1;
+            //perfilPr.PieChart2 = chart2;
+            //perfilPr.ChartCanvas1 = chartCanvas1;
+            //perfilPr.ChartCanvas2 = chartCanvas2;
+            perfilPr.GetFunciones();
+            perfilPr.CargarDatos(chart1, chart2, chartCanvas1, chartCanvas2, label1, label2, label3);
+            // l1.Text = ;
 
-
-                    }
-
-                    chart1.TargetCanvas = chartCanvas1;
-                    chart2.TargetCanvas = chartCanvas2;
-
-                    chartCanvas1.Labels = labels.ToArray();
-                    chartCanvas2.Labels = labels.ToArray();
-
-
-                    chartCanvas1.XAxesGridLines = false;
-                    chartCanvas1.YAxesGridLines = false;
-                    chartCanvas1.ShowXAxis = false;
-                    chartCanvas1.ShowYAxis = false;
-                    chartCanvas1.LegendDisplay = false;
-                    chartCanvas1.LegendPosition = BunifuChartCanvas.PositionOptions.left;
-                    chartCanvas1.BackColor = Color.FromArgb(37, 37, 38);
-
-                    chartCanvas2.XAxesGridLines = false;
-                    chartCanvas2.YAxesGridLines = false;
-                    chartCanvas2.ShowXAxis = false;
-                    chartCanvas2.ShowYAxis = false;
-                    chartCanvas2.LegendDisplay = false;
-                    chartCanvas2.BackColor = Color.FromArgb(37, 37, 38);
-
-                    List<Color> bgColors = new List<Color>();
-                    //{
-                    //    Color.FromArgb(3, 121, 213),
-                    //    Color.FromArgb(53, 146, 171),
-                    //    Color.FromArgb(77, 158, 150),
-                    //    Color.FromArgb(106, 172, 125),
-                    //    Color.FromArgb(130, 184, 105),
-                    //    Color.FromArgb(150, 194, 89)
-                    //    };
-
-                    for (int i = 0; i < 100; i++)
-                    {
-                        bgColors.Add(RandomColors.GetNext());
-                    }
-
-                    chart1.BackgroundColor = bgColors;
-                    chart1.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
-                    chart2.BackgroundColor = bgColors;
-                    chart2.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
-                    break;
-                case "VAL":
-                    break;
-            }
         }
 
         public string CargarBanner()
@@ -611,29 +546,8 @@ namespace PurchaseDesktop.Helpers
             }
             return null;
         }
-    }
-    public class RandomColors
-    {
-        private static Color lastColor = Color.Empty;
-        //private static readonly KnownColor[] colorValues = (KnownColor[])Enum.GetValues(typeof(KnownColor));
-        private static readonly Random rnd = new Random();
-        private const int MaxColor = 256;
-        static RandomColors()
-        {
-            lastColor = Color.FromArgb(rnd.Next(MaxColor), rnd.Next(MaxColor), rnd.Next(MaxColor));
-        }
 
-        public static Color GetNext()
-        {
-            // use the previous value as a mix color as demonstrated by David Crow
-            // https://stackoverflow.com/a/43235/578411
-            Color nextColor = Color.FromArgb(
-                (rnd.Next(MaxColor) + lastColor.R) / 2,
-                (rnd.Next(MaxColor) + lastColor.G) / 2,
-                (rnd.Next(MaxColor) + lastColor.B) / 2
-                );
-            lastColor = nextColor;
-            return nextColor;
-        }
+
     }
+
 }
