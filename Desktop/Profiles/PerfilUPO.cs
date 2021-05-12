@@ -27,15 +27,13 @@ namespace PurchaseDesktop.Profiles
         public DataTable GetVista(Users userDB)
         {
             //todo TENGO QUE UNIR LA LISTA DE LAS Po EMITIDAS POR ESTE USUARIO.
-            //using (var rContext = new PurchaseManagerContext())
-            //{
-            //    var l = rContext.vOrderByMinTran.Where(c => c
-            //.StatusID > 1 && c.StatusID < 10)
-            //    .OrderByDescending(c => c.DateLast).ToList();
-            //    return this.ToDataTable<vOrderByMinTran>(l);
-            //}
-
-            return null;
+            using (var rContext = new PurchaseManagerContext())
+            {
+                var l = rContext.vOrderByMinTransaction
+              .Where(c => c.UserID == userDB.UserID)
+              .OrderByDescending(c => c.DateLast).ToList();
+                return this.ToDataTable<vOrderByMinTransaction>(l);
+            }
         }
 
 
@@ -130,7 +128,7 @@ namespace PurchaseDesktop.Profiles
             return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
         }
 
-        public void DeleteOrderDetail(OrderHeader header, int idDetailr, Users userDB)
+        public void DeleteDetail(OrderHeader header, int idDetailr, Users userDB)
         {
             throw new NotImplementedException();
         }
@@ -166,6 +164,41 @@ namespace PurchaseDesktop.Profiles
         }
 
         public void InsertRequisitionDetail(RequisitionDetails detail, Users userDB, int idItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertAttach(int id, object att, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable GetVistaAttaches(int IdItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteDetail(object header, int idDetailr, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteDetail(int idHeader, int idDetailr, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAttache(int id, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertAttach(int id, Attaches att, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAttache(int id, Users userDB, Attaches item)
         {
             throw new NotImplementedException();
         }

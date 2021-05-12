@@ -28,8 +28,8 @@ namespace PurchaseDesktop.Profiles
             using (var rContext = new PurchaseManagerContext())
             {
                 var l = rContext.vRequisitionByMinTransaction
-                  .Where(c => c.UserID == userDB.UserID)
-                  .OrderByDescending(c => c.DateLast).ToList();
+              .Where(c => c.UserID == userDB.UserID)
+              .OrderByDescending(c => c.DateLast).ToList();
                 return this.ToDataTable<vRequisitionByMinTransaction>(l);
             }
         }
@@ -42,6 +42,12 @@ namespace PurchaseDesktop.Profiles
                .Where(c => c.RequisitionHeaderID == IdItem).ToList());
             // }
 
+        }
+
+        public DataTable GetVistaAttaches(int IdItem)
+        {
+            var pr = rContext.RequisitionHeader.Find(IdItem);
+            return this.ToDataTable<Attaches>(pr.Attaches.ToList());
         }
 
         public DataTable GetVistaSuppliers()
@@ -118,17 +124,20 @@ namespace PurchaseDesktop.Profiles
             GuardarCambios();
         }
 
-        public void DeleteOrderDetail(OrderHeader header, int idDetailr, Users userDB)
+        public void DeleteDetail(int idHeader, int idDetailr, Users userDB)
         {
-
+            var pr = rContext.RequisitionHeader.Find(idHeader);
             var tran = new Transactions
             {
                 Event = EventUserPR.DELETE_DETAIL.ToString(),
                 UserID = userDB.UserID,
                 DateTran = DateTime.Now
-                //StatuID = header.StatusID
             };
-            new OrderDetails().BorrarDetail(header, idDetailr, tran);
+
+            var detail = rContext.RequisitionDetails.Find(idDetailr, pr.RequisitionHeaderID);
+            rContext.RequisitionDetails.Remove(detail);
+            pr.Transactions.Add(tran);
+            GuardarCambios();
         }
 
         public void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo)
@@ -179,7 +188,7 @@ namespace PurchaseDesktop.Profiles
 
         public List<Attaches> GetAttaches(int id)
         {
-            return rContext.RequisitionHeader.Find(id).Attaches.ToList(); ;
+            return rContext.RequisitionHeader.Find(id).Attaches.ToList();
         }
 
         public void InsertRequisition(Companies company, OrderType type, Users userDB)
@@ -205,7 +214,7 @@ namespace PurchaseDesktop.Profiles
 
         public void GetFunciones()
         {
-            IQueryable<ufnGetReqGroupByCost_Result> a = rContext.ufnGetReqGroupByCost(2);
+            //IQueryable<ufnGetReqGroupByCost_Result> a = rContext.ufnGetReqGroupByCost(2);
             ReqGroupByCost_Results = rContext.ufnGetReqGroupByCost(2).ToList();
             OrderGroupByStatus_Results = rContext.ufnGetOrderGroupByStatus().ToList();
             //Label1.Text = rContext.;
@@ -218,13 +227,41 @@ namespace PurchaseDesktop.Profiles
             {
                 Event = EventUserPR.INSERT_DETAIL.ToString(),
                 UserID = userDB.UserID,
-                //StatuID = pr.StatusID,
                 DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
             };
             pr.Transactions.Add(tran);
             pr.RequisitionDetails.Add(detail);
             GuardarCambios();
+        }
 
+        public void InsertAttach(int id, Attaches att, Users userDB)
+        {
+            var pr = rContext.RequisitionHeader.Find(id);
+            var tran = new Transactions
+            {
+                Event = EventUserPR.INSERT_ATTACH.ToString(),
+                UserID = userDB.UserID,
+                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            pr.Transactions.Add(tran);
+            pr.Attaches.Add(att);
+            GuardarCambios();
+        }
+
+
+        public void DeleteAttache(int id, Users userDB, Attaches item)
+        {
+            var pr = rContext.RequisitionHeader.Find(id);
+            var att = rContext.Attaches.Find(item.AttachID);
+            var tran = new Transactions
+            {
+                Event = EventUserPR.DELETE_ATTACH.ToString(),
+                UserID = userDB.UserID,
+                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            pr.Transactions.Add(tran);
+            rContext.Attaches.Remove(att);
+            GuardarCambios();
         }
 
         public enum EventUserPR
@@ -232,7 +269,9 @@ namespace PurchaseDesktop.Profiles
             CREATE_PR = 1,
             UPDATE_PR = 2,
             DELETE_DETAIL = 3,
-            INSERT_DETAIL = 4
+            INSERT_DETAIL = 4,
+            INSERT_ATTACH = 5,
+            DELETE_ATTACH = 6
         }
     }
 }

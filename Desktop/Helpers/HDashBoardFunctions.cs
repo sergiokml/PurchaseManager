@@ -48,6 +48,7 @@ namespace PurchaseDesktop.Helpers
             PieChart2.Data.Clear();
             var prByDepartments = ReqGroupByCost_Results;
             var total1 = prByDepartments.Sum(c => c.Nro);
+            int cc = 0;
             foreach (var item in prByDepartments)
             {
                 PieChart1.Data.Add(Convert.ToDouble((item.Nro * 100) / total1));
@@ -55,9 +56,8 @@ namespace PurchaseDesktop.Helpers
                 if (item.CostID == User.CostID)
                 {
                     mias += item.Nro;
+                    cc = cc + 1;
                 }
-
-
             }
             PieChart1.TargetCanvas = ChartCanvas1;
             ChartCanvas1.Labels = labels.ToArray();
@@ -70,16 +70,17 @@ namespace PurchaseDesktop.Helpers
                 PieChart2.Data.Add(Convert.ToDouble((item.Nro * 100) / total2));
                 labels.Add(item.Description);
             }
-            PieChart2.TargetCanvas = ChartCanvas2;
-            ChartCanvas2.Labels = labels.ToArray();
 
+            ChartCanvas2.Labels = labels.ToArray();
+            PieChart2.TargetCanvas = ChartCanvas2;
 
             ChartCanvas1.XAxesGridLines = false;
             ChartCanvas1.YAxesGridLines = false;
             ChartCanvas1.ShowXAxis = false;
             ChartCanvas1.ShowYAxis = false;
             ChartCanvas1.LegendDisplay = false;
-            ChartCanvas1.LegendPosition = BunifuChartCanvas.PositionOptions.left;
+
+            ChartCanvas1.Size = new Size(205, 103);
             ChartCanvas1.BackColor = Color.FromArgb(37, 37, 38);
 
             ChartCanvas2.XAxesGridLines = false;
@@ -87,6 +88,8 @@ namespace PurchaseDesktop.Helpers
             ChartCanvas2.ShowXAxis = false;
             ChartCanvas2.ShowYAxis = false;
             ChartCanvas2.LegendDisplay = false;
+
+            ChartCanvas2.Size = new Size(205, 103);
             ChartCanvas2.BackColor = Color.FromArgb(37, 37, 38);
 
             PieChart1.BackgroundColor = GetNext(154, 256);
@@ -96,9 +99,11 @@ namespace PurchaseDesktop.Helpers
             PieChart2.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
 
             //! Labels
-            Label1.Text = $"All:    {total1}"; // total
-            Label2.Text = $"Mine:     {mias}"; // Mias
-            Label3.Text = $"Active:    10";
+            Label1.Text = $"All :    {total1}"; // total
+            Label2.Text = $"Me:     {Grid.Rows.Count}"; // Mias
+            //Label3.Text = $"Active:    {new RequisitionHeader().GetListByStatus()}";
+            Label3.Text = $"{User.CostID}:    {mias}";
+            var a = Grid.Rows.Count;
         }
         private List<Color> GetNext(int red, int max)
         {

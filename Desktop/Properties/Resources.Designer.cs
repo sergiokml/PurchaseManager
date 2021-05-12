@@ -113,6 +113,16 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
         /// </summary>
+        internal static System.Drawing.Icon icons8_pdf {
+            get {
+                object obj = ResourceManager.GetObject("icons8_pdf", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
         internal static System.Drawing.Icon icons8_survey {
             get {
                 object obj = ResourceManager.GetObject("icons8_survey", resourceCulture);
@@ -146,16 +156,6 @@ namespace PurchaseDesktop.Properties {
         internal static System.Drawing.Bitmap send_18px {
             get {
                 object obj = ResourceManager.GetObject("send_18px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap timer_18px {
-            get {
-                object obj = ResourceManager.GetObject("timer_18px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

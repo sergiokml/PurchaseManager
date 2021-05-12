@@ -49,6 +49,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnLogin = new Bunifu.UI.WinForms.BunifuImageButton();
             this.FDock = new Bunifu.UI.WinForms.BunifuFormDock();
             this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
+            this.bunifuSeparator2 = new Bunifu.UI.WinForms.BunifuSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.PicLogo)).BeginInit();
             this.PanelHeader.SuspendLayout();
             this.SuspendLayout();
@@ -117,7 +118,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtID.SelectionStart = 0;
             this.TxtID.ShortcutsEnabled = true;
             this.TxtID.Size = new System.Drawing.Size(143, 37);
-            this.TxtID.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
+            this.TxtID.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtID.TabIndex = 1;
             this.TxtID.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtID.TextMarginBottom = 0;
@@ -135,7 +136,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPassword.AnimationSpeed = 200;
             this.TxtPassword.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
             this.TxtPassword.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtPassword.BackColor = System.Drawing.Color.Transparent;
+            this.TxtPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtPassword.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtPassword.BackgroundImage")));
             this.TxtPassword.BorderColorActive = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
             this.TxtPassword.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
@@ -182,9 +183,9 @@ namespace PurchaseDesktop.Formularios
             stateProperties8.PlaceholderForeColor = System.Drawing.Color.Empty;
             this.TxtPassword.OnIdleState = stateProperties8;
             this.TxtPassword.Padding = new System.Windows.Forms.Padding(3);
-            this.TxtPassword.PasswordChar = '\0';
+            this.TxtPassword.PasswordChar = '●';
             this.TxtPassword.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.TxtPassword.PlaceholderText = "Enter Password";
+            this.TxtPassword.PlaceholderText = "";
             this.TxtPassword.ReadOnly = false;
             this.TxtPassword.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.TxtPassword.SelectedText = "";
@@ -192,14 +193,14 @@ namespace PurchaseDesktop.Formularios
             this.TxtPassword.SelectionStart = 0;
             this.TxtPassword.ShortcutsEnabled = true;
             this.TxtPassword.Size = new System.Drawing.Size(143, 37);
-            this.TxtPassword.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Bunifu;
+            this.TxtPassword.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtPassword.TabIndex = 2;
             this.TxtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtPassword.TextMarginBottom = 0;
             this.TxtPassword.TextMarginLeft = 3;
             this.TxtPassword.TextMarginTop = 0;
-            this.TxtPassword.TextPlaceholder = "Enter Password";
-            this.TxtPassword.UseSystemPasswordChar = false;
+            this.TxtPassword.TextPlaceholder = "";
+            this.TxtPassword.UseSystemPasswordChar = true;
             this.TxtPassword.Visible = false;
             this.TxtPassword.WordWrap = true;
             this.TxtPassword.Leave += new System.EventHandler(this.TxtPassword_Leave);
@@ -216,12 +217,11 @@ namespace PurchaseDesktop.Formularios
             // 
             // LblBienvenida
             // 
-            this.LblBienvenida.AutoSize = true;
-            this.LblBienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblBienvenida.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblBienvenida.ForeColor = System.Drawing.Color.White;
-            this.LblBienvenida.Location = new System.Drawing.Point(41, 125);
+            this.LblBienvenida.Location = new System.Drawing.Point(12, 117);
             this.LblBienvenida.Name = "LblBienvenida";
-            this.LblBienvenida.Size = new System.Drawing.Size(0, 13);
+            this.LblBienvenida.Size = new System.Drawing.Size(259, 29);
             this.LblBienvenida.TabIndex = 7;
             this.LblBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -234,7 +234,7 @@ namespace PurchaseDesktop.Formularios
             this.PanelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.PanelHeader.Controls.Add(this.BtnCerrar);
             this.PanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PanelHeader.Location = new System.Drawing.Point(0, 0);
+            this.PanelHeader.Location = new System.Drawing.Point(0, 1);
             this.PanelHeader.Name = "PanelHeader";
             this.PanelHeader.Size = new System.Drawing.Size(283, 25);
             this.PanelHeader.TabIndex = 8;
@@ -356,7 +356,7 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bunifuSeparator1.DashCap = Bunifu.UI.WinForms.BunifuSeparator.CapStyles.Flat;
             this.bunifuSeparator1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
             this.bunifuSeparator1.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.Solid;
             this.bunifuSeparator1.LineThickness = 1;
             this.bunifuSeparator1.Location = new System.Drawing.Point(0, 348);
@@ -365,15 +365,32 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator1.Size = new System.Drawing.Size(283, 1);
             this.bunifuSeparator1.TabIndex = 10;
             // 
+            // bunifuSeparator2
+            // 
+            this.bunifuSeparator2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.bunifuSeparator2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuSeparator2.BackgroundImage")));
+            this.bunifuSeparator2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuSeparator2.DashCap = Bunifu.UI.WinForms.BunifuSeparator.CapStyles.Flat;
+            this.bunifuSeparator2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
+            this.bunifuSeparator2.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.Solid;
+            this.bunifuSeparator2.LineThickness = 1;
+            this.bunifuSeparator2.Location = new System.Drawing.Point(0, 0);
+            this.bunifuSeparator2.Name = "bunifuSeparator2";
+            this.bunifuSeparator2.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
+            this.bunifuSeparator2.Size = new System.Drawing.Size(283, 1);
+            this.bunifuSeparator2.TabIndex = 11;
+            // 
             // FLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(283, 349);
+            this.Controls.Add(this.PanelHeader);
+            this.Controls.Add(this.bunifuSeparator2);
             this.Controls.Add(this.bunifuSeparator1);
             this.Controls.Add(this.BtnLogin);
-            this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.LblBienvenida);
             this.Controls.Add(this.PicLogo);
             this.Controls.Add(this.TxtID);
@@ -386,7 +403,6 @@ namespace PurchaseDesktop.Formularios
             ((System.ComponentModel.ISupportInitialize)(this.PicLogo)).EndInit();
             this.PanelHeader.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -402,5 +418,6 @@ namespace PurchaseDesktop.Formularios
         private Bunifu.UI.WinForms.BunifuImageButton BtnLogin;
         private Bunifu.UI.WinForms.BunifuFormDock FDock;
         private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator1;
+        private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator2;
     }
 }

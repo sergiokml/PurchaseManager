@@ -63,7 +63,7 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void DeleteOrderDetail(OrderHeader header, int idDetailr, Users userDB)
+        public void DeleteDetail(OrderHeader header, int idDetailr, Users userDB)
         {
             throw new NotImplementedException();
         }
@@ -99,6 +99,51 @@ namespace PurchaseDesktop.Profiles
         }
 
         public void InsertRequisitionDetail(RequisitionDetails detail, Users userDB, int idItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertAttach(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertAttach(int id, object att, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable GetVistaAttaches(int IdItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteDetail(object header, int idDetailr, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteDetail(int idHeader, int idDetailr, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAttache(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAttache(int id, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertAttach(int id, Attaches att, Users userDB)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAttache(int id, Users userDB, Attaches item)
         {
             throw new NotImplementedException();
         }

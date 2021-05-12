@@ -133,6 +133,9 @@
   <data name="icons8_html_filetype" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_html_filetype.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icons8_pdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_pdf.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8_survey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_survey.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -144,8 +147,5 @@
   </data>
   <data name="send_18px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\send_18px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="timer_18px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\timer_18px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

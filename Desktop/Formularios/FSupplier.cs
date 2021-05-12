@@ -7,6 +7,8 @@ using PurchaseData.DataModel;
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
+using TenTec.Windows.iGridLib;
+
 namespace PurchaseDesktop.Formularios
 {
     public partial class FSupplier : Form, IControles
@@ -14,6 +16,8 @@ namespace PurchaseDesktop.Formularios
         private readonly PerfilFachada rFachada;
 
         public TextInfo UCase { get; set; }
+        public int ItemID { get; set; }
+        public int ItemStatus { get; set; }
 
         public FSupplier(PerfilFachada rFachada)
         {
@@ -41,7 +45,7 @@ namespace PurchaseDesktop.Formularios
 
         }
 
-        private void LlenarGrid()
+        public void LlenarGrid()
         {
             //! Grid Principal
             Grid.BeginUpdate();
@@ -100,5 +104,11 @@ namespace PurchaseDesktop.Formularios
         {
             throw new NotImplementedException();
         }
+
+        public iGrid GetGrid()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

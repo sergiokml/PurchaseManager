@@ -121,10 +121,8 @@
   <data name="TxtID.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAI8AAAAlCAYAAAB75LobAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACdSURBVHhe7dKxDQIxAARB10pIRH+WXt8HZVAAyJITsmdJ
-        56RJLt5h9tfmnM/zPN9wxeplpzPGOm73B1yyetnpiIffiIdMPGTiIRMPmXjIxEMmHjLxkImHTDxk4iET
-        D5l4yMRDJh4y8ZCJh0w8ZOIhEw+ZeMjEQyYeMvGQiYdMPGTiIRMPmXjIxEMmHrKveI7jeK0Drli97HTM
-        ysb4AAgdYtiSdJ0tAAAAAElFTkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA0SURBVHhe7cNBDQAwCASw+TfFOQMs7E2b9AEAAAAAAAAA
+        AAAAAAAAAAAAAAAANyWp3fo3PS0H0AFA7CukAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="TxtID.IconRight" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -140,10 +138,8 @@
   <data name="TxtPassword.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAI8AAAAlCAYAAAB75LobAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACdSURBVHhe7dKxDQIxAARB10pIRH+WXt8HZVAAyJITsmdJ
-        56RJLt5h9tfmnM/zPN9wxeplpzPGOm73B1yyetnpiIffiIdMPGTiIRMPmXjIxEMmHjLxkImHTDxk4iET
-        D5l4yMRDJh4y8ZCJh0w8ZOIhEw+ZeMjEQyYeMvGQiYdMPGTiIRMPmXjIxEMmHrKveI7jeK0Drli97HTM
-        ysb4AAgdYtiSdJ0tAAAAAElFTkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA0SURBVHhe7cNBDQAwCASw+TfFOQMs7E2b9AEAAAAAAAAA
+        AAAAAAAAAAAAAAAANyWp3fo3PS0H0AFA7CukAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="TxtPassword.IconRight" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -684,11 +680,18 @@
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>76</value>
   </metadata>
+  <data name="bunifuSeparator2.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAARsAAAABCAYAAADuFwpoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVDhPY5h1JPT/KB7Fo3gU0xaH/gcA7E365ZkJDjwA
+        AAAASUVORK5CYII=
+</value>
+  </data>
   <data name="bunifuSeparator1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAARsAAAABCAYAAADuFwpoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAXSURBVDhPY1BVVfs/ikfxKB7FtMVq/wGX65XFDULS7gAA
-        AABJRU5ErkJggg==
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYSURBVDhPY5h1JPT/KB7Fo3gU0xaH/gcA7E365ZkJDjwA
+        AAAASUVORK5CYII=
 </value>
   </data>
 </root>

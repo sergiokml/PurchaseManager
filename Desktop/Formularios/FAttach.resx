@@ -597,15 +597,20 @@
   <data name="TxtName.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAPcAAAAeCAYAAADwx4gZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACTSURBVHhe7dOxCQMxAARB9V+VhMpwGS7Aj0CJS/hlBi65
-        fAcQtvf+zDl/Zvb+nZ5v2mOcA2g4Pd+0xQ0l4oYocUOUuCFK3BAlbogSN0SJG6LEDVHihihxQ5S4IUrc
-        ECVuiBI3RIkbosQNUeKGKHFDlLghStwQJW6IEjdEiRuixA1Rf3Gvtb7nMLP37/R80wZ6xngALkM6iq65
-        NycAAAAASUVORK5CYII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA9SURBVHhe7cNBDQAwCASw+TfFOQMs7EvapA8AAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAD4kKR2q5emBz/vIbcs4bOlAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="FDock.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>32, 19</value>
   </metadata>
+  <data name="bunifuSeparator2.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAXsAAAABCAYAAAA/8A4YAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAaSURBVDhPY5h1JPT/KB7Fo3gUj+LhjEP/AwDSov200ogE
+        cAAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="BtnNewDetail.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAABZVJREFUaEPt
@@ -1139,8 +1144,8 @@
   <data name="bunifuSeparator1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAXsAAAABCAYAAAA/8A4YAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZSURBVDhPY1BSUvo/ikfxKB7Fo3g4Y6X/AG7IEKZKeVHG
-        AAAAAElFTkSuQmCC
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAaSURBVDhPY5h1JPT/KB7Fo3gUj+LhjEP/AwDSov200ogE
+        cAAAAABJRU5ErkJggg==
 </value>
   </data>
 </root>

@@ -5,13 +5,10 @@ namespace PurchaseDesktop.Interfaces
 {
     internal interface IGridCustom
     {
-        //GridAuxButton GridDeleteBtn { get; set; }
-        //GridAuxButton GridAttachBtn { get; set; }
-
-        //void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e);
         void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e);
         void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e);
-        //void GridDeleteButton_CellButtonClick(object sender, GridAuxButton.iGCellButtonClickEventArgs e);
+        void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e);
+        void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e);
 
     }
 }

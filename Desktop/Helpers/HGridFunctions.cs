@@ -33,6 +33,7 @@ namespace PurchaseDesktop.Helpers
             lista.Images.Add(Properties.Resources.icons8_html_filetype); // Ver Html 
             lista.Images.Add(Properties.Resources.icons8_erase); // Remove
             lista.Images.Add(Properties.Resources.icons8_envelope); // Send
+            lista.Images.Add(Properties.Resources.icons8_pdf); // Pdf
             return lista;
         }
 
@@ -269,6 +270,49 @@ namespace PurchaseDesktop.Helpers
 
                     iGCol = Grid.Cols.Add("AccountID", "Account", 106);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
+
+                    iGCol = Grid.Cols.Add("delete", "", 22);
+                    iGCol.IncludeInSelect = false;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+
+                    //! Header
+                    foreach (iGColHdr item in Grid.Header.Cells)
+                    {
+                        item.TextAlign = iGContentAlignment.MiddleCenter;
+                    }
+
+
+                    break;
+            }
+        }
+
+        public void CargarColumnasFAttach()
+        {
+            iGCol iGCol;
+            switch (User.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    break;
+                case "UPR":
+                    //! Cols     
+                    Grid.Header.Height = 20;
+                    iGCol = Grid.Cols.Add("nro", "N°", 21);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+                    iGCol = Grid.Cols.Add("AttachID", "");
+                    iGCol.Visible = false;
+
+                    iGCol = Grid.Cols.Add("Description", "Description", 315);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+
+                    iGCol = Grid.Cols.Add("view", "", 22);
+                    iGCol.IncludeInSelect = false;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
 
                     iGCol = Grid.Cols.Add("delete", "", 22);
                     iGCol.IncludeInSelect = false;

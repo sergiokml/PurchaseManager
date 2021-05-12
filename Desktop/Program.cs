@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
@@ -22,44 +23,39 @@ namespace Desktop
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //! Los Perfiles: 
-
-            PerfilUPO perfilPo = new PerfilUPO(new PurchaseManagerContext());
-            PerfilUPR perfilPr = new PerfilUPR(new PurchaseManagerContext());
-            PerfilVAL perfilVal = new PerfilVAL(new PurchaseManagerContext());
-
-            Users user;
-
-
-
-            using (var contextDB = new PurchaseManagerContext())
+            //! Internet?
+            if (CheckForInternetConnection())
             {
+                //! Los Perfiles: 
+                PerfilUPO perfilPo = new PerfilUPO(new PurchaseManagerContext());
+                PerfilUPR perfilPr = new PerfilUPR(new PurchaseManagerContext());
+                PerfilVAL perfilVal = new PerfilVAL(new PurchaseManagerContext());
 
-                var P = "25406408";
-                //var P = "13779971";
-                //var P = "15325038";
+                Users user;
+
+                using (var contextDB = new PurchaseManagerContext())
+                {
+                    var P = "25406408";
+                    //var P = "13779971";
+                    //var P = "15325038";
 
 
+                    user = contextDB.Users.Find(P);
+                    contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
+                    // CargarUPR(20);
+                    //CargaUPO(4, "13779971"); // Booorador PO (Po user)
+                }
 
-                user = contextDB.Users.Find(P);
-                contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
-                // CargarUPR(20);
-                //CargaUPO(4, "13779971"); // Booorador PO (Po user)
+                //FLogin loginForm = new FLogin();
+                //Application.Run(loginForm);
+                PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, user);
+                FPrincipal f = new FPrincipal(facade);
+                //if (loginForm.UserSuccessfullyAuthenticated)
+                //{
+                Application.Run(f);
+
+                //}
             }
-
-            FLogin loginForm = new FLogin();
-            // Application.Run(loginForm);
-            //if (loginForm.UserSuccessfullyAuthenticated)
-            //{
-            PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, user);
-            var fSupplier = new FSupplier(facade);
-            //var fDetails = new FDetails(facade);
-            var fAttach = new FAttach(facade);
-
-            FPrincipal f = new FPrincipal(facade, fSupplier, fAttach);
-            Application.Run(f);
-            //}
-
         }
 
         private static void CargarUPR(int veces)
@@ -131,6 +127,7 @@ namespace Desktop
                 }
             }
         }
+
         //private static void CargaUPO(byte estado, string iduser)
         //{
         //    List<OrderHeader> orders;
@@ -201,5 +198,24 @@ namespace Desktop
         //    }
 
         //}
+
+        public static bool CheckForInternetConnection(int timeoutMs = 10000, string url = null)
+        {
+            try
+            {
+                url = "http://www.gstatic.com/generate_204";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.KeepAlive = false;
+                request.Timeout = timeoutMs;
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

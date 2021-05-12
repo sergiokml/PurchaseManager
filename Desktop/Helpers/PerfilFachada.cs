@@ -68,6 +68,25 @@ namespace PurchaseDesktop.Helpers
             }
             return null;
         }
+        public DataTable GetVistaAttaches(int ItemID)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    //return perfilPo.GetVista(userDB);
+                    break;
+                case "UPR":
+                    return perfilPr.GetVistaAttaches(ItemID);
+                case "VAL":
+                    //return perfilVal.GetVista(userDB);
+                    break;
+            }
+            return null;
+        }
         public Users GetUser()
         {
             return userDB;
@@ -121,7 +140,6 @@ namespace PurchaseDesktop.Helpers
 
                 case "UPR":
                     perfilPr.Grid = grid;
-                    //perfilPr.UserProfiles = userDB.UserProfiles;
                     perfilPr.User = userDB;
                     perfilPr.PintarGrid();
                     switch (form)
@@ -133,6 +151,7 @@ namespace PurchaseDesktop.Helpers
                             perfilPr.CargarColumnasFDetail();
                             break;
                         case "FAttach":
+                            perfilPr.CargarColumnasFAttach();
                             break;
                     }
                     return perfilPr.Grid;
@@ -154,9 +173,9 @@ namespace PurchaseDesktop.Helpers
                 case "UPO":
                     break;
                 case "UPR":
+                    perfilPr.Grid = grid;
                     perfilPr.Formatear();
                     return perfilPr.Grid;
-
                 case "VAL":
                     break;
             }
@@ -304,10 +323,9 @@ namespace PurchaseDesktop.Helpers
                     }
                     break;
                 case "UPR":
-                    idHeader = Convert.ToInt32(dataRow["RequisitionHeaderID"]);
                     if (Convert.ToInt32(dataRow["StatusID"]) == 1) // Puede eliminar sólo en 1
                     {
-                        perfilPr.DeleteRequesitionHeader(idHeader);
+                        perfilPr.DeleteRequesitionHeader(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
                         return true;
                     }
                     break;
@@ -317,7 +335,7 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
-        public bool DeleteOrderDetail(OrderHeader orderHeader, int idDetail)
+        public bool DeleteDetail(DataRow dataRow, int status)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -326,17 +344,50 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    if (orderHeader.StatusID < 6)
+                    //if (orderHeader.StatusID < 6)
+                    //{
+                    //    perfilPo.DeleteOrderDetail(orderHeader, idDetail, userDB);
+                    //    return true;
+                    //}
+                    break;
+
+                case "UPR":
+                    if (status < 6)
                     {
-                        perfilPo.DeleteOrderDetail(orderHeader, idDetail, userDB);
+                        perfilPr.DeleteDetail(Convert.ToInt32(dataRow["RequisitionHeaderID"]), Convert.ToInt32(dataRow["DetailID"]), userDB);
                         return true;
                     }
+                    break;
+                case "VAL":
+                    break;
+            }
 
+            return false;
+        }
+        public bool DeleteAttach(DataRow dataRow, int status, int header)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    //if (status.StatusID < 6)
+                    //{
+                    //    var id = Convert.ToInt32(dataRow["DetailID"]);
+                    //    perfilPo.DeleteDetail(orderHeader, idDetail, userDB);
+                    //    return true;
+                    //}
                     break;
                 case "UPR":
-                    if (orderHeader.StatusID < 6)
+                    if (status < 6)
                     {
-                        perfilPr.DeleteOrderDetail(orderHeader, idDetail, userDB);
+                        Attaches att = new Attaches
+                        {
+                            AttachID = Convert.ToInt32(dataRow["AttachID"])
+                        };
+                        perfilPr.DeleteAttache(header, userDB, att);
                         return true;
                     }
                     break;
@@ -406,6 +457,7 @@ namespace PurchaseDesktop.Helpers
                     perfilPr.PintarGrid();
                     f.StartPosition = FormStartPosition.CenterScreen;
                     f.ItemID = Convert.ToInt32(dataRow["RequisitionHeaderID"]);
+                    f.ItemStatus = Convert.ToInt32(dataRow["StatusID"]);
                     f.ShowDialog();
                     break;
                 case "VAL":
@@ -438,7 +490,7 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
-        public bool EditarAttach(FAttach fAttach)
+        public bool OpenAttachForm(DataRow dataRow)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -447,13 +499,38 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    fAttach.StartPosition = FormStartPosition.CenterScreen;
-                    fAttach.ShowDialog();
+
                     break;
                 case "UPR":
-                    fAttach.StartPosition = FormStartPosition.CenterScreen;
-                    fAttach.ShowDialog();
+                    var att = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    var f = new FAttach(this);
+                    perfilPr.Grid = f.GetGrid();
+                    perfilPr.PintarGrid();
+                    f.StartPosition = FormStartPosition.CenterScreen;
+                    f.ItemID = Convert.ToInt32(dataRow["RequisitionHeaderID"]);
+                    f.ItemStatus = Convert.ToInt32(dataRow["StatusID"]);
+                    f.ShowDialog();
                     break;
+                case "VAL":
+                    break;
+            }
+            return false;
+        }
+
+        public bool InsertAttach(Attaches item, int id)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+
+                    break;
+                case "UPR":
+                    perfilPr.InsertAttach(id, item, userDB);
+                    return true;
                 case "VAL":
                     break;
             }
@@ -462,28 +539,19 @@ namespace PurchaseDesktop.Helpers
 
         public string VerItemHtml(DataRow dataRow)
         {
-            switch (userDB.UserProfiles.ProfileID)
+            var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+            if (details.Count == 0)
             {
-                case "ADM":
-                    break;
-                case "BAS":
-                    break;
-                case "UPO":
-
-                    break;
-                case "UPR":
-                    var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-                    if (details.Count == 0)
-                    {
-                        return "This requisition has no products.";
-                    }
-                    //var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-                    Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details));
-                    return "Opening...";
-                case "VAL":
-                    break;
+                return "This requisition has no products.";
             }
-            return null;
+            Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details));
+            return "Opening...";
+        }
+
+        public string VerAttach(DataRow dataRow)
+        {
+            Process.Start(dataRow["FileName"].ToString());
+            return "Opening...";
         }
 
         public async Task<string> SendItem(DataRow dataRow)

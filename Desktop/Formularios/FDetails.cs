@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -12,14 +15,13 @@ using TenTec.Windows.iGridLib;
 
 namespace PurchaseDesktop.Formularios
 {
-    public partial class FDetails : Form, IControles
+    public partial class FDetails : Form, IControles, IGridCustom
     {
         private readonly PerfilFachada rFachada;
 
         public TextInfo UCase { get; set; }
         public int ItemID { get; set; }
-
-        private OrderHeader OrderHeader { get; set; }
+        public int ItemStatus { get; set; }
 
         public List<RequisitionDetails> RequisitionDetails { get; set; }
 
@@ -43,6 +45,45 @@ namespace PurchaseDesktop.Formularios
             //! Grid Principal
             Grid = rFachada.CargarGrid(Grid, "FDetails");
             LlenarGrid();
+
+            //! Eventos
+            Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
+            Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
+        }
+
+        public void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
+        {
+            if (e.ColIndex == Grid.Cols["delete"].Index)
+            {
+                Rectangle myBounds = e.Bounds;
+                if (myBounds.Width > 0 || myBounds.Height > 0)
+                {
+                    Grid.ImageList.Draw(e.Graphics, myBounds.Location, 1);
+                    e.DoDefault = false;
+                }
+            }
+        }
+
+        public void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
+        {
+            if (e.ColIndex == Grid.Cols["delete"].Index || e.ColIndex == Grid.Cols["view"].Index)
+            {
+                Rectangle myBounds = e.Bounds;
+                myBounds.Inflate(2, 1);
+                LinearGradientBrush myBrush;
+                switch (e.State)
+                {
+                    case iGControlState.HotPressed:
+                        myBrush = new LinearGradientBrush(e.Bounds, Color.FromArgb(37, 37, 38), Color.FromArgb(37, 37, 38), 1);
+                        e.Graphics.FillRectangle(myBrush, myBounds);
+                        break;
+                    case iGControlState.Hot:
+                        myBrush = new LinearGradientBrush(e.Bounds, Color.FromArgb(154, 196, 85), Color.FromArgb(154, 196, 85), 1);
+                        e.Graphics.FillRectangle(myBrush, myBounds);
+                        break;
+                }
+                e.DoDefault = false;
+            }
         }
 
         private void BtnNewDetail_Click(object sender, EventArgs e)
@@ -62,7 +103,7 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-        private void LlenarGrid()
+        public void LlenarGrid()
         {
             //! Grid Principal
             Grid.BeginUpdate();
@@ -71,7 +112,11 @@ namespace PurchaseDesktop.Formularios
                 var vista = rFachada.GetVistaDetalles(ItemID);
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
-
+                //! Data Bound  ***!
+                for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
+                {
+                    Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
+                }
                 for (int i = 0; i < Grid.Rows.Count; i++)
                 {
                     Grid.Rows[i].Cells["nro"].Value = i + 1;
@@ -87,6 +132,7 @@ namespace PurchaseDesktop.Formularios
                 Grid.EndUpdate();
             }
         }
+
         public bool ValidarControles()
         {
             if (CboAccount.SelectedIndex == -1)
@@ -128,17 +174,16 @@ namespace PurchaseDesktop.Formularios
         private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
+            var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-
-
-                if (rFachada.DeleteOrderDetail(OrderHeader,
-                    Convert.ToInt32(Grid.Cols["DetailID"].Cells[e.RowIndex].Value)))
+                if (rFachada.DeleteDetail(current, ItemStatus))
                 {
                     LlenarGrid();
                     ClearControles();
                     Grid.Focus();
                     Grid.DrawAsFocused = false;
+                    CboAccount.SelectedIndex = -1;
                 }
                 else
                 {
@@ -150,6 +195,20 @@ namespace PurchaseDesktop.Formularios
         private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
         {
             Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
+        }
+
+        public void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e)
+        {
+            if (e.ColIndex > 0)
+            {
+
+                SetControles();
+            }
+        }
+
+        public void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

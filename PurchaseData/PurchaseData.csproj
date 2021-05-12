@@ -112,6 +112,7 @@
     <Compile Include="DataModel\DAOrderDetails.cs" />
     <Compile Include="DataModel\DAOrderHeader.cs" />
     <Compile Include="DataModel\DARequisitionDetails.cs" />
+    <Compile Include="DataModel\DARequisitionHeader.cs" />
     <Compile Include="DataModel\DARequisitionStatus.cs" />
     <Compile Include="DataModel\DASupplierCountries.cs" />
     <Compile Include="DataModel\DABank.cs" />

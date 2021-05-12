@@ -79,6 +79,7 @@ namespace PurchaseDesktop.Formularios
 
         private void FLogin_Load(object sender, EventArgs e)
         {
+            Icon = Properties.Resources.icons8_survey;
             list = new Users().GetList();
 
         }

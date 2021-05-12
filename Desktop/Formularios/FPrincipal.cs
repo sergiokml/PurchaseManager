@@ -21,26 +21,17 @@ namespace PurchaseDesktop.Formularios
         private readonly PerfilFachada rFachada;
 
         public TextInfo UCase { get; set; }
-        public FSupplier FSupplier { get; set; }
 
         public bool IsSending { get; set; }
 
-        public string Espaciosimage { get; set; } = "       ";
 
-        //public FDetails FDetails { get; set; }
-        public FAttach FAttach { get; set; }
-        public FPrincipal(PerfilFachada rFachada, FSupplier fSupplier, FAttach fAttach)
+        public int ItemID { get; set; }
+        public int ItemStatus { get; set; }
+
+        public FPrincipal(PerfilFachada rFachada)
         {
-            FAttach = fAttach;
-            //FDetails = fDetails;
-            FSupplier = fSupplier;
             this.rFachada = rFachada;
             InitializeComponent();
-        }
-
-        private void BtnCloseFrm_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void BtnInsert_Click(object sender, EventArgs e)
@@ -55,19 +46,19 @@ namespace PurchaseDesktop.Formularios
                 //Grid.Rows[0].EnsureVisible();
                 ClearControles();
 
-                //LblMsg.Text = $" Se ha cargado el Perfil: {rFachada.GetUser().ProfileID}  {Grid.Rows.Count}";
-
-
-                //Grid.CurRow = Grid.Rows[0];
             }
         }
 
         private void CargarDashboard()
         {
+            // SuspendLayout();          
             rFachada.CargarDashBoard(PieChart1, PieChart2, ChartCanvas1, ChartCanvas2, Lbl1, Lbl2, Lbl3);
+            // ResumeLayout();
         }
+
         private void FPrincipal_Load(object sender, EventArgs e)
         {
+
             Icon = Properties.Resources.icons8_survey;
             //! Company
             CboCompany.DataSource = new Companies().GetList();
@@ -77,7 +68,8 @@ namespace PurchaseDesktop.Formularios
 
             //! Eventos
             Grid.BeforeCommitEdit += Grid_BeforeCommitEdit;
-
+            Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
+            Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
 
             //! Type
             CboType.DataSource = Enum.GetValues(typeof(OrderType));
@@ -88,20 +80,25 @@ namespace PurchaseDesktop.Formularios
             LlenarGrid();
 
 
-            //! DashBoard
-            CargarDashboard();
-
-            //! Banner
-            //var path = Directory.GetCurrentDirectory() + @"\HtmlBanner\Banner.html";
-
-            WBrowserBanner.Navigate(rFachada.CargarBanner());
-
             //! Otros
             var user = rFachada.GetUser();
             LblUser.Text = $"User: {user.FirstName} {user.LastName} | Profile: {user.ProfileID} | email: {user.Email}";
+
+            Timer TimerMsg = new Timer
+            {
+                Interval = 10 // 2 seconds
+            };
+            TimerMsg.Tick += (object d, EventArgs f) =>
+            {
+                //! DashBoard
+                CargarDashboard();
+                //! Banner
+                WBrowserBanner.Navigate(rFachada.CargarBanner());
+                TimerMsg.Stop();
+            }; TimerMsg.Start();
         }
 
-        private void LlenarGrid()
+        public void LlenarGrid()
         {
             Grid.BeginUpdate();
             try
@@ -114,13 +111,9 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
                 }
-                Grid.Refresh();
-                LblMsg.Text = $"{Espaciosimage}You have {vista.Rows.Count} documents issued and showing.";
-                LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                LblMsg.Image = Properties.Resources.checked_18px;
-
-
                 Grid = rFachada.FormatearGrid(Grid);
+                Grid.Refresh();
+                Msg($"You have {vista.Rows.Count} documents issued and showing.", Proceso.Informacion);
             }
             catch (Exception)
             {
@@ -196,10 +189,7 @@ namespace PurchaseDesktop.Formularios
                 if (!rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key))
                 {
                     e.Result = iGEditResult.Cancel;
-                    LblMsg.Text = string.Empty;
-                    LblMsg.Text = $"{Espaciosimage}This document cannot be updated.";
-                    LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                    LblMsg.Image = Properties.Resources.error_18px;
+                    Msg("This document cannot be updated.", Proceso.Error);
                 }
                 else
                 {
@@ -235,14 +225,12 @@ namespace PurchaseDesktop.Formularios
                 }
                 else
                 {
-                    LblMsg.Text = $"{Espaciosimage}This document cannot be deleted.";
-                    LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                    LblMsg.Image = Properties.Resources.error_18px;
+                    Msg("This document cannot be deleted.", Proceso.Error);
                 }
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
-                LblMsg.Text = $"{Espaciosimage}{rFachada.VerItemHtml(current)}";
+                Msg(rFachada.VerItemHtml(current), Proceso.Empty);
                 Grid.Focus();
                 Grid.DrawAsFocused = false;
             }
@@ -251,22 +239,17 @@ namespace PurchaseDesktop.Formularios
                 if (!IsSending)
                 {
                     IsSending = true;
-                    LblMsg.Text = $"{Espaciosimage}Sending message, please wait.";
                     LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
                     LblMsg.Image = Properties.Resources.loading;
                     var respuesta = await rFachada.SendItem(current);
                     if (respuesta == "NODETAILS")
                     {
-                        LblMsg.Text = $"{Espaciosimage}This requisition has no products.";
-                        LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                        LblMsg.Image = Properties.Resources.error_18px;
+                        Msg("This requisition has no products.", Proceso.Error);
                         IsSending = false;
                     }
                     else
                     {
-                        LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                        LblMsg.Text = $"{Espaciosimage}{respuesta}";
-                        LblMsg.Image = Properties.Resources.send_18px;
+                        Msg(respuesta, Proceso.Send);
                         IsSending = false;
                     }
                 }
@@ -300,7 +283,7 @@ namespace PurchaseDesktop.Formularios
             Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
         }
 
-        private void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
+        public void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
         {
             if (e.ColIndex == Grid.Cols["delete"].Index || e.ColIndex == Grid.Cols["view"].Index || e.ColIndex == Grid.Cols["send"].Index)
             {
@@ -322,7 +305,7 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-        private void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
+        public void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
         {
             if (e.ColIndex == Grid.Cols["delete"].Index)
             {
@@ -368,13 +351,63 @@ namespace PurchaseDesktop.Formularios
 
         }
 
-        //private void Timer_Tick(object sender, EventArgs e)
-        //{
-        //    LblMsg.Image = Properties.Resources.loading;
-        //    LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-        //    LblMsg.Text = "   Sending message, please wait.";
-        //}
+        private void Msg(string msg, Proceso proceso)
+        {
+            Timer TimerMsg = new Timer
+            {
+                Interval = 5000 // 5 seconds
+            };
+
+            TimerMsg.Tick += (object sender, EventArgs e) =>
+            {
+                LblMsg.Text = string.Empty;
+                LblMsg.Image = null;
+                TimerMsg.Stop();
+            }; TimerMsg.Start();
+
+
+            string Espaciosimage = "       ";
+            LblMsg.Text = $"{Espaciosimage}{msg}";
+            LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
+
+            switch (proceso)
+            {
+                case Proceso.Informacion:
+                    LblMsg.Image = Properties.Resources.checked_18px;
+                    break;
+                case Proceso.Error:
+                    LblMsg.Image = Properties.Resources.error_18px;
+                    break;
+                case Proceso.Send:
+                    LblMsg.Image = Properties.Resources.send_18px;
+                    break;
+                case Proceso.Empty:
+                    LblMsg.Image = null;
+                    break;
+            }
+        }
+
+        private enum Proceso
+        {
+            Informacion = 1,
+            Error = 2,
+            Send = 3,
+            Empty = 4
+        }
+
+        public iGrid GetGrid()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void BtnAttach_Click(object sender, EventArgs e)
+        {
+            if (Grid.CurCell != null)
+            {
+                var current = (DataRow)Grid.CurRow.Tag;
+                rFachada.OpenAttachForm(current);
+            }
+        }
+
     }
-
-
 }
