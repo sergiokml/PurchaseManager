@@ -35,17 +35,25 @@ namespace PurchaseData.Indicadores
         }
         public IndicadorUf GetPosterior(DateTime d)
         {
-            using (WebClient)
+            try
             {
-                var url = $"uf/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json";
-                var response = WebClient.DownloadString(url);
-                var r = JsonSerializer.Deserialize<IndicadorUf>(response);
-                if (r != null)
+                using (WebClient)
                 {
-                    return r;
+                    var url = $"uf/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json";
+                    var response = WebClient.DownloadString(url);
+                    var r = JsonSerializer.Deserialize<IndicadorUf>(response);
+                    if (r != null)
+                    {
+                        return r;
+                    }
+                    return null;
                 }
+            }
+            catch (Exception)
+            {
                 return null;
             }
+
         }
     }
 }

@@ -35,17 +35,25 @@ namespace PurchaseData.Indicadores
         }
         public IndicadorEuro GetPosterior(DateTime d)
         {
-            using (WebClient)
+            try
             {
-                var url = $"euro/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json";
-                var response = WebClient.DownloadString(url);
-                var r = JsonSerializer.Deserialize<IndicadorEuro>(response);
-                if (r != null)
+                using (WebClient)
                 {
-                    return r;
+                    var url = $"euro/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json";
+                    var response = WebClient.DownloadString(url);
+                    var r = JsonSerializer.Deserialize<IndicadorEuro>(response);
+                    if (r != null)
+                    {
+                        return r;
+                    }
+                    return null;
                 }
+            }
+            catch (Exception)
+            {
                 return null;
             }
+
         }
     }
 }

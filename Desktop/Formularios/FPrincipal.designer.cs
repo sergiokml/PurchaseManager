@@ -279,7 +279,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnAttach.ShowSizeMarkers = false;
             this.BtnAttach.Size = new System.Drawing.Size(50, 50);
             this.BtnAttach.TabIndex = 32;
-            this.BtnAttach.ToolTipText = "Hitos";
+            this.BtnAttach.ToolTipText = "Attach";
             this.BtnAttach.WaitOnLoad = false;
             this.BtnAttach.Zoom = 20;
             this.BtnAttach.ZoomSpeed = 10;
@@ -290,7 +290,7 @@ namespace PurchaseDesktop.Formularios
             this.LblTitulo2.AutoSize = true;
             this.LblTitulo2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblTitulo2.ForeColor = System.Drawing.Color.White;
-            this.LblTitulo2.Location = new System.Drawing.Point(249, 96);
+            this.LblTitulo2.Location = new System.Drawing.Point(249, 93);
             this.LblTitulo2.Name = "LblTitulo2";
             this.LblTitulo2.Size = new System.Drawing.Size(94, 13);
             this.LblTitulo2.TabIndex = 31;
@@ -302,7 +302,7 @@ namespace PurchaseDesktop.Formularios
             this.LblTitulo1.AutoSize = true;
             this.LblTitulo1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblTitulo1.ForeColor = System.Drawing.Color.White;
-            this.LblTitulo1.Location = new System.Drawing.Point(14, 96);
+            this.LblTitulo1.Location = new System.Drawing.Point(14, 93);
             this.LblTitulo1.Name = "LblTitulo1";
             this.LblTitulo1.Size = new System.Drawing.Size(125, 13);
             this.LblTitulo1.TabIndex = 30;
@@ -682,11 +682,10 @@ namespace PurchaseDesktop.Formularios
             this.LblUser.Dock = System.Windows.Forms.DockStyle.Right;
             this.LblUser.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblUser.ForeColor = System.Drawing.Color.White;
-            this.LblUser.Location = new System.Drawing.Point(627, 0);
+            this.LblUser.Location = new System.Drawing.Point(515, 0);
             this.LblUser.Name = "LblUser";
-            this.LblUser.Size = new System.Drawing.Size(473, 24);
+            this.LblUser.Size = new System.Drawing.Size(585, 24);
             this.LblUser.TabIndex = 4;
-            this.LblUser.Text = "...";
             this.LblUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LblMsg

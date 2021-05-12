@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -48,7 +49,7 @@ namespace PurchaseDesktop.Helpers
             PieChart2.Data.Clear();
             var prByDepartments = ReqGroupByCost_Results;
             var total1 = prByDepartments.Sum(c => c.Nro);
-            int cc = 0;
+
             foreach (var item in prByDepartments)
             {
                 PieChart1.Data.Add(Convert.ToDouble((item.Nro * 100) / total1));
@@ -56,7 +57,6 @@ namespace PurchaseDesktop.Helpers
                 if (item.CostID == User.CostID)
                 {
                     mias += item.Nro;
-                    cc = cc + 1;
                 }
             }
             PieChart1.TargetCanvas = ChartCanvas1;
@@ -98,12 +98,21 @@ namespace PurchaseDesktop.Helpers
             PieChart2.BackgroundColor = GetNext(154, 256); ;
             PieChart2.BorderColor = new List<Color>() { Color.FromArgb(45, 45, 48) };
 
+            int actives = 0;
+            for (int i = 0; i < Grid.Rows.Count; i++)
+            {
+                var current = (DataRow)Grid.Rows[i].Tag;
+                if (Convert.ToInt32(current["StatusID"]) == 2)
+                {
+                    actives++;
+                }
+            }
+
             //! Labels
             Label1.Text = $"All :    {total1}"; // total
-            Label2.Text = $"Me:     {Grid.Rows.Count}"; // Mias
-            //Label3.Text = $"Active:    {new RequisitionHeader().GetListByStatus()}";
-            Label3.Text = $"{User.CostID}:    {mias}";
-            var a = Grid.Rows.Count;
+            Label2.Text = $"Me :     {actives}"; // Mias
+            Label3.Text = $"{User.CostID} :    {mias}";
+
         }
         private List<Color> GetNext(int red, int max)
         {

@@ -191,7 +191,7 @@ namespace PurchaseDesktop.Profiles
             return rContext.RequisitionHeader.Find(id).Attaches.ToList();
         }
 
-        public void InsertRequisition(Companies company, OrderType type, Users userDB)
+        public void InsertItemHeader(Companies company, OrderType type, Users userDB)
         {
             var pr = new RequisitionHeader
             {

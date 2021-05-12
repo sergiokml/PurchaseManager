@@ -51,12 +51,12 @@ namespace PurchaseDesktop.Formularios
 
         private void CargarDashboard()
         {
-            // SuspendLayout();          
+            // SuspendLayout();            
             rFachada.CargarDashBoard(PieChart1, PieChart2, ChartCanvas1, ChartCanvas2, Lbl1, Lbl2, Lbl3);
             // ResumeLayout();
         }
 
-        private void FPrincipal_Load(object sender, EventArgs e)
+        private async void FPrincipal_Load(object sender, EventArgs e)
         {
 
             Icon = Properties.Resources.icons8_survey;
@@ -88,12 +88,13 @@ namespace PurchaseDesktop.Formularios
             {
                 Interval = 10 // 2 seconds
             };
-            TimerMsg.Tick += (object d, EventArgs f) =>
+            TimerMsg.Tick += async (object d, EventArgs f) =>
             {
                 //! DashBoard
                 CargarDashboard();
                 //! Banner
-                WBrowserBanner.Navigate(rFachada.CargarBanner());
+                var s = await rFachada.CargarBanner();
+                WBrowserBanner.Navigate(s);
                 TimerMsg.Stop();
             }; TimerMsg.Start();
         }
@@ -104,6 +105,7 @@ namespace PurchaseDesktop.Formularios
             try
             {
                 var vista = rFachada.GetVistaPrincipal();
+
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!
@@ -114,6 +116,8 @@ namespace PurchaseDesktop.Formularios
                 Grid = rFachada.FormatearGrid(Grid);
                 Grid.Refresh();
                 Msg($"You have {vista.Rows.Count} documents issued and showing.", Proceso.Informacion);
+
+
             }
             catch (Exception)
             {
@@ -132,7 +136,6 @@ namespace PurchaseDesktop.Formularios
                 var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 CboCompany.SelectedValue = current["CompanyID"].ToString();
                 CboType.SelectedIndex = Convert.ToByte(current["Type"]) - 1;
-                // LblMsg.Text = $"Ha Seleccionado el ID:{current["OrderHeaderID"]}";
 
                 SetControles();
             }

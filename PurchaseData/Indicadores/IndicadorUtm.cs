@@ -35,15 +35,22 @@ namespace PurchaseData.Indicadores
         }
         public IndicadorUtm GetPosterior(DateTime d)
         {
-            using (WebClient)
+            try
             {
-                var url = $"utm/posteriores/{d.Year}/{d.Month}/?apikey={ApiKey}&formato=json";
-                var response = WebClient.DownloadString(url);
-                var r = JsonSerializer.Deserialize<IndicadorUtm>(response);
-                if (r != null)
+                using (WebClient)
                 {
-                    return r;
+                    var url = $"utm/posteriores/{d.Year}/{d.Month}/?apikey={ApiKey}&formato=json";
+                    var response = WebClient.DownloadString(url);
+                    var r = JsonSerializer.Deserialize<IndicadorUtm>(response);
+                    if (r != null)
+                    {
+                        return r;
+                    }
+                    return null;
                 }
+            }
+            catch (Exception)
+            {
                 return null;
             }
         }

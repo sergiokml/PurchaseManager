@@ -35,8 +35,8 @@ namespace Desktop
 
                 using (var contextDB = new PurchaseManagerContext())
                 {
-                    var P = "25406408";
-                    //var P = "13779971";
+                    //var P = "18018850"; // 17229947
+                    var P = "13779971";
                     //var P = "15325038";
 
 

@@ -35,17 +35,25 @@ namespace PurchaseData.Indicadores
         }
         public IndicadorIpc GetPosterior(DateTime d)
         {
-            using (WebClient)
+            try
             {
-                var url = $"ipc/posteriores/{d.Year}/{d.Month}/?apikey={ApiKey}&formato=json";
-                var response = WebClient.DownloadString(url);
-                var r = JsonSerializer.Deserialize<IndicadorIpc>(response);
-                if (r != null)
+                using (WebClient)
                 {
-                    return r;
+                    var url = $"ipc/posteriores/{d.Year}/{d.Month}/?apikey={ApiKey}&formato=json";
+                    var response = WebClient.DownloadString(url);
+                    var r = JsonSerializer.Deserialize<IndicadorIpc>(response);
+                    if (r != null)
+                    {
+                        return r;
+                    }
+                    return null;
                 }
+            }
+            catch (Exception)
+            {
                 return null;
             }
+
         }
     }
 }

@@ -110,24 +110,6 @@ namespace PurchaseDesktop.Helpers
             return null;
         }
 
-        //public List<OrderDetails> GetOrderDetails()
-        //{
-        //    switch (userDB.UserProfiles.ProfileID)
-        //    {
-        //        case "ADM":
-        //            break;
-        //        case "BAS":
-        //            break;
-        //        case "UPO":
-        //            return perfilPo.GetVistaSuppliers();
-        //        case "UPR":
-        //            return perfilPr.GetVistaSuppliers();
-        //        case "VAL":
-        //            return perfilVal.GetVistaSuppliers();
-        //    }
-        //    return null;
-        //}
-
         public iGrid CargarGrid(iGrid grid, string form)
         {
             switch (userDB.UserProfiles.ProfileID)
@@ -137,7 +119,22 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-
+                    perfilPo.Grid = grid;
+                    perfilPo.User = userDB;
+                    perfilPo.PintarGrid();
+                    switch (form)
+                    {
+                        case "FPrincipal":
+                            perfilPo.CargarColumnasFPrincipal();
+                            break;
+                        case "FDetails":
+                            perfilPo.CargarColumnasFDetail();
+                            break;
+                        case "FAttach":
+                            perfilPo.CargarColumnasFAttach();
+                            break;
+                    }
+                    return perfilPo.Grid;
                 case "UPR":
                     perfilPr.Grid = grid;
                     perfilPr.User = userDB;
@@ -171,7 +168,9 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    break;
+                    perfilPo.Grid = grid;
+                    perfilPo.Formatear();
+                    return perfilPo.Grid;
                 case "UPR":
                     perfilPr.Grid = grid;
                     perfilPr.Formatear();
@@ -191,10 +190,10 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    perfilPo.InsertOrderHeader(company, type, userDB);
+                    perfilPo.InsertItemHeader(company, type, userDB);
                     break;
                 case "UPR":
-                    perfilPr.InsertRequisition(company, type, userDB);
+                    perfilPr.InsertItemHeader(company, type, userDB);
                     break;
                 case "VAL":
                     break;
@@ -539,13 +538,28 @@ namespace PurchaseDesktop.Helpers
 
         public string VerItemHtml(DataRow dataRow)
         {
-            var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-            if (details.Count == 0)
+            switch (userDB.UserProfiles.ProfileID)
             {
-                return "This requisition has no products.";
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+
+                    break;
+                case "UPR":
+                    var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    if (details.Count == 0)
+                    {
+                        return "This requisition has no products.";
+                    }
+                    Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details));
+                    return "Opening...";
+                case "VAL":
+                    break;
             }
-            Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details));
-            return "Opening...";
+            return string.Empty;
+
         }
 
         public string VerAttach(DataRow dataRow)
@@ -586,18 +600,26 @@ namespace PurchaseDesktop.Helpers
         public void CargarDashBoard(BunifuPieChart chart1, BunifuPieChart chart2,
              BunifuChartCanvas chartCanvas1, BunifuChartCanvas chartCanvas2, Label label1, Label label2, Label label3)
         {
-
-            //perfilPr.PieChart1 = chart1;
-            //perfilPr.PieChart2 = chart2;
-            //perfilPr.ChartCanvas1 = chartCanvas1;
-            //perfilPr.ChartCanvas2 = chartCanvas2;
-            perfilPr.GetFunciones();
-            perfilPr.CargarDatos(chart1, chart2, chartCanvas1, chartCanvas2, label1, label2, label3);
-            // l1.Text = ;
-
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    perfilPo.GetFunciones();
+                    perfilPo.CargarDatos(chart1, chart2, chartCanvas1, chartCanvas2, label1, label2, label3);
+                    break;
+                case "UPR":
+                    perfilPr.GetFunciones();
+                    perfilPr.CargarDatos(chart1, chart2, chartCanvas1, chartCanvas2, label1, label2, label3);
+                    break;
+                case "VAL":
+                    break;
+            }
         }
 
-        public string CargarBanner()
+        public async Task<string> CargarBanner()
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -606,16 +628,14 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    break;
+                    return await new HtmlManipulate().ReemplazarDatos();
                 case "UPR":
-                    return new HtmlManipulate().ReemplazarDatos();
+                    return await new HtmlManipulate().ReemplazarDatos();
                 case "VAL":
                     break;
             }
-            return null;
+            return string.Empty;
         }
-
-
     }
 
 }

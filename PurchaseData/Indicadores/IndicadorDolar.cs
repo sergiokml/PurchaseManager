@@ -52,15 +52,22 @@ namespace PurchaseData.Indicadores
 
         public IndicadorDolar GetPosterior(DateTime d)
         {
-            using (WebClient)
+            try
             {
-                var url = $"dolar/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json";
-                var response = WebClient.DownloadString(url);
-                var r = JsonSerializer.Deserialize<IndicadorDolar>(response);
-                if (r != null)
+                using (WebClient)
                 {
-                    return r;
+                    var url = $"dolar/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json";
+                    var response = WebClient.DownloadString(url);
+                    var r = JsonSerializer.Deserialize<IndicadorDolar>(response);
+                    if (r != null)
+                    {
+                        return r;
+                    }
+                    return null;
                 }
+            }
+            catch (WebException)
+            {
                 return null;
             }
         }

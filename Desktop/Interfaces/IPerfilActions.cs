@@ -16,8 +16,8 @@ namespace PurchaseDesktop.Interfaces
         List<Attaches> GetAttaches(int id);
         void InsertAttach(int id, Attaches att, Users userDB);
         void GuardarCambios(int wait);
-        void InsertOrderHeader(Companies company, OrderType type, Users userDB);
-        void InsertRequisition(Companies company, OrderType type, Users userDB);
+        //void InsertOrderHeader(Companies company, OrderType type, Users userDB);
+        void InsertItemHeader(Companies company, OrderType type, Users userDB);
         void InsertRequisitionDetail(RequisitionDetails detail, Users userDB, int idItem);
         void DeleteOrderHeader(int id);
         void DeleteRequesitionHeader(int id);

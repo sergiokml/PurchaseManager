@@ -28,5 +28,6 @@ namespace PurchaseData.DataModel
         public Nullable<System.DateTime> DateLast { get; set; }
         public string Event { get; set; }
         public string SupplierID { get; set; }
+        public string CompanyID { get; set; }
     }
 }

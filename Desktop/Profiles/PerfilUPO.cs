@@ -12,6 +12,8 @@ using PurchaseData.DataModel;
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
+using static PurchaseDesktop.Profiles.PerfilUPR;
+
 namespace PurchaseDesktop.Profiles
 {
     public class PerfilUPO : HFunctions, IPerfilActions
@@ -61,22 +63,6 @@ namespace PurchaseDesktop.Profiles
                 throw;
             }
         }
-
-        public void InsertOrderHeader(Companies company, OrderType type, Users userDB)
-        {
-            //var pr = new OrderHeader
-            //{
-            //    //CompanyID = company.CompanyID,
-            //    Type = (byte)type,
-            //    StatusID = 3,  //  3   Pre POrden
-            //    Description = string.Empty
-            //};
-            //;
-            //pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPO.CREATE_PO));
-            //rContext.OrderHeader.Add(pr);
-            //GuardarCambios();
-        }
-
 
 
         public void UpdateOrderHeader(Users userDB, int id, object valor, string campo)
@@ -128,10 +114,6 @@ namespace PurchaseDesktop.Profiles
             return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
         }
 
-        public void DeleteDetail(OrderHeader header, int idDetailr, Users userDB)
-        {
-            throw new NotImplementedException();
-        }
 
         public void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo)
         {
@@ -153,14 +135,30 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void InsertRequisition(Companies company, OrderType type, Users userDB)
+        public void InsertItemHeader(Companies company, OrderType type, Users userDB)
         {
-            throw new NotImplementedException();
+            var po = new OrderHeader
+            {
+                Type = (byte)type,
+                StatusID = 1,
+                Description = string.Empty,
+                CompanyID = company.CompanyID
+            };
+            var tran = new Transactions
+            {
+                Event = EventUserPR.CREATE_PR.ToString(),
+                UserID = userDB.UserID,
+                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            po.Transactions.Add(tran);
+            rContext.OrderHeader.Add(po);
+            GuardarCambios();
         }
 
         public void GetFunciones()
         {
-            throw new NotImplementedException();
+            ReqGroupByCost_Results = rContext.ufnGetReqGroupByCost(2).ToList();
+            OrderGroupByStatus_Results = rContext.ufnGetOrderGroupByStatus().ToList();
         }
 
         public void InsertRequisitionDetail(RequisitionDetails detail, Users userDB, int idItem)

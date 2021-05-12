@@ -5,6 +5,7 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 using HtmlAgilityPack;
 
@@ -56,6 +57,7 @@ namespace PurchaseData.Helpers
             HtmlDoc.GetElementbyId("Status").InnerHtml = $"{dataRow["Status"]}";
             HtmlDoc.GetElementbyId("Description").InnerHtml = $"{dataRow["Description"]}";
 
+
             var table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/table[1]");
             #region Logos      
             var logo = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]");
@@ -91,7 +93,7 @@ namespace PurchaseData.Helpers
                             node += $"<td data-label='Account' class='tableitem' id='Account'>{item.AccountID}</td>";
                             table.AppendChild(HtmlNode.CreateNode(node));
                         }
-
+                        HtmlDoc.GetElementbyId("DETAILS_COUNT").InnerHtml = $"{details.Count}";
                         //string attachesUnido = "Attaches: ";
                         //foreach (var item in attaches)
                         //{
@@ -118,20 +120,37 @@ namespace PurchaseData.Helpers
             return path;
         }
 
-        public string ReemplazarDatos()
+        public async Task<string> ReemplazarDatos()
         {
             var path = Environment.CurrentDirectory + @"\HtmlBanner\Banner.html";
             HtmlDoc.Load(path);
             HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]");
             var semana = DateTime.Now.AddDays(-7);
-            CrearNodo(table, new IndicadorDolar().GetPosterior(semana).Dolar, "USD");
-            CrearNodo(table, new IndicadorUf().GetPosterior(semana).Uf, "UF");
-            CrearNodo(table, new IndicadorUtm().GetPosterior(semana.AddMonths(-6)).Utm, "UTM");
-            CrearNodo(table, new IndicadorIpc().GetPosterior(semana.AddMonths(-6)).Ipc, "IPC");
-            CrearNodo(table, new IndicadorEuro().GetPosterior(semana).Euro, "EUR");
-            //! Save
-            HtmlDoc.Save(path, System.Text.Encoding.UTF8);
-            return path;
+            try
+            {
+
+                await Task.Run(() =>
+                   {
+                       CrearNodo(table, new IndicadorDolar().GetPosterior(semana).Dolar, "USD");
+                       CrearNodo(table, new IndicadorUf().GetPosterior(semana).Uf, "UF");
+                       CrearNodo(table, new IndicadorUtm().GetPosterior(semana.AddMonths(-6)).Utm, "UTM");
+                       CrearNodo(table, new IndicadorIpc().GetPosterior(semana.AddMonths(-6)).Ipc, "IPC");
+                       CrearNodo(table, new IndicadorEuro().GetPosterior(semana).Euro, "EUR");
+
+                   });
+
+
+
+                //! Save
+                HtmlDoc.Save(path, System.Text.Encoding.UTF8);
+                return path;
+            }
+            catch (NullReferenceException)
+            {
+
+                throw;
+            }
+
         }
 
         private void CrearNodo(HtmlNode table, List<Indicador> indicadors, string money)

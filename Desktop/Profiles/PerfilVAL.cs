@@ -88,7 +88,7 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void InsertRequisition(Companies company, OrderType type, Users userDB)
+        public void InsertItemHeader(Companies company, OrderType type, Users userDB)
         {
             throw new NotImplementedException();
         }
