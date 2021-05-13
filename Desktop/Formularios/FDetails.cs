@@ -24,12 +24,22 @@ namespace PurchaseDesktop.Formularios
         public int ItemStatus { get; set; }
 
         public List<RequisitionDetails> RequisitionDetails { get; set; }
+        public PerfilFachada PerfilFachada { get; }
+        public List<OrderDetails> OrdenDetails { get; }
 
         public FDetails(PerfilFachada rFachada, List<RequisitionDetails> lista)
         {
             //! Este constructor vienen así.
             this.rFachada = rFachada;
             RequisitionDetails = lista;
+            InitializeComponent();
+        }
+
+        public FDetails(PerfilFachada rFachada, List<OrderDetails> ordenDetails)
+        {
+            //! Este constructor vienen así.
+            this.rFachada = rFachada;
+            OrdenDetails = ordenDetails;
             InitializeComponent();
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace PurchaseData.Indicadores
 {
@@ -15,61 +16,38 @@ namespace PurchaseData.Indicadores
 
         private string ApiKey { get; }
 
+        private Uri UriBase { get; }
+
         public IndicadorDolar()
         {
-            WebClient = new WebClient() { BaseAddress = Properties.Resources.BaseSBIF };
+            WebClient = new WebClient();
             ApiKey = Properties.Resources.ApikeySBIF;
+            UriBase = new Uri(Properties.Resources.BaseSBIF);
         }
 
-        public Indicador GetToday()
-        {
-            using (WebClient)
-            {
-                var response = WebClient.DownloadString($"dolar?apikey={ApiKey}&formato=json");
-                var r = JsonSerializer.Deserialize<IndicadorDolar>(response);
-                if (r.Dolar.Count > 0)
-                {
-                    return r.Dolar[0];
-                }
-                return null;
-            }
-        }
-
-        public Indicador GetDay(DateTime d)
-        {
-            using (WebClient)
-            {
-                var url = $"dolar/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json";
-                var response = WebClient.DownloadString(url);
-                var r = JsonSerializer.Deserialize<IndicadorDolar>(response);
-                if (r.Dolar.Count > 0)
-                {
-                    return r.Dolar[0];
-                }
-                return null;
-            }
-        }
-
-        public IndicadorDolar GetPosterior(DateTime d)
+        public async Task<IndicadorDolar> GetPosterior(DateTime d)
         {
             try
             {
                 using (WebClient)
                 {
-                    var url = $"dolar/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json";
-                    var response = WebClient.DownloadString(url);
-                    var r = JsonSerializer.Deserialize<IndicadorDolar>(response);
-                    if (r != null)
+                    Uri uri = new Uri(UriBase, $"dolar/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json");
+                    string response = await WebClient.DownloadStringTaskAsync(uri);
+                    if (response != null)
                     {
-                        return r;
+                        var r = JsonSerializer.Deserialize<IndicadorDolar>(response);
+                        if (r != null)
+                        {
+                            return r;
+                        }
                     }
-                    return null;
                 }
             }
             catch (WebException)
             {
                 return null;
             }
+            return null;
         }
     }
 }

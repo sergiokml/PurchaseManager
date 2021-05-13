@@ -95,28 +95,114 @@ namespace PurchaseDesktop.Helpers
             Grid.Header.HotTrackForeColor = Color.FromArgb(154, 196, 85); // verde al seleccionar el header
 
 
-            //iGCellStyle myCellStyle = new iGCellStyle
-            //{
-            //    //0:#,0.00
-            //    FormatString = "{0:dd MMMM yyyy}"
-            //};
-            //Grid.Cols["DateLast"].CellStyle = myCellStyle;
-            //Grid.Cols["Tax"].CellStyle = myCellStyle;
-            //Grid.Cols["Total"].CellStyle = myCellStyle;
+
 
         }
 
         public void Formatear()
         {
-            for (int i = 0; i < Grid.Rows.Count; i++)
+            if (User.ProfileID == "UPR")
             {
-                var date = Convert.ToDateTime(Grid.Rows[i].Cells["DateLast"].Value).ToString("dd-MM-yyyy");
-                Grid.Rows[i].Cells["DateLast"].Value = date;
+                for (int i = 0; i < Grid.Rows.Count; i++)
+                {
+                    var date = Convert.ToDateTime(Grid.Rows[i].Cells["DateLast"].Value).ToString("dd-MM-yyyy");
+                    Grid.Rows[i].Cells["DateLast"].Value = date;
 
-                var net = Convert.ToDecimal(Grid.Rows[i].Cells["Net"].Value).ToString("C");
-                Grid.Rows[i].Cells["Net"].Value = net;
-
+                }
             }
+            else if (User.ProfileID == "UPO")
+            {
+                //! Order State
+                iGDropDownList cboStates = new iGDropDownList();
+                //DataTable tablePr;
+                //tablePr = new DataTable();
+                //tablePr.Columns.Add("Id");
+                //tablePr.Columns.Add("Name");
+                //foreach (var item in new OrderStatus().GetList())
+                //{
+                //    DataRow row = tablePr.NewRow();
+                //    row[0] = (int)item.StatuID;
+                //    row[1] = item.Description.ToString();
+                //    tablePr.Rows.Add(row);
+                //}
+                //cboStates.FillWithData(tablePr, "Id", "Name");
+
+                foreach (var item in new OrderStatus().GetList())
+                {
+                    cboStates.Items.Add(item.Description, item.Description.ToString());
+                }
+
+                for (int i = 0; i < Grid.Rows.Count; i++)
+                {
+                    var date = Convert.ToDateTime(Grid.Rows[i].Cells["DateLast"].Value).ToString("dd-MM-yyyy");
+                    Grid.Rows[i].Cells["DateLast"].Value = date;
+
+                    decimal net = Convert.ToDecimal(Grid.Rows[i].Cells["Net"].Value);
+                    if (net > 0)
+                    {
+                        Grid.Rows[i].Cells["Net"].Value = net.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        Grid.Rows[i].Cells["Net"].Value = "";
+                    }
+                    decimal exent = Convert.ToDecimal(Grid.Rows[i].Cells["Exent"].Value);
+                    if (exent > 0)
+                    {
+                        Grid.Rows[i].Cells["Exent"].Value = exent.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL")); ;
+                    }
+                    else
+                    {
+                        Grid.Rows[i].Cells["Exent"].Value = "";
+                    }
+                    decimal tax = Convert.ToDecimal(Grid.Rows[i].Cells["Tax"].Value);
+                    if (tax > 0)
+                    {
+                        Grid.Rows[i].Cells["Tax"].Value = tax.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        Grid.Rows[i].Cells["Tax"].Value = "";
+                    }
+                    decimal total = Convert.ToDecimal(Grid.Rows[i].Cells["Total"].Value);
+                    if (total > 0)
+                    {
+                        Grid.Rows[i].Cells["Total"].Value = total.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        Grid.Rows[i].Cells["Total"].Value = "";
+                    }
+
+                    var tipo = Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString();
+                    if (tipo == "PR")
+                    {
+                        //Grid.Rows[i].Cells["StatusID"].DropDownControl = cboStates;
+                        //Grid.Rows[i].Cells["StatusID"].TypeFlags |= iGCellTypeFlags.NoTextEdit;
+                    }
+                    else if (tipo == "PO")
+                    {
+                        Grid.Rows[i].Cells["StatusID"].DropDownControl = cboStates;
+                        Grid.Rows[i].Cells["StatusID"].TypeFlags |= iGCellTypeFlags.NoTextEdit;
+
+                    }
+                }
+            }
+
+            //iGCellStyle myCellStyle = Grid.Cols["Total"].CellStyle;
+            //myCellStyle.TextAlign = iGContentAlignment.TopCenter;
+            //myCellStyle.FormatString = "{0:$#,##0}";
+            //myCellStyle.Font = new Font("Arial", 8, FontStyle.Italic);
+            //myCellStyle.ForeColor = Color.Blue;
+            //iGCellStyle myCellStyle = new iGCellStyle
+            //{
+            //    //0:#,0.00
+            //    FormatString = "{0:#,0.00}"
+            //};
+            //Grid.Cols["Tax"].CellStyle = myCellStyle;
+            //Grid.Cols["Total"].CellStyle = myCellStyle;
+
+
             //Grid.Cols["Net"].CellStyle.FormatString = "{0:#,0.00}";
             //iGCellStyle style = Grid.Cols["DateLast"].CellStyle;
             //style.FormatString = "{0:dd-MM-yyyy}";
@@ -138,18 +224,18 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    //! Order State                    
-                    tablePr = new DataTable();
-                    tablePr.Columns.Add("Id");
-                    tablePr.Columns.Add("Name");
-                    foreach (var item in new RequisitionStatus().GetList())
-                    {
-                        DataRow row = tablePr.NewRow();
-                        row[0] = (int)item.StatuID;
-                        row[1] = item.Description.ToString();
-                        tablePr.Rows.Add(row);
-                    }
-                    cboStates.FillWithData(tablePr, "Id", "Name");
+                    ////! Order State                    
+                    //tablePr = new DataTable();
+                    //tablePr.Columns.Add("Id");
+                    //tablePr.Columns.Add("Name");
+                    //foreach (var item in new OrderStatus().GetList())
+                    //{
+                    //    DataRow row = tablePr.NewRow();
+                    //    row[0] = (int)item.StatuID;
+                    //    row[1] = item.Description.ToString();
+                    //    tablePr.Rows.Add(row);
+                    //}
+                    //cboStates.FillWithData(tablePr, "Id", "Name");
                     //! Order Type  
                     tablePr = new DataTable();
                     tablePr.Columns.Add("Id");
@@ -171,8 +257,10 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("Description", "Description", 196);
                     iGCol = Grid.Cols.Add("view", "", 22);
+                    iGCol.AllowGrouping = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
                     iGCol = Grid.Cols.Add("send", "", 22);
+                    iGCol.AllowGrouping = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
                     iGCol = Grid.Cols.Add("CompanyID", "Company", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -182,33 +270,45 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("StatusID", "Status", 111);
-                    iGCol.CellStyle.DropDownControl = cboStates;
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+                    // iGCol.CellStyle.DropDownControl = cboStates;
+                    // iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
-                    iGCol = Grid.Cols.Add("Net", "Net", 60);
+                    iGCol = Grid.Cols.Add("Net", "Net", 55);
+                    iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
                     iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol.CellStyle.Font = new Font("Tahoma", 7);
+                    iGCol = Grid.Cols.Add("Exent", "Exent", 55);
+                    iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol.CellStyle.Font = new Font("Tahoma", 7);
 
-                    iGCol = Grid.Cols.Add("Exent", "Net", 60);
+                    iGCol = Grid.Cols.Add("Tax", "Tax", 55);
+                    iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("Tax", "Net", 60);
+                    iGCol.CellStyle.Font = new Font("Tahoma", 7);
+                    iGCol = Grid.Cols.Add("Total", "Total", 64);
+                    iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("Total", "Net", 60);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol.CellStyle.Font = new Font("Tahoma", 7);
 
                     iGCol = Grid.Cols.Add("UserID", "User ID", 58);
                     //iGCol.CellStyle.FormatString = "{0:d}";
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("CostID", "CC", 29);
+                    iGCol = Grid.Cols.Add("CostID", "CC", 30);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("DateLast", "Creation", 66);
                     //iGCol.CellStyle.FormatString = "{0:d}";
                     //iGCol.CellStyle.ValueType = typeof(DateTime);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("delete", "", 22);
+                    iGCol.AllowGrouping = false;
                     iGCol.IncludeInSelect = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+
+                    iGCol = Grid.Cols.Add("TypeDocumentHeader", "TD", 22);
+                    //iGCol.Visible = false;
 
                     break;
                 case "UPR":
@@ -245,8 +345,10 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("Description", "Description", 196);
                     iGCol = Grid.Cols.Add("view", "", 22);
+                    iGCol.AllowGrouping = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
                     iGCol = Grid.Cols.Add("send", "", 22);
+                    iGCol.AllowGrouping = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
                     iGCol = Grid.Cols.Add("CompanyID", "Company", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -261,13 +363,14 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("UserID", "User ID", 58);
                     //iGCol.CellStyle.FormatString = "{0:d}";
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("CostID", "CC", 29);
+                    iGCol = Grid.Cols.Add("CostID", "CC", 30);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("DateLast", "Creation", 66);
                     //iGCol.CellStyle.FormatString = "{0:d}";
                     //iGCol.CellStyle.ValueType = typeof(DateTime);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("delete", "", 22);
+                    iGCol.AllowGrouping = false;
                     iGCol.IncludeInSelect = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
                     break;
@@ -322,7 +425,6 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
                     iGCol = Grid.Cols.Add("delete", "", 22);
-                    iGCol.IncludeInSelect = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
 
                     //! Header

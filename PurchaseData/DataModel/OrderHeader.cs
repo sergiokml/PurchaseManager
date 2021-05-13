@@ -32,7 +32,6 @@ namespace PurchaseData.DataModel
         public Nullable<decimal> Exent { get; set; }
         public decimal Tax { get; set; }
         public decimal Total { get; set; }
-        public Nullable<int> HitoID { get; set; }
         public byte StatusID { get; set; }
         public string CurrencyID { get; set; }
         public string SupplierID { get; set; }

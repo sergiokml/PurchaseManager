@@ -111,13 +111,14 @@
     <Compile Include="DataModel\DAAccounts.cs" />
     <Compile Include="DataModel\DAOrderDetails.cs" />
     <Compile Include="DataModel\DAOrderHeader.cs" />
+    <Compile Include="DataModel\DAOrderStatus.cs" />
     <Compile Include="DataModel\DARequisitionDetails.cs" />
     <Compile Include="DataModel\DARequisitionHeader.cs" />
     <Compile Include="DataModel\DARequisitionStatus.cs" />
     <Compile Include="DataModel\DASupplierCountries.cs" />
     <Compile Include="DataModel\DABank.cs" />
     <Compile Include="DataModel\DASuppliers.cs" />
-    <Compile Include="DataModel\DOrderStatus.cs" />
+    <Compile Include="DataModel\DAvOrderByMinTransaction.cs" />
     <Compile Include="DataModel\DACompany.cs" />
     <Compile Include="DataModel\DAUserDB.cs" />
     <Compile Include="DataModel\Modelo.Context.cs">

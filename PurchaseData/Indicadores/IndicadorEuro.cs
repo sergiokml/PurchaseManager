@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace PurchaseData.Indicadores
 {
@@ -14,46 +15,38 @@ namespace PurchaseData.Indicadores
 
         private WebClient WebClient { get; set; } // CON PRIVATE NO ES NECESARIO [JsonIgnore]
         private string ApiKey { get; }
+        private Uri UriBase { get; }
+
         public IndicadorEuro()
         {
-            WebClient = new WebClient() { BaseAddress = Properties.Resources.BaseSBIF };
+            WebClient = new WebClient();
             ApiKey = Properties.Resources.ApikeySBIF;
+            UriBase = new Uri(Properties.Resources.BaseSBIF);
         }
 
-        public Indicador GetToday()
-        {
-            using (WebClient)
-            {
-                var response = WebClient.DownloadString($"euro?apikey={ApiKey}&formato=json");
-                var r = JsonSerializer.Deserialize<IndicadorEuro>(response);
-                if (r.Euro.Count > 0)
-                {
-                    return r.Euro[0];
-                }
-                return null;
-            }
-        }
-        public IndicadorEuro GetPosterior(DateTime d)
+        public async Task<IndicadorEuro> GetPosterior(DateTime d)
         {
             try
             {
                 using (WebClient)
                 {
-                    var url = $"euro/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json";
-                    var response = WebClient.DownloadString(url);
-                    var r = JsonSerializer.Deserialize<IndicadorEuro>(response);
-                    if (r != null)
+                    Uri uri = new Uri(UriBase, $"euro/posteriores/{d.Year}/{d.Month}/dias/{d.Day}?apikey={ApiKey}&formato=json");
+                    string response = await WebClient.DownloadStringTaskAsync(uri);
+                    if (response != null)
                     {
-                        return r;
+                        var r = JsonSerializer.Deserialize<IndicadorEuro>(response);
+                        if (r != null)
+                        {
+                            return r;
+                        }
                     }
-                    return null;
                 }
             }
-            catch (Exception)
+            catch (WebException)
             {
                 return null;
             }
-
+            return null;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace PurchaseData.DataModel
         public Accounts()
         {
             this.RequisitionDetails = new HashSet<RequisitionDetails>();
+            this.OrderDetails = new HashSet<OrderDetails>();
         }
     
         public string AccountID { get; set; }
@@ -27,5 +28,7 @@ namespace PurchaseData.DataModel
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequisitionDetails> RequisitionDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }

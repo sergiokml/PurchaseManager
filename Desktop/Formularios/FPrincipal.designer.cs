@@ -37,6 +37,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnMinimizar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.PanelDash = new System.Windows.Forms.Panel();
+            this.PanelHechizo = new System.Windows.Forms.Panel();
             this.BtnAttach = new Bunifu.UI.WinForms.BunifuImageButton();
             this.LblTitulo2 = new System.Windows.Forms.Label();
             this.LblTitulo1 = new System.Windows.Forms.Label();
@@ -107,6 +108,7 @@ namespace PurchaseDesktop.Formularios
             this.PieChart1 = new Bunifu.Charts.WinForms.ChartTypes.BunifuPieChart(this.components);
             this.PieChart2 = new Bunifu.Charts.WinForms.ChartTypes.BunifuPieChart(this.components);
             this.bunifuSeparator3 = new Bunifu.UI.WinForms.BunifuSeparator();
+            this.PanelHechizoBanner = new System.Windows.Forms.Panel();
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
             this.PanelBtns.SuspendLayout();
@@ -128,15 +130,13 @@ namespace PurchaseDesktop.Formularios
             // 
             // LabelPanel
             // 
-            this.LabelPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelPanel.ForeColor = System.Drawing.Color.White;
-            this.LabelPanel.Location = new System.Drawing.Point(0, 1);
+            this.LabelPanel.Location = new System.Drawing.Point(457, 1);
             this.LabelPanel.Name = "LabelPanel";
-            this.LabelPanel.Size = new System.Drawing.Size(160, 24);
+            this.LabelPanel.Size = new System.Drawing.Size(187, 23);
             this.LabelPanel.TabIndex = 2;
-            this.LabelPanel.Text = "Purshase Manager V1.0";
-            this.LabelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LabelPanel.Visible = false;
             // 
             // bunifuSeparator2
             // 
@@ -227,6 +227,7 @@ namespace PurchaseDesktop.Formularios
             // 
             // PanelDash
             // 
+            this.PanelDash.Controls.Add(this.PanelHechizo);
             this.PanelDash.Controls.Add(this.BtnAttach);
             this.PanelDash.Controls.Add(this.LblTitulo2);
             this.PanelDash.Controls.Add(this.LblTitulo1);
@@ -249,6 +250,13 @@ namespace PurchaseDesktop.Formularios
             this.PanelDash.Name = "PanelDash";
             this.PanelDash.Size = new System.Drawing.Size(1100, 109);
             this.PanelDash.TabIndex = 3;
+            // 
+            // PanelHechizo
+            // 
+            this.PanelHechizo.Location = new System.Drawing.Point(0, 2);
+            this.PanelHechizo.Name = "PanelHechizo";
+            this.PanelHechizo.Size = new System.Drawing.Size(398, 107);
+            this.PanelHechizo.TabIndex = 33;
             // 
             // BtnAttach
             // 
@@ -559,7 +567,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnDetails.WaitOnLoad = false;
             this.BtnDetails.Zoom = 20;
             this.BtnDetails.ZoomSpeed = 10;
-            this.BtnDetails.Click += new System.EventHandler(this.bunifuImageButton2_Click);
+            this.BtnDetails.Click += new System.EventHandler(this.BtnDetails_Click);
             // 
             // BtnSupplier
             // 
@@ -594,6 +602,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnSupplier.WaitOnLoad = false;
             this.BtnSupplier.Zoom = 20;
             this.BtnSupplier.ZoomSpeed = 10;
+            this.BtnSupplier.Click += new System.EventHandler(this.BtnSupplier_Click);
             // 
             // CboType
             // 
@@ -862,12 +871,21 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator3.Size = new System.Drawing.Size(1100, 1);
             this.bunifuSeparator3.TabIndex = 12;
             // 
+            // PanelHechizoBanner
+            // 
+            this.PanelHechizoBanner.Location = new System.Drawing.Point(0, 25);
+            this.PanelHechizoBanner.Name = "PanelHechizoBanner";
+            this.PanelHechizoBanner.Size = new System.Drawing.Size(1100, 48);
+            this.PanelHechizoBanner.TabIndex = 34;
+            // 
             // FPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(1100, 574);
+            this.Controls.Add(this.PanelHechizoBanner);
             this.Controls.Add(this.bunifuSeparator3);
             this.Controls.Add(this.Grid);
             this.Controls.Add(this.PanelDash);
@@ -965,6 +983,8 @@ namespace PurchaseDesktop.Formularios
         private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas1;
         private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas2;
         private Bunifu.UI.WinForms.BunifuImageButton BtnAttach;
+        private System.Windows.Forms.Panel PanelHechizo;
+        private System.Windows.Forms.Panel PanelHechizoBanner;
     }
 }
 

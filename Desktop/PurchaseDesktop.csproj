@@ -194,6 +194,7 @@
     <Compile Include="Formularios\FSupplier.Designer.cs">
       <DependentUpon>FSupplier.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\HDashBoardFunctions.cs" />
     <Compile Include="Interfaces\ExtendsPerfilActions.cs" />
     <Compile Include="Helpers\HGridFunctions.cs" />

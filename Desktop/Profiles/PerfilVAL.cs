@@ -20,7 +20,7 @@ namespace PurchaseDesktop.Profiles
             this.rContext = rContext;
         }
 
-        public DataTable GetVista(Users userDB)
+        public DataTable GetVistaFPrincipal(Users userDB)
         {
             //  1   Pre PRequisition
             //  2   Active PRequisition
@@ -48,7 +48,7 @@ namespace PurchaseDesktop.Profiles
         }
 
 
-        public void UpdateOrderHeader(Users userDB, int id, object field, string prop)
+        public void UpdateItemHeader(Users userDB, int id, object field, string prop)
         {
             throw new System.NotImplementedException();
         }
@@ -58,7 +58,7 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public DataTable GetVistaSuppliers()
+        public DataTable GetVistaFSupplier()
         {
             throw new NotImplementedException();
         }
@@ -68,17 +68,14 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public void DeleteRequesitionHeader(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<RequisitionDetails> GetRequisitionDetails(int id)
+        public List<RequisitionDetails> GetDetailsRequisition(int id)
         {
             throw new NotImplementedException();
         }
@@ -144,6 +141,21 @@ namespace PurchaseDesktop.Profiles
         }
 
         public void DeleteAttache(int id, Users userDB, Attaches item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<T> GetRequisitionDetails<T>(int id) where T : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<OrderDetails> GetDetailsOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable GetVistaDetalles(int IdItem)
         {
             throw new NotImplementedException();
         }

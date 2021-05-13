@@ -52,7 +52,7 @@ namespace PurchaseDesktop.Formularios
             try
             {
 
-                var vista = rFachada.GetVistaSuppliers(); // todo Y SI TRAIGO EL LIST DE COMPANIES SIN DATATABLE????
+                var vista = rFachada.GetVistaSuppliers();
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!

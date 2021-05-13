@@ -42,7 +42,7 @@ namespace Desktop
 
                     user = contextDB.Users.Find(P);
                     contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
-                    // CargarUPR(20);
+                    //CargarUPR(20);
                     //CargaUPO(4, "13779971"); // Booorador PO (Po user)
                 }
 
@@ -75,9 +75,9 @@ namespace Desktop
                         var n = new Random(0).Next(4);
                         RequisitionHeader pr = new RequisitionHeader
                         {
-                            Description = $"Purchase Requisition N°{i + 1} [Borrador]",
+                            Description = $"Purchase Requisition N°{i + 1}",
                             Type = (byte)n,
-                            StatusID = 2, // 1: Borrrador PR                        
+                            StatusID = 1, // 1: Borrrador PR                        
                             CompanyID = companies[new Random().Next(companies.Count())].CompanyID,
                         };
                         for (int y = 0; y < 2; y++)
@@ -105,7 +105,7 @@ namespace Desktop
                         Attaches att = new Attaches
                         {
                             Description = $"Archivo_autocad_2018_A{new Random(i).Next(100)}",
-                            FileName = @"C:\PurshaseCtrl\Files\Licencia_registro_animal_137182_1616120103375.pdf"
+                            FileName = @"Licencia_registro_animal_137182_1616120103375.pdf"
                         };
                         pr.Attaches.Add(att);
                         rContext.RequisitionHeader.Add(pr);

@@ -9,10 +9,17 @@ namespace PurchaseDesktop.Interfaces
 {
     public interface IPerfilActions
     {
-        DataTable GetVista(Users userDB);
-        DataTable GetVistaSuppliers();
+        //! Vistas Formularios
+        DataTable GetVistaFPrincipal(Users userDB);
+        DataTable GetVistaFSupplier();
         DataTable GetVistaAttaches(int IdItem);
-        List<RequisitionDetails> GetRequisitionDetails(int id);
+        DataTable GetVistaDetalles(int IdItem);
+
+        //! Details
+        List<RequisitionDetails> GetDetailsRequisition(int id);
+        List<OrderDetails> GetDetailsOrder(int id);
+
+
         List<Attaches> GetAttaches(int id);
         void InsertAttach(int id, Attaches att, Users userDB);
         void GuardarCambios(int wait);
@@ -23,8 +30,7 @@ namespace PurchaseDesktop.Interfaces
         void DeleteRequesitionHeader(int id);
         void DeleteDetail(int idHeader, int idDetailr, Users userDB);
         void DeleteAttache(int id, Users userDB, Attaches item);
-        void UpdateOrderHeader(Users userDB, int id, object valor, string campo);
-        void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo);
+        void UpdateItemHeader(Users userDB, int id, object valor, string campo);
 
         void GetFunciones();
 

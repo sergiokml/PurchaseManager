@@ -23,7 +23,7 @@ namespace PurchaseDesktop.Profiles
             this.rContext = rContext;
         }
 
-        public DataTable GetVista(Users userDB)
+        public DataTable GetVistaFPrincipal(Users userDB)
         {
             using (var rContext = new PurchaseManagerContext())
             {
@@ -36,12 +36,8 @@ namespace PurchaseDesktop.Profiles
 
         public DataTable GetVistaDetalles(int IdItem)
         {
-            //using (var rContext = new PurchaseManagerContext())
-            //{
             return this.ToDataTable<RequisitionDetails>(rContext.RequisitionDetails
                .Where(c => c.RequisitionHeaderID == IdItem).ToList());
-            // }
-
         }
 
         public DataTable GetVistaAttaches(int IdItem)
@@ -50,7 +46,7 @@ namespace PurchaseDesktop.Profiles
             return this.ToDataTable<Attaches>(pr.Attaches.ToList());
         }
 
-        public DataTable GetVistaSuppliers()
+        public DataTable GetVistaFSupplier()
         {
             return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
         }
@@ -86,34 +82,34 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void UpdateOrderHeader(Users userDB, int id, object valor, string campo)
+        public void UpdateItemHeader(Users userDB, int id, object valor, string campo)
         {
-            //var pr = rContext.OrderHeader.Find(id);
-            //switch (campo)
-            //{
-            //    case "Description":
-            //        pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
-            //        break;
-            //    case "Type":
-            //        pr.Type = Convert.ToByte(valor);
-            //        break;
-            //    case "StatusID":
-            //        pr.StatusID = Convert.ToByte(valor);
-            //        break;
-            //    case "CompanyID":
-            //        // pr.CompanyID = valor.ToString();
-            //        break;
-            //    case "CurrencyID":
-            //        pr.CurrencyID = valor.ToString();
-            //        break;
-            //    case "SupplierID":
-            //        pr.SupplierID = valor.ToString();
-            //        break;
-            //    default:
-            //        break;
-            //}
-            //pr.Transactions.Add(InsertTranHistory(pr, userDB, EventUserPR.UPDATE_PR));
-            //GuardarCambios();
+            var pr = rContext.RequisitionHeader.Find(id);
+            switch (campo)
+            {
+                case "Description":
+                    pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
+                    break;
+                case "Type":
+                    pr.Type = Convert.ToByte(valor);
+                    break;
+                case "StatusID":
+                    pr.StatusID = Convert.ToByte(valor);
+                    break;
+                case "CompanyID":
+                    pr.CompanyID = valor.ToString();
+                    break;
+                default:
+                    break;
+            }
+            var tran = new Transactions
+            {
+                Event = EventUserPR.UPDATE_PR.ToString(),
+                UserID = userDB.UserID,
+                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            pr.Transactions.Add(tran);
+            GuardarCambios();
         }
 
         public void DeleteRequesitionHeader(int id)
@@ -140,43 +136,14 @@ namespace PurchaseDesktop.Profiles
             GuardarCambios();
         }
 
-        public void UpdateRequisitionHeader(Users userDB, int id, object valor, string campo)
-        {
-            var pr = rContext.RequisitionHeader.Find(id);
-            switch (campo)
-            {
-                case "Description":
-                    pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
-                    break;
-                case "Type":
-                    pr.Type = Convert.ToByte(valor);
-                    break;
-                case "StatusID":
-                    pr.StatusID = Convert.ToByte(valor);
-                    break;
-                case "CompanyID":
-                    pr.CompanyID = valor.ToString();
-                    break;
-                default:
-                    break;
-            }
-            var tran = new Transactions
-            {
-                Event = EventUserPR.UPDATE_PR.ToString(),
-                UserID = userDB.UserID,
-                //StatuID = pr.StatusID
-                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            pr.Transactions.Add(tran);
-            GuardarCambios();
-        }
+
 
         public void DeleteOrderHeader(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<RequisitionDetails> GetRequisitionDetails(int id)
+        public List<RequisitionDetails> GetDetailsRequisition(int id)
         {
             var details = rContext.RequisitionHeader.Find(id).RequisitionDetails.ToList();
             foreach (var item in details)
@@ -204,7 +171,6 @@ namespace PurchaseDesktop.Profiles
             {
                 Event = EventUserPR.CREATE_PR.ToString(),
                 UserID = userDB.UserID,
-                //StatuID = pr.StatusID,
                 DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
             };
             pr.Transactions.Add(tran);
@@ -214,10 +180,8 @@ namespace PurchaseDesktop.Profiles
 
         public void GetFunciones()
         {
-            //IQueryable<ufnGetReqGroupByCost_Result> a = rContext.ufnGetReqGroupByCost(2);
             ReqGroupByCost_Results = rContext.ufnGetReqGroupByCost(2).ToList();
             OrderGroupByStatus_Results = rContext.ufnGetOrderGroupByStatus().ToList();
-            //Label1.Text = rContext.;
         }
 
         public void InsertRequisitionDetail(RequisitionDetails detail, Users userDB, int idItem)
@@ -264,14 +228,11 @@ namespace PurchaseDesktop.Profiles
             GuardarCambios();
         }
 
-        public enum EventUserPR
+
+
+        public List<OrderDetails> GetDetailsOrder(int id)
         {
-            CREATE_PR = 1,
-            UPDATE_PR = 2,
-            DELETE_DETAIL = 3,
-            INSERT_DETAIL = 4,
-            INSERT_ATTACH = 5,
-            DELETE_ATTACH = 6
+            throw new NotImplementedException();
         }
     }
 }

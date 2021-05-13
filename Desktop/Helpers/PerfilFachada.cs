@@ -41,11 +41,11 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    return perfilPo.GetVista(userDB);
+                    return perfilPo.GetVistaFPrincipal(userDB);
                 case "UPR":
-                    return perfilPr.GetVista(userDB);
+                    return perfilPr.GetVistaFPrincipal(userDB);
                 case "VAL":
-                    return perfilVal.GetVista(userDB);
+                    return perfilVal.GetVistaFPrincipal(userDB);
             }
             return null;
         }
@@ -58,8 +58,7 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    //return perfilPo.GetVista(userDB);
-                    break;
+                    return perfilPo.GetVistaDetalles(ItemID);
                 case "UPR":
                     return perfilPr.GetVistaDetalles(ItemID);
                 case "VAL":
@@ -101,11 +100,11 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    return perfilPo.GetVistaSuppliers();
+                    return perfilPo.GetVistaFSupplier();
                 case "UPR":
-                    return perfilPr.GetVistaSuppliers();
+                    return perfilPr.GetVistaFSupplier();
                 case "VAL":
-                    return perfilVal.GetVistaSuppliers();
+                    return perfilVal.GetVistaFSupplier();
             }
             return null;
         }
@@ -210,61 +209,72 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
+
                     idHeader = Convert.ToInt32(dataRow["OrderHeaderID"]);
                     //! Puede DELETE y UPDATE de PO emitidas por éste usuario.
                     if (campo == "Type" || campo == "Description")
                     {
                         if (userDB.UserID == dataRow["UserID"].ToString())
                         {
-                            if (Convert.ToInt32(dataRow["StatusID"]) < 7)// Puede modificar hasta 6 LAS PROPIAS
+                            if (dataRow["TypeDocumentHeader"].ToString() == "PO")
                             {
-                                perfilPo.UpdateOrderHeader(userDB,
-                                    idHeader,
-                                    nuevovalor,
-                                    campo);
-                                return true;
-                            }
-                        }
-                    }
-                    else if (campo == "StatusID")
-                    {
-                        var val = Convert.ToInt32(nuevovalor);
-                        if (userDB.UserID == dataRow["UserID"].ToString()) // Es de PO
-                        {
-                            if (val >= 4 && val <= 9) // de 3 a 9
-                            {
-                                if (ValidarOrderHeader(dataRow))
+                                if (Convert.ToInt32(dataRow["StatusID"]) < 7)// Puede modificar hasta 6 LAS PROPIAS
                                 {
-                                    perfilPo.UpdateOrderHeader(userDB,
-                                        idHeader,
-                                        nuevovalor,
-                                        campo);
-                                    return true;
-                                }
-                            }
-                            else if (val == 3)
-                            {
-                                perfilPo.UpdateOrderHeader(userDB, idHeader, nuevovalor, campo);
-                                return true;
-                            }
-                        }
-                        else
-                        {
-                            // No es de PO
-                            if (val >= 4) // Valido solo si paso Active Y más
-                            {
-                                if (ValidarOrderHeader(dataRow))
-                                {
-                                    perfilPo.UpdateOrderHeader(userDB, idHeader, nuevovalor, campo);
+                                    perfilPo.UpdateItemHeader(userDB, idHeader, nuevovalor, campo);
                                     return true;
                                 }
                             }
                             else
                             {
-                                perfilPo.UpdateOrderHeader(userDB, idHeader, nuevovalor, campo);
-                                return true;
+                                //! Es PR
                             }
+
                         }
+                    }
+                    else if (campo == "StatusID")
+                    {
+                        var val = Convert.ToInt32(nuevovalor);
+                        if (userDB.UserID == dataRow["UserID"].ToString())
+                        {
+                            if (dataRow["TypeDocumentHeader"].ToString() == "PO")
+                            {
+                                if (val >= 4 && val <= 9) // de 3 a 9
+                                {
+                                    if (ValidarOrderHeader(dataRow))
+                                    {
+                                        perfilPo.UpdateItemHeader(userDB, idHeader, nuevovalor, campo);
+                                        return true;
+                                    }
+                                }
+                                else if (val == 3)
+                                {
+                                    perfilPo.UpdateItemHeader(userDB, idHeader, nuevovalor, campo);
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                //! Es PR
+                            }
+
+                        }
+                        //else
+                        //{
+                        //    // No es de PO
+                        //    if (val >= 4) // Valido solo si paso Active Y más
+                        //    {
+                        //        if (ValidarOrderHeader(dataRow))
+                        //        {
+                        //            perfilPo.UpdateItemHeader(userDB, idHeader, nuevovalor, campo);
+                        //            return true;
+                        //        }
+                        //    }
+                        //    else
+                        //    {
+                        //        perfilPo.UpdateItemHeader(userDB, idHeader, nuevovalor, campo);
+                        //        return true;
+                        //    }
+                        //}
                     }
                     break;
                 case "UPR":
@@ -274,7 +284,7 @@ namespace PurchaseDesktop.Helpers
                         //! No UPDATE en estado 2
                         if (Convert.ToInt32(dataRow["StatusID"]) == 1)
                         {
-                            perfilPr.UpdateRequisitionHeader(userDB, idHeader, nuevovalor, campo);
+                            perfilPr.UpdateItemHeader(userDB, idHeader, nuevovalor, campo);
                             return true;
                         }
                     }
@@ -282,7 +292,7 @@ namespace PurchaseDesktop.Helpers
                     {
                         if (ValidarOrderHeader(dataRow))
                         {
-                            perfilPr.UpdateRequisitionHeader(userDB, idHeader, nuevovalor, campo);
+                            perfilPr.UpdateItemHeader(userDB, idHeader, nuevovalor, campo);
                             return true;
                         }
                     }
@@ -418,7 +428,7 @@ namespace PurchaseDesktop.Helpers
             return false;
 
         }
-        public bool EditarSupplier(FSupplier fSupplier)
+        public bool OpenSupplierForm(DataRow dataRow)
         {
             switch (userDB.UserProfiles.ProfileID)
             {
@@ -427,8 +437,13 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    fSupplier.StartPosition = FormStartPosition.CenterScreen;
-                    fSupplier.ShowDialog();
+                    var f = new FSupplier(this);
+                    perfilPo.Grid = f.GetGrid();
+                    perfilPo.PintarGrid();
+                    f.StartPosition = FormStartPosition.CenterScreen;
+                    f.ItemID = Convert.ToInt32(dataRow["SupplierID"]);
+                    f.ItemStatus = Convert.ToInt32(dataRow["StatusID"]);
+                    f.ShowDialog();
                     break;
                 case "UPR":
                     break;
@@ -440,6 +455,7 @@ namespace PurchaseDesktop.Helpers
 
         public void OPenDetailForm(DataRow dataRow)
         {
+            FDetails f;
             switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
@@ -447,11 +463,27 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
+                    if (dataRow["TypeDocumentHeader"].ToString() == "PO")
+                    {
+                        var ordenDetails = perfilPo.GetDetailsOrder(Convert.ToInt32(dataRow["OrderHeaderID"]));
+                        f = new FDetails(this, ordenDetails);
+                        perfilPo.Grid = f.GetGrid();
+                        perfilPo.PintarGrid();
+                        f.StartPosition = FormStartPosition.CenterScreen;
+                        f.ItemID = Convert.ToInt32(dataRow["OrderHeaderID"]);
+                        f.ItemStatus = Convert.ToInt32(dataRow["StatusID"]);
+                        f.ShowDialog();
+                    }
+                    else if (dataRow["TypeDocumentHeader"].ToString() == "PR")
+                    {
+
+                    }
+
 
                     break;
                 case "UPR":
-                    var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-                    var f = new FDetails(this, details);
+                    var rd = perfilPr.GetDetailsRequisition(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    f = new FDetails(this, rd);
                     perfilPr.Grid = f.GetGrid();
                     perfilPr.PintarGrid();
                     f.StartPosition = FormStartPosition.CenterScreen;
@@ -538,22 +570,44 @@ namespace PurchaseDesktop.Helpers
 
         public string VerItemHtml(DataRow dataRow)
         {
+
             switch (userDB.UserProfiles.ProfileID)
             {
+
                 case "ADM":
                     break;
                 case "BAS":
                     break;
                 case "UPO":
 
+                    if (dataRow["TypeDocumentHeader"].ToString() == "PR")
+                    {
+                        var detailsPR = perfilPr.GetDetailsRequisition(Convert.ToInt32(dataRow["OrderHeaderID"]));
+                        if (detailsPR.Count == 0)
+                        {
+                            return "This requisition has no products.";
+                        }
+                        Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, detailsPR));
+                        return "Opening...";
+                    }
+                    if (dataRow["TypeDocumentHeader"].ToString() == "PO")
+                    {
+                        var detailsPR = perfilPo.GetDetailsOrder(Convert.ToInt32(dataRow["OrderHeaderID"]));
+                        if (detailsPR.Count == 0)
+                        {
+                            return "This Order has no products.";
+                        }
+                        //Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, detailsPR));
+                        return "Opening...";
+                    }
                     break;
                 case "UPR":
-                    var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-                    if (details.Count == 0)
+                    var detailsPO = perfilPr.GetDetailsRequisition(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    if (detailsPO.Count == 0)
                     {
                         return "This requisition has no products.";
                     }
-                    Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details));
+                    Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, detailsPO));
                     return "Opening...";
                 case "VAL":
                     break;
@@ -579,7 +633,7 @@ namespace PurchaseDesktop.Helpers
                 case "UPO":
                     break;
                 case "UPR":
-                    var details = perfilPr.GetRequisitionDetails(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    var details = perfilPr.GetDetailsRequisition(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
                     if (details.Count == 0)
                     {
                         return "NODETAILS";

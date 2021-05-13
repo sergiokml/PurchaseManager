@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace PurchaseData.Indicadores
 {
@@ -14,46 +15,38 @@ namespace PurchaseData.Indicadores
 
         private WebClient WebClient { get; set; } // CON PRIVATE NO ES NECESARIO [JsonIgnore]
         private string ApiKey { get; }
+        private Uri UriBase { get; }
+
         public IndicadorIpc()
         {
-            WebClient = new WebClient() { BaseAddress = Properties.Resources.BaseSBIF };
+            WebClient = new WebClient();
             ApiKey = Properties.Resources.ApikeySBIF;
+            UriBase = new Uri(Properties.Resources.BaseSBIF);
         }
 
-        public Indicador GetToday()
-        {
-            using (WebClient)
-            {
-                var response = WebClient.DownloadString($"ipc?apikey={ApiKey}&formato=json");
-                var r = JsonSerializer.Deserialize<IndicadorIpc>(response);
-                if (r.Ipc.Count > 0)
-                {
-                    return r.Ipc[0];
-                }
-                return null;
-            }
-        }
-        public IndicadorIpc GetPosterior(DateTime d)
+        public async Task<IndicadorIpc> GetPosterior(DateTime d)
         {
             try
             {
                 using (WebClient)
                 {
-                    var url = $"ipc/posteriores/{d.Year}/{d.Month}/?apikey={ApiKey}&formato=json";
-                    var response = WebClient.DownloadString(url);
-                    var r = JsonSerializer.Deserialize<IndicadorIpc>(response);
-                    if (r != null)
+                    Uri uri = new Uri(UriBase, $"ipc/posteriores/{d.Year}/{d.Month}/?apikey={ApiKey}&formato=json");
+                    string response = await WebClient.DownloadStringTaskAsync(uri);
+                    if (response != null)
                     {
-                        return r;
+                        var r = JsonSerializer.Deserialize<IndicadorIpc>(response);
+                        if (r != null)
+                        {
+                            return r;
+                        }
                     }
-                    return null;
                 }
             }
-            catch (Exception)
+            catch (WebException)
             {
                 return null;
             }
-
+            return null;
         }
     }
 }

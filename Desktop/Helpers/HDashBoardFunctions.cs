@@ -113,6 +113,8 @@ namespace PurchaseDesktop.Helpers
             Label2.Text = $"Me :     {actives}"; // Mias
             Label3.Text = $"{User.CostID} :    {mias}";
 
+
+
         }
         private List<Color> GetNext(int red, int max)
         {

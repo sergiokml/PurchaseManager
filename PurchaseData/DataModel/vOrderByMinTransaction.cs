@@ -29,5 +29,11 @@ namespace PurchaseData.DataModel
         public string Event { get; set; }
         public string SupplierID { get; set; }
         public string CompanyID { get; set; }
+        public string CurrencyID { get; set; }
+        public Nullable<int> RequisitionHeaderID { get; set; }
+        public string CompanyName { get; set; }
+        public string NameBiz { get; set; }
+        public string CompanyCode { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -45,7 +45,7 @@ namespace PurchaseData.Helpers
             string userName = $"{user.FirstName} {user.LastName}";
             var line = 1;
             HtmlDoc.GetElementbyId("userName").InnerHtml = userName;
-            HtmlDoc.GetElementbyId("RequisitionHeaderID").InnerHtml = $"{dataRow["RequisitionHeaderID"]}";
+
             HtmlDoc.GetElementbyId("CompanyName").InnerHtml = $"{dataRow["CompanyName"]}";
             HtmlDoc.GetElementbyId("NameBiz").InnerHtml = $"{dataRow["NameBiz"]}";
             HtmlDoc.GetElementbyId("CompanyID").InnerHtml = $"{dataRow["CompanyID"]}";
@@ -54,7 +54,7 @@ namespace PurchaseData.Helpers
             HtmlDoc.GetElementbyId("DateLast").
                 InnerHtml = $"{string.Format("{0:dd MMMM yyyy}", Convert.ToDateTime(dataRow["DateLast"]))}";
             HtmlDoc.GetElementbyId("NOW").InnerHtml = $"{string.Format("{0:dd MMMM yyyy}", DateTime.Now)}";
-            HtmlDoc.GetElementbyId("Status").InnerHtml = $"{dataRow["Status"]}";
+            HtmlDoc.GetElementbyId("STATUS_DESC").InnerHtml = $"{dataRow["Status"]}";
             HtmlDoc.GetElementbyId("Description").InnerHtml = $"{dataRow["Description"]}";
 
 
@@ -74,47 +74,32 @@ namespace PurchaseData.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    // doc.GetElementbyId("vandor_name").InnerHtml = $"The user {userItem} from {user.CostID} department " +
-                    //   $"has created a Purchase Rquisition. Please create a Purchase Order and then be sent to the Supplier.";
+                    HtmlDoc.GetElementbyId("HeaderID").InnerHtml = $"{dataRow["OrderHeaderID"]}";
                     break;
                 case "UPR":
-                    HtmlDoc.GetElementbyId("vandor_name").InnerHtml = "The following Purchase Requisition has been created by you, " +
-                        "the next step is to create the <b>Purchase Order</b> by the corresponding user so complete all the required fields. " +
-                        "The reference code for this Purchase Requisition is: ";
-                    HtmlDoc.GetElementbyId("code").InnerHtml = $"{dataRow["Code"]}";
-                    if (details.Count > 0)
-                    {
-                        foreach (var item in details)
-                        {
-                            string node = "<tr class='list-item'>";
-                            node += $"<td data-label='Line' class='tableitem' id='line_num'>{line++}</td>";
-                            node += $"<td data-label='Description' class='tableitem' id='item_description'>{item.NameProduct} - {item.DescriptionProduct}</br>{item.Accounts.Description}</td>";
-                            node += $"<td data-label='Quantity' class='tableitem' id='quantity'>{item.Qty}</td>";
-                            node += $"<td data-label='Account' class='tableitem' id='Account'>{item.AccountID}</td>";
-                            table.AppendChild(HtmlNode.CreateNode(node));
-                        }
-                        HtmlDoc.GetElementbyId("DETAILS_COUNT").InnerHtml = $"{details.Count}";
-                        //string attachesUnido = "Attaches: ";
-                        //foreach (var item in attaches)
-                        //{
-                        //    var extension = item.FileName.Substring(item.FileName.Length - 4, 4);
-                        //    attachesUnido += $"{item.Description}{extension} {item.Description}{extension}";
-                        //}
-                        //string attt = string.Empty;
-                        //attt += $"{attachesUnido}";
-                        //att.AppendChild(HtmlNode.CreateNode(attt));
-                    }
-
-                    //var grandtotal = "<tr class='list-item total-row'>";
-                    //grandtotal += "<th colspan='8' class='tableitem'>Attach in Database:</th>";
-                    //grandtotal += $"<td data-label='Grand Total' class='tableitem'>{attaches[0].Description}</td>";
-                    //grandtotal += " </tr>";
-                    //table.AppendChild(HtmlNode.CreateNode(grandtotal));
+                    HtmlDoc.GetElementbyId("HeaderID").InnerHtml = $"{dataRow["RequisitionHeaderID"]}";
                     break;
                 case "VAL":
                     break;
             }
 
+            HtmlDoc.GetElementbyId("vandor_name").InnerHtml = "The following Purchase Requisition has been created by you, " +
+                       "the next step is to create the <b>Purchase Order</b> by the corresponding user so complete all the required fields. " +
+                       "The reference code for this Purchase Requisition is: ";
+            HtmlDoc.GetElementbyId("code").InnerHtml = $"{dataRow["Code"]}";
+            if (details.Count > 0)
+            {
+                foreach (var item in details)
+                {
+                    string node = "<tr class='list-item'>";
+                    node += $"<td data-label='Line' class='tableitem' id='line_num'>{line++}</td>";
+                    node += $"<td data-label='Description' class='tableitem' id='item_description'>{item.NameProduct} - {item.DescriptionProduct}</br>{item.Accounts.Description}</td>";
+                    node += $"<td data-label='Quantity' class='tableitem' id='quantity'>{item.Qty}</td>";
+                    node += $"<td data-label='Account' class='tableitem' id='Account'>{item.AccountID}</td>";
+                    table.AppendChild(HtmlNode.CreateNode(node));
+                }
+                HtmlDoc.GetElementbyId("DETAILS_COUNT").InnerHtml = $"{details.Count}";
+            }
             var path = Environment.CurrentDirectory + @"\" + dataRow["RequisitionHeaderID"].ToString() + ".html";
             HtmlDoc.Save(path, System.Text.Encoding.UTF8);
             return path;
@@ -128,18 +113,35 @@ namespace PurchaseData.Helpers
             var semana = DateTime.Now.AddDays(-7);
             try
             {
+                //await Task.Run(() =>
+                //   {
+                var dolar = await new IndicadorDolar().GetPosterior(semana);
+                var uf = await new IndicadorUf().GetPosterior(semana);
+                var euro = await new IndicadorEuro().GetPosterior(semana);
+                var ipc = await new IndicadorIpc().GetPosterior(semana.AddMonths(-6));
+                var utm = await new IndicadorUtm().GetPosterior(semana.AddMonths(-6));
+                if (dolar != null)
+                {
+                    CrearNodo(table, dolar.Dolar, "USD");
+                }
+                if (uf != null)
+                {
+                    CrearNodo(table, uf.Uf, "UF");
+                }
+                if (euro != null)
+                {
+                    CrearNodo(table, euro.Euro, "EUR");
+                }
+                if (ipc != null)
+                {
+                    CrearNodo(table, ipc.Ipc, "IPC");
+                }
+                if (utm != null)
+                {
+                    CrearNodo(table, utm.Utm, "UTM");
+                }
 
-                await Task.Run(() =>
-                   {
-                       CrearNodo(table, new IndicadorDolar().GetPosterior(semana).Dolar, "USD");
-                       CrearNodo(table, new IndicadorUf().GetPosterior(semana).Uf, "UF");
-                       CrearNodo(table, new IndicadorUtm().GetPosterior(semana.AddMonths(-6)).Utm, "UTM");
-                       CrearNodo(table, new IndicadorIpc().GetPosterior(semana.AddMonths(-6)).Ipc, "IPC");
-                       CrearNodo(table, new IndicadorEuro().GetPosterior(semana).Euro, "EUR");
-
-                   });
-
-
+                // });
 
                 //! Save
                 HtmlDoc.Save(path, System.Text.Encoding.UTF8);
