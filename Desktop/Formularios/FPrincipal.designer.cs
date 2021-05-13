@@ -895,7 +895,7 @@ namespace PurchaseDesktop.Formularios
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Purshase Ctrl";
+            this.Text = "Purchase Manager";
             this.Load += new System.EventHandler(this.FPrincipal_Load);
             this.PanelHeader.ResumeLayout(false);
             this.PanelDash.ResumeLayout(false);

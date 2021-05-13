@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -58,7 +59,7 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    return perfilPo.GetVistaDetalles(ItemID);
+                    return perfilPr.GetVistaDetalles(ItemID);
                 case "UPR":
                     return perfilPr.GetVistaDetalles(ItemID);
                 case "VAL":
@@ -131,6 +132,9 @@ namespace PurchaseDesktop.Helpers
                             break;
                         case "FAttach":
                             perfilPo.CargarColumnasFAttach();
+                            break;
+                        case "FSupplier":
+                            perfilPo.CargarColumnasFSupplier();
                             break;
                     }
                     return perfilPo.Grid;
@@ -437,12 +441,18 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    var f = new FSupplier(this);
+                    var f = new FSupplier(this)
+                    {
+                        ShowInTaskbar = false,
+                        StartPosition = FormStartPosition.CenterScreen,
+                        ItemStatus = Convert.ToInt32(dataRow["StatusID"])
+                    };
+                    if (dataRow["SupplierID"].ToString().Length > 0)
+                    {
+                        f.ItemID = Convert.ToInt32(dataRow["SupplierID"]);
+                    }
                     perfilPo.Grid = f.GetGrid();
                     perfilPo.PintarGrid();
-                    f.StartPosition = FormStartPosition.CenterScreen;
-                    f.ItemID = Convert.ToInt32(dataRow["SupplierID"]);
-                    f.ItemStatus = Convert.ToInt32(dataRow["StatusID"]);
                     f.ShowDialog();
                     break;
                 case "UPR":
@@ -456,6 +466,8 @@ namespace PurchaseDesktop.Helpers
         public void OPenDetailForm(DataRow dataRow)
         {
             FDetails f;
+            List<RequisitionDetails> rd;
+            List<OrderDetails> od;
             switch (userDB.UserProfiles.ProfileID)
             {
                 case "ADM":
@@ -465,30 +477,46 @@ namespace PurchaseDesktop.Helpers
                 case "UPO":
                     if (dataRow["TypeDocumentHeader"].ToString() == "PO")
                     {
-                        var ordenDetails = perfilPo.GetDetailsOrder(Convert.ToInt32(dataRow["OrderHeaderID"]));
-                        f = new FDetails(this, ordenDetails);
+                        od = perfilPo.GetDetailsOrder(Convert.ToInt32(dataRow["OrderHeaderID"]));
+                        f = new FDetails(this, od)
+                        {
+                            ShowInTaskbar = false,
+                            StartPosition = FormStartPosition.CenterScreen,
+                            ItemID = Convert.ToInt32(dataRow["OrderHeaderID"]),
+                            ItemStatus = Convert.ToInt32(dataRow["StatusID"])
+                        };
                         perfilPo.Grid = f.GetGrid();
                         perfilPo.PintarGrid();
-                        f.StartPosition = FormStartPosition.CenterScreen;
-                        f.ItemID = Convert.ToInt32(dataRow["OrderHeaderID"]);
-                        f.ItemStatus = Convert.ToInt32(dataRow["StatusID"]);
                         f.ShowDialog();
                     }
                     else if (dataRow["TypeDocumentHeader"].ToString() == "PR")
                     {
-
+                        rd = perfilPr.GetDetailsRequisition(Convert.ToInt32(dataRow["OrderHeaderID"]));
+                        f = new FDetails(this, rd)
+                        {
+                            ShowInTaskbar = false,
+                            StartPosition = FormStartPosition.CenterScreen,
+                            ItemID = Convert.ToInt32(dataRow["OrderHeaderID"]),
+                            ItemStatus = Convert.ToInt32(dataRow["StatusID"])
+                        };
+                        perfilPo.Grid = f.GetGrid();
+                        perfilPo.PintarGrid();
+                        f.ShowDialog();
                     }
 
 
                     break;
                 case "UPR":
-                    var rd = perfilPr.GetDetailsRequisition(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-                    f = new FDetails(this, rd);
+                    rd = perfilPr.GetDetailsRequisition(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                    f = new FDetails(this, rd)
+                    {
+                        ShowInTaskbar = false,
+                        StartPosition = FormStartPosition.CenterScreen,
+                        ItemID = Convert.ToInt32(dataRow["RequisitionHeaderID"]),
+                        ItemStatus = Convert.ToInt32(dataRow["StatusID"])
+                    };
                     perfilPr.Grid = f.GetGrid();
                     perfilPr.PintarGrid();
-                    f.StartPosition = FormStartPosition.CenterScreen;
-                    f.ItemID = Convert.ToInt32(dataRow["RequisitionHeaderID"]);
-                    f.ItemStatus = Convert.ToInt32(dataRow["StatusID"]);
                     f.ShowDialog();
                     break;
                 case "VAL":

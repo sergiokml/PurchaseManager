@@ -40,7 +40,7 @@ namespace PurchaseDesktop.Formularios
             CboTypeAccount.DataSource = Enum.GetValues(typeof(TypeAccount));
             CboTypeAccount.SelectedIndex = -1;
 
-            Grid = rFachada.CargarGrid(Grid, "");
+            Grid = rFachada.CargarGrid(Grid, "FSupplier");
             LlenarGrid();
 
         }
@@ -107,7 +107,7 @@ namespace PurchaseDesktop.Formularios
 
         public iGrid GetGrid()
         {
-            throw new NotImplementedException();
+            return Grid;
         }
 
     }
