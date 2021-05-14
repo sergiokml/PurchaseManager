@@ -16,16 +16,10 @@ namespace PurchaseDesktop.Helpers
         {
             //! Esto se carga por herencia, el grid es NULL aquí.
         }
-        public iGrid Grid { get; set; }
-        // public UserProfiles UserProfiles { get; set; }
-        public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
 
-        public enum OrderType
-        {
-            Materiales = 1,
-            Servicios = 2,
-            SubContratos = 3
-        }
+        public iGrid Grid { get; set; }
+        public iGDropDownList ComboBox { get; set; } = new iGDropDownList();
+        public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
 
         private ImageList ListaImagenes()
         {
@@ -35,6 +29,22 @@ namespace PurchaseDesktop.Helpers
             lista.Images.Add(Properties.Resources.icons8_envelope); // Send
             lista.Images.Add(Properties.Resources.icons8_pdf); // Pdf
             return lista;
+        }
+
+        public void LLenarCombo(DataTable table)
+        {
+            //DataTable tablePr;
+            //tablePr = new DataTable();
+            //tablePr.Columns.Add("Id");
+            //tablePr.Columns.Add("Name");
+            //foreach (var item in new OrderStatus().GetList())
+            //{
+            //    DataRow row = tablePr.NewRow();
+            //    row[0] = (int)item.StatuID;
+            //    row[1] = item.Description.ToString();
+            //    tablePr.Rows.Add(row);
+            //}
+            ComboBox.FillWithData(table, "StatuID", "Description");
         }
 
         public void PintarGrid()
@@ -112,25 +122,6 @@ namespace PurchaseDesktop.Helpers
             }
             else if (User.ProfileID == "UPO")
             {
-                //! Order State
-                iGDropDownList cboStates = new iGDropDownList();
-                //DataTable tablePr;
-                //tablePr = new DataTable();
-                //tablePr.Columns.Add("Id");
-                //tablePr.Columns.Add("Name");
-                //foreach (var item in new OrderStatus().GetList())
-                //{
-                //    DataRow row = tablePr.NewRow();
-                //    row[0] = (int)item.StatuID;
-                //    row[1] = item.Description.ToString();
-                //    tablePr.Rows.Add(row);
-                //}
-                //cboStates.FillWithData(tablePr, "Id", "Name");
-
-                foreach (var item in new OrderStatus().GetList())
-                {
-                    cboStates.Items.Add(item.Description, item.Description.ToString());
-                }
 
                 for (int i = 0; i < Grid.Rows.Count; i++)
                 {
@@ -174,18 +165,7 @@ namespace PurchaseDesktop.Helpers
                         Grid.Rows[i].Cells["Total"].Value = "";
                     }
 
-                    var tipo = Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString();
-                    if (tipo == "PR")
-                    {
-                        //Grid.Rows[i].Cells["StatusID"].DropDownControl = cboStates;
-                        //Grid.Rows[i].Cells["StatusID"].TypeFlags |= iGCellTypeFlags.NoTextEdit;
-                    }
-                    else if (tipo == "PO")
-                    {
-                        Grid.Rows[i].Cells["StatusID"].DropDownControl = cboStates;
-                        Grid.Rows[i].Cells["StatusID"].TypeFlags |= iGCellTypeFlags.NoTextEdit;
 
-                    }
                 }
             }
 
@@ -224,18 +204,18 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-                    ////! Order State                    
-                    //tablePr = new DataTable();
-                    //tablePr.Columns.Add("Id");
-                    //tablePr.Columns.Add("Name");
-                    //foreach (var item in new OrderStatus().GetList())
-                    //{
-                    //    DataRow row = tablePr.NewRow();
-                    //    row[0] = (int)item.StatuID;
-                    //    row[1] = item.Description.ToString();
-                    //    tablePr.Rows.Add(row);
-                    //}
-                    //cboStates.FillWithData(tablePr, "Id", "Name");
+                    //! Order State                    
+                    tablePr = new DataTable();
+                    tablePr.Columns.Add("Id");
+                    tablePr.Columns.Add("Name");
+                    foreach (var item in new RequisitionStatus().GetList())
+                    {
+                        DataRow row = tablePr.NewRow();
+                        row[0] = (int)item.StatuID;
+                        row[1] = item.Description.ToString();
+                        tablePr.Rows.Add(row);
+                    }
+                    cboStates.FillWithData(tablePr, "Id", "Name");
                     //! Order Type  
                     tablePr = new DataTable();
                     tablePr.Columns.Add("Id");
@@ -270,8 +250,8 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("StatusID", "Status", 111);
-                    // iGCol.CellStyle.DropDownControl = cboStates;
-                    // iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+                    iGCol.CellStyle.DropDownControl = cboStates;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
@@ -531,10 +511,9 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("nro", "N°", 21);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
-                    iGCol = Grid.Cols.Add("SupplierID", "RUT");
-                    iGCol.Visible = false;
+                    iGCol = Grid.Cols.Add("SupplierID", "RUT", 58);
 
-                    iGCol = Grid.Cols.Add("Name", "Name", 315);
+                    iGCol = Grid.Cols.Add("Name", "Name", 200);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
                     iGCol = Grid.Cols.Add("delete", "", 22);

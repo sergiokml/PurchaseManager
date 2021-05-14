@@ -12,6 +12,8 @@ using PurchaseData.DataModel;
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
+using TenTec.Windows.iGridLib;
+
 namespace PurchaseDesktop.Profiles
 {
     public class PerfilUPO : HFunctions, IPerfilActions
@@ -199,8 +201,6 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-
-
         public List<OrderDetails> GetDetailsOrder(int id)
         {
             var details = rContext.OrderHeader.Find(id).OrderDetails.ToList();
@@ -224,8 +224,22 @@ namespace PurchaseDesktop.Profiles
 
         public DataTable GetVistaDetalles(int IdItem)
         {
+
             return this.ToDataTable<OrderDetails>(rContext.OrderDetails
                 .Where(c => c.OrderHeaderID == IdItem).ToList());
+        }
+
+        public iGDropDownList GetStatusItem(DataRow dataRow)
+        {
+            if (dataRow["TypeDocumentHeader"].ToString() == "PR")
+            {
+                LLenarCombo(this.ToDataTable<RequisitionStatus>(rContext.RequisitionStatus.ToList()));
+            }
+            else if (dataRow["TypeDocumentHeader"].ToString() == "PO")
+            {
+                LLenarCombo(this.ToDataTable<OrderStatus>(rContext.OrderStatus.ToList()));
+            }
+            return ComboBox;
         }
     }
 }

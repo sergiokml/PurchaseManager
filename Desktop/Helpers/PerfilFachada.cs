@@ -377,6 +377,7 @@ namespace PurchaseDesktop.Helpers
 
             return false;
         }
+
         public bool DeleteAttach(DataRow dataRow, int status, int header)
         {
             switch (userDB.UserProfiles.ProfileID)
@@ -432,6 +433,7 @@ namespace PurchaseDesktop.Helpers
             return false;
 
         }
+
         public bool OpenSupplierForm(DataRow dataRow)
         {
             switch (userDB.UserProfiles.ProfileID)
@@ -483,7 +485,8 @@ namespace PurchaseDesktop.Helpers
                             ShowInTaskbar = false,
                             StartPosition = FormStartPosition.CenterScreen,
                             ItemID = Convert.ToInt32(dataRow["OrderHeaderID"]),
-                            ItemStatus = Convert.ToInt32(dataRow["StatusID"])
+                            ItemStatus = Convert.ToInt32(dataRow["StatusID"]),
+                            TypeDocumentHeader = "PO"
                         };
                         perfilPo.Grid = f.GetGrid();
                         perfilPo.PintarGrid();
@@ -497,13 +500,13 @@ namespace PurchaseDesktop.Helpers
                             ShowInTaskbar = false,
                             StartPosition = FormStartPosition.CenterScreen,
                             ItemID = Convert.ToInt32(dataRow["OrderHeaderID"]),
-                            ItemStatus = Convert.ToInt32(dataRow["StatusID"])
+                            ItemStatus = Convert.ToInt32(dataRow["StatusID"]),
+                            TypeDocumentHeader = "PR"
                         };
                         perfilPo.Grid = f.GetGrid();
                         perfilPo.PintarGrid();
                         f.ShowDialog();
                     }
-
 
                     break;
                 case "UPR":
@@ -513,7 +516,8 @@ namespace PurchaseDesktop.Helpers
                         ShowInTaskbar = false,
                         StartPosition = FormStartPosition.CenterScreen,
                         ItemID = Convert.ToInt32(dataRow["RequisitionHeaderID"]),
-                        ItemStatus = Convert.ToInt32(dataRow["StatusID"])
+                        ItemStatus = Convert.ToInt32(dataRow["StatusID"]),
+                        TypeDocumentHeader = "PR" //! Es Necesario?
                     };
                     perfilPr.Grid = f.GetGrid();
                     perfilPr.PintarGrid();
@@ -598,7 +602,6 @@ namespace PurchaseDesktop.Helpers
 
         public string VerItemHtml(DataRow dataRow)
         {
-
             switch (userDB.UserProfiles.ProfileID)
             {
 
@@ -607,10 +610,9 @@ namespace PurchaseDesktop.Helpers
                 case "BAS":
                     break;
                 case "UPO":
-
                     if (dataRow["TypeDocumentHeader"].ToString() == "PR")
                     {
-                        var detailsPR = perfilPr.GetDetailsRequisition(Convert.ToInt32(dataRow["OrderHeaderID"]));
+                        var detailsPR = perfilPo.GetDetailsRequisition(Convert.ToInt32(dataRow["OrderHeaderID"]));
                         if (detailsPR.Count == 0)
                         {
                             return "This requisition has no products.";
@@ -618,14 +620,14 @@ namespace PurchaseDesktop.Helpers
                         Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, detailsPR));
                         return "Opening...";
                     }
-                    if (dataRow["TypeDocumentHeader"].ToString() == "PO")
+                    else if (dataRow["TypeDocumentHeader"].ToString() == "PO")
                     {
                         var detailsPR = perfilPo.GetDetailsOrder(Convert.ToInt32(dataRow["OrderHeaderID"]));
                         if (detailsPR.Count == 0)
                         {
                             return "This Order has no products.";
                         }
-                        //Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, detailsPR));
+                        Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, detailsPR));
                         return "Opening...";
                     }
                     break;
@@ -717,6 +719,23 @@ namespace PurchaseDesktop.Helpers
                     break;
             }
             return string.Empty;
+        }
+        public iGDropDownList CargarComBox(DataRow dataRow)
+        {
+            switch (userDB.UserProfiles.ProfileID)
+            {
+                case "ADM":
+                    break;
+                case "BAS":
+                    break;
+                case "UPO":
+                    return perfilPo.GetStatusItem(dataRow);
+                case "UPR":
+                    break;
+                case "VAL":
+                    break;
+            }
+            return null;
         }
     }
 

@@ -776,6 +776,7 @@ namespace PurchaseDesktop.Formularios
             this.Grid.TabIndex = 8;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
+            this.Grid.CurCellChangeRequest += new TenTec.Windows.iGridLib.iGCurCellChangeRequestEventHandler(this.Grid_CurCellChangeRequest);
             // 
             // GridCol0CellStyle
             // 

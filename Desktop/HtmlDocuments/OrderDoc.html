@@ -1,0 +1,520 @@
+﻿<!DOCTYPE html>
+
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Purchase Order</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" /> 
+    <style>
+      /*  * {
+            margin: 0;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+        }*/
+        @page {
+            size: letter;
+            margin: 0;
+        }
+        body {
+            background: #eee;
+            /* font-size:0.9em !important; */       
+        }
+        .invoice {
+            width: 970px !important;
+            margin: 0px auto;
+        }
+            .invoice .invoice-header {
+                padding: 25px 25px 5px;
+            }
+                .invoice .invoice-header h1 {
+                    margin: 0;
+                }
+        .media {
+        }
+            .media .media-body {
+                font-size: 0.9em;
+                margin: 0;
+            }
+        .invoice-body {
+            border-radius: 10px;
+            padding: 10px;
+            background: #fff;            
+        }
+        .invoice-footer {
+            padding: 0px;
+            font-size: 0.9em;
+            text-align: center;
+            color: #999;
+        }
+        .logo {
+            max-height: 70px;
+            border-radius: 10px;
+        }
+        .dl-horizontal {
+            margin: 0;
+        }
+            .dl-horizontal dt {
+                float: left;
+                width: 80px;
+                overflow: hidden;
+                clear: left;
+                text-align: right;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .dl-horizontal dd {
+                margin-left: 90px;
+            }
+        .rowamount {
+            padding-top: 15px !important;
+        }
+        .rowtotal {
+            font-size: 1.3em;
+        }
+        .colfix {
+            width: 12%;
+        }
+        .mono {
+            font-family: monospace;
+        }
+        .panel-default > .panel-heading {
+            background-color: #9AC455;
+            color: white;
+            padding: 8px 15px;
+        }
+
+        .panel-wrong {
+            border-color: #9AC455;
+        }
+
+        .panel {
+            margin-bottom: 10px;
+        }
+        .panel-body {
+            padding: 7px;
+        }
+        .col-xs-4 {
+            width: 33.33333333%;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container invoice">
+        <div class="invoice-header">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h1>Purchase Order <small>With Credit</small></h1>
+                    <h4 class="text-muted">NO: 554775/R1 | Date: 01/01/2015</h4>
+                </div>
+                <div class="col-xs-4">
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="media-object logo" src="data:image/png;base64,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" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="invoice-body">
+            <div class="row">
+                <div class="col-xs-5">
+                    <div class="panel panel-default panel-wrong">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Company Details</h3>
+                        </div>
+                        <div class="panel-body">
+                            <dl class="dl-horizontal">
+                                <dt>Name:</dt>
+                                <dd><strong>Acme Corporation</strong></dd>
+                                <dt>Industry:</dt>
+                                <dd>Software Development</dd>
+                                <dt>Address</dt>
+                                <dd>Field 3, Moon</dd>
+                                <dt>Phone</dt>
+                                <dd>123.4456.4567</dd>
+                                <dt>Email</dt>
+                                <dd>mainl@acme.com</dd>
+                                <dt>Tax NO</dt>
+                                <dd class="mono">123456789</dd>
+                                <dt>Tax Office</dt>
+                                <dd>A' Moon</dd>
+                                </dl>   
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-7">
+                    <div class="panel panel-default panel-wrong">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Customer Details</h3>
+                        </div>
+                        <div class="panel-body">
+                            <dl class="dl-horizontal">
+                                <dt>Name</dt>
+                                <dd>Microsoft Corporation</dd>
+                                <dt>Industry</dt>
+                                <dd>Software Development</dd>
+                                <dt>Address</dt>
+                                <dd>One Microsoft Way Redmond, WA 98052-7329, USA</dd>
+                                <dt>Phone</dt>
+                                <dd>(425) 882-8080</dd>
+                                <dt>Email</dt>
+                                <dd>contact@microsoft.com</dd>
+                                <dt>Tax NO</dt>
+                                <dd class="mono">123456789</dd>
+                                <dt>&nbsp;</dt>
+                                <dd>&nbsp;</dd>
+                                </dl>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default panel-wrong">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Services / Products</h3>
+                </div>
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Line</th>
+                            <th>Item / Description</th>
+                            <th class="text-center colfix">Qty</th>
+                            <th class="text-center colfix">Price</th>
+                            <th class="text-center colfix">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-right" style="width:50px;">
+                                <span class="mono">1</span>
+                                <br>
+                                <small class="text-muted"></small>
+                            </td>
+                            <td>
+                                Lorem Ipsum Dolor
+                                <br>
+                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">18.000</span>
+                                <br>
+                                <small class="text-muted">Kilogramos</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">$32.400</span>
+                                <br>
+                                <small class="text-muted">Definitivo</small>
+                            </td>
+                            <td class="text-right">
+                                <strong class="mono">$198.440.000</strong>
+                                <br>
+                                <small class="text-muted mono">CLP</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                <span class="mono">2</span>
+                                <br>
+                                <small class="text-muted"></small>
+                            </td>
+                            <td>
+                                Lorem Ipsum Dolor
+                                <br>
+                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">18.000</span>
+                                <br>
+                                <small class="text-muted">Kilogramos</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">$32.400</span>
+                                <br>
+                                <small class="text-muted">Definitivo</small>
+                            </td>
+                            <td class="text-right">
+                                <strong class="mono">$198.440.000</strong>
+                                <br>
+                                <small class="text-muted mono">CLP</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                <span class="mono">3</span>
+                                <br>
+                                <small class="text-muted"></small>
+                            </td>
+                            <td>
+                                Lorem Ipsum Dolor
+                                <br>
+                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">18.000</span>
+                                <br>
+                                <small class="text-muted">Kilogramos</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">$32.400</span>
+                                <br>
+                                <small class="text-muted">Definitivo</small>
+                            </td>
+                            <td class="text-right">
+                                <strong class="mono">$198.440.000</strong>
+                                <br>
+                                <small class="text-muted mono">CLP</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                <span class="mono">4</span>
+                                <br>
+                                <small class="text-muted"></small>
+                            </td>
+                            <td>
+                                Lorem Ipsum Dolor
+                                <br>
+                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">18.000</span>
+                                <br>
+                                <small class="text-muted">Kilogramos</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">$32.400</span>
+                                <br>
+                                <small class="text-muted">Definitivo</small>
+                            </td>
+                            <td class="text-right">
+                                <strong class="mono">$198.440.000</strong>
+                                <br>
+                                <small class="text-muted mono">CLP</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                <span class="mono">5</span>
+                                <br>
+                                <small class="text-muted"></small>
+                            </td>
+                            <td>
+                                Lorem Ipsum Dolor
+                                <br>
+                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">18.000</span>
+                                <br>
+                                <small class="text-muted">Kilogramos</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">$32.400</span>
+                                <br>
+                                <small class="text-muted">Definitivo</small>
+                            </td>
+                            <td class="text-right">
+                                <strong class="mono">$198.440.000</strong>
+                                <br>
+                                <small class="text-muted mono">CLP</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                <span class="mono">6</span>
+                                <br>
+                                <small class="text-muted"></small>
+                            </td>
+                            <td>
+                                Lorem Ipsum Dolor
+                                <br>
+                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">18.000</span>
+                                <br>
+                                <small class="text-muted">Kilogramos</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">$32.400</span>
+                                <br>
+                                <small class="text-muted">Definitivo</small>
+                            </td>
+                            <td class="text-right">
+                                <strong class="mono">$198.440.000</strong>
+                                <br>
+                                <small class="text-muted mono">CLP</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                <span class="mono">6</span>
+                                <br>
+                                <small class="text-muted"></small>
+                            </td>
+                            <td>
+                                Lorem Ipsum Dolor
+                                <br>
+                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">18.000</span>
+                                <br>
+                                <small class="text-muted">Kilogramos</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">$32.400</span>
+                                <br>
+                                <small class="text-muted">Definitivo</small>
+                            </td>
+                            <td class="text-right">
+                                <strong class="mono">$198.440.000</strong>
+                                <br>
+                                <small class="text-muted mono">CLP</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                <span class="mono">6</span>
+                                <br>
+                                <small class="text-muted"></small>
+                            </td>
+                            <td>
+                                Lorem Ipsum Dolor
+                                <br>
+                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">18.000</span>
+                                <br>
+                                <small class="text-muted">Kilogramos</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">$32.400</span>
+                                <br>
+                                <small class="text-muted">Definitivo</small>
+                            </td>
+                            <td class="text-right">
+                                <strong class="mono">$198.440.000</strong>
+
+                                <small class="text-muted mono">CLP</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                <span class="mono">6</span>
+                                <br>
+                                <small class="text-muted"></small>
+                            </td>
+                            <td>
+                                Lorem Ipsum Dolor
+                                <br>
+                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">18.000</span>
+                                <br>
+                                <small class="text-muted">Kilogramos</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">$32.400</span>
+                                <br>
+                                <small class="text-muted">Definitivo</small>
+                            </td>
+                            <td class="text-right">
+                                <strong class="mono">$198.440.000</strong>
+                                <br>
+                                <small class="text-muted mono">CLP</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">
+                                <span class="mono">6</span>
+                                <br>
+                                <small class="text-muted"></small>
+                            </td>
+                            <td>
+                                Lorem Ipsum Dolor
+                                <br>
+                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">18.000</span>
+                                <br>
+                                <small class="text-muted">Kilogramos</small>
+                            </td>
+                            <td class="text-right">
+                                <span class="mono">$32.400</span>
+                                <br>
+                                <small class="text-muted">Definitivo</small>
+                            </td>
+                            <td class="text-right">
+                                <strong class="mono">$198.440.000</strong>
+
+                                <small class="text-muted mono">CLP</small>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel panel-default panel-wrong">
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <td class="text-center col-xs-1">Net</td>
+                            <td class="text-center col-xs-1">Exent</td>
+                            <td class="text-center col-xs-1">Discount</td>
+                            <td class="text-center col-xs-1">Tax</td>
+                            <td class="text-center col-xs-1">Grand Total</td>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="text-center rowtotal mono">$18.240,00</th>
+                            <th class="text-center rowtotal mono">$12.000,00</th>
+                            <th class="text-center rowtotal mono">$-1.440,00</th>
+                            <th class="text-center rowtotal mono">$38.312,85</th>
+                            <th class="text-center rowtotal mono">$345.312,85</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-5">
+                <div class="panel panel-default panel-wrong">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Payment Method</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>For your convenience, you may deposite the final ammount at one of our banks</p>
+                        <ul class="list-unstyled">
+                            <li>Alpha Bank - <span class="mono">MO123456789456123</span></li>
+                            <li>Beta Bank - <span class="mono">MO123456789456123</span></li>
+                            <li>Gamma Bank - <span class="mono">MO123456789456123</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="panel panel-default panel-wrong">
+                        <div class="panel-body">
+                            <i>Comments / Notes</i>
+                            <hr style="margin:3px" />Enviar Factura por correo electronico a: robert.kerkhoff@cvegroup.com
+                            con copia a: pablo.moya@cvegroup.com; francisca.negron@cvegroup.com, margarita.valdenegro@cvegroup.com
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="invoice-footer">
+            Purchase Manager V1.0
+            <br /> purchasemanager@cvegroup.com
+            <br />
+            <strong>2021</strong>
+        </div>
+    </div>
+</body>
+</html>

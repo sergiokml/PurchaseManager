@@ -257,6 +257,9 @@
     <Content Include="HtmlBanner\Banner.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="HtmlDocuments\OrderDoc.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="HtmlDocuments\RequisitionDoc.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

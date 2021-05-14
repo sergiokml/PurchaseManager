@@ -261,22 +261,6 @@ namespace PurchaseDesktop.Formularios
                     }
                 }
             }
-            else if (Grid.Cols["supplier"].Index == e.ColIndex)
-            {
-                //rFachada.EditarSupplier(FSupplier);
-            }
-            else if (Grid.Cols["details"].Index == e.ColIndex)
-            {
-                //rFachada.EditarDetails(FDetails, current);
-            }
-            else if (Grid.Cols["attach"].Index == e.ColIndex)
-            {
-                //rFachada.EditarAttach(FAttach);
-            }
-            else if (Grid.Cols["hitos"].Index == e.ColIndex)
-            {
-                //rFachada.EditarSupplier(FSupplier);
-            }
 
         }
 
@@ -422,6 +406,13 @@ namespace PurchaseDesktop.Formularios
                 var current = (DataRow)Grid.CurRow.Tag;
                 rFachada.OpenSupplierForm(current);
             }
+        }
+
+        private void Grid_CurCellChangeRequest(object sender, iGCurCellChangeRequestEventArgs e)
+        {
+            //var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            //Grid.Cols["StatusID"].Cells[e.RowIndex].DropDownControl = rFachada.CargarComBox(current);
+
         }
     }
 }

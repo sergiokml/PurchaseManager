@@ -3,6 +3,8 @@ using System.Data;
 
 using PurchaseData.DataModel;
 
+using TenTec.Windows.iGridLib;
+
 using static PurchaseDesktop.Helpers.HFunctions;
 
 namespace PurchaseDesktop.Interfaces
@@ -18,6 +20,9 @@ namespace PurchaseDesktop.Interfaces
         //! Details
         List<RequisitionDetails> GetDetailsRequisition(int id);
         List<OrderDetails> GetDetailsOrder(int id);
+
+        //! Status
+        iGDropDownList GetStatusItem(DataRow dataRow);
 
 
         List<Attaches> GetAttaches(int id);

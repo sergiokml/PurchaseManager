@@ -7,6 +7,8 @@ using PurchaseData.DataModel;
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
+using TenTec.Windows.iGridLib;
+
 namespace PurchaseDesktop.Profiles
 {
     public class PerfilVAL : HFunctions, IPerfilActions
@@ -151,6 +153,11 @@ namespace PurchaseDesktop.Profiles
         }
 
         public List<OrderDetails> GetDetailsOrder(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public iGDropDownList GetStatusItem(DataRow dataRow)
         {
             throw new NotImplementedException();
         }

@@ -22,6 +22,7 @@ namespace PurchaseDesktop.Formularios
         public TextInfo UCase { get; set; }
         public int ItemID { get; set; }
         public int ItemStatus { get; set; }
+        public string TypeDocumentHeader { get; set; }
 
         public List<RequisitionDetails> RequisitionDetails { get; set; }
         public PerfilFachada PerfilFachada { get; }

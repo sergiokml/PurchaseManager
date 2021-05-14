@@ -13,5 +13,11 @@
             UPDATE_PO = 7,
             CREATE_PO = 8
         }
+        public enum OrderType
+        {
+            Materiales = 1,
+            Servicios = 2,
+            SubContratos = 3
+        }
     }
 }
