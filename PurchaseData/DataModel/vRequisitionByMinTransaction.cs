@@ -14,7 +14,7 @@ namespace PurchaseData.DataModel
     
     public partial class vRequisitionByMinTransaction
     {
-        public int RequisitionHeaderID { get; set; }
+        public int HeaderID { get; set; }
         public string Description { get; set; }
         public string Code { get; set; }
         public byte Type { get; set; }
@@ -28,5 +28,6 @@ namespace PurchaseData.DataModel
         public string NameBiz { get; set; }
         public string CompanyCode { get; set; }
         public string Status { get; set; }
+        public string TypeDocumentHeader { get; set; }
     }
 }

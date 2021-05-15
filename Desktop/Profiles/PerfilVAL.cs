@@ -22,6 +22,14 @@ namespace PurchaseDesktop.Profiles
             this.rContext = rContext;
         }
 
+        public List<OrderDetails> DetailsPO { get; set; }
+        public List<RequisitionDetails> DetailsPR { get; set; }
+        public DataTable TableDetails { get; set; }
+        public DataRow Current { get; set; }
+        public TypeDocumentHeader TypeDocHeader { get; set; }
+        public OrderHeader DocumentPO { get; set; }
+        public RequisitionHeader DocumentPR { get; set; }
+
         public DataTable GetVistaFPrincipal(Users userDB)
         {
             //  1   Pre PRequisition
@@ -50,7 +58,7 @@ namespace PurchaseDesktop.Profiles
         }
 
 
-        public void UpdateItemHeader(Users userDB, int id, object field, string prop)
+        public void UpdateItemHeader(Users userDB, object field, string prop)
         {
             throw new System.NotImplementedException();
         }
@@ -72,7 +80,7 @@ namespace PurchaseDesktop.Profiles
 
 
 
-        public void DeleteRequesitionHeader(int id)
+        public void DeleteItemHeader()
         {
             throw new NotImplementedException();
         }
@@ -87,7 +95,7 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void InsertItemHeader(Companies company, OrderType type, Users userDB)
+        public void InsertItemHeader(Users userDB)
         {
             throw new NotImplementedException();
         }
@@ -162,7 +170,17 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public DataTable GetVistaDetalles(int IdItem)
+        public DataTable GetVistaDetalles()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IPerfilActions.GetDetailsRequisition(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteDetail(Users user)
         {
             throw new NotImplementedException();
         }

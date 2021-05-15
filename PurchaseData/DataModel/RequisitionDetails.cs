@@ -15,7 +15,7 @@ namespace PurchaseData.DataModel
     public partial class RequisitionDetails
     {
         public int DetailID { get; set; }
-        public int RequisitionHeaderID { get; set; }
+        public int HeaderID { get; set; }
         public string NameProduct { get; set; }
         public string DescriptionProduct { get; set; }
         public int Qty { get; set; }

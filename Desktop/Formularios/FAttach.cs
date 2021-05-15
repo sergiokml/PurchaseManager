@@ -20,7 +20,7 @@ namespace PurchaseDesktop.Formularios
         private readonly PerfilFachada rFachada;
 
         public TextInfo UCase { get; set; }
-        public int ItemID { get; set; }
+        public int HeaderID { get; set; }
         public int ItemStatus { get; set; }
         public FAttach(PerfilFachada rFachada)
         {
@@ -71,7 +71,7 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                var vista = rFachada.GetVistaAttaches(ItemID);
+                var vista = rFachada.GetVistaAttaches(HeaderID);
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!
@@ -131,7 +131,7 @@ namespace PurchaseDesktop.Formularios
                 if (openF.ShowDialog() == DialogResult.OK)
                 {
                     string serverfolder = @"C:\PurshaseManager\Files\";
-                    serverfolder += $"{ItemID}";
+                    serverfolder += $"{HeaderID}";
 
                     if (!Directory.Exists(serverfolder))
                     {
@@ -142,7 +142,7 @@ namespace PurchaseDesktop.Formularios
                         Description = TxtName.Text.Trim(),
                         FileName = openF.FileName.Trim()
                     };
-                    rFachada.InsertAttach(att, ItemID);
+                    rFachada.InsertAttach(att, HeaderID);
                     File.Copy(openF.FileName.Trim(), $"{serverfolder}{@"\"}{openF.SafeFileName}", true);
                     LlenarGrid();
                     ClearControles();
@@ -163,7 +163,7 @@ namespace PurchaseDesktop.Formularios
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                if (rFachada.DeleteAttach(current, ItemStatus, ItemID))
+                if (rFachada.DeleteAttach(current, ItemStatus, HeaderID))
                 {
                     LlenarGrid();
                     ClearControles();

@@ -17,8 +17,8 @@ namespace PurchaseData.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Accounts()
         {
-            this.RequisitionDetails = new HashSet<RequisitionDetails>();
             this.OrderDetails = new HashSet<OrderDetails>();
+            this.RequisitionDetails = new HashSet<RequisitionDetails>();
         }
     
         public string AccountID { get; set; }
@@ -27,8 +27,8 @@ namespace PurchaseData.DataModel
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequisitionDetails> RequisitionDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionDetails> RequisitionDetails { get; set; }
     }
 }

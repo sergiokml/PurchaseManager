@@ -118,10 +118,10 @@ namespace PurchaseDesktop.Formularios
             // PanelHeader
             // 
             this.PanelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.PanelHeader.Controls.Add(this.LabelPanel);
             this.PanelHeader.Controls.Add(this.bunifuSeparator2);
             this.PanelHeader.Controls.Add(this.BtnMinimizar);
             this.PanelHeader.Controls.Add(this.BtnCerrar);
+            this.PanelHeader.Controls.Add(this.LabelPanel);
             this.PanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelHeader.Location = new System.Drawing.Point(0, 0);
             this.PanelHeader.Name = "PanelHeader";
@@ -775,6 +775,7 @@ namespace PurchaseDesktop.Formularios
             this.Grid.Size = new System.Drawing.Size(1100, 370);
             this.Grid.TabIndex = 8;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
+            this.Grid.CellDoubleClick += new TenTec.Windows.iGridLib.iGCellDoubleClickEventHandler(this.Grid_CellDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
             this.Grid.CurCellChangeRequest += new TenTec.Windows.iGridLib.iGCurCellChangeRequestEventHandler(this.Grid_CurCellChangeRequest);
             // 

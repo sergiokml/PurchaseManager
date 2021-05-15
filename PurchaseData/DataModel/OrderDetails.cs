@@ -15,7 +15,7 @@ namespace PurchaseData.DataModel
     public partial class OrderDetails
     {
         public int DetailID { get; set; }
-        public int OrderHeaderID { get; set; }
+        public int HeaderID { get; set; }
         public string NameProduct { get; set; }
         public string DescriptionProduct { get; set; }
         public int Qty { get; set; }
@@ -23,7 +23,7 @@ namespace PurchaseData.DataModel
         public int Total { get; set; }
         public string AccountID { get; set; }
     
-        public virtual OrderHeader OrderHeader { get; set; }
         public virtual Accounts Accounts { get; set; }
+        public virtual OrderHeader OrderHeader { get; set; }
     }
 }

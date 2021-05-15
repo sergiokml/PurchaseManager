@@ -102,6 +102,7 @@
     <Compile Include="DataModel\Attaches.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\DAPurchaseManagerContext.cs" />
     <Compile Include="DataModel\Companies.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -118,7 +119,6 @@
     <Compile Include="DataModel\DASupplierCountries.cs" />
     <Compile Include="DataModel\DABank.cs" />
     <Compile Include="DataModel\DASuppliers.cs" />
-    <Compile Include="DataModel\DAvOrderByMinTransaction.cs" />
     <Compile Include="DataModel\DACompany.cs" />
     <Compile Include="DataModel\DAUserDB.cs" />
     <Compile Include="DataModel\Modelo.Context.cs">

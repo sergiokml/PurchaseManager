@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -19,28 +18,18 @@ namespace PurchaseDesktop.Formularios
     {
         private readonly PerfilFachada rFachada;
 
+
         public TextInfo UCase { get; set; }
-        public int ItemID { get; set; }
-        public int ItemStatus { get; set; }
-        public string TypeDocumentHeader { get; set; }
+        private int HeaderID { get; set; }
+        //public int ItemStatus { get; set; }
+        public DataRow Current { get; set; }
 
-        public List<RequisitionDetails> RequisitionDetails { get; set; }
-        public PerfilFachada PerfilFachada { get; }
-        public List<OrderDetails> OrdenDetails { get; }
 
-        public FDetails(PerfilFachada rFachada, List<RequisitionDetails> lista)
+        public FDetails(PerfilFachada rFachada, DataRow dataRow)
         {
-            //! Este constructor vienen así.
             this.rFachada = rFachada;
-            RequisitionDetails = lista;
-            InitializeComponent();
-        }
-
-        public FDetails(PerfilFachada rFachada, List<OrderDetails> ordenDetails)
-        {
-            //! Este constructor vienen así.
-            this.rFachada = rFachada;
-            OrdenDetails = ordenDetails;
+            Current = dataRow;
+            HeaderID = Convert.ToInt32(dataRow["HeaderID"]);
             InitializeComponent();
         }
 
@@ -108,7 +97,7 @@ namespace PurchaseDesktop.Formularios
                     NameProduct = TxtName.Text.Trim(),
                     DescriptionProduct = TxtDescription.Text.Trim()
                 };
-                rFachada.InsertDetail(PrDetail, ItemID);
+                rFachada.InsertDetail(PrDetail, HeaderID);
                 LlenarGrid();
                 ClearControles();
             }
@@ -120,7 +109,8 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                var vista = rFachada.GetVistaDetalles(ItemID);
+                var vista = rFachada.GetVistaDetalles(Current);
+                //var vista = TableDetails;
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!
@@ -185,10 +175,10 @@ namespace PurchaseDesktop.Formularios
         private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
-            var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            var currentDetail = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                if (rFachada.DeleteDetail(current, ItemStatus))
+                if (rFachada.DeleteDetail(currentDetail, Current))
                 {
                     LlenarGrid();
                     ClearControles();
@@ -218,6 +208,11 @@ namespace PurchaseDesktop.Formularios
         }
 
         public void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e)
         {
             throw new NotImplementedException();
         }

@@ -16,7 +16,7 @@ namespace PurchaseDesktop.Formularios
         private readonly PerfilFachada rFachada;
 
         public TextInfo UCase { get; set; }
-        public int ItemID { get; set; }
+        public int HeaderID { get; set; }
         public int ItemStatus { get; set; }
 
         public FSupplier(PerfilFachada rFachada)

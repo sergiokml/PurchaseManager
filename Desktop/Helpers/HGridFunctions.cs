@@ -4,8 +4,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
-using PurchaseData.DataModel;
-
 using TenTec.Windows.iGridLib;
 
 namespace PurchaseDesktop.Helpers
@@ -165,6 +163,10 @@ namespace PurchaseDesktop.Helpers
                         Grid.Rows[i].Cells["Total"].Value = "";
                     }
 
+                    if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
+                    {
+                        Grid.Rows[i].CellStyle.DropDownControl = null;
+                    }
 
                 }
             }
@@ -205,17 +207,17 @@ namespace PurchaseDesktop.Helpers
                     break;
                 case "UPO":
                     //! Order State                    
-                    tablePr = new DataTable();
-                    tablePr.Columns.Add("Id");
-                    tablePr.Columns.Add("Name");
-                    foreach (var item in new RequisitionStatus().GetList())
-                    {
-                        DataRow row = tablePr.NewRow();
-                        row[0] = (int)item.StatuID;
-                        row[1] = item.Description.ToString();
-                        tablePr.Rows.Add(row);
-                    }
-                    cboStates.FillWithData(tablePr, "Id", "Name");
+                    //tablePr = new DataTable();
+                    //tablePr.Columns.Add("Id");
+                    //tablePr.Columns.Add("Name");
+                    //foreach (var item in new RequisitionStatus().GetList()) //todo ESTO SÍ SIRVE!!!!
+                    //{
+                    //    DataRow row = tablePr.NewRow();
+                    //    row[0] = (int)item.StatuID;
+                    //    row[1] = item.Description.ToString();
+                    //    tablePr.Rows.Add(row);
+                    //}
+                    //cboStates.FillWithData(tablePr, "Id", "Name");
                     //! Order Type  
                     tablePr = new DataTable();
                     tablePr.Columns.Add("Id");
@@ -231,7 +233,7 @@ namespace PurchaseDesktop.Helpers
                     //! Cols
                     Grid.GroupBox.Visible = true;
                     Grid.Header.Height = 20;
-                    iGCol = Grid.Cols.Add("OrderHeaderID", "ID", 39);
+                    iGCol = Grid.Cols.Add("HeaderID", "ID", 39);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("Code", "Code", 53);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -249,9 +251,10 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("Type", "Type", 93);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
-                    iGCol = Grid.Cols.Add("StatusID", "Status", 111);
-                    iGCol.CellStyle.DropDownControl = cboStates;
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+                    iGCol = Grid.Cols.Add("Status", "Status", 111);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    //iGCol.CellStyle.DropDownControl = cboStates;
+                    //iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
@@ -272,38 +275,35 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol.CellStyle.Font = new Font("Tahoma", 7);
-
                     iGCol = Grid.Cols.Add("UserID", "User ID", 58);
-                    //iGCol.CellStyle.FormatString = "{0:d}";
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("CostID", "CC", 30);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("DateLast", "Creation", 66);
-                    //iGCol.CellStyle.FormatString = "{0:d}";
-                    //iGCol.CellStyle.ValueType = typeof(DateTime);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("TypeDocumentHeader", "TD", 22);
                     iGCol = Grid.Cols.Add("delete", "", 22);
                     iGCol.AllowGrouping = false;
                     iGCol.IncludeInSelect = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
 
-                    iGCol = Grid.Cols.Add("TypeDocumentHeader", "TD", 22);
-                    //iGCol.Visible = false;
+
+
 
                     break;
                 case "UPR":
-                    //! Order State                   
-                    tablePr = new DataTable();
-                    tablePr.Columns.Add("Id");
-                    tablePr.Columns.Add("Name");
-                    foreach (var item in new RequisitionStatus().GetList())
-                    {
-                        DataRow row = tablePr.NewRow();
-                        row[0] = (int)item.StatuID;
-                        row[1] = item.Description.ToString();
-                        tablePr.Rows.Add(row);
-                    }
-                    cboStates.FillWithData(tablePr, "Id", "Name");
+                    ////! Order State                   
+                    //tablePr = new DataTable();
+                    //tablePr.Columns.Add("Id");
+                    //tablePr.Columns.Add("Name");
+                    //foreach (var item in new RequisitionStatus().GetList())
+                    //{
+                    //    DataRow row = tablePr.NewRow();
+                    //    row[0] = (int)item.StatuID;
+                    //    row[1] = item.Description.ToString();
+                    //    tablePr.Rows.Add(row);
+                    //}
+                    //cboStates.FillWithData(tablePr, "Id", "Name");
                     //! Order Type   
                     tablePr = new DataTable();
                     tablePr.Columns.Add("Id");
@@ -319,7 +319,7 @@ namespace PurchaseDesktop.Helpers
                     //! Cols
                     Grid.GroupBox.Visible = true;
                     Grid.Header.Height = 20;
-                    iGCol = Grid.Cols.Add("RequisitionHeaderID", "ID", 39);
+                    iGCol = Grid.Cols.Add("HeaderID", "ID", 39);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("Code", "Code", 53);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -337,18 +337,18 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("Type", "Type", 93);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
-                    iGCol = Grid.Cols.Add("StatusID", "Status", 111);
-                    iGCol.CellStyle.DropDownControl = cboStates;
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+                    iGCol = Grid.Cols.Add("Status", "Status", 111);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    //iGCol.CellStyle.DropDownControl = cboStates;
+                    //iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("UserID", "User ID", 58);
                     //iGCol.CellStyle.FormatString = "{0:d}";
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("CostID", "CC", 30);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("DateLast", "Creation", 66);
-                    //iGCol.CellStyle.FormatString = "{0:d}";
-                    //iGCol.CellStyle.ValueType = typeof(DateTime);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("TypeDocumentHeader", "TD", 22);
                     iGCol = Grid.Cols.Add("delete", "", 22);
                     iGCol.AllowGrouping = false;
                     iGCol.IncludeInSelect = false;

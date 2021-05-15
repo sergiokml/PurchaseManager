@@ -6,9 +6,8 @@ namespace PurchaseDesktop.Interfaces
 {
     internal interface IControles
     {
-        int ItemID { get; set; }
+        // int HeaderID { get; set; }
         TextInfo UCase { get; set; }
-        int ItemStatus { get; set; }
         bool ValidarControles();
         void ClearControles();
         void SetControles();

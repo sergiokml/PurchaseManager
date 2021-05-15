@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 
 using PurchaseData.DataModel;
 
@@ -25,6 +21,16 @@ namespace PurchaseDesktop.Profiles
             this.rContext = rContext;
         }
 
+        public List<OrderDetails> DetailsPO { get; set; }
+        public List<RequisitionDetails> DetailsPR { get; set; }
+        public DataTable TableDetails { get; set; }
+        public DataRow Current { get; set; }
+
+        public OrderHeader DocumentPO { get; set; }
+        public RequisitionHeader DocumentPR { get; set; }
+
+        public TypeDocumentHeader TypeDocHeader { get; set; }
+
         public DataTable GetVistaFPrincipal(Users userDB)
         {
             using (var rContext = new PurchaseManagerContext())
@@ -36,11 +42,91 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public DataTable GetVistaDetalles(int IdItem)
+
+        public DataTable GetVistaDetalles()
         {
-            return this.ToDataTable<RequisitionDetails>(rContext.RequisitionDetails
-               .Where(c => c.RequisitionHeaderID == IdItem).ToList());
+            Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader myStatus);
+            var HeaderID = Convert.ToInt32(Current["HeaderID"]);
+            switch (myStatus)
+            {
+                case TypeDocumentHeader.PR:
+                    return this.ToDataTable<RequisitionDetails>(rContext.RequisitionDetails
+             .Where(c => c.HeaderID == HeaderID).ToList());
+
+                case TypeDocumentHeader.PO:
+                    return this.ToDataTable<OrderDetails>(rContext.OrderDetails
+             .Where(c => c.HeaderID == HeaderID).ToList());
+            }
+            return null;
         }
+
+
+        public void DeleteDetail(Users user)
+        {
+            var pr = rContext.RequisitionHeader.
+                Find(Convert.ToInt32(Current["HeaderID"]));
+            var tran = new Transactions
+            {
+                Event = EventUserPR.DELETE_DETAIL.ToString(),
+                UserID = user.UserID,
+                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            var detail = rContext.RequisitionDetails.
+                Find(Convert.ToInt32(Current["DetailID"]), pr.RequisitionHeaderID);
+            rContext.RequisitionDetails.Remove(detail);
+            pr.Transactions.Add(tran);
+            rContext.SaveChanges();
+        }
+
+
+        public void UpdateItemHeader(Users user, object valor, string campo)
+        {
+            Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader myStatus);
+            var HeaderID = Convert.ToInt32(Current["HeaderID"]);
+            switch (myStatus)
+            {
+                case TypeDocumentHeader.PR:
+                    var pr = rContext.RequisitionHeader.Find(HeaderID);
+                    switch (campo)
+                    {
+                        case "Description":
+                            pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
+                            break;
+                        case "Type":
+                            pr.Type = Convert.ToByte(valor);
+                            break;
+                        case "StatusID":
+                            pr.StatusID = Convert.ToByte(valor);
+                            break;
+                        case "CompanyID":
+                            pr.CompanyID = valor.ToString();
+                            break;
+                        default:
+                            break;
+                    }
+                    var tran = new Transactions
+                    {
+                        Event = EventUserPR.UPDATE_PR.ToString(),
+                        UserID = user.UserID,
+                        DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                    };
+                    pr.Transactions.Add(tran);
+                    rContext.SaveChanges();
+                    break;
+
+                case TypeDocumentHeader.PO:
+                    break;
+            }
+
+        }
+
+
+
+
+
+
+
+
 
         public DataTable GetVistaAttaches(int IdItem)
         {
@@ -53,106 +139,27 @@ namespace PurchaseDesktop.Profiles
             return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
         }
 
-        public void GuardarCambios(int wait = 0)
-        {
-            // TODO ESTO ELIMINARLO? PUEDE ESTAR EN LA CLASE GridCustom, PERO HABRÁ DIFERENVCIA ENTRE GUARDAR CAMBIOS PO VS PR?        
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-                Thread.Sleep(wait);
-                rContext.SaveChanges();
-                Cursor.Current = Cursors.Default;
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (DbEntityValidationResult eve in e.EntityValidationErrors)
-                {
-                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (DbValidationError ve in eve.ValidationErrors)
-                    {
-                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
-        }
 
-        public void InsertOrderHeader(Companies company, OrderType type, Users userDB)
+        public void DeleteItemHeader()
         {
-            throw new NotImplementedException();
-        }
+            Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader myStatus);
+            var HeaderID = Convert.ToInt32(Current["HeaderID"]);
 
-        public void UpdateItemHeader(Users userDB, int id, object valor, string campo)
-        {
-            var pr = rContext.RequisitionHeader.Find(id);
-            switch (campo)
-            {
-                case "Description":
-                    pr.Description = UCase.ToTitleCase(valor.ToString().ToLower());
-                    break;
-                case "Type":
-                    pr.Type = Convert.ToByte(valor);
-                    break;
-                case "StatusID":
-                    pr.StatusID = Convert.ToByte(valor);
-                    break;
-                case "CompanyID":
-                    pr.CompanyID = valor.ToString();
-                    break;
-                default:
-                    break;
-            }
-            var tran = new Transactions
-            {
-                Event = EventUserPR.UPDATE_PR.ToString(),
-                UserID = userDB.UserID,
-                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            pr.Transactions.Add(tran);
-            GuardarCambios();
-        }
-
-        public void DeleteRequesitionHeader(int id)
-        {
-            var pr = rContext.RequisitionHeader.Find(id);
+            var pr = rContext.RequisitionHeader.Find(HeaderID);
             rContext.Transactions.RemoveRange(pr.Transactions);
             rContext.RequisitionHeader.Remove(pr);
-            GuardarCambios();
-        }
-
-        public void DeleteDetail(int idHeader, int idDetailr, Users userDB)
-        {
-            var pr = rContext.RequisitionHeader.Find(idHeader);
-            var tran = new Transactions
-            {
-                Event = EventUserPR.DELETE_DETAIL.ToString(),
-                UserID = userDB.UserID,
-                DateTran = DateTime.Now
-            };
-
-            var detail = rContext.RequisitionDetails.Find(idDetailr, pr.RequisitionHeaderID);
-            rContext.RequisitionDetails.Remove(detail);
-            pr.Transactions.Add(tran);
-            GuardarCambios();
+            rContext.SaveChanges();
         }
 
 
-
-        public void DeleteOrderHeader(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<RequisitionDetails> GetDetailsRequisition(int id)
+        public void GetDetailsRequisition(int id)
         {
             var details = rContext.RequisitionHeader.Find(id).RequisitionDetails.ToList();
             foreach (var item in details)
             {
                 rContext.Entry(item).Reference(c => c.Accounts).Load();
             }
-            return details;
+            //return details;
         }
 
         public List<Attaches> GetAttaches(int id)
@@ -160,24 +167,18 @@ namespace PurchaseDesktop.Profiles
             return rContext.RequisitionHeader.Find(id).Attaches.ToList();
         }
 
-        public void InsertItemHeader(Companies company, OrderType type, Users userDB)
+        public void InsertItemHeader(Users userDB)
         {
-            var pr = new RequisitionHeader
-            {
-                Type = (byte)type,
-                StatusID = 1,
-                Description = string.Empty,
-                CompanyID = company.CompanyID
-            };
+
             var tran = new Transactions
             {
                 Event = EventUserPR.CREATE_PR.ToString(),
                 UserID = userDB.UserID,
                 DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
             };
-            pr.Transactions.Add(tran);
-            rContext.RequisitionHeader.Add(pr);
-            GuardarCambios();
+            DocumentPR.Transactions.Add(tran);
+            rContext.RequisitionHeader.Add(DocumentPR);
+            rContext.SaveChanges();
         }
 
         public void GetFunciones()
@@ -197,7 +198,7 @@ namespace PurchaseDesktop.Profiles
             };
             pr.Transactions.Add(tran);
             pr.RequisitionDetails.Add(detail);
-            GuardarCambios();
+            rContext.SaveChanges();
         }
 
         public void InsertAttach(int id, Attaches att, Users userDB)
@@ -211,9 +212,8 @@ namespace PurchaseDesktop.Profiles
             };
             pr.Transactions.Add(tran);
             pr.Attaches.Add(att);
-            GuardarCambios();
+            rContext.SaveChanges();
         }
-
 
         public void DeleteAttache(int id, Users userDB, Attaches item)
         {
@@ -227,9 +227,8 @@ namespace PurchaseDesktop.Profiles
             };
             pr.Transactions.Add(tran);
             rContext.Attaches.Remove(att);
-            GuardarCambios();
+            rContext.SaveChanges();
         }
-
 
         public List<OrderDetails> GetDetailsOrder(int id)
         {
@@ -240,5 +239,6 @@ namespace PurchaseDesktop.Profiles
         {
             throw new NotImplementedException();
         }
+
     }
 }

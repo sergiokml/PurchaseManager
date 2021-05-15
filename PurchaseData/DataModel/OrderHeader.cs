@@ -37,6 +37,7 @@ namespace PurchaseData.DataModel
         public string SupplierID { get; set; }
         public Nullable<int> RequisitionHeaderID { get; set; }
         public string CompanyID { get; set; }
+        public string TypeDocumentHeader { get; set; }
     
         public virtual Currencies Currencies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

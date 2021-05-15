@@ -14,7 +14,7 @@ namespace PurchaseData.DataModel
     
     public partial class vOrderByMinTransaction
     {
-        public int OrderHeaderID { get; set; }
+        public int HeaderID { get; set; }
         public string Description { get; set; }
         public string Code { get; set; }
         public Nullable<decimal> Net { get; set; }
@@ -35,5 +35,6 @@ namespace PurchaseData.DataModel
         public string NameBiz { get; set; }
         public string CompanyCode { get; set; }
         public string Status { get; set; }
+        public string TypeDocumentHeader { get; set; }
     }
 }

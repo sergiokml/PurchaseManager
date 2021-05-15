@@ -58,10 +58,10 @@
         <EntityType Name="OrderDetails">
           <Key>
             <PropertyRef Name="DetailID" />
-            <PropertyRef Name="OrderHeaderID" />
+            <PropertyRef Name="HeaderID" />
           </Key>
           <Property Name="DetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrderHeaderID" Type="int" Nullable="false" />
+          <Property Name="HeaderID" Type="int" Nullable="false" />
           <Property Name="NameProduct" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DescriptionProduct" Type="varchar" MaxLength="100" />
           <Property Name="Qty" Type="int" Nullable="false" />
@@ -86,6 +86,7 @@
           <Property Name="SupplierID" Type="varchar" MaxLength="8" />
           <Property Name="RequisitionHeaderID" Type="int" />
           <Property Name="CompanyID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="TypeDocumentHeader" Type="nvarchar" MaxLength="2" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderHitos">
           <Key>
@@ -117,10 +118,10 @@
         <EntityType Name="RequisitionDetails">
           <Key>
             <PropertyRef Name="DetailID" />
-            <PropertyRef Name="RequisitionHeaderID" />
+            <PropertyRef Name="HeaderID" />
           </Key>
           <Property Name="DetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RequisitionHeaderID" Type="int" Nullable="false" />
+          <Property Name="HeaderID" Type="int" Nullable="false" />
           <Property Name="NameProduct" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DescriptionProduct" Type="varchar" MaxLength="100" />
           <Property Name="Qty" Type="int" Nullable="false" />
@@ -136,6 +137,7 @@
           <Property Name="CompanyID" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="StatusID" Type="tinyint" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="12" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="TypeDocumentHeader" Type="nvarchar" MaxLength="2" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="RequisitionStatus">
           <Key>
@@ -243,7 +245,7 @@
 advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTransaction' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vOrderByMinTransaction">
           <Key>
-            <PropertyRef Name="OrderHeaderID" />
+            <PropertyRef Name="HeaderID" />
             <PropertyRef Name="Code" />
             <PropertyRef Name="Tax" />
             <PropertyRef Name="Total" />
@@ -255,8 +257,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTransaction' 
             <PropertyRef Name="NameBiz" />
             <PropertyRef Name="CompanyCode" />
             <PropertyRef Name="Status" />
+            <PropertyRef Name="TypeDocumentHeader" />
           </Key>
-          <Property Name="OrderHeaderID" Type="int" Nullable="false" />
+          <Property Name="HeaderID" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="100" />
           <Property Name="Code" Type="nvarchar" MaxLength="12" Nullable="false" />
           <Property Name="Net" Type="decimal" Precision="11" Scale="2" />
@@ -277,12 +280,13 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTransaction' 
           <Property Name="NameBiz" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CompanyCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeDocumentHeader" Type="nvarchar" MaxLength="2" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransaction' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vRequisitionByMinTransaction">
           <Key>
-            <PropertyRef Name="RequisitionHeaderID" />
+            <PropertyRef Name="HeaderID" />
             <PropertyRef Name="Code" />
             <PropertyRef Name="Type" />
             <PropertyRef Name="StatusID" />
@@ -293,8 +297,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <PropertyRef Name="NameBiz" />
             <PropertyRef Name="CompanyCode" />
             <PropertyRef Name="Status" />
+            <PropertyRef Name="TypeDocumentHeader" />
           </Key>
-          <Property Name="RequisitionHeaderID" Type="int" Nullable="false" />
+          <Property Name="HeaderID" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="100" />
           <Property Name="Code" Type="nvarchar" MaxLength="12" Nullable="false" />
           <Property Name="Type" Type="tinyint" Nullable="false" />
@@ -308,6 +313,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="NameBiz" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CompanyCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeDocumentHeader" Type="nvarchar" MaxLength="2" Nullable="false" />
         </EntityType>
         <Association Name="FK_AttachesOrders_Attaches">
           <End Role="Attaches" Type="Self.Attaches" Multiplicity="1">
@@ -387,7 +393,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <PropertyRef Name="OrderHeaderID" />
             </Principal>
             <Dependent Role="OrderDetails">
-              <PropertyRef Name="OrderHeaderID" />
+              <PropertyRef Name="HeaderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -477,7 +483,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <PropertyRef Name="RequisitionHeaderID" />
             </Principal>
             <Dependent Role="RequisitionDetails">
-              <PropertyRef Name="RequisitionHeaderID" />
+              <PropertyRef Name="HeaderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -671,7 +677,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vOrderByMinTransaction" EntityType="Self.vOrderByMinTransaction" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [vOrderByMinTransaction].[OrderHeaderID] AS [OrderHeaderID], 
+    [vOrderByMinTransaction].[HeaderID] AS [HeaderID], 
     [vOrderByMinTransaction].[Description] AS [Description], 
     [vOrderByMinTransaction].[Code] AS [Code], 
     [vOrderByMinTransaction].[Net] AS [Net], 
@@ -691,12 +697,13 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     [vOrderByMinTransaction].[CompanyName] AS [CompanyName], 
     [vOrderByMinTransaction].[NameBiz] AS [NameBiz], 
     [vOrderByMinTransaction].[CompanyCode] AS [CompanyCode], 
-    [vOrderByMinTransaction].[Status] AS [Status]
+    [vOrderByMinTransaction].[Status] AS [Status], 
+    [vOrderByMinTransaction].[TypeDocumentHeader] AS [TypeDocumentHeader]
     FROM [dbo].[vOrderByMinTransaction] AS [vOrderByMinTransaction]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vRequisitionByMinTransaction" EntityType="Self.vRequisitionByMinTransaction" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [vRequisitionByMinTransaction].[RequisitionHeaderID] AS [RequisitionHeaderID], 
+    [vRequisitionByMinTransaction].[HeaderID] AS [HeaderID], 
     [vRequisitionByMinTransaction].[Description] AS [Description], 
     [vRequisitionByMinTransaction].[Code] AS [Code], 
     [vRequisitionByMinTransaction].[Type] AS [Type], 
@@ -709,7 +716,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     [vRequisitionByMinTransaction].[CompanyName] AS [CompanyName], 
     [vRequisitionByMinTransaction].[NameBiz] AS [NameBiz], 
     [vRequisitionByMinTransaction].[CompanyCode] AS [CompanyCode], 
-    [vRequisitionByMinTransaction].[Status] AS [Status]
+    [vRequisitionByMinTransaction].[Status] AS [Status], 
+    [vRequisitionByMinTransaction].[TypeDocumentHeader] AS [TypeDocumentHeader]
     FROM [dbo].[vRequisitionByMinTransaction] AS [vRequisitionByMinTransaction]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_AttachesOrders_Attaches" Association="Self.FK_AttachesOrders_Attaches">
@@ -840,6 +848,10 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySet Name="Users" EntityType="PurchaseManagerModel.Users" />
           <EntitySet Name="vOrderByMinTransaction" EntityType="PurchaseManagerModel.vOrderByMinTransaction" />
           <EntitySet Name="vRequisitionByMinTransaction" EntityType="PurchaseManagerModel.vRequisitionByMinTransaction" />
+          <AssociationSet Name="FK_OrderDetails_Accounts" Association="PurchaseManagerModel.FK_OrderDetails_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_RequisitionDetails_Accounts" Association="PurchaseManagerModel.FK_RequisitionDetails_Accounts">
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="RequisitionDetails" EntitySet="RequisitionDetails" />
@@ -916,10 +928,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <End Role="RequisitionHeader" EntitySet="RequisitionHeader" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Accounts" Association="PurchaseManagerModel.FK_OrderDetails_Accounts">
-            <End Role="Accounts" EntitySet="Accounts" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="ufnGetReqGroupByCost_Result">
           <Property Type="Int32" Name="Nro" Nullable="true" />
@@ -959,8 +967,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="RequisitionDetails" Relationship="PurchaseManagerModel.FK_RequisitionDetails_Accounts" FromRole="Accounts" ToRole="RequisitionDetails" />
           <NavigationProperty Name="OrderDetails" Relationship="PurchaseManagerModel.FK_OrderDetails_Accounts" FromRole="Accounts" ToRole="OrderDetails" />
+          <NavigationProperty Name="RequisitionDetails" Relationship="PurchaseManagerModel.FK_RequisitionDetails_Accounts" FromRole="Accounts" ToRole="RequisitionDetails" />
         </EntityType>
         <EntityType Name="Attaches">
           <Key>
@@ -994,18 +1002,18 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
         <EntityType Name="OrderDetails">
           <Key>
             <PropertyRef Name="DetailID" />
-            <PropertyRef Name="OrderHeaderID" />
+            <PropertyRef Name="HeaderID" />
           </Key>
           <Property Name="DetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderHeaderID" Type="Int32" Nullable="false" />
+          <Property Name="HeaderID" Type="Int32" Nullable="false" />
           <Property Name="NameProduct" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DescriptionProduct" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Qty" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Int32" Nullable="false" />
           <Property Name="Total" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="AccountID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.FK_OrderDetails_OrderHeader" FromRole="OrderDetails" ToRole="OrderHeader" />
           <NavigationProperty Name="Accounts" Relationship="PurchaseManagerModel.FK_OrderDetails_Accounts" FromRole="OrderDetails" ToRole="Accounts" />
+          <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.FK_OrderDetails_OrderHeader" FromRole="OrderDetails" ToRole="OrderHeader" />
         </EntityType>
         <EntityType Name="OrderHeader">
           <Key>
@@ -1024,6 +1032,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="SupplierID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="RequisitionHeaderID" Type="Int32" />
           <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="TypeDocumentHeader" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Currencies" Relationship="PurchaseManagerModel.FK_OrderHeader_Currencies" FromRole="OrderHeader" ToRole="Currencies" />
           <NavigationProperty Name="OrderDetails" Relationship="PurchaseManagerModel.FK_OrderDetails_OrderHeader" FromRole="OrderHeader" ToRole="OrderDetails" />
           <NavigationProperty Name="OrderStatus" Relationship="PurchaseManagerModel.FK_OrderHeader_OrderStatus" FromRole="OrderHeader" ToRole="OrderStatus" />
@@ -1066,10 +1075,10 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
         <EntityType Name="RequisitionDetails">
           <Key>
             <PropertyRef Name="DetailID" />
-            <PropertyRef Name="RequisitionHeaderID" />
+            <PropertyRef Name="HeaderID" />
           </Key>
           <Property Name="DetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RequisitionHeaderID" Type="Int32" Nullable="false" />
+          <Property Name="HeaderID" Type="Int32" Nullable="false" />
           <Property Name="NameProduct" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DescriptionProduct" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Qty" Type="Int32" Nullable="false" />
@@ -1087,6 +1096,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="StatusID" Type="Byte" Nullable="false" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="TypeDocumentHeader" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Companies" Relationship="PurchaseManagerModel.FK_RequisitionHeader_Companies" FromRole="RequisitionHeader" ToRole="Companies" />
           <NavigationProperty Name="RequisitionDetails" Relationship="PurchaseManagerModel.FK_RequisitionDetails_RequisitionHeader" FromRole="RequisitionHeader" ToRole="RequisitionDetails" />
           <NavigationProperty Name="RequisitionStatus" Relationship="PurchaseManagerModel.FK_RequisitionHeader_RequisitionStatus" FromRole="RequisitionHeader" ToRole="RequisitionStatus" />
@@ -1195,7 +1205,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
         </EntityType>
         <EntityType Name="vOrderByMinTransaction">
           <Key>
-            <PropertyRef Name="OrderHeaderID" />
+            <PropertyRef Name="HeaderID" />
             <PropertyRef Name="Code" />
             <PropertyRef Name="Tax" />
             <PropertyRef Name="Total" />
@@ -1207,8 +1217,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <PropertyRef Name="NameBiz" />
             <PropertyRef Name="CompanyCode" />
             <PropertyRef Name="Status" />
+            <PropertyRef Name="TypeDocumentHeader" />
           </Key>
-          <Property Name="OrderHeaderID" Type="Int32" Nullable="false" />
+          <Property Name="HeaderID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Name="Net" Type="Decimal" Precision="11" Scale="2" />
@@ -1229,10 +1240,11 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="NameBiz" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TypeDocumentHeader" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vRequisitionByMinTransaction">
           <Key>
-            <PropertyRef Name="RequisitionHeaderID" />
+            <PropertyRef Name="HeaderID" />
             <PropertyRef Name="Code" />
             <PropertyRef Name="Type" />
             <PropertyRef Name="StatusID" />
@@ -1243,8 +1255,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <PropertyRef Name="NameBiz" />
             <PropertyRef Name="CompanyCode" />
             <PropertyRef Name="Status" />
+            <PropertyRef Name="TypeDocumentHeader" />
           </Key>
-          <Property Name="RequisitionHeaderID" Type="Int32" Nullable="false" />
+          <Property Name="HeaderID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="Byte" Nullable="false" />
@@ -1258,7 +1271,20 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="NameBiz" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TypeDocumentHeader" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_OrderDetails_Accounts">
+          <End Type="PurchaseManagerModel.Accounts" Role="Accounts" Multiplicity="1" />
+          <End Type="PurchaseManagerModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RequisitionDetails_Accounts">
           <End Type="PurchaseManagerModel.Accounts" Role="Accounts" Multiplicity="1" />
           <End Type="PurchaseManagerModel.RequisitionDetails" Role="RequisitionDetails" Multiplicity="*" />
@@ -1305,7 +1331,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <PropertyRef Name="OrderHeaderID" />
             </Principal>
             <Dependent Role="OrderDetails">
-              <PropertyRef Name="OrderHeaderID" />
+              <PropertyRef Name="HeaderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1371,7 +1397,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <PropertyRef Name="RequisitionHeaderID" />
             </Principal>
             <Dependent Role="RequisitionDetails">
-              <PropertyRef Name="RequisitionHeaderID" />
+              <PropertyRef Name="HeaderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1463,18 +1489,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <End Type="PurchaseManagerModel.RequisitionHeader" Role="RequisitionHeader" Multiplicity="*" />
           <End Type="PurchaseManagerModel.Transactions" Role="Transactions" Multiplicity="*" />
         </Association>
-        <Association Name="FK_OrderDetails_Accounts">
-          <End Type="PurchaseManagerModel.Accounts" Role="Accounts" Multiplicity="1" />
-          <End Type="PurchaseManagerModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Accounts">
-              <PropertyRef Name="AccountID" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="AccountID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1546,7 +1560,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
                 <ScalarProperty Name="Qty" ColumnName="Qty" />
                 <ScalarProperty Name="DescriptionProduct" ColumnName="DescriptionProduct" />
                 <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
-                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
                 <ScalarProperty Name="DetailID" ColumnName="DetailID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1554,6 +1568,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySetMapping Name="OrderHeader">
             <EntityTypeMapping TypeName="PurchaseManagerModel.OrderHeader">
               <MappingFragment StoreEntitySet="OrderHeader">
+                <ScalarProperty Name="TypeDocumentHeader" ColumnName="TypeDocumentHeader" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="RequisitionHeaderID" ColumnName="RequisitionHeaderID" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
@@ -1605,7 +1620,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
                 <ScalarProperty Name="Qty" ColumnName="Qty" />
                 <ScalarProperty Name="DescriptionProduct" ColumnName="DescriptionProduct" />
                 <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
-                <ScalarProperty Name="RequisitionHeaderID" ColumnName="RequisitionHeaderID" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
                 <ScalarProperty Name="DetailID" ColumnName="DetailID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1613,6 +1628,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySetMapping Name="RequisitionHeader">
             <EntityTypeMapping TypeName="PurchaseManagerModel.RequisitionHeader">
               <MappingFragment StoreEntitySet="RequisitionHeader">
+                <ScalarProperty Name="TypeDocumentHeader" ColumnName="TypeDocumentHeader" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1720,6 +1736,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySetMapping Name="vOrderByMinTransaction">
             <EntityTypeMapping TypeName="PurchaseManagerModel.vOrderByMinTransaction">
               <MappingFragment StoreEntitySet="vOrderByMinTransaction">
+                <ScalarProperty Name="TypeDocumentHeader" ColumnName="TypeDocumentHeader" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
                 <ScalarProperty Name="NameBiz" ColumnName="NameBiz" />
@@ -1740,13 +1757,14 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
                 <ScalarProperty Name="Net" ColumnName="Net" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vRequisitionByMinTransaction">
             <EntityTypeMapping TypeName="PurchaseManagerModel.vRequisitionByMinTransaction">
               <MappingFragment StoreEntitySet="vRequisitionByMinTransaction">
+                <ScalarProperty Name="TypeDocumentHeader" ColumnName="TypeDocumentHeader" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
                 <ScalarProperty Name="NameBiz" ColumnName="NameBiz" />
@@ -1760,7 +1778,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="RequisitionHeaderID" ColumnName="RequisitionHeaderID" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
