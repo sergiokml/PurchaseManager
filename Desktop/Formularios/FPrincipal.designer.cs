@@ -32,10 +32,10 @@ namespace PurchaseDesktop.Formularios
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPrincipal));
             this.PanelHeader = new System.Windows.Forms.Panel();
-            this.LabelPanel = new System.Windows.Forms.Label();
             this.bunifuSeparator2 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.BtnMinimizar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.LabelPanel = new System.Windows.Forms.Label();
             this.PanelDash = new System.Windows.Forms.Panel();
             this.PanelHechizo = new System.Windows.Forms.Panel();
             this.BtnAttach = new Bunifu.UI.WinForms.BunifuImageButton();
@@ -109,6 +109,7 @@ namespace PurchaseDesktop.Formularios
             this.PieChart2 = new Bunifu.Charts.WinForms.ChartTypes.BunifuPieChart(this.components);
             this.bunifuSeparator3 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.PanelHechizoBanner = new System.Windows.Forms.Panel();
+            this.CtxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
             this.PanelBtns.SuspendLayout();
@@ -127,16 +128,6 @@ namespace PurchaseDesktop.Formularios
             this.PanelHeader.Name = "PanelHeader";
             this.PanelHeader.Size = new System.Drawing.Size(1100, 25);
             this.PanelHeader.TabIndex = 0;
-            // 
-            // LabelPanel
-            // 
-            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelPanel.ForeColor = System.Drawing.Color.White;
-            this.LabelPanel.Location = new System.Drawing.Point(457, 1);
-            this.LabelPanel.Name = "LabelPanel";
-            this.LabelPanel.Size = new System.Drawing.Size(187, 23);
-            this.LabelPanel.TabIndex = 2;
-            this.LabelPanel.Visible = false;
             // 
             // bunifuSeparator2
             // 
@@ -224,6 +215,16 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar.Zoom = 5;
             this.BtnCerrar.ZoomSpeed = 10;
             this.BtnCerrar.Click += new System.EventHandler(this.BtnCerrar_Click);
+            // 
+            // LabelPanel
+            // 
+            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelPanel.ForeColor = System.Drawing.Color.White;
+            this.LabelPanel.Location = new System.Drawing.Point(457, 1);
+            this.LabelPanel.Name = "LabelPanel";
+            this.LabelPanel.Size = new System.Drawing.Size(187, 23);
+            this.LabelPanel.TabIndex = 2;
+            this.LabelPanel.Visible = false;
             // 
             // PanelDash
             // 
@@ -880,6 +881,12 @@ namespace PurchaseDesktop.Formularios
             this.PanelHechizoBanner.Size = new System.Drawing.Size(1100, 48);
             this.PanelHechizoBanner.TabIndex = 34;
             // 
+            // CtxMenu
+            // 
+            this.CtxMenu.Name = "contextMenuStrip1";
+            this.CtxMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.CtxMenu.Size = new System.Drawing.Size(181, 26);
+            // 
             // FPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -987,6 +994,7 @@ namespace PurchaseDesktop.Formularios
         private Bunifu.UI.WinForms.BunifuImageButton BtnAttach;
         private System.Windows.Forms.Panel PanelHechizo;
         private System.Windows.Forms.Panel PanelHechizoBanner;
+        private System.Windows.Forms.ContextMenuStrip CtxMenu;
     }
 }
 

@@ -1024,7 +1024,7 @@
 </value>
   </data>
   <metadata name="PieChart1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>498, 19</value>
+    <value>216, 17</value>
   </metadata>
   <data name="PieChart1.BackgroundColor" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -1060,7 +1060,7 @@
 </value>
   </data>
   <metadata name="PieChart2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>629, 19</value>
+    <value>315, 17</value>
   </metadata>
   <data name="PieChart2.BackgroundColor" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -1095,4 +1095,7 @@
         ZW1zBV9zaXplCF92ZXJzaW9uBwAABggIAgAAAAkDAAAAAAAAAAAAAAAPAwAAAAAAAAAGCw==
 </value>
   </data>
+  <metadata name="CtxMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>414, 17</value>
+  </metadata>
 </root>

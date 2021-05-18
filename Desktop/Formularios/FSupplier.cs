@@ -40,7 +40,7 @@ namespace PurchaseDesktop.Formularios
             CboTypeAccount.DataSource = Enum.GetValues(typeof(TypeAccount));
             CboTypeAccount.SelectedIndex = -1;
 
-            Grid = rFachada.CargarGrid(Grid, "FSupplier");
+            rFachada.CargarGrid(Grid, "FSupplier");
             LlenarGrid();
 
         }
@@ -52,15 +52,15 @@ namespace PurchaseDesktop.Formularios
             try
             {
 
-                var vista = rFachada.GetVistaSuppliers();
-                Grid.Rows.Clear();
-                Grid.FillWithData(vista, true);
-                //! Data Bound  ***!
-                for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
-                {
-                    Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
-                }
-                Grid.Refresh();
+                //var vista = rFachada.GetVistaSuppliers();
+                //Grid.Rows.Clear();
+                //Grid.FillWithData(vista, true);
+                ////! Data Bound  ***!
+                //for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
+                //{
+                //    Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
+                //}
+                //Grid.Refresh();
             }
             catch (Exception)
             {

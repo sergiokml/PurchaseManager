@@ -19,7 +19,7 @@ namespace PurchaseDesktop.Helpers
         private BunifuChartCanvas ChartCanvas1 { get; set; }
         private BunifuChartCanvas ChartCanvas2 { get; set; }
 
-        public Label Label1 { get; set; }
+        private Label Label1 { get; set; }
         private Label Label2 { get; set; }
         private Label Label3 { get; set; }
 

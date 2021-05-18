@@ -17,19 +17,14 @@ namespace PurchaseDesktop.Formularios
     public partial class FDetails : Form, IControles, IGridCustom
     {
         private readonly PerfilFachada rFachada;
-
-
         public TextInfo UCase { get; set; }
-        private int HeaderID { get; set; }
-        //public int ItemStatus { get; set; }
         public DataRow Current { get; set; }
 
 
-        public FDetails(PerfilFachada rFachada, DataRow dataRow)
+        public FDetails(PerfilFachada rFachada, DataRow dr)
         {
             this.rFachada = rFachada;
-            Current = dataRow;
-            HeaderID = Convert.ToInt32(dataRow["HeaderID"]);
+            Current = dr;
             InitializeComponent();
         }
 
@@ -43,7 +38,7 @@ namespace PurchaseDesktop.Formularios
             Icon = Properties.Resources.icons8_survey;
             SetControles();
             //! Grid Principal
-            Grid = rFachada.CargarGrid(Grid, "FDetails");
+            rFachada.CargarGrid(Grid, "FDetails");
             LlenarGrid();
 
             //! Eventos
@@ -90,14 +85,14 @@ namespace PurchaseDesktop.Formularios
         {
             if (ValidarControles())
             {
-                var PrDetail = new RequisitionDetails
+                var detail = new RequisitionDetails
                 {
                     AccountID = ((Accounts)CboAccount.SelectedItem).AccountID,
                     Qty = Convert.ToInt32(TxtQty.Text),
                     NameProduct = TxtName.Text.Trim(),
                     DescriptionProduct = TxtDescription.Text.Trim()
                 };
-                rFachada.InsertDetail(PrDetail, HeaderID);
+                rFachada.InsertDetail(detail, Current);
                 LlenarGrid();
                 ClearControles();
             }
@@ -213,6 +208,11 @@ namespace PurchaseDesktop.Formularios
         }
 
         public void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e)
         {
             throw new NotImplementedException();
         }

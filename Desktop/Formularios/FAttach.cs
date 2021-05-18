@@ -18,13 +18,14 @@ namespace PurchaseDesktop.Formularios
     public partial class FAttach : Form, IControles, IGridCustom
     {
         private readonly PerfilFachada rFachada;
-
         public TextInfo UCase { get; set; }
-        public int HeaderID { get; set; }
-        public int ItemStatus { get; set; }
-        public FAttach(PerfilFachada rFachada)
+        public DataRow Current { get; set; }
+        public Users CurrentUser { get; set; }
+
+        public FAttach(PerfilFachada rFachada, DataRow dr)
         {
             this.rFachada = rFachada;
+            Current = dr;
             InitializeComponent();
         }
 
@@ -55,7 +56,7 @@ namespace PurchaseDesktop.Formularios
             Icon = Properties.Resources.icons8_survey;
             //SetControles();
             //! Grid Principal
-            Grid = rFachada.CargarGrid(Grid, "FAttach");
+            rFachada.CargarGrid(Grid, "FAttach");
             LlenarGrid();
 
             //! Eventos
@@ -71,14 +72,14 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                var vista = rFachada.GetVistaAttaches(HeaderID);
-                Grid.Rows.Clear();
-                Grid.FillWithData(vista, true);
-                //! Data Bound  ***!
-                for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
-                {
-                    Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
-                }
+                //var vista = rFachada.GetVistaAttaches(CurrentHeaderID);
+                //Grid.Rows.Clear();
+                //Grid.FillWithData(vista, true);
+                //!Data Bound * **!
+                //for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
+                //{
+                //    Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
+                //}
 
                 for (int i = 0; i < Grid.Rows.Count; i++)
                 {
@@ -131,7 +132,7 @@ namespace PurchaseDesktop.Formularios
                 if (openF.ShowDialog() == DialogResult.OK)
                 {
                     string serverfolder = @"C:\PurshaseManager\Files\";
-                    serverfolder += $"{HeaderID}";
+                    serverfolder += $"{Convert.ToInt32(Current["HeaderID"])}";
 
                     if (!Directory.Exists(serverfolder))
                     {
@@ -142,7 +143,7 @@ namespace PurchaseDesktop.Formularios
                         Description = TxtName.Text.Trim(),
                         FileName = openF.FileName.Trim()
                     };
-                    rFachada.InsertAttach(att, HeaderID);
+                    rFachada.InsertAttach(att, Convert.ToInt32(Current["HeaderID"]));
                     File.Copy(openF.FileName.Trim(), $"{serverfolder}{@"\"}{openF.SafeFileName}", true);
                     LlenarGrid();
                     ClearControles();
@@ -163,7 +164,7 @@ namespace PurchaseDesktop.Formularios
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                if (rFachada.DeleteAttach(current, ItemStatus, HeaderID))
+                if (rFachada.BorrarAdjunto(current, Current))
                 {
                     LlenarGrid();
                     ClearControles();
@@ -223,5 +224,9 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
+        public void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

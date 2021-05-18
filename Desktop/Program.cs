@@ -27,16 +27,16 @@ namespace Desktop
             if (CheckForInternetConnection())
             {
                 //! Los Perfiles: 
-                PerfilUPO perfilPo = new PerfilUPO(new PurchaseManagerContext());
-                PerfilUPR perfilPr = new PerfilUPR(new PurchaseManagerContext());
-                PerfilVAL perfilVal = new PerfilVAL(new PurchaseManagerContext());
+                UserProfileUPO perfilPo = new UserProfileUPO(new PurchaseManagerContext());
+                UserProfileUPR perfilPr = new UserProfileUPR(new PurchaseManagerContext());
+                UserProfileVAL perfilVal = new UserProfileVAL(new PurchaseManagerContext());
 
                 Users user;
 
                 using (var contextDB = new PurchaseManagerContext())
                 {
-                    //var P = "18018850"; // 17229947
-                    var P = "13779971";
+                    var P = "18018850"; // 17229947
+                    //var P = "13779971";
                     //var P = "15325038";
 
 

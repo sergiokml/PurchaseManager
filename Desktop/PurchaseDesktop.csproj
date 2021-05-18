@@ -202,9 +202,12 @@
     <Compile Include="Interfaces\IControles.cs" />
     <Compile Include="Interfaces\IGridCustom.cs" />
     <Compile Include="Interfaces\IPerfilActions.cs" />
-    <Compile Include="Profiles\PerfilUPO.cs" />
-    <Compile Include="Profiles\PerfilUPR.cs" />
-    <Compile Include="Profiles\PerfilVAL.cs" />
+    <Compile Include="Profiles\PerfilUPO_.cs" />
+    <Compile Include="Profiles\PerfilUPR_.cs" />
+    <Compile Include="Profiles\PerfilVAL_.cs" />
+    <Compile Include="Profiles\UserProfileUPO.cs" />
+    <Compile Include="Profiles\UserProfileUPR.cs" />
+    <Compile Include="Profiles\UserProfileVAL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Formularios\FDetails.resx">
@@ -226,7 +229,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -269,6 +272,7 @@
     <Content Include="HtmlBanner\sprite_crypto13.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\icons8_edit_row.ico" />
     <None Include="Resources\icons8_pdf.ico" />
     <None Include="Resources\checked_18px.png" />
     <None Include="Resources\error_18px.png" />

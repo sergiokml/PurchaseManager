@@ -21,6 +21,7 @@
           <Property Name="AttachID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="100" />
           <Property Name="FileName" Type="varchar" MaxLength="200" />
+          <Property Name="Modifier" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="AttachesOrders">
           <Key>
@@ -979,6 +980,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModel.AttachesOrders" FromRole="Attaches" ToRole="OrderHeader" />
           <NavigationProperty Name="RequisitionHeader" Relationship="PurchaseManagerModel.AttachesRequisitions" FromRole="Attaches" ToRole="RequisitionHeader" />
+          <Property Name="Modifier" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="Companies">
           <Key>
@@ -1526,6 +1528,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySetMapping Name="Attaches">
             <EntityTypeMapping TypeName="PurchaseManagerModel.Attaches">
               <MappingFragment StoreEntitySet="Attaches">
+                <ScalarProperty Name="Modifier" ColumnName="Modifier" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="AttachID" ColumnName="AttachID" />

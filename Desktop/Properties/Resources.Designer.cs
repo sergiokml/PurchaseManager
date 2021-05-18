@@ -83,6 +83,26 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
         /// </summary>
+        internal static System.Drawing.Icon icons8_draft {
+            get {
+                object obj = ResourceManager.GetObject("icons8_draft", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon icons8_edit_row {
+            get {
+                object obj = ResourceManager.GetObject("icons8_edit_row", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
         internal static System.Drawing.Icon icons8_envelope {
             get {
                 object obj = ResourceManager.GetObject("icons8_envelope", resourceCulture);

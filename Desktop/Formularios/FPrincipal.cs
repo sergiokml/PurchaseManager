@@ -24,9 +24,7 @@ namespace PurchaseDesktop.Formularios
 
         public bool IsSending { get; set; }
 
-
-        public int HeaderID { get; set; }
-        public int ItemStatus { get; set; }
+        public DataRow Current { get; set; }
 
         public FPrincipal(PerfilFachada rFachada)
         {
@@ -40,7 +38,7 @@ namespace PurchaseDesktop.Formularios
             if (ValidarControles())
             {
                 rFachada.InsertItem((Companies)CboCompany.SelectedItem
-                    , (OrderType)CboType.SelectedItem);
+                    , (DocumentType)CboType.SelectedItem);
                 LlenarGrid();
                 CargarDashboard();
                 //Grid.Rows[0].EnsureVisible();
@@ -64,27 +62,32 @@ namespace PurchaseDesktop.Formularios
             CboCompany.SelectedIndex = -1;
             CboCompany.ValueMember = "CompanyID";
 
+
+
             //! Eventos
             Grid.BeforeCommitEdit += Grid_BeforeCommitEdit;
             Grid.AfterCommitEdit += Grid_AfterCommitEdit;
             Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
+            Grid.CellMouseDown += Grid_CellMouseDown;
+            Grid.CellMouseUp += Grid_CellMouseUp;
 
             //! Type
-            CboType.DataSource = Enum.GetValues(typeof(OrderType));
+            CboType.DataSource = Enum.GetValues(typeof(DocumentType));
             CboType.SelectedIndex = -1;
 
             //! Grid Principal
-            Grid = rFachada.CargarGrid(Grid, "FPrincipal"); // Pintar y cargar columnas
+            rFachada.CargarGrid(Grid, "FPrincipal"); // Pintar y cargar columnas
             LlenarGrid();
 
             //! Otros
-            var user = rFachada.GetUser();
+            var user = rFachada.CurrentUser();
             LblUser.Text = $"User: {user.FirstName} {user.LastName} | Profile: {user.ProfileID} | email: {user.Email}";
 
             //! Banner
             //string s = await rFachada.CargarBanner();
             //WBrowserBanner.Navigate(s);
+
 
 
             Timer TimerMsg = new Timer
@@ -112,7 +115,7 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                var vista = rFachada.GetVistaPrincipal();
+                var vista = rFachada.GetVistaFPrincipal();
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!
@@ -134,18 +137,7 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-        public void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e)
-        {
-            if (e.ColIndex > 0)
-            {
-                var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-                CboCompany.SelectedValue = current["CompanyID"].ToString();
-                CboType.SelectedIndex = Convert.ToByte(current["Type"]) - 1;
 
-                SetControles();
-            }
-
-        }
 
         public bool ValidarControles()
         {
@@ -180,9 +172,17 @@ namespace PurchaseDesktop.Formularios
             //var cbo = (Companies)CboCompany.SelectedItem;
             //if (rFachada.GetUser().ProfileID == "UPO")
             //{
-            Grid.DefaultAutoGroupRow.Expanded = true;
-            Grid.GroupObject.Add("TypeDocumentHeader");
-            Grid.Group();
+            if (Grid.Rows.Count > 0)
+            {
+                Grid.DefaultAutoGroupRow.Expanded = true;
+                Grid.GroupObject.Add("TypeDocumentHeader");
+                if (Grid.GroupObject.Count > 1)
+                {
+
+                    Grid.Group();
+                }
+
+            }
             //}
 
         }
@@ -199,7 +199,7 @@ namespace PurchaseDesktop.Formularios
                 return;
             }
             //! Update solo si cambió el dato.
-            Cursor.Current = Cursors.WaitCursor;
+            System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (!rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key))
             {
@@ -219,10 +219,6 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-        private void CboCompany_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            //SetControles();
-        }
 
         private async void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
@@ -230,7 +226,7 @@ namespace PurchaseDesktop.Formularios
             var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                Cursor.Current = Cursors.WaitCursor;
+                System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
                 if (rFachada.DeleteItem(current))
                 {
                     LlenarGrid();
@@ -244,14 +240,14 @@ namespace PurchaseDesktop.Formularios
                 {
                     Msg("This document cannot be deleted.", MsgProceso.Error);
                 }
-                Cursor.Current = Cursors.Default;
+                System.Windows.Forms.Cursor.Current = Cursors.Default;
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
                 Msg(rFachada.VerItemHtml(current), MsgProceso.Error);
                 Grid.Focus();
                 Grid.DrawAsFocused = false;
-                Cursor.Current = Cursors.Default;
+                System.Windows.Forms.Cursor.Current = Cursors.Default;
             }
             else if (Grid.Cols["send"].Index == e.ColIndex)
             {
@@ -423,6 +419,7 @@ namespace PurchaseDesktop.Formularios
         {
             if (Grid.CurCell != null)
             {
+                //  Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 //var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 ////    Grid.Cols["StatusID"].Cells[e.RowIndex].DropDownControl = rFachada.CargarComBox(current);
                 ////}
@@ -441,8 +438,48 @@ namespace PurchaseDesktop.Formularios
 
         private void Grid_CellDoubleClick(object sender, iGCellDoubleClickEventArgs e)
         {
-            var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            rFachada.ConvertirDoc(current);
+            if (Grid.CurCell != null)
+            {
+                //var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                if (rFachada.GridDobleClick(Current))
+                {
+                    LlenarGrid();
+                    //CargarDashboard();
+                    ClearControles();
+                    SetControles();
+                }
+            }
+        }
+
+
+
+        public void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e)
+        {
+            if (e.ColIndex > 0)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                    if (rFachada.ContextMenuStrip(CtxMenu, Current))
+                    {
+                        CtxMenu.Show(Grid, e.MousePos);
+                    }
+
+                }
+            }
+
+        }
+        public void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e)
+        {
+            if (e.ColIndex > 0)
+            {
+                Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                if (e.Button == MouseButtons.Right)
+                {
+                    Grid.SetCurCell(e.RowIndex, e.ColIndex);
+                    e.DoDefault = false;
+                }
+            }
         }
     }
 }

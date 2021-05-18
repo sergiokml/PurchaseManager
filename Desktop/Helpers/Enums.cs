@@ -1,9 +1,15 @@
-﻿using System;
-
-namespace PurchaseDesktop.Helpers
+﻿namespace PurchaseDesktop.Helpers
 {
     public partial class HFunctions
     {
+        public enum Perfiles
+        {
+            ADM,
+            BAS,
+            UPO,
+            UPR,
+            VAL
+        }
         public enum EventUserPR
         {
             CREATE_PR,
@@ -15,7 +21,7 @@ namespace PurchaseDesktop.Helpers
             UPDATE_PO,
             CREATE_PO
         }
-        public enum OrderType
+        public enum DocumentType
         {
             Materiales = 1,
             Servicios = 2,
@@ -23,8 +29,6 @@ namespace PurchaseDesktop.Helpers
         }
 
 
-
-        [Flags]
         public enum TypeDocumentHeader
         {
             PR = 1,
