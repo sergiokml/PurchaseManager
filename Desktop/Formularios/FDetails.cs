@@ -90,7 +90,9 @@ namespace PurchaseDesktop.Formularios
                     AccountID = ((Accounts)CboAccount.SelectedItem).AccountID,
                     Qty = Convert.ToInt32(TxtQty.Text),
                     NameProduct = TxtName.Text.Trim(),
-                    DescriptionProduct = TxtDescription.Text.Trim()
+                    DescriptionProduct = TxtDescription.Text.Trim(),
+                    HeaderID = Convert.ToInt32(Current["HeaderID"])
+
                 };
                 rFachada.InsertDetail(detail, Current);
                 LlenarGrid();

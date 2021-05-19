@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 
 using PurchaseData.DataModel;
@@ -86,35 +87,39 @@ namespace PurchaseDesktop.Profiles
                 Description = string.Empty,
                 CompanyID = company.CompanyID
             };
-            var tran = new Transactions
+            var transaction = new Transactions
             {
-                Event = EventUserPR.CREATE_PR.ToString(),
+                Event = Eventos.CREATE_PR.ToString(),
                 UserID = CurrentUser.UserID,
                 DateTran = rContext.Database
                 .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
             };
             using (var trans = rContext.Database.BeginTransaction())
             {
-                pr.Transactions.Add(tran);
+                pr.Transactions.Add(transaction);
                 rContext.RequisitionHeader.Add(pr);
                 rContext.SaveChanges();
                 trans.Commit();
             }
         }
 
-        public void UpdateItemHeader<T>(T item, int id) where T : class
+        public void UpdateItemHeader<T>(T item, int headerID)
         {
-            // assume Entity base class have an Id property for all items
-            var entity = rContext.RequisitionHeader.Find(id);
-            var xx = rContext.Set<T>().Find(id);
-            if (entity == null)
+            var transaction = new Transactions
             {
-                return;
+                Event = Eventos.UPDATE_PR.ToString(),
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            using (var trans = rContext.Database.BeginTransaction())
+            {
+                var pr = rContext.RequisitionHeader.Find(headerID);
+                rContext.Entry(pr).CurrentValues.SetValues(item);
+                pr.Transactions.Add(transaction);
+                rContext.SaveChanges();
+                trans.Commit();
             }
-            //context.Entry(existing).CurrentValues.SetValues(updated);
-            //context.Entry(updated).State = EntityState.Modified;
-            rContext.Entry(entity).CurrentValues.SetValues(item);
-            rContext.SaveChanges();
         }
 
         public void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID)
@@ -124,6 +129,7 @@ namespace PurchaseDesktop.Profiles
                 var pr = rContext.RequisitionHeader.Find(headerID);
                 rContext.Transactions.RemoveRange(pr.Transactions);
                 rContext.RequisitionHeader.Remove(pr);
+                rContext.Attaches.RemoveRange(pr.Attaches);
                 rContext.SaveChanges();
                 trans.Commit();
             }
@@ -138,5 +144,43 @@ namespace PurchaseDesktop.Profiles
         }
 
         #endregion
+
+        public void InsertDetail<T>(T item, int headerID) where T : class
+        {
+            var pr = rContext.RequisitionHeader.Find(headerID);
+            var transaction = new Transactions
+            {
+                Event = Eventos.INSERT_DETAIL.ToString(),
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            using (var trans = rContext.Database.BeginTransaction())
+            {
+                pr.Transactions.Add(transaction);
+                rContext.Entry(item).State = EntityState.Added;
+                rContext.SaveChanges();
+                trans.Commit();
+            }
+        }
+
+        public void DeleteDetail(int headerID, int detailID)
+        {
+            var pr = rContext.RequisitionHeader.Find(headerID);
+            var transaction = new Transactions
+            {
+                Event = Eventos.DELETE_DETAIL.ToString(),
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            using (var trans = rContext.Database.BeginTransaction())
+            {
+                var detail = rContext.RequisitionDetails.Find(detailID, pr.RequisitionHeaderID);
+                rContext.RequisitionDetails.Remove(detail);
+                pr.Transactions.Add(transaction);
+                rContext.SaveChanges();
+                trans.Commit();
+            }
+        }
     }
 }

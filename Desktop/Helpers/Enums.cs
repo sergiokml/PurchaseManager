@@ -10,7 +10,7 @@
             UPR,
             VAL
         }
-        public enum EventUserPR
+        public enum Eventos
         {
             CREATE_PR,
             UPDATE_PR,
@@ -19,7 +19,9 @@
             INSERT_ATTACH,
             DELETE_ATTACH,
             UPDATE_PO,
-            CREATE_PO
+            CREATE_PO,
+            DELETE_PR,
+            DELETE_PO
         }
         public enum DocumentType
         {

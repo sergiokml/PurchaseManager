@@ -39,6 +39,8 @@ namespace PurchaseDesktop.Helpers
             val.CurrentUser = user;
         }
 
+
+
         #region Cargar Controles
 
         public void CargarGrid(iGrid grid, string form)
@@ -137,7 +139,7 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.UPR:
                     perfilPr.Grid = grid;
                     perfilPr.SetResultFunctions();
-                    perfilPr.CargarDatos(c1, c2, cc1, cc2, label1, label2, label3);
+                    perfilPr.CargarDatos(perfilPr.CurrentUser, c1, c2, cc1, cc2, label1, label2, label3);
                     break;
                 case Perfiles.VAL:
                     break;
@@ -149,6 +151,7 @@ namespace PurchaseDesktop.Helpers
         #endregion
 
         #region Abrir Formularios
+
         public void OPenDetailForm(DataRow dr)
         {
             var f = new FDetails(this, dr)
@@ -348,6 +351,7 @@ namespace PurchaseDesktop.Helpers
         #endregion
 
         #region Header CRUD
+
         public bool InsertItem(Companies company, DocumentType type)
         {
             switch (currentPerfil)
@@ -479,8 +483,51 @@ namespace PurchaseDesktop.Helpers
         #endregion
 
         #region Details CRUD
-        public bool DeleteDetail(DataRow drD, DataRow drH)
+
+        public bool InsertDetail(object item, DataRow headerDR)
         {
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    break;
+                case Perfiles.UPR:
+                    perfilPr.InsertDetail(item, Convert.ToInt32(headerDR["HeaderID"]));
+                    return true;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+            return false;
+
+        }
+
+        public bool DeleteDetail(DataRow detailDR, DataRow headerDR)
+        {
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    break;
+                case Perfiles.UPR:
+                    if (Convert.ToInt32(headerDR["StatusID"]) <= 2)
+                    {
+                        perfilPr.DeleteDetail(Convert.ToInt32(headerDR["HeaderID"]), Convert.ToInt32(detailDR["DetailID"]));
+                        return true;
+                    }
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
             //switch (user.UserProfiles.ProfileID)
             //{
             //    case "ADM":
@@ -511,6 +558,10 @@ namespace PurchaseDesktop.Helpers
         }
 
         #endregion
+
+
+
+
         public bool GridDobleClick(DataRow dr)
         {
             switch (currentPerfil)
@@ -568,7 +619,6 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
-
         public bool BorrarAdjunto(DataRow dr, DataRow drHeader)
         {
             switch (currentPerfil)
@@ -602,27 +652,6 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
-        public bool InsertDetail(object item, DataRow dr)
-        {
-            //switch (user.UserProfiles.ProfileID)
-            //{
-            //    case "ADM":
-            //        break;
-            //    case "BAS":
-            //        break;
-            //    case "UPO":
-
-            //        break;
-            //    case "UPR":
-            //        var detail = (RequisitionDetails)item;
-            //        perfilPr.InsertRequisitionDetail(detail, user, Convert.ToInt32(dr["HeaderID"]));
-            //        return true;
-            //    case "VAL":
-            //        break;
-            //}
-            return false;
-
-        }
 
         public bool OpenSupplierForm(DataRow dataRow)
         {
@@ -654,9 +683,6 @@ namespace PurchaseDesktop.Helpers
             //}
             return false;
         }
-
-
-
 
         public bool InsertAttach(Attaches item, int id)
         {
@@ -759,7 +785,6 @@ namespace PurchaseDesktop.Helpers
             return null;
         }
 
-
         public async Task<string> CargarBanner()
         {
             //switch (user.UserProfiles.ProfileID)
@@ -777,7 +802,6 @@ namespace PurchaseDesktop.Helpers
             //}
             return string.Empty;
         }
-
         public iGDropDownList CargarComBox(DataRow dataRow)
         {
             //switch (user.UserProfiles.ProfileID)

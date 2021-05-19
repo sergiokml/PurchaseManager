@@ -23,14 +23,11 @@ namespace PurchaseDesktop.Helpers
         private Label Label2 { get; set; }
         private Label Label3 { get; set; }
 
-        public Users User { get; set; }
-
-
         public List<ufnGetReqGroupByCost_Result> ReqGroupByCost_Results { get; set; }
         public List<ufnGetOrderGroupByStatus_Result> OrderGroupByStatus_Results { get; set; }
 
 
-        public void CargarDatos(BunifuPieChart chart1, BunifuPieChart chart2,
+        public void CargarDatos(Users user, BunifuPieChart chart1, BunifuPieChart chart2,
              BunifuChartCanvas chartCanvas1, BunifuChartCanvas chartCanvas2, Label label1, Label label2, Label label3)
         {
 
@@ -54,7 +51,7 @@ namespace PurchaseDesktop.Helpers
             {
                 PieChart1.Data.Add(Convert.ToDouble((item.Nro * 100) / total1));
                 labels.Add(item.Description);
-                if (item.CostID == User.CostID)
+                if (item.CostID == user.CostID)
                 {
                     mias += item.Nro;
                 }
@@ -111,7 +108,7 @@ namespace PurchaseDesktop.Helpers
             //! Labels
             Label1.Text = $"All :    {total1}"; // total
             Label2.Text = $"Me :     {actives}"; // Mias
-            Label3.Text = $"{User.CostID} :    {mias}";
+            Label3.Text = $"{ user.CostID} :    {mias}";
 
 
 

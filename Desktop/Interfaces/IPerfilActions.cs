@@ -11,22 +11,29 @@ namespace PurchaseDesktop.Interfaces
         //! Propiedades
         Users CurrentUser { get; set; }
 
+
         //! Vistas 
         DataTable VistaFPrincipal();
         DataTable VistaFDetalles(TypeDocumentHeader headerTD, int headerID);
         DataTable VistaFAdjuntos(TypeDocumentHeader headerTD, int headerID);
         DataTable VistaFProveedores(TypeDocumentHeader headerTD, int headerID);
 
+
         //! Insert
         void InsertItemHeader(Companies company, DocumentType type);
+        void InsertDetail<T>(T item, int headerID) where T : class;
+
 
         //! Update
-        void UpdateItemHeader<T>(T item, int id) where T : class;
+        void UpdateItemHeader<T>(T item, int headerID);
+
 
         //! Delete
         void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID);
+        void DeleteDetail(int headerID, int detailID);
 
-        //! Auxiliar
+
+        //! Auxiliar => sirve para UNIR el rContext + Clase Abastracta.       
         void SetResultFunctions();
 
 
