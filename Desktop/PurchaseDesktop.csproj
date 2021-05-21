@@ -272,6 +272,8 @@
     <Content Include="HtmlBanner\sprite_crypto13.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\icons8_browse_folder.ico" />
+    <None Include="Resources\icons8_browse_folder_32.png" />
     <None Include="Resources\icons8_edit_row.ico" />
     <None Include="Resources\icons8_pdf.ico" />
     <None Include="Resources\checked_18px.png" />

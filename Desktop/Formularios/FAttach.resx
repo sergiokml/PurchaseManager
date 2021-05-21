@@ -594,16 +594,23 @@
         RK5CYII=
 </value>
   </data>
-  <data name="TxtName.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="TxtPathFile.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAPcAAAAeCAYAAADwx4gZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA9SURBVHhe7cNBDQAwCASw+TfFOQMs7EvapA8AAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAD4kKR2q5emBz/vIbcs4bOlAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAAWMAAAAZCAYAAADkDE/yAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABDSURBVHhe7cMxEQAwCASw+jfFOwMsdGJJ7vIAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+Jandql5ND6LpgFpbX61xAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="FDock.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>32, 19</value>
   </metadata>
+  <data name="TxtNameFile.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAKQAAAAZCAYAAAC/4YXqAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAxSURBVHhe7cMxEQAwCASw+jfFOwMUdGVJ7vIAAAAAAAAA
+        AAAAAAAAAAD4S1K79X56AKhjFDt7SC3uAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="bunifuSeparator2.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAXsAAAABCAYAAAA/8A4YAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8

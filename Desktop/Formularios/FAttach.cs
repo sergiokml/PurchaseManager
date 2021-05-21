@@ -22,6 +22,8 @@ namespace PurchaseDesktop.Formularios
         public DataRow Current { get; set; }
         public Users CurrentUser { get; set; }
 
+        private string FilePath { get; set; }
+
         public FAttach(PerfilFachada rFachada, DataRow dr)
         {
             this.rFachada = rFachada;
@@ -31,7 +33,15 @@ namespace PurchaseDesktop.Formularios
 
         public bool ValidarControles()
         {
-            if (string.IsNullOrEmpty(TxtName.Text))
+            if (string.IsNullOrEmpty(TxtPathFile.Text))
+            {
+                return false;
+            }
+            if (string.IsNullOrEmpty(TxtNameFile.Text))
+            {
+                return false;
+            }
+            else if (CboTypeFile.SelectedIndex == -1)
             {
                 return false;
             }
@@ -40,12 +50,30 @@ namespace PurchaseDesktop.Formularios
 
         public void ClearControles()
         {
-            TxtName.Text = string.Empty;
+            TxtPathFile.Text = string.Empty;
+            TxtNameFile.Text = string.Empty;
+            CboTypeFile.SelectedIndex = -1;
         }
 
         public void SetControles()
         {
-            throw new NotImplementedException();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("Name");
+            DataRow row = dt.NewRow();
+            row[0] = 1;
+            row[1] = "Public";
+            dt.Rows.Add(row);
+
+            row = dt.NewRow();
+            row[0] = 2;
+            row[1] = "Private";
+            dt.Rows.Add(row);
+
+
+            CboTypeFile.DisplayMember = "Name";
+            CboTypeFile.ValueMember = "Id";
+            CboTypeFile.DataSource = dt;
         }
         public iGrid GetGrid()
         {
@@ -54,7 +82,7 @@ namespace PurchaseDesktop.Formularios
         private void FAttachment_Load(object sender, EventArgs e)
         {
             Icon = Properties.Resources.icons8_survey;
-            //SetControles();
+            SetControles();
             //! Grid Principal
             rFachada.CargarGrid(Grid, "FAttach");
             LlenarGrid();
@@ -72,15 +100,14 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                //var vista = rFachada.GetVistaAttaches(CurrentHeaderID);
-                //Grid.Rows.Clear();
-                //Grid.FillWithData(vista, true);
+                DataTable vista = rFachada.GetVistaAttaches(Current);
+                Grid.Rows.Clear();
+                Grid.FillWithData(vista, true);
                 //!Data Bound * **!
-                //for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
-                //{
-                //    Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
-                //}
-
+                for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
+                {
+                    Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
+                }
                 for (int i = 0; i < Grid.Rows.Count; i++)
                 {
                     Grid.Rows[i].Cells["nro"].Value = i + 1;
@@ -121,33 +148,24 @@ namespace PurchaseDesktop.Formularios
         {
             if (ValidarControles())
             {
-                OpenFileDialog openF = new OpenFileDialog
-                {
-                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                    //Filter = "pdf files (*.pdf)|*.pdf|All files (*.*)|*.*",
-                    Filter = "pdf files (*.pdf)|*.pdf",
-                    FilterIndex = 2,
-                    RestoreDirectory = true
-                };
-                if (openF.ShowDialog() == DialogResult.OK)
-                {
-                    string serverfolder = @"C:\PurshaseManager\Files\";
-                    serverfolder += $"{Convert.ToInt32(Current["HeaderID"])}";
+                string serverfolder = Properties.Settings.Default.FolderApp;
+                serverfolder += $"{Convert.ToInt32(Current["HeaderID"])}";
 
-                    if (!Directory.Exists(serverfolder))
-                    {
-                        Directory.CreateDirectory(serverfolder);
-                    }
-                    Attaches att = new Attaches
-                    {
-                        Description = TxtName.Text.Trim(),
-                        FileName = openF.FileName.Trim()
-                    };
-                    rFachada.InsertAttach(att, Convert.ToInt32(Current["HeaderID"]));
-                    File.Copy(openF.FileName.Trim(), $"{serverfolder}{@"\"}{openF.SafeFileName}", true);
-                    LlenarGrid();
-                    ClearControles();
+                if (!Directory.Exists(serverfolder))
+                {
+                    Directory.CreateDirectory(serverfolder);
                 }
+                string ext = Path.GetExtension(FilePath); //.pdf
+                Attaches att = new Attaches
+                {
+                    Description = TxtNameFile.Text.Trim(),
+                    FileName = $"{serverfolder}{@"\"}{TxtNameFile.Text.Trim()}{ext}",
+                    Modifier = Convert.ToByte(CboTypeFile.SelectedValue)
+                };
+                rFachada.InsertAttach(att, Convert.ToInt32(Current["HeaderID"]));
+                File.Copy(FilePath, $"{serverfolder}{@"\"}{TxtNameFile.Text.Trim()}{ext}", true);
+                LlenarGrid();
+                ClearControles();
             }
         }
 
@@ -156,12 +174,10 @@ namespace PurchaseDesktop.Formularios
             Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
         }
 
-
         private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
-
             Grid.DrawAsFocused = true;
-            var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
                 if (rFachada.BorrarAdjunto(current, Current))
@@ -227,6 +243,23 @@ namespace PurchaseDesktop.Formularios
         public void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void TxtPathFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openF = new OpenFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                Filter = "All files (*.*)|*.*|pdf files (*.pdf)|*.pdf",
+                //Filter = "pdf files (*.pdf)|*.pdf",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
+            if (openF.ShowDialog() == DialogResult.OK)
+            {
+                FilePath = openF.FileName.Trim();
+                TxtPathFile.Text = FilePath;
+            }
         }
     }
 }

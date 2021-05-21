@@ -40,5 +40,14 @@ namespace PurchaseDesktop.Properties {
                 return ((string)(this["Password"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\PurshaseManager\\Files\\")]
+        public string FolderApp {
+            get {
+                return ((string)(this["FolderApp"]));
+            }
+        }
     }
 }

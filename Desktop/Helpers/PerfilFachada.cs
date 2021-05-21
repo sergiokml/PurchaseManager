@@ -39,8 +39,6 @@ namespace PurchaseDesktop.Helpers
             val.CurrentUser = user;
         }
 
-
-
         #region Cargar Controles
 
         public void CargarGrid(iGrid grid, string form)
@@ -154,7 +152,7 @@ namespace PurchaseDesktop.Helpers
 
         public void OPenDetailForm(DataRow dr)
         {
-            var f = new FDetails(this, dr)
+            FDetails f = new FDetails(this, dr)
             {
                 ShowInTaskbar = false,
                 StartPosition = FormStartPosition.CenterScreen
@@ -183,7 +181,7 @@ namespace PurchaseDesktop.Helpers
         }
         public bool OpenAttachForm(DataRow dr)
         {
-            var f = new FAttach(this, dr)
+            FAttach f = new FAttach(this, dr)
             {
                 ShowInTaskbar = false,
                 StartPosition = FormStartPosition.CenterScreen
@@ -262,7 +260,7 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.UPO:
                     break;
                 case Perfiles.UPR:
-                    return perfilPr.VistaFDetalles(td, Convert.ToInt32(headerDR["HeaderID"]));
+                    return perfilPr.VistaFAdjuntos(td, Convert.ToInt32(headerDR["HeaderID"]));
                 case Perfiles.VAL:
                     break;
             }
@@ -313,7 +311,7 @@ namespace PurchaseDesktop.Helpers
         }
         private bool ValidarOrderHeader(DataRow headerDR)
         {
-            var res = headerDR["Description"].ToString();
+            string res = headerDR["Description"].ToString();
             if (string.IsNullOrEmpty(headerDR["Description"].ToString()))
             {
                 return false;
@@ -386,7 +384,7 @@ namespace PurchaseDesktop.Helpers
 
         public bool UpdateItem(object newValue, DataRow headerDR, string campo)
         {
-            var status = Convert.ToInt32(headerDR["StatusID"]);
+            int status = Convert.ToInt32(headerDR["StatusID"]);
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -415,7 +413,7 @@ namespace PurchaseDesktop.Helpers
                 //break;
 
                 case Perfiles.UPR:
-                    var pr = new RequisitionHeader().GetById(Convert.ToInt32(headerDR["HeaderID"]));
+                    RequisitionHeader pr = new RequisitionHeader().GetById(Convert.ToInt32(headerDR["HeaderID"]));
                     if (status == 1)
                     {
                         switch (campo)
@@ -444,7 +442,7 @@ namespace PurchaseDesktop.Helpers
 
         public bool DeleteItem(DataRow headerDR)
         {
-            var status = Convert.ToInt32(headerDR["StatusID"]);
+            int status = Convert.ToInt32(headerDR["StatusID"]);
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             switch (currentPerfil)
             {
@@ -528,38 +526,68 @@ namespace PurchaseDesktop.Helpers
                 default:
                     break;
             }
-            //switch (user.UserProfiles.ProfileID)
-            //{
-            //    case "ADM":
-            //        break;
-            //    case "BAS":
-            //        break;
-            //    case "UPO":
-            //        //if (orderHeader.StatusID < 6)
-            //        //{
-            //        //    perfilPo.DeleteOrderDetail(orderHeader, idDetail, userDB);
-            //        //    return true;
-            //        //}
-            //        break;
-
-            //    case "UPR":
-            //        if (Convert.ToInt32(drH["StatusID"]) <= 2)
-            //        {
-            //            perfilPr.Current = drD;
-            //            perfilPr.DeleteDetail(user);
-            //            return true;
-            //        }
-            //        break;
-            //    case "VAL":
-            //        break;
-            //}
-
             return false;
         }
 
         #endregion
 
+        #region Attach CRUD
 
+        public bool InsertAttach(Attaches item, int headerDR)
+        {
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    break;
+                case Perfiles.UPR:
+                    perfilPr.InsertAttach(item, headerDR);
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+        public bool BorrarAdjunto(DataRow attachDR, DataRow headerDR)
+        {
+            int status = Convert.ToInt32(headerDR["StatusID"]);
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    //if (status.StatusID < 6)
+                    //{
+                    //    var id = Convert.ToInt32(dataRow["DetailID"]);
+                    //    perfilPo.DeleteDetail(orderHeader, idDetail, userDB);
+                    //    return true;
+                    //}
+                    break;
+                case Perfiles.UPR:
+                    if (status == 1)
+                    {
+                        perfilPr.DeleteAttach(Convert.ToInt32(headerDR["HeaderID"]), Convert.ToInt32(attachDR["AttachID"]));
+                        return true;
+                    }
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+
+
+            return false;
+        }
+
+        #endregion
 
 
         public bool GridDobleClick(DataRow dr)
@@ -572,7 +600,7 @@ namespace PurchaseDesktop.Helpers
                     break;
                 case Perfiles.UPO:
 
-                    var po = new OrderHeader
+                    OrderHeader po = new OrderHeader
                     {
                         Type = Convert.ToByte(dr["Type"]),
                         StatusID = 1,
@@ -619,40 +647,6 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
-        public bool BorrarAdjunto(DataRow dr, DataRow drHeader)
-        {
-            switch (currentPerfil)
-            {
-                case Perfiles.ADM:
-                    break;
-                case Perfiles.BAS:
-                    break;
-                case Perfiles.UPO:
-                    //if (status.StatusID < 6)
-                    //{
-                    //    var id = Convert.ToInt32(dataRow["DetailID"]);
-                    //    perfilPo.DeleteDetail(orderHeader, idDetail, userDB);
-                    //    return true;
-                    //}
-                    break;
-                case Perfiles.UPR:
-                    if (Convert.ToSByte(dr["StatusID"]) < 6)
-                    {
-                        //perfilPr.DeleteAttach(Convert.ToSByte(dr["HeaderID"]), Convert.ToInt32(dr["AttachID"]));
-                        return true;
-                    }
-                    break;
-                case Perfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-
-
-            return false;
-        }
-
-
         public bool OpenSupplierForm(DataRow dataRow)
         {
             //switch (user.UserProfiles.ProfileID)
@@ -678,26 +672,6 @@ namespace PurchaseDesktop.Helpers
             //        break;
             //    case "UPR":
             //        break;
-            //    case "VAL":
-            //        break;
-            //}
-            return false;
-        }
-
-        public bool InsertAttach(Attaches item, int id)
-        {
-            //switch (user.UserProfiles.ProfileID)
-            //{
-            //    case "ADM":
-            //        break;
-            //    case "BAS":
-            //        break;
-            //    case "UPO":
-
-            //        break;
-            //    case "UPR":
-            //        perfilPr.InsertAttach(id, item, user);
-            //        return true;
             //    case "VAL":
             //        break;
             //}
@@ -802,6 +776,7 @@ namespace PurchaseDesktop.Helpers
             //}
             return string.Empty;
         }
+
         public iGDropDownList CargarComBox(DataRow dataRow)
         {
             //switch (user.UserProfiles.ProfileID)

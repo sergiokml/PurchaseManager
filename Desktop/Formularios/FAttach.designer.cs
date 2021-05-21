@@ -34,10 +34,14 @@ namespace PurchaseDesktop.Formularios
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties5 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties6 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties7 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties8 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.LabelPanel = new System.Windows.Forms.Label();
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
-            this.TxtName = new Bunifu.UI.WinForms.BunifuTextBox();
+            this.TxtPathFile = new Bunifu.UI.WinForms.BunifuTextBox();
             this.FDock = new Bunifu.UI.WinForms.BunifuFormDock();
             this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.BtnNewDetail = new Bunifu.UI.WinForms.BunifuImageButton();
@@ -46,6 +50,8 @@ namespace PurchaseDesktop.Formularios
             this.iGrid1DefaultCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.iGrid1DefaultColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.iGrid1RowTextColCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
+            this.CboTypeFile = new System.Windows.Forms.ComboBox();
+            this.TxtNameFile = new Bunifu.UI.WinForms.BunifuTextBox();
             this.PanelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
             this.SuspendLayout();
@@ -64,13 +70,13 @@ namespace PurchaseDesktop.Formularios
             // LabelPanel
             // 
             this.LabelPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelPanel.ForeColor = System.Drawing.Color.White;
             this.LabelPanel.Location = new System.Drawing.Point(0, 0);
             this.LabelPanel.Name = "LabelPanel";
-            this.LabelPanel.Size = new System.Drawing.Size(160, 25);
+            this.LabelPanel.Size = new System.Drawing.Size(87, 25);
             this.LabelPanel.TabIndex = 28;
-            this.LabelPanel.Text = "Attachment ";
+            this.LabelPanel.Text = "Attachments";
             this.LabelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // BtnCerrar
@@ -109,79 +115,81 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar.ZoomSpeed = 10;
             this.BtnCerrar.Click += new System.EventHandler(this.BtnCerrar_Click);
             // 
-            // TxtName
+            // TxtPathFile
             // 
-            this.TxtName.AcceptsReturn = false;
-            this.TxtName.AcceptsTab = false;
-            this.TxtName.AnimationSpeed = 200;
-            this.TxtName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
-            this.TxtName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            this.TxtName.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtName.BackgroundImage")));
-            this.TxtName.BorderColorActive = System.Drawing.Color.DodgerBlue;
-            this.TxtName.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.TxtName.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            this.TxtName.BorderColorIdle = System.Drawing.Color.Silver;
-            this.TxtName.BorderRadius = 1;
-            this.TxtName.BorderThickness = 1;
-            this.TxtName.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.TxtName.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtName.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
-            this.TxtName.DefaultText = "";
-            this.TxtName.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            this.TxtName.HideSelection = true;
-            this.TxtName.IconLeft = null;
-            this.TxtName.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtName.IconPadding = 10;
-            this.TxtName.IconRight = null;
-            this.TxtName.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtName.Lines = new string[0];
-            this.TxtName.Location = new System.Drawing.Point(12, 43);
-            this.TxtName.MaxLength = 32767;
-            this.TxtName.MinimumSize = new System.Drawing.Size(1, 1);
-            this.TxtName.Modified = false;
-            this.TxtName.Multiline = false;
-            this.TxtName.Name = "TxtName";
+            this.TxtPathFile.AcceptsReturn = false;
+            this.TxtPathFile.AcceptsTab = false;
+            this.TxtPathFile.AnimationSpeed = 200;
+            this.TxtPathFile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.TxtPathFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.TxtPathFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.TxtPathFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtPathFile.BackgroundImage")));
+            this.TxtPathFile.BorderColorActive = System.Drawing.Color.DodgerBlue;
+            this.TxtPathFile.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.TxtPathFile.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            this.TxtPathFile.BorderColorIdle = System.Drawing.Color.Silver;
+            this.TxtPathFile.BorderRadius = 1;
+            this.TxtPathFile.BorderThickness = 1;
+            this.TxtPathFile.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.TxtPathFile.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtPathFile.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtPathFile.DefaultText = "";
+            this.TxtPathFile.Enabled = false;
+            this.TxtPathFile.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.TxtPathFile.HideSelection = true;
+            this.TxtPathFile.IconLeft = null;
+            this.TxtPathFile.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtPathFile.IconPadding = 1;
+            this.TxtPathFile.IconRight = global::PurchaseDesktop.Properties.Resources.icons8_browse_folder_32;
+            this.TxtPathFile.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtPathFile.Lines = new string[0];
+            this.TxtPathFile.Location = new System.Drawing.Point(12, 86);
+            this.TxtPathFile.MaxLength = 32767;
+            this.TxtPathFile.MinimumSize = new System.Drawing.Size(1, 1);
+            this.TxtPathFile.Modified = false;
+            this.TxtPathFile.Multiline = false;
+            this.TxtPathFile.Name = "TxtPathFile";
             stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
             stateProperties1.FillColor = System.Drawing.Color.Empty;
             stateProperties1.ForeColor = System.Drawing.Color.Empty;
             stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtName.OnActiveState = stateProperties1;
+            this.TxtPathFile.OnActiveState = stateProperties1;
             stateProperties2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             stateProperties2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             stateProperties2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             stateProperties2.PlaceholderForeColor = System.Drawing.Color.DarkGray;
-            this.TxtName.OnDisabledState = stateProperties2;
+            this.TxtPathFile.OnDisabledState = stateProperties2;
             stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
             stateProperties3.FillColor = System.Drawing.Color.Empty;
             stateProperties3.ForeColor = System.Drawing.Color.Empty;
             stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtName.OnHoverState = stateProperties3;
+            this.TxtPathFile.OnHoverState = stateProperties3;
             stateProperties4.BorderColor = System.Drawing.Color.Silver;
             stateProperties4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             stateProperties4.ForeColor = System.Drawing.Color.Empty;
             stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtName.OnIdleState = stateProperties4;
-            this.TxtName.Padding = new System.Windows.Forms.Padding(3);
-            this.TxtName.PasswordChar = '\0';
-            this.TxtName.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.TxtName.PlaceholderText = "Enter text";
-            this.TxtName.ReadOnly = false;
-            this.TxtName.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.TxtName.SelectedText = "";
-            this.TxtName.SelectionLength = 0;
-            this.TxtName.SelectionStart = 0;
-            this.TxtName.ShortcutsEnabled = true;
-            this.TxtName.Size = new System.Drawing.Size(247, 30);
-            this.TxtName.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
-            this.TxtName.TabIndex = 8;
-            this.TxtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.TxtName.TextMarginBottom = 0;
-            this.TxtName.TextMarginLeft = 3;
-            this.TxtName.TextMarginTop = 0;
-            this.TxtName.TextPlaceholder = "Enter text";
-            this.TxtName.UseSystemPasswordChar = false;
-            this.TxtName.WordWrap = true;
+            this.TxtPathFile.OnIdleState = stateProperties4;
+            this.TxtPathFile.Padding = new System.Windows.Forms.Padding(3);
+            this.TxtPathFile.PasswordChar = '\0';
+            this.TxtPathFile.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.TxtPathFile.PlaceholderText = "Click for search the file...";
+            this.TxtPathFile.ReadOnly = false;
+            this.TxtPathFile.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.TxtPathFile.SelectedText = "";
+            this.TxtPathFile.SelectionLength = 0;
+            this.TxtPathFile.SelectionStart = 0;
+            this.TxtPathFile.ShortcutsEnabled = true;
+            this.TxtPathFile.Size = new System.Drawing.Size(355, 25);
+            this.TxtPathFile.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
+            this.TxtPathFile.TabIndex = 8;
+            this.TxtPathFile.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.TxtPathFile.TextMarginBottom = 0;
+            this.TxtPathFile.TextMarginLeft = 3;
+            this.TxtPathFile.TextMarginTop = 0;
+            this.TxtPathFile.TextPlaceholder = "Click for search the file...";
+            this.TxtPathFile.UseSystemPasswordChar = false;
+            this.TxtPathFile.WordWrap = true;
+            this.TxtPathFile.Click += new System.EventHandler(this.TxtPathFile_Click);
             // 
             // FDock
             // 
@@ -259,7 +267,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail.ImageSize = new System.Drawing.Size(40, 40);
             this.BtnNewDetail.ImageZoomSize = new System.Drawing.Size(60, 60);
             this.BtnNewDetail.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.InitialImage")));
-            this.BtnNewDetail.Location = new System.Drawing.Point(303, 29);
+            this.BtnNewDetail.Location = new System.Drawing.Point(307, 24);
             this.BtnNewDetail.Name = "BtnNewDetail";
             this.BtnNewDetail.Rotation = 0;
             this.BtnNewDetail.ShowActiveImage = true;
@@ -269,7 +277,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail.Size = new System.Drawing.Size(60, 60);
             this.BtnNewDetail.TabIndex = 27;
             this.BtnNewDetail.TabStop = false;
-            this.BtnNewDetail.ToolTipText = "";
+            this.BtnNewDetail.ToolTipText = "Save File";
             this.BtnNewDetail.WaitOnLoad = false;
             this.BtnNewDetail.Zoom = 20;
             this.BtnNewDetail.ZoomSpeed = 10;
@@ -297,12 +305,97 @@ namespace PurchaseDesktop.Formularios
             this.Grid.DefaultCol.ColHdrStyle = this.iGrid1DefaultColHdrStyle;
             this.Grid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Grid.Header.Height = 16;
-            this.Grid.Location = new System.Drawing.Point(0, 107);
+            this.Grid.Location = new System.Drawing.Point(0, 117);
             this.Grid.Name = "Grid";
-            this.Grid.Size = new System.Drawing.Size(379, 156);
+            this.Grid.Size = new System.Drawing.Size(379, 146);
             this.Grid.TabIndex = 29;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
+            // 
+            // CboTypeFile
+            // 
+            this.CboTypeFile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.CboTypeFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CboTypeFile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboTypeFile.FormattingEnabled = true;
+            this.CboTypeFile.Location = new System.Drawing.Point(193, 44);
+            this.CboTypeFile.Name = "CboTypeFile";
+            this.CboTypeFile.Size = new System.Drawing.Size(99, 21);
+            this.CboTypeFile.TabIndex = 30;
+            // 
+            // TxtNameFile
+            // 
+            this.TxtNameFile.AcceptsReturn = false;
+            this.TxtNameFile.AcceptsTab = false;
+            this.TxtNameFile.AnimationSpeed = 200;
+            this.TxtNameFile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.TxtNameFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.TxtNameFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.TxtNameFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtNameFile.BackgroundImage")));
+            this.TxtNameFile.BorderColorActive = System.Drawing.Color.DodgerBlue;
+            this.TxtNameFile.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.TxtNameFile.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            this.TxtNameFile.BorderColorIdle = System.Drawing.Color.Silver;
+            this.TxtNameFile.BorderRadius = 1;
+            this.TxtNameFile.BorderThickness = 1;
+            this.TxtNameFile.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.TxtNameFile.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtNameFile.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtNameFile.DefaultText = "";
+            this.TxtNameFile.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.TxtNameFile.HideSelection = true;
+            this.TxtNameFile.IconLeft = null;
+            this.TxtNameFile.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtNameFile.IconPadding = 10;
+            this.TxtNameFile.IconRight = null;
+            this.TxtNameFile.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtNameFile.Lines = new string[0];
+            this.TxtNameFile.Location = new System.Drawing.Point(12, 42);
+            this.TxtNameFile.MaxLength = 32767;
+            this.TxtNameFile.MinimumSize = new System.Drawing.Size(1, 1);
+            this.TxtNameFile.Modified = false;
+            this.TxtNameFile.Multiline = false;
+            this.TxtNameFile.Name = "TxtNameFile";
+            stateProperties5.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties5.FillColor = System.Drawing.Color.Empty;
+            stateProperties5.ForeColor = System.Drawing.Color.Empty;
+            stateProperties5.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtNameFile.OnActiveState = stateProperties5;
+            stateProperties6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            stateProperties6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            stateProperties6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            stateProperties6.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.TxtNameFile.OnDisabledState = stateProperties6;
+            stateProperties7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties7.FillColor = System.Drawing.Color.Empty;
+            stateProperties7.ForeColor = System.Drawing.Color.Empty;
+            stateProperties7.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtNameFile.OnHoverState = stateProperties7;
+            stateProperties8.BorderColor = System.Drawing.Color.Silver;
+            stateProperties8.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            stateProperties8.ForeColor = System.Drawing.Color.Empty;
+            stateProperties8.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtNameFile.OnIdleState = stateProperties8;
+            this.TxtNameFile.Padding = new System.Windows.Forms.Padding(3);
+            this.TxtNameFile.PasswordChar = '\0';
+            this.TxtNameFile.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.TxtNameFile.PlaceholderText = "Enter Name File";
+            this.TxtNameFile.ReadOnly = false;
+            this.TxtNameFile.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.TxtNameFile.SelectedText = "";
+            this.TxtNameFile.SelectionLength = 0;
+            this.TxtNameFile.SelectionStart = 0;
+            this.TxtNameFile.ShortcutsEnabled = true;
+            this.TxtNameFile.Size = new System.Drawing.Size(164, 25);
+            this.TxtNameFile.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
+            this.TxtNameFile.TabIndex = 31;
+            this.TxtNameFile.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.TxtNameFile.TextMarginBottom = 0;
+            this.TxtNameFile.TextMarginLeft = 3;
+            this.TxtNameFile.TextMarginTop = 0;
+            this.TxtNameFile.TextPlaceholder = "Enter Name File";
+            this.TxtNameFile.UseSystemPasswordChar = false;
+            this.TxtNameFile.WordWrap = true;
             // 
             // FAttach
             // 
@@ -310,12 +403,14 @@ namespace PurchaseDesktop.Formularios
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(379, 264);
+            this.Controls.Add(this.TxtNameFile);
+            this.Controls.Add(this.CboTypeFile);
             this.Controls.Add(this.Grid);
             this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.bunifuSeparator2);
             this.Controls.Add(this.BtnNewDetail);
             this.Controls.Add(this.bunifuSeparator1);
-            this.Controls.Add(this.TxtName);
+            this.Controls.Add(this.TxtPathFile);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FAttach";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -329,7 +424,7 @@ namespace PurchaseDesktop.Formularios
 
         #endregion
         private System.Windows.Forms.Panel PanelHeader;
-        private Bunifu.UI.WinForms.BunifuTextBox TxtName;
+        private Bunifu.UI.WinForms.BunifuTextBox TxtPathFile;
         private Bunifu.UI.WinForms.BunifuFormDock FDock;
         private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator1;
         private Bunifu.UI.WinForms.BunifuImageButton BtnNewDetail;
@@ -340,5 +435,7 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1DefaultCellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle iGrid1DefaultColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1RowTextColCellStyle;
+        private System.Windows.Forms.ComboBox CboTypeFile;
+        private Bunifu.UI.WinForms.BunifuTextBox TxtNameFile;
     }
 }

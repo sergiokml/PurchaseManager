@@ -45,7 +45,15 @@ namespace PurchaseDesktop.Properties {
                 return resourceMan;
             }
         }
-        
+        internal static System.Drawing.Bitmap icons8_browse_folder_32
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("icons8_browse_folder_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
         /// <summary>
         ///   Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
         ///   búsquedas de recursos mediante esta clase de recurso fuertemente tipado.

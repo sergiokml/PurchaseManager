@@ -21,7 +21,8 @@ namespace PurchaseDesktop.Interfaces
 
         //! Insert
         void InsertItemHeader(Companies company, DocumentType type);
-        void InsertDetail<T>(T item, int headerID) where T : class;
+        void InsertDetail<T>(T item, int headerID) where T : class; // Tabla 1:M
+        void InsertAttach(Attaches item, int headerID); // Tabla M:M
 
 
         //! Update
@@ -30,7 +31,8 @@ namespace PurchaseDesktop.Interfaces
 
         //! Delete
         void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID);
-        void DeleteDetail(int headerID, int detailID);
+        void DeleteDetail(int headerID, int detailID); // Tabla 1:M
+        void DeleteAttach(int headerID, int attachID);
 
 
         //! Auxiliar => sirve para UNIR el rContext + Clase Abastracta.       
