@@ -120,19 +120,16 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="TxtRut.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAGkAAAAZCAYAAAAyoAD7AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB0SURBVGhD7dGxCcBADARB9V+VHpXhMlyAH4ESd6CFXbjk
-        0gmDVFVPZn5u19pliCL6sH21yxCJtDWRAIkESCRAIgESCZBIgEQCJBIgkQCJBEgkQCIBEgmQSIBEAiQS
-        IJEAiQRIJEA/pHPO24fbtXYZIttdxAUN9im5xQ+NEgAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAAHAAAAAZCAYAAADpG6rZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAqSURBVGhD7cMBDQAwCAOw+zfFnAE2TtqkDwAAAAAAAAAA
+        AIAbktRuf5weeatrYHl4qtAAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="TxtAddress.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAUIAAAAZCAYAAABEkyccAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACNSURBVHhe7dQxDQMxAARB80dlyzAeRgAkseTmMeyMdM0B
-        2AHA3977mXN+zcxKO+27GRzjHAA1p303g0IINAkhkCeEQJ4QAnlCCOQJIZAnhECeEAJ5QgjkCSGQJ4RA
-        nhACeUII5AkhkCeEQJ4QAnlCCOQJIZAnhECeEAJ5rxCutT7nMDMr7bTvZhCgbIwfQm2bx8fb+mUAAAAA
-        SUVORK5CYII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA9SURBVHhe7cMBDQAACAMg+5fyzdQewkYBAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAB/JOk7qj9nFtp1FTtU1nEiAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="BtnNewDetail.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -632,26 +629,22 @@
   <data name="TxtName.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQEAAAAZCAYAAAAxHpu/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACHSURBVHhe7dSxDQMxDARB9l+VHirDZbgAPwQocQ07A1zC
-        nDsAs/f+rLV+ZtbZ+fubgJlzAFrO398EiAAUiQDEiQDEiQDEiQDEiQDEiQDEiQDEiQDEiQDEiQDEiQDE
-        iQDEiQDEiQDEiQDEiQDEiQDEiQDEiQDE/UXgeZ7vOZhZZ+fvbwKArpkXboW1xEDYCGQAAAAASUVORK5C
-        YII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA4SURBVHhe7cMBDQAwCAOw+zfFnAE2HtqkDwAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAA+FeS2q1enB4LMEItCDmyIwAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="TxtEmail.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAKUAAAAZCAYAAABQI+7UAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB+SURBVHhe7dIxDQMxAARB80fll2EERgDkZclNEHiLGema
-        q3dA0lrrM+f8md3c7vAkOcY+4Lbd4UlSlDSIkhxRkiNKckRJjijJESU5oiRHlOSIkhxRkiNKckRJjijJ
-        ESU5oiRHlOSIkhxRkiNKcv6ifJ7nuw+zm9sdniShZIwXUbpMzHrC8IoAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAAK0AAAAZCAYAAABD9K4gAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAxSURBVHhe7cMBCQBACASw71/Ka6a2eIQN9gAAAAAAAAAA
+        AAAAAAAAAAB+SVK79cb0AJ2BMXJshsCbAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="TxtNroAccount.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAKUAAAAZCAYAAABQI+7UAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB+SURBVHhe7dIxDQMxAARB80fll2EERgDkZclNEHiLGema
-        q3dA0lrrM+f8md3c7vAkOcY+4Lbd4UlSlDSIkhxRkiNKckRJjijJESU5oiRHlOSIkhxRkiNKckRJjijJ
-        ESU5oiRHlOSIkhxRkiNKcv6ifJ7nuw+zm9sdniShZIwXUbpMzHrC8IoAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAAMMAAAAZCAYAAACM2prjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAySURBVHhe7cMBDQAwCAOw+zfFnAE2HtqkDwAAAAAAAAAA
+        AAAAAAAAAAAA4BdJarfenh4IgXjcpVbY4gAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="BtnCerrar.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

@@ -102,13 +102,14 @@
     <Compile Include="DataModel\Attaches.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\DAPurchaseManagerContext.cs" />
     <Compile Include="DataModel\Companies.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Currencies.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\DAMedidas.cs" />
+    <Compile Include="DataModel\DAPurchaseManagerContext.cs" />
     <Compile Include="DataModel\DAAccounts.cs" />
     <Compile Include="DataModel\DAOrderDetails.cs" />
     <Compile Include="DataModel\DAOrderHeader.cs" />
@@ -121,6 +122,9 @@
     <Compile Include="DataModel\DASuppliers.cs" />
     <Compile Include="DataModel\DACompany.cs" />
     <Compile Include="DataModel\DAUserDB.cs" />
+    <Compile Include="DataModel\Medidas.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\Modelo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -175,22 +179,10 @@
     <Compile Include="DataModel\Transactions.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\ufnGetOrderGroupByStatus1_Result.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\ufnGetOrderGroupByStatus_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\ufnGetOrderGroupByStatus_Result1.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\ufnGetReqGroupByCost1_Result.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\ufnGetReqGroupByCost_Result.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\ufnGetReqGroupByCost_Result1.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\UserCosts.cs">
@@ -243,6 +235,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DataModel\Modelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Modelo.edmx</DependentUpon>
@@ -253,12 +251,6 @@
       <DependentUpon>Modelo.edmx</DependentUpon>
       <LastGenOutput>Modelo.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -22,8 +22,10 @@ namespace PurchaseData.DataModel
         public int Price { get; set; }
         public int Total { get; set; }
         public string AccountID { get; set; }
+        public string MedidaID { get; set; }
     
         public virtual Accounts Accounts { get; set; }
+        public virtual Medidas Medidas { get; set; }
         public virtual OrderHeader OrderHeader { get; set; }
     }
 }

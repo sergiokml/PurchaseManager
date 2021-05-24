@@ -6,7 +6,7 @@ namespace PurchaseData.DataModel
     {
         public int GetListByStatus()
         {
-            using (var contextDB = new PurchaseManagerContext())
+            using (var contextDB = new PurchaseManagerEntities())
             {
                 return contextDB.RequisitionHeader.Where(c => c.StatusID == 2).Count();
             }
@@ -14,7 +14,7 @@ namespace PurchaseData.DataModel
 
         public RequisitionHeader GetById(int id)
         {
-            using (var contextDB = new PurchaseManagerContext())
+            using (var contextDB = new PurchaseManagerEntities())
             {
                 return contextDB.RequisitionHeader.Find(id);
             }

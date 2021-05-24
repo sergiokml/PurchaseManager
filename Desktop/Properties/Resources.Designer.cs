@@ -45,6 +45,23 @@ namespace PurchaseDesktop.Properties {
                 return resourceMan;
             }
         }
+        internal static System.Drawing.Icon icons8_data_transfer
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("icons8_data_transfer", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        
+        }
+        internal static System.Drawing.Bitmap icons8_data_transfer_16
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("icons8_data_transfer_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
         internal static System.Drawing.Bitmap icons8_browse_folder_32
         {
             get

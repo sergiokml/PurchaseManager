@@ -29,5 +29,6 @@ namespace PurchaseData.DataModel
         public string CompanyCode { get; set; }
         public string Status { get; set; }
         public string TypeDocumentHeader { get; set; }
+        public Nullable<int> DetailsCount { get; set; }
     }
 }

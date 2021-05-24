@@ -5,11 +5,16 @@ namespace PurchaseData.DataModel
 {
     public partial class RequisitionDetails
     {
-        public List<RequisitionStatus> GetList()
+        public List<RequisitionDetails> GetListByID(int id)
         {
-            using (var contextDB = new PurchaseManagerContext())
+            using (var contextDB = new PurchaseManagerEntities())
             {
-                return contextDB.RequisitionStatus.ToList();
+                var lista = contextDB.RequisitionDetails.Where(c => c.HeaderID == id).ToList();
+                foreach (var item in lista)
+                {
+                    contextDB.Entry(item).Reference(c => c.Accounts).Load();
+                }
+                return lista;
             }
         }
 

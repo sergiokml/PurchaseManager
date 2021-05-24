@@ -779,6 +779,7 @@ namespace PurchaseDesktop.Formularios
             this.Grid.CellDoubleClick += new TenTec.Windows.iGridLib.iGCellDoubleClickEventHandler(this.Grid_CellDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
             this.Grid.CurCellChangeRequest += new TenTec.Windows.iGridLib.iGCurCellChangeRequestEventHandler(this.Grid_CurCellChangeRequest);
+            this.Grid.AfterAutoGroupRowCreated += new TenTec.Windows.iGridLib.iGAfterAutoGroupRowCreatedEventHandler(this.Grid_AfterAutoGroupRowCreated);
             // 
             // GridCol0CellStyle
             // 
@@ -886,6 +887,7 @@ namespace PurchaseDesktop.Formularios
             this.CtxMenu.Name = "contextMenuStrip1";
             this.CtxMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.CtxMenu.Size = new System.Drawing.Size(181, 26);
+            this.CtxMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMenu_ItemClicked);
             // 
             // FPrincipal
             // 
@@ -954,7 +956,6 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGCellStyle GridCol16CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol16ColHdrStyle;
         private System.Windows.Forms.Label LabelPanel;
-        private System.Windows.Forms.Label LblMsg;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol19CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol19ColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol18CellStyle2;
@@ -995,6 +996,7 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.Panel PanelHechizo;
         private System.Windows.Forms.Panel PanelHechizoBanner;
         private System.Windows.Forms.ContextMenuStrip CtxMenu;
+        private System.Windows.Forms.Label LblMsg;
     }
 }
 

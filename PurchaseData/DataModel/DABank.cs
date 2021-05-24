@@ -7,7 +7,7 @@ namespace PurchaseData.DataModel
     {
         public List<SupplierBanks> GetList()
         {
-            using (var contextDB = new PurchaseManagerContext())
+            using (var contextDB = new PurchaseManagerEntities())
             {
                 return contextDB.SupplierBanks.ToList();
             }

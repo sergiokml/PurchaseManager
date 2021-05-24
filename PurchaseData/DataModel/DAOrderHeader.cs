@@ -4,7 +4,7 @@
     {
         public OrderHeader GetById(int id)
         {
-            using (var contextDB = new PurchaseManagerContext())
+            using (var contextDB = new PurchaseManagerEntities())
             {
                 return contextDB.OrderHeader.Find(id);
             }

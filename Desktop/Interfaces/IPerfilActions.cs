@@ -20,19 +20,23 @@ namespace PurchaseDesktop.Interfaces
 
 
         //! Insert
-        void InsertItemHeader(Companies company, DocumentType type);
-        void InsertDetail<T>(T item, int headerID) where T : class; // Tabla 1:M
+        void InsertPRHeader(RequisitionHeader item);
+        void InsertPOHeader(OrderHeader item);
+        void InsertDetail<T>(T item, int headerID); // Tabla 1:M
         void InsertAttach(Attaches item, int headerID); // Tabla M:M
 
-
         //! Update
-        void UpdateItemHeader<T>(T item, int headerID);
+        void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item, int headerID);
 
 
         //! Delete
         void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID);
-        void DeleteDetail(int headerID, int detailID); // Tabla 1:M
+        void DeleteDetail(TypeDocumentHeader headerTD, int headerID, int detailID); // Tabla 1:M
         void DeleteAttach(int headerID, int attachID);
+
+        //! Select
+        //!(Para no poner funciones en las partial Clases)
+        //List<RequisitionDetails> SelectDetails(int headerID);
 
 
         //! Auxiliar => sirve para UNIR el rContext + Clase Abastracta.       

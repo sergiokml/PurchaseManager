@@ -7,7 +7,7 @@ namespace PurchaseData.DataModel
     {
         public List<OrderStatus> GetList()
         {
-            using (var contextDB = new PurchaseManagerContext())
+            using (var contextDB = new PurchaseManagerEntities())
             {
                 return contextDB.OrderStatus.ToList();
             }

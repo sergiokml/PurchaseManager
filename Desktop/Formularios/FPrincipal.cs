@@ -32,6 +32,10 @@ namespace PurchaseDesktop.Formularios
             InitializeComponent();
         }
 
+        public FPrincipal()
+        {
+        }
+
         private void BtnInsert_Click(object sender, EventArgs e)
         {
             //! Validar Controles
@@ -81,7 +85,7 @@ namespace PurchaseDesktop.Formularios
             LlenarGrid();
 
             //! Otros
-            var user = rFachada.CurrentUser();
+            Users user = rFachada.CurrentUser();
             LblUser.Text = $"User: {user.FirstName} {user.LastName} | Profile: {user.ProfileID} | email: {user.Email}";
 
             //! Banner
@@ -97,7 +101,7 @@ namespace PurchaseDesktop.Formularios
             TimerMsg.Tick += (object d, EventArgs f) =>
             {
                 //! DashBoard
-                //CargarDashboard();
+                CargarDashboard();
                 SetControles();
                 PanelHechizo.Visible = false;
                 PanelHechizoBanner.Visible = false;
@@ -115,7 +119,7 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                var vista = rFachada.GetVistaFPrincipal();
+                DataTable vista = rFachada.GetVistaFPrincipal();
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!
@@ -136,8 +140,6 @@ namespace PurchaseDesktop.Formularios
                 Grid.EndUpdate();
             }
         }
-
-
 
         public bool ValidarControles()
         {
@@ -174,13 +176,36 @@ namespace PurchaseDesktop.Formularios
             //{
             if (Grid.Rows.Count > 0)
             {
-                Grid.DefaultAutoGroupRow.Expanded = true;
-                Grid.GroupObject.Add("TypeDocumentHeader");
-                if (Grid.GroupObject.Count > 1)
+                int nPO = 0;
+                int nPR = 0;
+                for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
                 {
+                    if (Grid.Cols["TypeDocumentHeader"].Cells[myRowIndex].Value.ToString() == "PR")
+                    {
+                        nPR++;
+                    }
+                    else if (Grid.Cols["TypeDocumentHeader"].Cells[myRowIndex].Value.ToString() == "PO")
+                    {
+                        nPO++;
+                    }
+                }
+                if (nPO > 0 && nPR > 0)
+                {
+                    Grid.DefaultAutoGroupRow.Expanded = true;
+                    Grid.GroupObject.Add("TypeDocumentHeader");
+                    //if (Grid.GroupObject.Count > 1)
+                    //{
 
                     Grid.Group();
                 }
+                else
+                {
+                    Grid.GroupObject.Clear();
+                    Grid.Group();
+                }
+
+
+                //}
 
             }
             //}
@@ -194,13 +219,13 @@ namespace PurchaseDesktop.Formularios
                 e.Result = iGEditResult.Cancel;
                 return;
             }
-            if (object.Equals(e.NewValue, Grid.Cells[e.RowIndex, e.ColIndex].Value))
+            if (Equals(e.NewValue, Grid.Cells[e.RowIndex, e.ColIndex].Value))
             {
                 return;
             }
             //! Update solo si cambió el dato.
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-            var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (!rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key))
             {
                 e.Result = iGEditResult.Cancel;
@@ -211,19 +236,17 @@ namespace PurchaseDesktop.Formularios
                 LlenarGrid();
                 if (!Grid.Cols[e.ColIndex].Key.Equals("Description") && !Grid.Cols[e.ColIndex].Key.Equals("Type"))
                 {
-                    //todo TESTER
-                    // CargarDashboard();
+                    CargarDashboard();
                 }
                 SetControles();
 
             }
         }
 
-
         private async void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
-            var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
@@ -244,10 +267,16 @@ namespace PurchaseDesktop.Formularios
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
-                Msg(rFachada.VerItemHtml(current), MsgProceso.Error);
-                Grid.Focus();
-                Grid.DrawAsFocused = false;
-                System.Windows.Forms.Cursor.Current = Cursors.Default;
+                if (!rFachada.VerItemHtml(current))
+                {
+                    Grid.Focus();
+                    Grid.DrawAsFocused = false;
+                    System.Windows.Forms.Cursor.Current = Cursors.Default;
+                }
+                else
+                {
+                    Msg("Cannot open the document.", MsgProceso.Error);
+                }
             }
             else if (Grid.Cols["send"].Index == e.ColIndex)
             {
@@ -256,8 +285,8 @@ namespace PurchaseDesktop.Formularios
                     IsSending = true;
                     LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
                     LblMsg.Image = Properties.Resources.loading;
-                    var respuesta = await rFachada.SendItem(current);
-                    if (respuesta == "NODETAILS")
+                    string respuesta = await rFachada.SendItem(current);
+                    if (respuesta == null)
                     {
                         Msg("This requisition has no products.", MsgProceso.Error);
                         IsSending = false;
@@ -338,9 +367,17 @@ namespace PurchaseDesktop.Formularios
         {
             if (Grid.CurCell != null)
             {
-                var current = (DataRow)Grid.CurRow.Tag;
-                rFachada.OPenDetailForm(current);
+                DataRow current = (DataRow)Grid.CurRow.Tag;
+                FDetails f = new FDetails(rFachada, current);
+                f.FormClosed += F_FormClosed;
+                rFachada.OPenDetailForm(f, this);
             }
+        }
+
+        private void F_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            LlenarGrid();
+            SetControles();
         }
 
         private void bunifuImageButton3_Click(object sender, EventArgs e)
@@ -348,7 +385,7 @@ namespace PurchaseDesktop.Formularios
 
         }
 
-        private void Msg(string msg, MsgProceso proceso)
+        public void Msg(string msg, MsgProceso proceso)
         {
             Timer TimerMsg = new Timer
             {
@@ -384,7 +421,7 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-        private enum MsgProceso
+        public enum MsgProceso
         {
             Informacion = 1,
             Error = 2,
@@ -394,15 +431,18 @@ namespace PurchaseDesktop.Formularios
 
         public iGrid GetGrid()
         {
-            throw new NotImplementedException();
+            return Grid;
         }
 
         private void BtnAttach_Click(object sender, EventArgs e)
         {
             if (Grid.CurCell != null)
             {
-                var current = (DataRow)Grid.CurRow.Tag;
-                rFachada.OpenAttachForm(current);
+                DataRow current = (DataRow)Grid.CurRow.Tag;
+                if (!rFachada.OpenAttachForm(current, this))
+                {
+                    Msg("Your profile does not allow this action", MsgProceso.Error);
+                }
             }
         }
 
@@ -410,8 +450,11 @@ namespace PurchaseDesktop.Formularios
         {
             if (Grid.CurCell != null)
             {
-                var current = (DataRow)Grid.CurRow.Tag;
-                rFachada.OpenSupplierForm(current);
+                DataRow current = (DataRow)Grid.CurRow.Tag;
+                if (!rFachada.OpenSupplierForm(current, this))
+                {
+                    Msg("Your profile does not allow this action", MsgProceso.Error);
+                }
             }
         }
 
@@ -433,20 +476,23 @@ namespace PurchaseDesktop.Formularios
 
         public void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e)
         {
-            Cursor.Current = Cursors.Default;
+            System.Windows.Forms.Cursor.Current = Cursors.Default;
         }
 
         private void Grid_CellDoubleClick(object sender, iGCellDoubleClickEventArgs e)
         {
-            if (Grid.CurCell != null)
+            if (Grid.CurCell != null && Grid.CurCell.ColIndex > -1)
             {
-                //var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-                if (rFachada.GridDobleClick(Current))
+                var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                if (current != null)
                 {
-                    LlenarGrid();
-                    //CargarDashboard();
-                    ClearControles();
-                    SetControles();
+                    if (rFachada.GridDobleClick(Current))
+                    {
+                        LlenarGrid();
+                        CargarDashboard();
+                        ClearControles();
+                        SetControles();
+                    }
                 }
             }
         }
@@ -460,11 +506,10 @@ namespace PurchaseDesktop.Formularios
                 if (e.Button == MouseButtons.Right)
                 {
                     Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-                    if (rFachada.ContextMenuStrip(CtxMenu, Current))
+                    if (rFachada.CargarContextMenuStrip(CtxMenu, Current))
                     {
                         CtxMenu.Show(Grid, e.MousePos);
                     }
-
                 }
             }
 
@@ -478,6 +523,41 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.SetCurCell(e.RowIndex, e.ColIndex);
                     e.DoDefault = false;
+                }
+            }
+        }
+
+
+        private void Grid_AfterAutoGroupRowCreated(object sender, iGAfterAutoGroupRowCreatedEventArgs e)
+        {
+            iGCell myGroupRowCell = Grid.RowTextCol.Cells[e.AutoGroupRowIndex];
+            iGCell myFirstCellInGroup = Grid.Cells[e.GroupedRowIndex, e.GroupedColIndex];
+
+            if (Grid.Cols[e.GroupedColIndex].Key == "TypeDocumentHeader")
+            {
+                if (myFirstCellInGroup.Value.ToString() == "PO")
+                {
+                    myGroupRowCell.Value = "Purchase Orders";
+
+                }
+                else if (myFirstCellInGroup.Value.ToString() == "PR")
+                {
+                    myGroupRowCell.Value = "Purchase Requisitions";
+                }
+            }
+
+        }
+
+        private void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Text == "Convert To PO")
+            {
+                if (rFachada.SeleccionarContextMenuStrip(Current, "Convert To PO"))
+                {
+                    LlenarGrid();
+                    CargarDashboard();
+                    ClearControles();
+                    SetControles();
                 }
             }
         }

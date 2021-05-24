@@ -1,15 +1,22 @@
-﻿namespace PurchaseData.DataModel
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace PurchaseData.DataModel
 {
     public partial class OrderDetails
     {
-        //public List<OrderDetails> GetList(int id)
-        //{
-        //    using (var contextDB = new PurchaseManagerContext())
-        //    {
-        //        return contextDB.OrderDetails.Where(c => c.HeaderID == id).ToList();
-        //    }
-        //}
-
+        public List<OrderDetails> GetListByID(int id)
+        {
+            using (var contextDB = new PurchaseManagerEntities())
+            {
+                var lista = contextDB.OrderDetails.Where(c => c.HeaderID == id).ToList();
+                foreach (var item in lista)
+                {
+                    contextDB.Entry(item).Reference(c => c.Accounts).Load();
+                }
+                return lista;
+            }
+        }
         //public void AddDetail(OrderDetails orderDetails, OrderHeader orderHeader)
         //{
         //    //todo ESTO POR QUE NO ESTA EN EL PERFILPR??? 

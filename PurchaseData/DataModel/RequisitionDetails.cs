@@ -20,8 +20,10 @@ namespace PurchaseData.DataModel
         public string DescriptionProduct { get; set; }
         public int Qty { get; set; }
         public string AccountID { get; set; }
+        public string MedidaID { get; set; }
     
         public virtual Accounts Accounts { get; set; }
+        public virtual Medidas Medidas { get; set; }
         public virtual RequisitionHeader RequisitionHeader { get; set; }
     }
 }

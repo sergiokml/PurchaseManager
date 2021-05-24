@@ -64,8 +64,11 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail = new Bunifu.UI.WinForms.BunifuImageButton();
             this.TxtTotal = new Bunifu.UI.WinForms.BunifuTextBox();
             this.bunifuSeparator2 = new Bunifu.UI.WinForms.BunifuSeparator();
+            this.CboMedidas = new System.Windows.Forms.ComboBox();
+            this.PanelFooter = new System.Windows.Forms.Panel();
             this.PanelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
+            this.PanelFooter.SuspendLayout();
             this.SuspendLayout();
             // 
             // PanelHeader
@@ -86,9 +89,9 @@ namespace PurchaseDesktop.Formularios
             this.LabelPanel.ForeColor = System.Drawing.Color.White;
             this.LabelPanel.Location = new System.Drawing.Point(0, 0);
             this.LabelPanel.Name = "LabelPanel";
-            this.LabelPanel.Size = new System.Drawing.Size(160, 25);
+            this.LabelPanel.Size = new System.Drawing.Size(181, 25);
             this.LabelPanel.TabIndex = 28;
-            this.LabelPanel.Text = "Details";
+            this.LabelPanel.Text = "Details of Products/Services";
             this.LabelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // BtnCerrar
@@ -171,9 +174,9 @@ namespace PurchaseDesktop.Formularios
             // 
             this.Grid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Grid.Header.Height = 16;
-            this.Grid.Location = new System.Drawing.Point(0, 128);
+            this.Grid.Location = new System.Drawing.Point(0, 120);
             this.Grid.Name = "Grid";
-            this.Grid.Size = new System.Drawing.Size(474, 191);
+            this.Grid.Size = new System.Drawing.Size(474, 168);
             this.Grid.TabIndex = 18;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
@@ -195,7 +198,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPrice.BorderThickness = 1;
             this.TxtPrice.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtPrice.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtPrice.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtPrice.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtPrice.DefaultText = "";
             this.TxtPrice.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtPrice.HideSelection = true;
@@ -205,8 +208,8 @@ namespace PurchaseDesktop.Formularios
             this.TxtPrice.IconRight = null;
             this.TxtPrice.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtPrice.Lines = new string[0];
-            this.TxtPrice.Location = new System.Drawing.Point(376, 31);
-            this.TxtPrice.MaxLength = 32767;
+            this.TxtPrice.Location = new System.Drawing.Point(277, 93);
+            this.TxtPrice.MaxLength = 9;
             this.TxtPrice.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtPrice.Modified = false;
             this.TxtPrice.Multiline = false;
@@ -241,16 +244,17 @@ namespace PurchaseDesktop.Formularios
             this.TxtPrice.SelectionLength = 0;
             this.TxtPrice.SelectionStart = 0;
             this.TxtPrice.ShortcutsEnabled = true;
-            this.TxtPrice.Size = new System.Drawing.Size(95, 25);
+            this.TxtPrice.Size = new System.Drawing.Size(93, 25);
             this.TxtPrice.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtPrice.TabIndex = 24;
             this.TxtPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtPrice.TextMarginBottom = 0;
-            this.TxtPrice.TextMarginLeft = 3;
+            this.TxtPrice.TextMarginLeft = 1;
             this.TxtPrice.TextMarginTop = 0;
             this.TxtPrice.TextPlaceholder = "$ Price";
             this.TxtPrice.UseSystemPasswordChar = false;
             this.TxtPrice.WordWrap = true;
+            this.TxtPrice.TextChange += new System.EventHandler(this.TxtPrice_TextChange);
             // 
             // TxtDescription
             // 
@@ -269,7 +273,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtDescription.BorderThickness = 1;
             this.TxtDescription.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtDescription.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtDescription.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtDescription.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtDescription.DefaultText = "";
             this.TxtDescription.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtDescription.HideSelection = true;
@@ -320,7 +324,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtDescription.TabIndex = 22;
             this.TxtDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtDescription.TextMarginBottom = 0;
-            this.TxtDescription.TextMarginLeft = 3;
+            this.TxtDescription.TextMarginLeft = 1;
             this.TxtDescription.TextMarginTop = 0;
             this.TxtDescription.TextPlaceholder = "Enter Description Product";
             this.TxtDescription.UseSystemPasswordChar = false;
@@ -332,7 +336,7 @@ namespace PurchaseDesktop.Formularios
             this.CboAccount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CboAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CboAccount.FormattingEnabled = true;
-            this.CboAccount.Location = new System.Drawing.Point(9, 97);
+            this.CboAccount.Location = new System.Drawing.Point(9, 95);
             this.CboAccount.Name = "CboAccount";
             this.CboAccount.Size = new System.Drawing.Size(221, 21);
             this.CboAccount.TabIndex = 23;
@@ -354,7 +358,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtQty.BorderThickness = 1;
             this.TxtQty.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtQty.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtQty.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtQty.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtQty.DefaultText = "";
             this.TxtQty.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtQty.HideSelection = true;
@@ -365,7 +369,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtQty.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtQty.Lines = new string[0];
             this.TxtQty.Location = new System.Drawing.Point(9, 31);
-            this.TxtQty.MaxLength = 32767;
+            this.TxtQty.MaxLength = 4;
             this.TxtQty.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtQty.Modified = false;
             this.TxtQty.Multiline = false;
@@ -405,11 +409,12 @@ namespace PurchaseDesktop.Formularios
             this.TxtQty.TabIndex = 20;
             this.TxtQty.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtQty.TextMarginBottom = 0;
-            this.TxtQty.TextMarginLeft = 3;
+            this.TxtQty.TextMarginLeft = 1;
             this.TxtQty.TextMarginTop = 0;
             this.TxtQty.TextPlaceholder = "Qty";
             this.TxtQty.UseSystemPasswordChar = false;
             this.TxtQty.WordWrap = true;
+            this.TxtQty.TextChange += new System.EventHandler(this.TxtQty_TextChange);
             // 
             // TxtName
             // 
@@ -428,7 +433,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtName.BorderThickness = 1;
             this.TxtName.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtName.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtName.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtName.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtName.DefaultText = "";
             this.TxtName.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtName.HideSelection = true;
@@ -438,7 +443,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtName.IconRight = null;
             this.TxtName.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtName.Lines = new string[0];
-            this.TxtName.Location = new System.Drawing.Point(71, 31);
+            this.TxtName.Location = new System.Drawing.Point(145, 31);
             this.TxtName.MaxLength = 32767;
             this.TxtName.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtName.Modified = false;
@@ -474,12 +479,12 @@ namespace PurchaseDesktop.Formularios
             this.TxtName.SelectionLength = 0;
             this.TxtName.SelectionStart = 0;
             this.TxtName.ShortcutsEnabled = true;
-            this.TxtName.Size = new System.Drawing.Size(299, 25);
+            this.TxtName.Size = new System.Drawing.Size(317, 25);
             this.TxtName.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtName.TabIndex = 21;
             this.TxtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtName.TextMarginBottom = 0;
-            this.TxtName.TextMarginLeft = 3;
+            this.TxtName.TextMarginLeft = 1;
             this.TxtName.TextMarginTop = 0;
             this.TxtName.TextPlaceholder = "Enter Product Name";
             this.TxtName.UseSystemPasswordChar = false;
@@ -521,7 +526,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail.ImageSize = new System.Drawing.Size(40, 40);
             this.BtnNewDetail.ImageZoomSize = new System.Drawing.Size(60, 60);
             this.BtnNewDetail.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.InitialImage")));
-            this.BtnNewDetail.Location = new System.Drawing.Point(388, 62);
+            this.BtnNewDetail.Location = new System.Drawing.Point(386, 58);
             this.BtnNewDetail.Name = "BtnNewDetail";
             this.BtnNewDetail.Rotation = 0;
             this.BtnNewDetail.ShowActiveImage = true;
@@ -554,7 +559,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtTotal.BorderThickness = 1;
             this.TxtTotal.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtTotal.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtTotal.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtTotal.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtTotal.DefaultText = "";
             this.TxtTotal.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtTotal.HideSelection = true;
@@ -564,7 +569,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtTotal.IconRight = null;
             this.TxtTotal.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtTotal.Lines = new string[0];
-            this.TxtTotal.Location = new System.Drawing.Point(267, 93);
+            this.TxtTotal.Location = new System.Drawing.Point(359, 3);
             this.TxtTotal.MaxLength = 32767;
             this.TxtTotal.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtTotal.Modified = false;
@@ -605,7 +610,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtTotal.TabIndex = 27;
             this.TxtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtTotal.TextMarginBottom = 0;
-            this.TxtTotal.TextMarginLeft = 3;
+            this.TxtTotal.TextMarginLeft = 1;
             this.TxtTotal.TextMarginTop = 0;
             this.TxtTotal.TextPlaceholder = "$ Total";
             this.TxtTotal.UseSystemPasswordChar = false;
@@ -626,16 +631,37 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator2.Size = new System.Drawing.Size(474, 1);
             this.bunifuSeparator2.TabIndex = 28;
             // 
+            // CboMedidas
+            // 
+            this.CboMedidas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.CboMedidas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CboMedidas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboMedidas.FormattingEnabled = true;
+            this.CboMedidas.Location = new System.Drawing.Point(71, 33);
+            this.CboMedidas.Name = "CboMedidas";
+            this.CboMedidas.Size = new System.Drawing.Size(68, 21);
+            this.CboMedidas.TabIndex = 29;
+            // 
+            // PanelFooter
+            // 
+            this.PanelFooter.Controls.Add(this.TxtTotal);
+            this.PanelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.PanelFooter.Location = new System.Drawing.Point(0, 288);
+            this.PanelFooter.Name = "PanelFooter";
+            this.PanelFooter.Size = new System.Drawing.Size(474, 31);
+            this.PanelFooter.TabIndex = 30;
+            // 
             // FDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(474, 320);
-            this.Controls.Add(this.bunifuSeparator2);
-            this.Controls.Add(this.TxtTotal);
-            this.Controls.Add(this.BtnNewDetail);
             this.Controls.Add(this.Grid);
+            this.Controls.Add(this.PanelFooter);
+            this.Controls.Add(this.CboMedidas);
+            this.Controls.Add(this.bunifuSeparator2);
+            this.Controls.Add(this.BtnNewDetail);
             this.Controls.Add(this.bunifuSeparator1);
             this.Controls.Add(this.TxtPrice);
             this.Controls.Add(this.TxtDescription);
@@ -649,6 +675,7 @@ namespace PurchaseDesktop.Formularios
             this.Load += new System.EventHandler(this.FDetails_Load);
             this.PanelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).EndInit();
+            this.PanelFooter.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -669,5 +696,7 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.Label LabelPanel;
         private Bunifu.UI.WinForms.BunifuTextBox TxtTotal;
         private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator2;
+        private System.Windows.Forms.Panel PanelFooter;
+        private System.Windows.Forms.ComboBox CboMedidas;
     }
 }

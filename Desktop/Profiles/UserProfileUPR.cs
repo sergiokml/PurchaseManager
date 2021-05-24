@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -12,19 +13,19 @@ namespace PurchaseDesktop.Profiles
 {
     public class UserProfileUPR : HFunctions, IPerfilActions
     {
-        private readonly PurchaseManagerContext rContext;
+        private readonly PurchaseManagerEntities rContext;
         public Users CurrentUser { get; set; }
 
-        public UserProfileUPR(PurchaseManagerContext rContext)
+        public UserProfileUPR(PurchaseManagerEntities rContext)
         {
             this.rContext = rContext;
         }
 
         public DataTable VistaFPrincipal()
         {
-            using (PurchaseManagerContext rContext = new PurchaseManagerContext())
+            using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
             {
-                System.Collections.Generic.List<vRequisitionByMinTransaction> l = rContext.vRequisitionByMinTransaction
+                List<vRequisitionByMinTransaction> l = rContext.vRequisitionByMinTransaction
               .Where(c => c.UserID == CurrentUser.UserID)
               .OrderByDescending(c => c.DateLast).ToList();
                 return this.ToDataTable<vRequisitionByMinTransaction>(l);
@@ -66,27 +67,11 @@ namespace PurchaseDesktop.Profiles
 
         public DataTable VistaFProveedores(TypeDocumentHeader headerTD, int headerID)
         {
-            switch (headerTD)
-            {
-                case TypeDocumentHeader.PR:
-                    return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
-                case TypeDocumentHeader.PO:
-                    break;
-                default:
-                    break;
-            }
-            return null;
+            return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
         }
 
-        public void InsertItemHeader(Companies company, DocumentType type)
+        public void InsertPRHeader(RequisitionHeader item)
         {
-            RequisitionHeader pr = new RequisitionHeader
-            {
-                Type = (byte)type,
-                StatusID = 1,
-                Description = string.Empty,
-                CompanyID = company.CompanyID
-            };
             Transactions transaction = new Transactions
             {
                 Event = Eventos.CREATE_PR.ToString(),
@@ -96,40 +81,51 @@ namespace PurchaseDesktop.Profiles
             };
             using (DbContextTransaction trans = rContext.Database.BeginTransaction())
             {
-                pr.Transactions.Add(transaction);
-                rContext.RequisitionHeader.Add(pr);
+                item.Transactions.Add(transaction);
+                rContext.RequisitionHeader.Add(item);
                 rContext.SaveChanges();
                 trans.Commit();
             }
         }
 
-        public void UpdateItemHeader<T>(T item, int headerID)
+        public void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item, int headerID)
         {
             Transactions transaction = new Transactions
             {
-                Event = Eventos.UPDATE_PR.ToString(),
                 UserID = CurrentUser.UserID,
                 DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+               .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
             };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            switch (headerTD)
             {
-                RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
-                rContext.Entry(pr).CurrentValues.SetValues(item);
-                pr.Transactions.Add(transaction);
-                rContext.SaveChanges();
-                trans.Commit();
+                case TypeDocumentHeader.PR:
+                    transaction.Event = Eventos.UPDATE_PR.ToString();
+                    using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                    {
+                        RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
+                        rContext.Entry(doc).CurrentValues.SetValues(item);
+                        doc.Transactions.Add(transaction);
+                        rContext.SaveChanges();
+                        trans.Commit();
+                    }
+                    break;
+                case TypeDocumentHeader.PO:
+                    break;
+                default:
+                    break;
             }
+
+
         }
 
         public void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID)
         {
             using (DbContextTransaction trans = rContext.Database.BeginTransaction())
             {
-                RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
-                rContext.Transactions.RemoveRange(pr.Transactions);
-                rContext.RequisitionHeader.Remove(pr);
-                rContext.Attaches.RemoveRange(pr.Attaches);
+                RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
+                rContext.Transactions.RemoveRange(doc.Transactions);
+                rContext.RequisitionHeader.Remove(doc);
+                rContext.Attaches.RemoveRange(doc.Attaches);
                 rContext.SaveChanges();
                 trans.Commit();
             }
@@ -145,9 +141,9 @@ namespace PurchaseDesktop.Profiles
 
         #endregion
 
-        public void InsertDetail<T>(T item, int headerID) where T : class
+        public void InsertDetail<T>(T item, int headerID)
         {
-            RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
+            RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
             Transactions transaction = new Transactions
             {
                 Event = Eventos.INSERT_DETAIL.ToString(),
@@ -157,36 +153,54 @@ namespace PurchaseDesktop.Profiles
             };
             using (DbContextTransaction trans = rContext.Database.BeginTransaction())
             {
-                pr.Transactions.Add(transaction);
+                doc.Transactions.Add(transaction);
                 rContext.Entry(item).State = EntityState.Added;
                 rContext.SaveChanges();
                 trans.Commit();
             }
         }
 
-        public void DeleteDetail(int headerID, int detailID)
+        public void DeleteDetail(TypeDocumentHeader headerTD, int headerID, int detailID)
         {
-            RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
             Transactions transaction = new Transactions
             {
                 Event = Eventos.DELETE_DETAIL.ToString(),
                 UserID = CurrentUser.UserID,
                 DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                      .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
             };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            switch (headerTD)
             {
-                RequisitionDetails detail = rContext.RequisitionDetails.Find(detailID, pr.RequisitionHeaderID);
-                rContext.Entry(detail).State = EntityState.Deleted;
-                pr.Transactions.Add(transaction);
-                rContext.SaveChanges();
-                trans.Commit();
+                case TypeDocumentHeader.PR:
+                    RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
+                    using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                    {
+                        RequisitionDetails detail = rContext.RequisitionDetails.Find(detailID, pr.RequisitionHeaderID);
+                        rContext.Entry(detail).State = EntityState.Deleted;
+                        pr.Transactions.Add(transaction);
+                        rContext.SaveChanges();
+                        trans.Commit();
+                    }
+                    break;
+                case TypeDocumentHeader.PO:
+                    OrderHeader po = rContext.OrderHeader.Find(headerID);
+                    using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                    {
+                        RequisitionDetails detail = rContext.RequisitionDetails.Find(detailID, po.OrderHeaderID);
+                        rContext.Entry(detail).State = EntityState.Deleted;
+                        po.Transactions.Add(transaction);
+                        rContext.SaveChanges();
+                        trans.Commit();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
         public void InsertAttach(Attaches item, int headerID)
         {
-            RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
+            RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
             Transactions transaction = new Transactions
             {
                 Event = Eventos.INSERT_ATTACH.ToString(),
@@ -196,8 +210,8 @@ namespace PurchaseDesktop.Profiles
             };
             using (DbContextTransaction trans = rContext.Database.BeginTransaction())
             {
-                pr.Transactions.Add(transaction);
-                pr.Attaches.Add(item);
+                doc.Transactions.Add(transaction);
+                doc.Attaches.Add(item);
                 rContext.SaveChanges();
                 trans.Commit();
             }
@@ -221,7 +235,11 @@ namespace PurchaseDesktop.Profiles
                 rContext.SaveChanges();
                 trans.Commit();
             }
+        }
 
+        public void InsertPOHeader(OrderHeader item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

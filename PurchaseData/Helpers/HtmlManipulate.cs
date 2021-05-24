@@ -43,7 +43,7 @@ namespace PurchaseData.Helpers
         {
             HtmlDoc.Load(Environment.CurrentDirectory + @"\HtmlDocuments\RequisitionDoc.html");
             string userName = $"{user.FirstName} {user.LastName}";
-            var line = 1;
+            int line = 1;
             HtmlDoc.GetElementbyId("userName").InnerHtml = userName;
 
             HtmlDoc.GetElementbyId("CompanyName").InnerHtml = $"{dataRow["CompanyName"]}";
@@ -58,30 +58,19 @@ namespace PurchaseData.Helpers
             HtmlDoc.GetElementbyId("Description").InnerHtml = $"{dataRow["Description"]}";
 
 
-            var table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/table[1]");
+            HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/table[1]");
             #region Logos      
-            var logo = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]");
+            HtmlNode logo = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]");
             //logo.AppendChild(HtmlNode.CreateNode("<img />"));
 
-            var icon = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]");
+            HtmlNode icon = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]");
             //icon.AppendChild(HtmlNode.CreateNode("<img src=''/>"));
             #endregion
 
-            switch (user.UserProfiles.ProfileID)
-            {
-                case "ADM":
-                    break;
-                case "BAS":
-                    break;
-                case "UPO":
-                    HtmlDoc.GetElementbyId("HeaderID").InnerHtml = $"{dataRow["OrderHeaderID"]}";
-                    break;
-                case "UPR":
-                    HtmlDoc.GetElementbyId("HeaderID").InnerHtml = $"{dataRow["RequisitionHeaderID"]}";
-                    break;
-                case "VAL":
-                    break;
-            }
+
+            HtmlDoc.GetElementbyId("HeaderID").InnerHtml = $"{dataRow["HeaderID"]}";
+
+
 
             HtmlDoc.GetElementbyId("vandor_name").InnerHtml = "The following Purchase Requisition has been created by you, " +
                        "the next step is to create the <b>Purchase Order</b> by the corresponding user so complete all the required fields. " +
@@ -89,7 +78,7 @@ namespace PurchaseData.Helpers
             HtmlDoc.GetElementbyId("code").InnerHtml = $"{dataRow["Code"]}";
             if (details.Count > 0)
             {
-                foreach (var item in details)
+                foreach (RequisitionDetails item in details)
                 {
                     string node = "<tr class='list-item'>";
                     node += $"<td data-label='Line' class='tableitem' id='line_num'>{line++}</td>";
@@ -100,14 +89,14 @@ namespace PurchaseData.Helpers
                 }
                 HtmlDoc.GetElementbyId("DETAILS_COUNT").InnerHtml = $"{details.Count}";
             }
-            var path = Environment.CurrentDirectory + @"\" + dataRow["RequisitionHeaderID"].ToString() + ".html";
+            string path = Environment.CurrentDirectory + @"\" + dataRow["HeaderID"].ToString() + ".html";
             HtmlDoc.Save(path, System.Text.Encoding.UTF8);
             return path;
         }
 
         public string ReemplazarDatos(DataRow dataRow, Users user, List<OrderDetails> details)
         {
-            var path = Environment.CurrentDirectory + @"\HtmlDocuments\OrderDoc.html";
+            string path = Environment.CurrentDirectory + @"\HtmlDocuments\OrderDoc.html";
             HtmlDoc.Load(path);
 
 
@@ -117,19 +106,19 @@ namespace PurchaseData.Helpers
         }
         public async Task<string> ReemplazarDatos()
         {
-            var path = Environment.CurrentDirectory + @"\HtmlBanner\Banner.html";
+            string path = Environment.CurrentDirectory + @"\HtmlBanner\Banner.html";
             HtmlDoc.Load(path);
             HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]");
-            var semana = DateTime.Now.AddDays(-7);
+            DateTime semana = DateTime.Now.AddDays(-7);
             try
             {
                 //await Task.Run(() =>
                 //   {
-                var dolar = await new IndicadorDolar().GetPosterior(semana);
-                var uf = await new IndicadorUf().GetPosterior(semana);
-                var euro = await new IndicadorEuro().GetPosterior(semana);
-                var ipc = await new IndicadorIpc().GetPosterior(semana.AddMonths(-6));
-                var utm = await new IndicadorUtm().GetPosterior(semana.AddMonths(-6));
+                IndicadorDolar dolar = await new IndicadorDolar().GetPosterior(semana);
+                IndicadorUf uf = await new IndicadorUf().GetPosterior(semana);
+                IndicadorEuro euro = await new IndicadorEuro().GetPosterior(semana);
+                IndicadorIpc ipc = await new IndicadorIpc().GetPosterior(semana.AddMonths(-6));
+                IndicadorUtm utm = await new IndicadorUtm().GetPosterior(semana.AddMonths(-6));
                 if (dolar != null)
                 {
                     CrearNodo(table, dolar.Dolar, "USD");

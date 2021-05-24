@@ -27,16 +27,19 @@ namespace Desktop
             if (CheckForInternetConnection())
             {
                 //! Los Perfiles: 
-                UserProfileUPO perfilPo = new UserProfileUPO(new PurchaseManagerContext());
-                UserProfileUPR perfilPr = new UserProfileUPR(new PurchaseManagerContext());
-                UserProfileVAL perfilVal = new UserProfileVAL(new PurchaseManagerContext());
+                UserProfileUPO perfilPo = new UserProfileUPO(new PurchaseManagerEntities());
+                UserProfileUPR perfilPr = new UserProfileUPR(new PurchaseManagerEntities());
+                UserProfileVAL perfilVal = new UserProfileVAL(new PurchaseManagerEntities());
 
                 Users user;
 
-                using (var contextDB = new PurchaseManagerContext())
+                using (var contextDB = new PurchaseManagerEntities())
                 {
-                    var P = "18018850"; // 17229947
-                    //var P = "13779971";
+                    //var P = "18018850";
+                    //var P = "14720891";
+
+
+                    var P = "13779971";
                     //var P = "15325038";
 
 
@@ -63,7 +66,7 @@ namespace Desktop
             List<Accounts> acc;
             List<Companies> companies;
             List<Users> users;
-            using (PurchaseManagerContext rContext = new PurchaseManagerContext())
+            using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
             {
                 users = rContext.Users.Where(c => c.ProfileID == "UPR").ToList();
                 companies = rContext.Companies.ToList();

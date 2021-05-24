@@ -74,6 +74,7 @@ namespace PurchaseDesktop.Formularios
             CboTypeFile.DisplayMember = "Name";
             CboTypeFile.ValueMember = "Id";
             CboTypeFile.DataSource = dt;
+            CboTypeFile.SelectedIndex = -1;
         }
         public iGrid GetGrid()
         {
@@ -90,7 +91,6 @@ namespace PurchaseDesktop.Formularios
             //! Eventos
             Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
-
         }
 
 
@@ -149,23 +149,25 @@ namespace PurchaseDesktop.Formularios
             if (ValidarControles())
             {
                 string serverfolder = Properties.Settings.Default.FolderApp;
-                serverfolder += $"{Convert.ToInt32(Current["HeaderID"])}";
+                string idFolder = Current["HeaderID"].ToString();
 
-                if (!Directory.Exists(serverfolder))
+
+                if (!Directory.Exists(serverfolder + idFolder))
                 {
-                    Directory.CreateDirectory(serverfolder);
+                    Directory.CreateDirectory(serverfolder + idFolder);
                 }
-                string ext = Path.GetExtension(FilePath); //.pdf
+
                 Attaches att = new Attaches
                 {
                     Description = TxtNameFile.Text.Trim(),
-                    FileName = $"{serverfolder}{@"\"}{TxtNameFile.Text.Trim()}{ext}",
+                    FileName = $"{idFolder}{@"\"}{Path.GetFileName(TxtPathFile.Text)}",
                     Modifier = Convert.ToByte(CboTypeFile.SelectedValue)
                 };
                 rFachada.InsertAttach(att, Convert.ToInt32(Current["HeaderID"]));
-                File.Copy(FilePath, $"{serverfolder}{@"\"}{TxtNameFile.Text.Trim()}{ext}", true);
+                File.Copy(FilePath, $"{serverfolder}{@"\"}{@"\"}{att.FileName}", true);
                 LlenarGrid();
                 ClearControles();
+                SetControles();
             }
         }
 
@@ -184,13 +186,14 @@ namespace PurchaseDesktop.Formularios
                 {
                     LlenarGrid();
                     ClearControles();
+                    SetControles();
                     Grid.Focus();
                     Grid.DrawAsFocused = false;
                 }
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
-                rFachada.VerAttach(current);
+                ((FPrincipal)Owner).Msg(rFachada.VerAttach(current), FPrincipal.MsgProceso.Error);
                 Grid.Focus();
                 Grid.DrawAsFocused = false;
             }

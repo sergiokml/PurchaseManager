@@ -9,7 +9,7 @@ namespace PurchaseData.DataModel
         //! login
         public List<Users> GetList()
         {
-            using (var contextDB = new PurchaseManagerContext())
+            using (var contextDB = new PurchaseManagerEntities())
             {
                 return contextDB.Users.ToList();
             }

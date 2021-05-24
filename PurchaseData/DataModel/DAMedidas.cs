@@ -3,15 +3,14 @@ using System.Linq;
 
 namespace PurchaseData.DataModel
 {
-    public partial class SupplierCountries
+    public partial class Medidas
     {
-        public List<SupplierCountries> GetList()
+        public List<Medidas> GetList()
         {
             using (var contextDB = new PurchaseManagerEntities())
             {
-                return contextDB.SupplierCountries.ToList();
+                return contextDB.Medidas.ToList();
             }
         }
-
     }
 }

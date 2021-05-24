@@ -15,10 +15,10 @@ namespace PurchaseData.DataModel
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class PurchaseManagerContext : DbContext
+    public partial class PurchaseManagerEntities : DbContext
     {
-        public PurchaseManagerContext()
-            : base("name=PurchaseManagerContext")
+        public PurchaseManagerEntities()
+            : base("name=PurchaseManagerEntities")
         {
         }
     
@@ -31,6 +31,7 @@ namespace PurchaseData.DataModel
         public virtual DbSet<Attaches> Attaches { get; set; }
         public virtual DbSet<Companies> Companies { get; set; }
         public virtual DbSet<Currencies> Currencies { get; set; }
+        public virtual DbSet<Medidas> Medidas { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<OrderHeader> OrderHeader { get; set; }
         public virtual DbSet<OrderHitos> OrderHitos { get; set; }
@@ -50,20 +51,20 @@ namespace PurchaseData.DataModel
         public virtual DbSet<vOrderByMinTransaction> vOrderByMinTransaction { get; set; }
         public virtual DbSet<vRequisitionByMinTransaction> vRequisitionByMinTransaction { get; set; }
     
-        [DbFunction("PurchaseManagerContext", "ufnGetOrderGroupByStatus")]
+        [DbFunction("PurchaseManagerEntities", "ufnGetOrderGroupByStatus")]
         public virtual IQueryable<ufnGetOrderGroupByStatus_Result> ufnGetOrderGroupByStatus()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufnGetOrderGroupByStatus_Result>("[PurchaseManagerContext].[ufnGetOrderGroupByStatus]()");
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufnGetOrderGroupByStatus_Result>("[PurchaseManagerEntities].[ufnGetOrderGroupByStatus]()");
         }
     
-        [DbFunction("PurchaseManagerContext", "ufnGetReqGroupByCost")]
+        [DbFunction("PurchaseManagerEntities", "ufnGetReqGroupByCost")]
         public virtual IQueryable<ufnGetReqGroupByCost_Result> ufnGetReqGroupByCost(Nullable<int> statusID)
         {
             var statusIDParameter = statusID.HasValue ?
                 new ObjectParameter("StatusID", statusID) :
                 new ObjectParameter("StatusID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufnGetReqGroupByCost_Result>("[PurchaseManagerContext].[ufnGetReqGroupByCost](@StatusID)", statusIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufnGetReqGroupByCost_Result>("[PurchaseManagerEntities].[ufnGetReqGroupByCost](@StatusID)", statusIDParameter);
         }
     }
 }

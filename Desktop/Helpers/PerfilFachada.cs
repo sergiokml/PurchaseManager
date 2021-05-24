@@ -9,6 +9,7 @@ using Bunifu.Charts.WinForms;
 using Bunifu.Charts.WinForms.ChartTypes;
 
 using PurchaseData.DataModel;
+using PurchaseData.Helpers;
 
 using PurchaseDesktop.Formularios;
 using PurchaseDesktop.Profiles;
@@ -82,6 +83,9 @@ namespace PurchaseDesktop.Helpers
                         case "FAttach":
                             perfilPr.CargarColumnasFAttach(Perfiles.UPR);
                             break;
+                        case "FSupplier":
+                            perfilPr.CargarColumnasFSupplier(Perfiles.UPR);
+                            break;
                     }
                     break;
                 case Perfiles.VAL:
@@ -91,7 +95,7 @@ namespace PurchaseDesktop.Helpers
             }
         }
 
-        public bool ContextMenuStrip(ContextMenuStrip context, DataRow dr)
+        public bool CargarContextMenuStrip(ContextMenuStrip context, DataRow dr)
         {
             Enum.TryParse(dr["TypeDocumentHeader"].ToString(), out TypeDocumentHeader typeDoc);
             switch (currentPerfil)
@@ -104,10 +108,14 @@ namespace PurchaseDesktop.Helpers
                     switch (typeDoc)
                     {
                         case TypeDocumentHeader.PR:
-                            return false;
+                            perfilPo.CtxMenu = context;
+                            perfilPo.LLenarMenuContext();
+                            perfilPo.CtxMenu.Items.RemoveAt(0);
+                            return true;
                         case TypeDocumentHeader.PO:
                             perfilPo.CtxMenu = context;
-                            perfilPo.LLenarMenuContext(Perfiles.UPO);
+                            perfilPo.LLenarMenuContext();
+                            perfilPo.CtxMenu.Items.RemoveAt(1);
                             return true;
                     }
                     break;
@@ -130,9 +138,9 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    //perfilPo.Grid = grid;
-                    //perfilPo.SetResultFunctions();
-                    //perfilPo.CargarDatos(c1, c2, cc1, cc2, label1, label2, label3);
+                    perfilPo.Grid = grid;
+                    perfilPo.SetResultFunctions();
+                    perfilPo.CargarDatos(perfilPo.CurrentUser, c1, c2, cc1, cc2, label1, label2, label3);
                     break;
                 case Perfiles.UPR:
                     perfilPr.Grid = grid;
@@ -150,13 +158,68 @@ namespace PurchaseDesktop.Helpers
 
         #region Abrir Formularios
 
-        public void OPenDetailForm(DataRow dr)
+        public void OPenDetailForm(FDetails fDetails, FPrincipal fPrincipal)
         {
-            FDetails f = new FDetails(this, dr)
+            fDetails.ShowInTaskbar = false;
+            fDetails.StartPosition = FormStartPosition.CenterParent;
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    perfilPo.Grid = fDetails.GetGrid();
+                    perfilPo.PintarGrid();
+                    fDetails.ShowDialog(fPrincipal);
+                    break;
+                case Perfiles.UPR:
+                    perfilPr.Grid = fDetails.GetGrid();
+                    perfilPr.PintarGrid();
+                    fDetails.ShowDialog(fPrincipal);
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public bool OpenAttachForm(DataRow headerDR, FPrincipal fPrincipal)
+        {
+            FAttach f = new FAttach(this, headerDR)
             {
                 ShowInTaskbar = false,
-                StartPosition = FormStartPosition.CenterScreen
+                StartPosition = FormStartPosition.CenterParent
             };
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    break;
+                case Perfiles.UPR:
+                    perfilPr.Grid = f.GetGrid();
+                    perfilPr.PintarGrid();
+                    f.ShowDialog(fPrincipal);
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+        public bool OpenSupplierForm(DataRow headerDR, FPrincipal fPrincipal)
+        {
+            FSupplier f = new FSupplier(this, headerDR)
+            {
+                ShowInTaskbar = false,
+                StartPosition = FormStartPosition.CenterParent
+            };
+
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -166,38 +229,12 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.UPO:
                     perfilPo.Grid = f.GetGrid();
                     perfilPo.PintarGrid();
-                    f.ShowDialog();
+                    f.ShowDialog(fPrincipal);
                     break;
                 case Perfiles.UPR:
-                    perfilPr.Grid = f.GetGrid();
-                    perfilPr.PintarGrid();
-                    f.ShowDialog();
-                    break;
-                case Perfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-        }
-        public bool OpenAttachForm(DataRow dr)
-        {
-            FAttach f = new FAttach(this, dr)
-            {
-                ShowInTaskbar = false,
-                StartPosition = FormStartPosition.CenterScreen
-            };
-            switch (currentPerfil)
-            {
-                case Perfiles.ADM:
-                    break;
-                case Perfiles.BAS:
-                    break;
-                case Perfiles.UPO:
-                    break;
-                case Perfiles.UPR:
-                    perfilPr.Grid = f.GetGrid();
-                    perfilPr.PintarGrid();
-                    f.ShowDialog();
+                    //perfilPr.Grid = f.GetGrid();
+                    //perfilPr.PintarGrid();
+                    //f.ShowDialog(fPrincipal);                   
                     break;
                 case Perfiles.VAL:
                     break;
@@ -220,7 +257,7 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    break;
+                    return perfilPo.VistaFPrincipal();
                 case Perfiles.UPR:
                     return perfilPr.VistaFPrincipal();
                 case Perfiles.VAL:
@@ -239,7 +276,7 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    break;
+                    return perfilPo.VistaFDetalles(td, Convert.ToInt32(headerDR["HeaderID"]));
                 case Perfiles.UPR:
                     return perfilPr.VistaFDetalles(td, Convert.ToInt32(headerDR["HeaderID"]));
                 case Perfiles.VAL:
@@ -258,7 +295,7 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    break;
+                    return perfilPo.VistaFAdjuntos(td, Convert.ToInt32(headerDR["HeaderID"]));
                 case Perfiles.UPR:
                     return perfilPr.VistaFAdjuntos(td, Convert.ToInt32(headerDR["HeaderID"]));
                 case Perfiles.VAL:
@@ -277,9 +314,9 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    break;
+                    return perfilPo.VistaFProveedores(td, Convert.ToInt32(headerDR["HeaderID"]));
                 case Perfiles.UPR:
-                    return perfilPr.VistaFDetalles(td, Convert.ToInt32(headerDR["HeaderID"]));
+                    return perfilPr.VistaFProveedores(td, Convert.ToInt32(headerDR["HeaderID"]));
                 case Perfiles.VAL:
                     break;
             }
@@ -299,7 +336,7 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    break;
+                    return perfilPo.CurrentUser;
                 case Perfiles.UPR:
                     return perfilPr.CurrentUser;
                 case Perfiles.VAL:
@@ -359,20 +396,24 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    //var po = new OrderHeader
-                    //{
-                    //    Type = (byte)type,
-                    //    StatusID = 1,
-                    //    Description = string.Empty,
-                    //    CompanyID = company.CompanyID,
-                    //    Net = 0,
-                    //    Exent = 0
-                    //};
-                    //perfilPo.DocumentPO = po;
-                    //perfilPo.InsertItemHeader(user);
-                    break;
+                    var po = new OrderHeader
+                    {
+                        Type = (byte)type,
+                        StatusID = 1,
+                        Net = 0,
+                        Exent = 0,
+                        CompanyID = company.CompanyID
+                    };
+                    perfilPo.InsertPOHeader(po);
+                    return true;
                 case Perfiles.UPR:
-                    perfilPr.InsertItemHeader(company, type);
+                    var pr = new RequisitionHeader
+                    {
+                        Type = (byte)type,
+                        CompanyID = company.CompanyID,
+                        StatusID = 1
+                    };
+                    perfilPr.InsertPRHeader(pr);
                     return true;
                 case Perfiles.VAL:
                     break;
@@ -385,6 +426,9 @@ namespace PurchaseDesktop.Helpers
         public bool UpdateItem(object newValue, DataRow headerDR, string campo)
         {
             int status = Convert.ToInt32(headerDR["StatusID"]);
+            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+            var HeaderID = Convert.ToInt32(headerDR["HeaderID"]);
+            RequisitionHeader pr;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -392,35 +436,46 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                //perfilPo.Current = dr;
-                //switch (campo)
-                //{
-                //    case "Description":
-                //        if (Convert.ToInt32(dr["StatusID"]) == 1)
-                //        {
-                //            perfilPo.UpdateItemHeader(user, newValue, campo);
-                //            return true;
-                //        }
-                //        break;
-                //    case "Type":
-                //        if (Convert.ToInt32(dr["StatusID"]) == 1)
-                //        {
-                //            perfilPo.UpdateItemHeader(user, newValue, campo);
-                //            return true;
-                //        }
-                //        break;
-                //}
-                //break;
-
+                    switch (td)
+                    {
+                        case TypeDocumentHeader.PR:
+                            pr = new RequisitionHeader().GetById(HeaderID);
+                            switch (campo)
+                            {
+                                case "Type":
+                                    pr.Type = Convert.ToByte(newValue);
+                                    break;
+                            }
+                            perfilPo.UpdateItemHeader<RequisitionHeader>(td, pr, HeaderID);
+                            return true;
+                        case TypeDocumentHeader.PO:
+                            OrderHeader po = new OrderHeader().GetById(HeaderID);
+                            switch (campo)
+                            {
+                                case "Description":
+                                    po.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
+                                    break;
+                                case "Type":
+                                    po.Type = Convert.ToByte(newValue);
+                                    break;
+                                case "Net":
+                                    po.Net = Convert.ToInt32(newValue);
+                                    break;
+                            }
+                            perfilPo.UpdateItemHeader<OrderHeader>(td, po, HeaderID);
+                            return true;
+                        default:
+                            break;
+                    }
+                    break;
                 case Perfiles.UPR:
-                    RequisitionHeader pr = new RequisitionHeader().GetById(Convert.ToInt32(headerDR["HeaderID"]));
+                    pr = new RequisitionHeader().GetById(HeaderID);
                     if (status == 1)
                     {
                         switch (campo)
                         {
                             case "Description":
-                                pr.Description = UCase
-                                    .ToTitleCase(newValue.ToString().ToLower());
+                                pr.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
                                 break;
                             case "Type":
                                 pr.Type = Convert.ToByte(newValue);
@@ -428,7 +483,7 @@ namespace PurchaseDesktop.Helpers
                             default:
                                 break;
                         }
-                        perfilPr.UpdateItemHeader<RequisitionHeader>(pr, pr.RequisitionHeaderID);
+                        perfilPr.UpdateItemHeader<RequisitionHeader>(td, pr, Convert.ToInt32(headerDR["HeaderID"]));
                         return true;
                     }
                     break;
@@ -451,11 +506,18 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    if (perfilPr.CurrentUser.UserID == headerDR["UserID"].ToString())
+                    if (perfilPo.CurrentUser.UserID == headerDR["UserID"].ToString())
                     {
                         if (status == 1)
                         {
-                            //perfilPo.DeleteItemHeader(td);
+                            if (headerDR["RequisitionHeaderID"] != DBNull.Value)
+                            {
+                                //! Volver a poner en estado 2 la PR
+                                RequisitionHeader pr = new RequisitionHeader().GetById(Convert.ToInt32(headerDR["RequisitionHeaderID"]));
+                                pr.StatusID = 2;
+                                perfilPo.UpdateItemHeader<RequisitionHeader>(TypeDocumentHeader.PR, pr, pr.RequisitionHeaderID);
+                            }
+                            perfilPo.DeleteItemHeader(td, Convert.ToInt32(headerDR["HeaderID"]));
                             return true;
                         }
                     }
@@ -484,6 +546,7 @@ namespace PurchaseDesktop.Helpers
 
         public bool InsertDetail(object item, DataRow headerDR)
         {
+            var HeaderID = Convert.ToInt32(headerDR["HeaderID"]);
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -491,9 +554,10 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    break;
+                    perfilPo.InsertDetail(item, HeaderID);
+                    return true;
                 case Perfiles.UPR:
-                    perfilPr.InsertDetail(item, Convert.ToInt32(headerDR["HeaderID"]));
+                    perfilPr.InsertDetail(item, HeaderID);
                     return true;
                 case Perfiles.VAL:
                     break;
@@ -506,6 +570,8 @@ namespace PurchaseDesktop.Helpers
 
         public bool DeleteDetail(DataRow detailDR, DataRow headerDR)
         {
+            //! Acá se define primero si es PO o PR pero igualmente se implementa la funcion en perilPX
+            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -513,11 +579,24 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
+                    if (Convert.ToInt32(headerDR["StatusID"]) <= 2)
+                    {
+                        switch (td)
+                        {
+                            case TypeDocumentHeader.PR:
+                                return false;
+                            case TypeDocumentHeader.PO:
+                                perfilPo.DeleteDetail(td, Convert.ToInt32(headerDR["HeaderID"]), Convert.ToInt32(detailDR["DetailID"]));
+                                return true;
+                            default:
+                                break;
+                        }
+                    }
                     break;
                 case Perfiles.UPR:
                     if (Convert.ToInt32(headerDR["StatusID"]) <= 2)
                     {
-                        perfilPr.DeleteDetail(Convert.ToInt32(headerDR["HeaderID"]), Convert.ToInt32(detailDR["DetailID"]));
+                        perfilPr.DeleteDetail(td, Convert.ToInt32(headerDR["HeaderID"]), Convert.ToInt32(detailDR["DetailID"]));
                         return true;
                     }
                     break;
@@ -542,6 +621,7 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
+                    perfilPo.InsertAttach(item, headerDR);
                     break;
                 case Perfiles.UPR:
                     perfilPr.InsertAttach(item, headerDR);
@@ -553,6 +633,7 @@ namespace PurchaseDesktop.Helpers
             }
             return false;
         }
+
         public bool BorrarAdjunto(DataRow attachDR, DataRow headerDR)
         {
             int status = Convert.ToInt32(headerDR["StatusID"]);
@@ -563,12 +644,11 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    //if (status.StatusID < 6)
-                    //{
-                    //    var id = Convert.ToInt32(dataRow["DetailID"]);
-                    //    perfilPo.DeleteDetail(orderHeader, idDetail, userDB);
-                    //    return true;
-                    //}
+                    if (status == 1)
+                    {
+                        perfilPo.DeleteAttach(Convert.ToInt32(headerDR["HeaderID"]), Convert.ToInt32(attachDR["AttachID"]));
+                        return true;
+                    }
                     break;
                 case Perfiles.UPR:
                     if (status == 1)
@@ -587,11 +667,28 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
+        public string VerAttach(DataRow attachDR)
+        {
+            try
+            {
+                string serverfolder = Properties.Settings.Default.FolderApp;
+                serverfolder += attachDR["FileName"].ToString();
+                Process.Start(serverfolder);
+                return "Opening...";
+            }
+            catch (Exception)
+            {
+                return "The system cannot find the requested path.";
+            }
+        }
+
         #endregion
 
+        #region Acciones Varias
 
-        public bool GridDobleClick(DataRow dr)
+        public bool VerItemHtml(DataRow headerDR)
         {
+            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -599,43 +696,176 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-
-                    OrderHeader po = new OrderHeader
+                    switch (td)
                     {
-                        Type = Convert.ToByte(dr["Type"]),
-                        StatusID = 1,
-                        Description = dr["Description"].ToString(),
-                        CompanyID = dr["CompanyID"].ToString(),
-                        Net = 0,
-                        Exent = 0,
-                        RequisitionHeaderID = Convert.ToInt32(dr["HeaderID"])
-                    };
-
-
-                    // perfilPo.InsertItemHeader(user);
-
-                    //! Update PO
-                    //perfilPo.UpdateItemHeader(user, 3, "StatusID");
-                    if (ValidarOrderHeader(dr))
-                    {
-                        //perfilPr.UpdateItemHeader(user, newValue, campo);
-                        return true;
-                    }
-                    return true;
-                case Perfiles.UPR:
-                    //! Update Status                    
-                    if (Convert.ToSByte(dr["StatusID"]) == 1)
-                    {
-                        if (ValidarOrderHeader(dr))
-                        {
-                            // perfilPr.UpdateItemHeader(user, 2, "StatusID");
+                        case TypeDocumentHeader.PR:
+                            if (Convert.ToInt32(headerDR["DetailsCount"]) > 0)
+                            {
+                                var details = new RequisitionDetails().GetListByID(Convert.ToInt32(headerDR["HeaderID"]));
+                                Process.Start(new HtmlManipulate()
+                                    .ReemplazarDatos(headerDR, perfilPo.CurrentUser, details));
+                            }
                             return true;
+                        case TypeDocumentHeader.PO:
+                            if (Convert.ToInt32(headerDR["DetailsCount"]) > 0)
+                            {
+                                var details = new OrderDetails().GetListByID(Convert.ToInt32(headerDR["HeaderID"]));
+                                Process.Start(new HtmlManipulate()
+                                    .ReemplazarDatos(headerDR, perfilPo.CurrentUser, details));
+                            }
+                            return true;
+                        default:
+                            break;
+                    }
+                    break;
+                case Perfiles.UPR:
+                    switch (td)
+                    {
+                        case TypeDocumentHeader.PR:
+                            if (Convert.ToInt32(headerDR["DetailsCount"]) > 0)
+                            {
+                                var details = new RequisitionDetails().GetListByID(Convert.ToInt32(headerDR["HeaderID"]));
+                                Process.Start(new HtmlManipulate()
+                                    .ReemplazarDatos(headerDR, perfilPr.CurrentUser, details));
+
+                            }
+                            return true;
+                        case TypeDocumentHeader.PO:
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+
+        public async Task<string> SendItem(DataRow headerDR)
+        {
+            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    switch (td)
+                    {
+                        case TypeDocumentHeader.PR:
+                            if (Convert.ToInt32(headerDR["DetailsCount"]) > 0)
+                            {
+                                var details = new RequisitionDetails().GetListByID(Convert.ToInt32(headerDR["HeaderID"]));
+                                //var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                                var path = new HtmlManipulate().ReemplazarDatos(headerDR, perfilPr.CurrentUser, details);
+                                var send = new SendEmailTo(Properties.Settings.Default.Email, Properties.Settings.Default.Password);
+                                var x = await send.SendEmail(path, asunto: "Purchase Manager: Requisition document", perfilPr.CurrentUser);
+
+                                return send.MessageResult;
+                            }
+                            break;
+                        case TypeDocumentHeader.PO:
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case Perfiles.UPR:
+                    switch (td)
+                    {
+                        case TypeDocumentHeader.PR:
+                            if (Convert.ToInt32(headerDR["DetailsCount"]) > 0)
+                            {
+                                var details = new RequisitionDetails().GetListByID(Convert.ToInt32(headerDR["HeaderID"]));
+                                //var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
+                                var path = new HtmlManipulate().ReemplazarDatos(headerDR, perfilPr.CurrentUser, details);
+                                var send = new SendEmailTo(Properties.Settings.Default.Email, Properties.Settings.Default.Password);
+                                var x = await send.SendEmail(path, asunto: "Purchase Manager: Requisition document", perfilPr.CurrentUser);
+
+                                return send.MessageResult;
+                            }
+                            break;
+                        case TypeDocumentHeader.PO:
+                            break;
+                        default:
+                            break;
+                    }
+
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+            return null;
+        }
+
+        public bool GridDobleClick(DataRow headerDR)
+        {
+            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+            var HeaderID = Convert.ToInt32(headerDR["HeaderID"]);
+            RequisitionHeader pr;
+            OrderHeader po;
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    //! Update Status
+                    if (td == TypeDocumentHeader.PO)
+                    {
+                        po = new OrderHeader().GetById(HeaderID);
+                        var od = new OrderDetails().GetListByID(po.OrderHeaderID);
+                        if (od.Count > 0)
+                        {
+                            if (Convert.ToSByte(headerDR["StatusID"]) == 1)
+                            {
+                                if (ValidarOrderHeader(headerDR))
+                                {
+                                    po.StatusID = 2;
+                                    perfilPo.UpdateItemHeader<OrderHeader>(td, po, HeaderID);
+                                    return true;
+                                }
+                            }
+                            else if (Convert.ToSByte(headerDR["StatusID"]) == 2)
+                            {
+                                po.StatusID = 1;
+                                perfilPo.UpdateItemHeader<OrderHeader>(td, po, HeaderID);
+                                return true;
+                            }
                         }
                     }
-                    else if (Convert.ToSByte(dr["StatusID"]) == 2)
+                    break;
+                case Perfiles.UPR:
+                    //! Update Status
+                    if (td == TypeDocumentHeader.PR)
                     {
-                        //perfilPr.UpdateItemHeader(user, 1, "StatusID");
-                        return true;
+                        pr = new RequisitionHeader().GetById(HeaderID);
+                        var details = new RequisitionDetails().GetListByID(pr.RequisitionHeaderID);
+                        if (details.Count > 0)
+                        {
+                            if (Convert.ToSByte(headerDR["StatusID"]) == 1)
+                            {
+                                if (ValidarOrderHeader(headerDR))
+                                {
+                                    pr.StatusID = 2;
+                                    perfilPr.UpdateItemHeader<RequisitionHeader>(td, pr, HeaderID);
+                                    return true;
+                                }
+                            }
+                            else if (Convert.ToSByte(headerDR["StatusID"]) == 2)
+                            {
+                                pr.StatusID = 1;
+                                perfilPr.UpdateItemHeader<RequisitionHeader>(td, pr, HeaderID);
+                                return true;
+                            }
+                        }
                     }
                     break;
                 case Perfiles.VAL:
@@ -647,135 +877,78 @@ namespace PurchaseDesktop.Helpers
             return false;
         }
 
-        public bool OpenSupplierForm(DataRow dataRow)
+        public bool SeleccionarContextMenuStrip(DataRow headerDR, string action)
         {
-            //switch (user.UserProfiles.ProfileID)
-            //{
-            //    case "ADM":
-            //        break;
-            //    case "BAS":
-            //        break;
-            //    case "UPO":
-            //        var f = new FSupplier(this)
-            //        {
-            //            ShowInTaskbar = false,
-            //            StartPosition = FormStartPosition.CenterScreen,
-            //            ItemStatus = Convert.ToInt32(dataRow["StatusID"])
-            //        };
-            //        if (dataRow["SupplierID"].ToString().Length > 0)
-            //        {
-            //            f.HeaderID = Convert.ToInt32(dataRow["SupplierID"]);
-            //        }
-            //        perfilPo.Grid = f.GetGrid();
-            //        perfilPo.PintarGrid();
-            //        f.ShowDialog();
-            //        break;
-            //    case "UPR":
-            //        break;
-            //    case "VAL":
-            //        break;
-            //}
+            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+            RequisitionHeader pr;
+            var HeaderID = Convert.ToInt32(headerDR["HeaderID"]);
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    if (action == "Convert To PO")
+                    {
+                        //! Crear una PO desde una PR
+                        //! Cambio el estado de la PR a 3
+                        pr = new RequisitionHeader().GetById(HeaderID);
+                        pr.StatusID = 3;
+                        perfilPo.UpdateItemHeader(td, pr, HeaderID);
+                        //! Insert PO
+                        var po = new OrderHeader
+                        {
+                            Description = $"[From PR] {pr.Description}",
+                            Type = Convert.ToByte(headerDR["Type"]),
+                            StatusID = 1,
+                            Net = 0,
+                            Exent = 0,
+                            RequisitionHeaderID = pr.RequisitionHeaderID,
+                            CompanyID = pr.CompanyID
+                        };
+                        //! Traspasar los detalles
+
+
+                        perfilPo.InsertPOHeader(po);
+                    }
+                    return true;
+                case Perfiles.UPR:
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
             return false;
-        }
-
-        public string VerItemHtml(DataRow dataRow)
-        {
-            //switch (user.UserProfiles.ProfileID)
-            //{
-
-            //    case "ADM":
-            //        break;
-            //    case "BAS":
-            //        break;
-            //    case "UPO":
-            //        if (dataRow["TypeDocumentHeader"].ToString() == "PR")
-            //        {
-            //            //var detailsPR = perfilPo.GetDetailsRequisition(Convert.ToInt32(dataRow["OrderHeaderID"]));
-            //            //if (detailsPR.Count == 0)
-            //            //{
-            //            //    return "This requisition has no products.";
-            //            //}
-            //            //Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, detailsPR));
-            //            //return "Opening...";
-            //        }
-            //        else if (dataRow["TypeDocumentHeader"].ToString() == "PO")
-            //        {
-            //            //var detailsPR = perfilPo.GetDetailsOrder(Convert.ToInt32(dataRow["OrderHeaderID"]));
-            //            //if (detailsPR.Count == 0)
-            //            //{
-            //            //    return "This Order has no products.";
-            //            //}
-            //            //Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, detailsPR));
-            //            //return "Opening...";
-            //        }
-            //        break;
-            //    case "UPR":
-            //    //var detailsPO = perfilPr.GetDetailsRequisition(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-            //    //if (detailsPO.Count == 0)
-            //    //{
-            //    //    return "This requisition has no products.";
-            //    //}
-            //    //Process.Start(new HtmlManipulate().ReemplazarDatos(dataRow, userDB, detailsPO));
-            //    //return "Opening...";
-            //    case "VAL":
-            //        break;
-            //}
-            return string.Empty;
-
-        }
-
-        public string VerAttach(DataRow dataRow)
-        {
-            Process.Start(dataRow["FileName"].ToString());
-            return "Opening...";
-        }
-
-        public async Task<string> SendItem(DataRow dataRow)
-        {
-            //switch (user.UserProfiles.ProfileID)
-            //{
-            //    case "ADM":
-            //        break;
-            //    case "BAS":
-            //        break;
-            //    case "UPO":
-            //        break;
-            //    case "UPR":
-            //    //var details = perfilPr.GetDetailsRequisition(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-            //    //if (details.Count == 0)
-            //    //{
-            //    //    return "NODETAILS";
-            //    //}
-            //    // var attaches = perfilPr.GetAttaches(Convert.ToInt32(dataRow["RequisitionHeaderID"]));
-            //    //var path = new HtmlManipulate().ReemplazarDatos(dataRow, userDB, details);
-            //    //var send = new SendEmailTo(Properties.Settings.Default.Email, Properties.Settings.Default.Password);
-            //    //var x = await send.SendEmail(path, asunto: "Purchase Manager: Requisition document", userDB);
-
-            //    // return send.MessageResult;
-
-            //    case "VAL":
-            //        break;
-            //}
-            return null;
         }
 
         public async Task<string> CargarBanner()
         {
-            //switch (user.UserProfiles.ProfileID)
-            //{
-            //    case "ADM":
-            //        break;
-            //    case "BAS":
-            //        break;
-            //    case "UPO":
-            //        return await new HtmlManipulate().ReemplazarDatos();
-            //    case "UPR":
-            //        return await new HtmlManipulate().ReemplazarDatos();
-            //    case "VAL":
-            //        break;
-            //}
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    break;
+                case Perfiles.UPR:
+                    return await new HtmlManipulate().ReemplazarDatos();
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
             return string.Empty;
         }
+
+        #endregion
+
+
+
+
+
 
         public iGDropDownList CargarComBox(DataRow dataRow)
         {

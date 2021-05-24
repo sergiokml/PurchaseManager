@@ -31,31 +31,24 @@ namespace PurchaseDesktop.Helpers
             return lista;
         }
 
-        public void LLenarMenuContext(Perfiles perfil)
+        public void LLenarMenuContext()
         {
-            switch (perfil)
-            {
-                case Perfiles.ADM:
-                    break;
-                case Perfiles.BAS:
-                    break;
-                case Perfiles.UPO:
-                    CtxMenu.Items.Clear();
-                    CtxMenu.BackColor = Color.FromArgb(37, 37, 38);
-                    CtxMenu.ForeColor = Color.White;
-                    var item = CtxMenu.Items.Add("Sent To Supplier");
-                    item.Font = new Font("Tahoma", 8, FontStyle.Italic);
-                    item.Image = Properties.Resources.send_18px;
-                    item.BackColor = Color.FromArgb(37, 37, 38);
-                    break;
-                case Perfiles.UPR:
-                    break;
-                case Perfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
+            CtxMenu.Items.Clear();
+            CtxMenu.BackColor = Color.FromArgb(37, 37, 38);
+            CtxMenu.ForeColor = Color.White;
+
+            ToolStripItem item = CtxMenu.Items.Add("Sent To Supplier"); // index 0
+            item.Font = new Font("Tahoma", 8, FontStyle.Italic);
+            item.Image = Properties.Resources.send_18px;
+            item.BackColor = Color.FromArgb(37, 37, 38);
+
+
+            item = CtxMenu.Items.Add("Convert To PO");  // index 1
+            item.Font = new Font("Tahoma", 8, FontStyle.Italic);
+            item.Image = Properties.Resources.icons8_data_transfer_16;
+            item.BackColor = Color.FromArgb(37, 37, 38);
         }
+
         public void LLenarCombo(DataTable table)
         {
             //DataTable tablePr;
@@ -99,7 +92,7 @@ namespace PurchaseDesktop.Helpers
             //! Celda seleccionada
             Grid.FocusRectColor1 = Color.FromArgb(45, 45, 48);
             Grid.FocusRectColor2 = Color.FromArgb(45, 45, 48); // evita la linea punteada que bordea la celda
-            //! Fila seleccionada focus
+                                                               //! Fila seleccionada focus
             Grid.SelRowsBackColor = Color.FromArgb(154, 196, 85); // verde            
             Grid.SelRowsForeColor = Color.Black;
             //! Fila seleccionada no focus
@@ -185,10 +178,14 @@ namespace PurchaseDesktop.Helpers
                             Grid.Rows[i].Cells["Total"].Value = "";
                         }
 
-                        if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
-                        {
-                            Grid.Rows[i].CellStyle.DropDownControl = null;
-                        }
+                        //if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
+                        //{
+                        //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(70, 160, 90);
+                        //}
+                        //else
+                        //{
+                        //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(130, 136, 20);
+                        //}
 
                     }
                     break;
@@ -204,6 +201,14 @@ namespace PurchaseDesktop.Helpers
                             Grid.Rows[i].Cells["Status"].ImageIndex = 4;
                             Grid.Rows[i].Cells["Status"].ImageAlign = iGContentAlignment.BottomRight;
                         }
+                        //if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
+                        //{
+                        //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(70, 160, 90);
+                        //}
+                        //else
+                        //{
+                        //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(130, 136, 20);
+                        //}
                     }
                     break;
                 case Perfiles.VAL:
@@ -299,26 +304,26 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
-                    iGCol = Grid.Cols.Add("Net", "Net", 55);
+                    iGCol = Grid.Cols.Add("Net", "Net", 69);
                     iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol.CellStyle.Font = new Font("Tahoma", 7);
-                    iGCol = Grid.Cols.Add("Exent", "Exent", 55);
+                    iGCol = Grid.Cols.Add("Exent", "Exent", 64);
                     iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol.CellStyle.Font = new Font("Tahoma", 7);
 
-                    iGCol = Grid.Cols.Add("Tax", "Tax", 55);
+                    iGCol = Grid.Cols.Add("Tax", "Tax", 64);
                     iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol.CellStyle.Font = new Font("Tahoma", 7);
-                    iGCol = Grid.Cols.Add("Total", "Total", 64);
+                    iGCol = Grid.Cols.Add("Total", "Total", 69);
                     iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol.CellStyle.Font = new Font("Tahoma", 7);
                     iGCol = Grid.Cols.Add("UserID", "User ID", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("CostID", "CC", 30);
+                    iGCol = Grid.Cols.Add("CostID", "CC", 32);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("DateLast", "Creation", 66);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -381,7 +386,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("UserID", "User ID", 58);
                     //iGCol.CellStyle.FormatString = "{0:d}";
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("CostID", "CC", 30);
+                    iGCol = Grid.Cols.Add("CostID", "CC", 32);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("DateLast", "Creation", 66);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -405,7 +410,7 @@ namespace PurchaseDesktop.Helpers
             //! Cols
             foreach (iGCol item in Grid.Cols)
             {
-                item.AllowSizing = false;
+                //item.AllowSizing = false;
             }
 
         }
@@ -413,53 +418,22 @@ namespace PurchaseDesktop.Helpers
         public void CargarColumnasFDetail(Perfiles perfil)
         {
             iGCol iGCol;
-            switch (perfil)
-            {
-                case Perfiles.ADM:
-                    break;
-                case Perfiles.BAS:
-                    break;
-                case Perfiles.UPO:
-                    //! Cols     
-                    Grid.Header.Height = 20;
-                    iGCol = Grid.Cols.Add("nro", "N°", 21);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("DetailID", "");
-                    iGCol.Visible = false;
-                    iGCol = Grid.Cols.Add("RequisitionHeaderID", "");
-                    iGCol.Visible = false;
-                    iGCol = Grid.Cols.Add("Qty", "Qty", 39);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("NameProduct", "Product", 286);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("AccountID", "Account", 106);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("delete", "", 22);
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
-                    break;
-                case Perfiles.UPR:
-                    //! Cols     
-                    Grid.Header.Height = 20;
-                    iGCol = Grid.Cols.Add("nro", "N°", 21);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("DetailID", "");
-                    iGCol.Visible = false;
-                    iGCol = Grid.Cols.Add("RequisitionHeaderID", "");
-                    iGCol.Visible = false;
-                    iGCol = Grid.Cols.Add("Qty", "Qty", 39);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("NameProduct", "Product", 286);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("AccountID", "Account", 106);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("delete", "", 22);
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
-                    break;
-                case Perfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
+            //! Cols     
+            Grid.Header.Height = 20;
+            iGCol = Grid.Cols.Add("nro", "N°", 21);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("DetailID", "");
+            iGCol.Visible = false;
+            iGCol = Grid.Cols.Add("HeaderID", "");
+            iGCol.Visible = false;
+            iGCol = Grid.Cols.Add("Qty", "Qty", 39);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("NameProduct", "Product", 286);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("AccountID", "Account", 106);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("delete", "", 22);
+            iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
             //! Header
             foreach (iGColHdr item in Grid.Header.Cells)
             {
@@ -470,41 +444,27 @@ namespace PurchaseDesktop.Helpers
             {
                 item.AllowSizing = false;
             }
-
         }
 
         public void CargarColumnasFAttach(Perfiles perfil)
         {
             iGCol iGCol;
-            switch (perfil)
-            {
-                case Perfiles.ADM:
-                    break;
-                case Perfiles.BAS:
-                    break;
-                case Perfiles.UPO:
-                    break;
-                case Perfiles.UPR:
-                    //! Cols     
-                    Grid.Header.Height = 20;
-                    iGCol = Grid.Cols.Add("nro", "N°", 21);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("AttachID", "");
-                    iGCol.Visible = false;
-                    iGCol = Grid.Cols.Add("Description", "Description", 315);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("view", "", 22);
-                    iGCol.IncludeInSelect = false;
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
-                    iGCol = Grid.Cols.Add("delete", "", 22);
-                    iGCol.IncludeInSelect = false;
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
-                    break;
-                case Perfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
+            //! Cols     
+            Grid.Header.Height = 20;
+            iGCol = Grid.Cols.Add("nro", "N°", 21);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("AttachID", "");
+            iGCol.Visible = false;
+            iGCol = Grid.Cols.Add("Description", "Description", 315);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("Modifier", "Modifier", 50);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("view", "", 22);
+            iGCol.IncludeInSelect = false;
+            iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+            iGCol = Grid.Cols.Add("delete", "", 22);
+            iGCol.IncludeInSelect = false;
+            iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
             //! Header
             foreach (iGColHdr item in Grid.Header.Cells)
             {
@@ -519,31 +479,16 @@ namespace PurchaseDesktop.Helpers
         public void CargarColumnasFSupplier(Perfiles perfil)
         {
             iGCol iGCol;
-            switch (perfil)
-            {
-                case Perfiles.ADM:
-                    break;
-                case Perfiles.BAS:
-                    break;
-                case Perfiles.UPO:
-                    break;
-                case Perfiles.UPR:
-                    //! Cols     
-                    Grid.Header.Height = 20;
-                    iGCol = Grid.Cols.Add("nro", "N°", 21);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("SupplierID", "RUT", 58);
-                    iGCol = Grid.Cols.Add("Name", "Name", 200);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("delete", "", 22);
-                    iGCol.IncludeInSelect = false;
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
-                    break;
-                case Perfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
+            //! Cols     
+            Grid.Header.Height = 20;
+            iGCol = Grid.Cols.Add("nro", "N°", 32);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("SupplierID", "RUT", 58);
+            iGCol = Grid.Cols.Add("Name", "Name", 280);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("delete", "", 22);
+            iGCol.IncludeInSelect = false;
+            iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
             //! Header
             foreach (iGColHdr item in Grid.Header.Cells)
             {
@@ -551,11 +496,8 @@ namespace PurchaseDesktop.Helpers
             }
             foreach (iGCol item in Grid.Cols)
             {
-                item.AllowSizing = false;
+                // item.AllowSizing = false;
             }
-
         }
-
-
     }
 }
