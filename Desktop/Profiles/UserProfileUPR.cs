@@ -100,13 +100,16 @@ namespace PurchaseDesktop.Profiles
             {
                 case TypeDocumentHeader.PR:
                     transaction.Event = Eventos.UPDATE_PR.ToString();
-                    using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                    using (var rContext = new PurchaseManagerEntities())
                     {
-                        RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
-                        rContext.Entry(doc).CurrentValues.SetValues(item);
-                        doc.Transactions.Add(transaction);
-                        rContext.SaveChanges();
-                        trans.Commit();
+                        using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                        {
+                            RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
+                            rContext.Entry(doc).CurrentValues.SetValues(item);
+                            doc.Transactions.Add(transaction);
+                            rContext.SaveChanges();
+                            trans.Commit();
+                        }
                     }
                     break;
                 case TypeDocumentHeader.PO:
@@ -153,10 +156,19 @@ namespace PurchaseDesktop.Profiles
             };
             using (DbContextTransaction trans = rContext.Database.BeginTransaction())
             {
-                doc.Transactions.Add(transaction);
-                rContext.Entry(item).State = EntityState.Added;
-                rContext.SaveChanges();
-                trans.Commit();
+                try
+                {
+                    doc.Transactions.Add(transaction);
+                    rContext.Entry(item).State = EntityState.Added;
+                    rContext.SaveChanges();
+                    trans.Commit();
+                }
+                catch (Exception)
+                {
+                    trans.Rollback();
+                    throw;
+                }
+
             }
         }
 

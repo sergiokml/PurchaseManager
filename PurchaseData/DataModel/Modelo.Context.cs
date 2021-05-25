@@ -30,6 +30,7 @@ namespace PurchaseData.DataModel
         public virtual DbSet<Accounts> Accounts { get; set; }
         public virtual DbSet<Attaches> Attaches { get; set; }
         public virtual DbSet<Companies> Companies { get; set; }
+        public virtual DbSet<ConfigApp> ConfigApp { get; set; }
         public virtual DbSet<Currencies> Currencies { get; set; }
         public virtual DbSet<Medidas> Medidas { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }

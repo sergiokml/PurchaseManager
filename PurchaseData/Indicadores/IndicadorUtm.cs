@@ -17,11 +17,11 @@ namespace PurchaseData.Indicadores
         private string ApiKey { get; }
         private Uri UriBase { get; }
 
-        public IndicadorUtm()
+        public IndicadorUtm(DataModel.ConfigApp dbConfig)
         {
             WebClient = new WebClient();
-            ApiKey = Properties.Resources.ApikeySBIF;
-            UriBase = new Uri(Properties.Resources.BaseSBIF);
+            ApiKey = dbConfig.ApikeySBIF;
+            UriBase = new Uri(dbConfig.BaseSBIF);
         }
 
         public async Task<IndicadorUtm> GetPosterior(DateTime d)

@@ -148,23 +148,16 @@ namespace PurchaseDesktop.Formularios
         {
             if (ValidarControles())
             {
-                string serverfolder = Properties.Settings.Default.FolderApp;
+                // string serverfolder = configApp.FolderApp;
                 string idFolder = Current["HeaderID"].ToString();
-
-
-                if (!Directory.Exists(serverfolder + idFolder))
-                {
-                    Directory.CreateDirectory(serverfolder + idFolder);
-                }
-
                 Attaches att = new Attaches
                 {
                     Description = TxtNameFile.Text.Trim(),
                     FileName = $"{idFolder}{@"\"}{Path.GetFileName(TxtPathFile.Text)}",
                     Modifier = Convert.ToByte(CboTypeFile.SelectedValue)
                 };
-                rFachada.InsertAttach(att, Convert.ToInt32(Current["HeaderID"]));
-                File.Copy(FilePath, $"{serverfolder}{@"\"}{@"\"}{att.FileName}", true);
+                rFachada.InsertAttach(att, Convert.ToInt32(Current["HeaderID"]), FilePath);
+                //File.Copy(FilePath, $"{serverfolder}{@"\"}{@"\"}{att.FileName}", true);
                 LlenarGrid();
                 ClearControles();
                 SetControles();

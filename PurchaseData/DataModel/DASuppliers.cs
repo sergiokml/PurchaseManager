@@ -2,12 +2,12 @@
 {
     public partial class Suppliers
     {
-        //public List<Suppliers> GetList()
-        //{
-        //    using (var contextDB = new PurchaseManagerContext())
-        //    {
-        //        return contextDB.Suppliers.ToList();
-        //    }
-        //}
+        public Suppliers GetList(string id)
+        {
+            using (var contextDB = new PurchaseManagerEntities())
+            {
+                return contextDB.Suppliers.Find(id);
+            }
+        }
     }
 }

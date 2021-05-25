@@ -117,10 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApikeySBIF" xml:space="preserve">
-    <value>10f91c6c96901e4fd74e7e535235a138229df9b0</value>
-  </data>
-  <data name="BaseSBIF" xml:space="preserve">
-    <value>https://api.sbif.cl/api-sbifv3/recursos_api/</value>
-  </data>
 </root>

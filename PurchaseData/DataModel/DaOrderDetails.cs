@@ -13,6 +13,7 @@ namespace PurchaseData.DataModel
                 foreach (var item in lista)
                 {
                     contextDB.Entry(item).Reference(c => c.Accounts).Load();
+                    contextDB.Entry(item).Reference(c => c.Medidas).Load();
                 }
                 return lista;
             }

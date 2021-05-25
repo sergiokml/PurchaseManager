@@ -272,11 +272,9 @@ namespace PurchaseDesktop.Formularios
                     Grid.Focus();
                     Grid.DrawAsFocused = false;
                     System.Windows.Forms.Cursor.Current = Cursors.Default;
-                }
-                else
-                {
                     Msg("Cannot open the document.", MsgProceso.Error);
                 }
+
             }
             else if (Grid.Cols["send"].Index == e.ColIndex)
             {
@@ -451,12 +449,16 @@ namespace PurchaseDesktop.Formularios
             if (Grid.CurCell != null)
             {
                 DataRow current = (DataRow)Grid.CurRow.Tag;
-                if (!rFachada.OpenSupplierForm(current, this))
+                FSupplier f = new FSupplier(rFachada, current);
+                f.FormClosed += F_FormClosed;
+                if (!rFachada.OpenSupplierForm(f, this))
                 {
                     Msg("Your profile does not allow this action", MsgProceso.Error);
                 }
             }
         }
+
+
 
         private void Grid_CurCellChangeRequest(object sender, iGCurCellChangeRequestEventArgs e)
         {
@@ -537,12 +539,12 @@ namespace PurchaseDesktop.Formularios
             {
                 if (myFirstCellInGroup.Value.ToString() == "PO")
                 {
-                    myGroupRowCell.Value = "Purchase Orders";
+                    myGroupRowCell.Value = "Purchase  Orders";
 
                 }
                 else if (myFirstCellInGroup.Value.ToString() == "PR")
                 {
-                    myGroupRowCell.Value = "Purchase Requisitions";
+                    myGroupRowCell.Value = "Purchase  Requisitions";
                 }
             }
 

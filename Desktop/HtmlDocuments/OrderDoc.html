@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <title>Purchase Order</title>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" /> 
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <style>
-      /*  * {
+        /*  * {
             margin: 0;
             box-sizing: border-box;
             -webkit-print-color-adjust: exact;
@@ -15,44 +15,56 @@
             size: letter;
             margin: 0;
         }
+        /**/
         body {
             background: #eee;
-            /* font-size:0.9em !important; */       
+            /* font-size:0.9em !important; */
         }
+
         .invoice {
             width: 970px !important;
             margin: 0px auto;
         }
+
             .invoice .invoice-header {
                 padding: 25px 25px 5px;
             }
+
                 .invoice .invoice-header h1 {
                     margin: 0;
                 }
+
         .media {
         }
+
             .media .media-body {
                 font-size: 0.9em;
                 margin: 0;
             }
+
         .invoice-body {
             border-radius: 10px;
             padding: 10px;
-            background: #fff;            
+            background: #fff;
+            height: 1100px;
         }
+
         .invoice-footer {
             padding: 0px;
             font-size: 0.9em;
             text-align: center;
             color: #999;
         }
+
         .logo {
             max-height: 70px;
             border-radius: 10px;
         }
+
         .dl-horizontal {
             margin: 0;
         }
+
             .dl-horizontal dt {
                 float: left;
                 width: 80px;
@@ -62,21 +74,27 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
+
             .dl-horizontal dd {
                 margin-left: 90px;
             }
+
         .rowamount {
             padding-top: 15px !important;
         }
+
         .rowtotal {
             font-size: 1.3em;
         }
+
         .colfix {
             width: 12%;
         }
+
         .mono {
             font-family: monospace;
         }
+
         .panel-default > .panel-heading {
             background-color: #9AC455;
             color: white;
@@ -89,13 +107,21 @@
 
         .panel {
             margin-bottom: 10px;
+            margin-top: 5px;
         }
+
         .panel-body {
             padding: 7px;
         }
+
         .col-xs-4 {
             width: 33.33333333%;
             padding-top: 20px;
+        }
+
+        .h4, .h5, .h6, h4, h5, h6 {
+            margin-top: 10px;
+            margin-bottom: 0px;
         }
     </style>
 </head>
@@ -104,8 +130,8 @@
         <div class="invoice-header">
             <div class="row">
                 <div class="col-xs-8">
-                    <h1>Purchase Order <small>With Credit</small></h1>
-                    <h4 class="text-muted">NO: 554775/R1 | Date: 01/01/2015</h4>
+                    <h1>Purchase Order <small></small></h1>
+                    <h4 class="text-muted" id="CODE"></h4>
                 </div>
                 <div class="col-xs-4">
                     <div class="media">
@@ -118,7 +144,7 @@
         </div>
         <div class="invoice-body">
             <div class="row">
-                <div class="col-xs-5">
+                <div class="col-xs-6">
                     <div class="panel panel-default panel-wrong">
                         <div class="panel-heading">
                             <h3 class="panel-title">Company Details</h3>
@@ -126,48 +152,64 @@
                         <div class="panel-body">
                             <dl class="dl-horizontal">
                                 <dt>Name:</dt>
-                                <dd><strong>Acme Corporation</strong></dd>
-                                <dt>Industry:</dt>
-                                <dd>Software Development</dd>
+                                <dd id="NAMECOMPANY"><strong></strong></dd>
+                                <dt>RUT:</dt>
+                                <dd id="RUTCOMPANY"></dd>
+                                <dt>Name Biz:</dt>
+                                <dd id="NAMEBIZ"></dd>
+                                <dt>Giro:</dt>
+                                <dd id="GiroCompany"></dd>
                                 <dt>Address</dt>
-                                <dd>Field 3, Moon</dd>
-                                <dt>Phone</dt>
-                                <dd>123.4456.4567</dd>
-                                <dt>Email</dt>
-                                <dd>mainl@acme.com</dd>
-                                <dt>Tax NO</dt>
-                                <dd class="mono">123456789</dd>
-                                <dt>Tax Office</dt>
-                                <dd>A' Moon</dd>
-                                </dl>   
+                                <dd id="AddressCompany"></dd>
+                                <dt>Phone:</dt>
+                                <dd id="PhoneCompany"></dd>
+                                <dt>Email:</dt>
+                                <dd id="EMAIL"></dd>
+                                <dt>Contact:</dt>
+                                <dd class="mono" id="NAMECONTACT"></dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-7">
+                <div class="col-xs-6">
                     <div class="panel panel-default panel-wrong">
                         <div class="panel-heading">
                             <h3 class="panel-title">Customer Details</h3>
                         </div>
                         <div class="panel-body">
                             <dl class="dl-horizontal">
-                                <dt>Name</dt>
-                                <dd>Microsoft Corporation</dd>
-                                <dt>Industry</dt>
-                                <dd>Software Development</dd>
+                                <dt>Name:</dt>
+                                <dd id="SUPPLIERNAME"><strong></strong></dd>
+                                <dt>RUT:</dt>
+                                <dd id="SupplierID"></dd>
+                                <dt>Giro:</dt>
+                                <dd id="GiroCompanySupplier"></dd>
                                 <dt>Address</dt>
-                                <dd>One Microsoft Way Redmond, WA 98052-7329, USA</dd>
-                                <dt>Phone</dt>
-                                <dd>(425) 882-8080</dd>
-                                <dt>Email</dt>
-                                <dd>contact@microsoft.com</dd>
-                                <dt>Tax NO</dt>
-                                <dd class="mono">123456789</dd>
+                                <dd id="AddressCompanySupplier"></dd>
+                                <dt>Phone:</dt>
+                                <dd id="PhoneCompanySupplier"></dd>
+                                <dt>Email:</dt>
+                                <dd id="EMAILSupplier"></dd>
+                                <dt>Contact:</dt>
+                                <dd class="mono" id="NAMECONTACTSupplier"></dd>
                                 <dt>&nbsp;</dt>
-                                <dd>&nbsp;</dd>
-                                </dl>   
+                                <!--<dd>&nbsp;</dd>-->
+                            </dl>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="panel panel-default panel-wrong">
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <td class="col-xs-1" id="GLOSA"></td>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
             </div>
             <div class="panel panel-default panel-wrong">
                 <div class="panel-heading">
@@ -184,276 +226,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-right" style="width:50px;">
-                                <span class="mono">1</span>
-                                <br>
-                                <small class="text-muted"></small>
-                            </td>
-                            <td>
-                                Lorem Ipsum Dolor
-                                <br>
-                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">18.000</span>
-                                <br>
-                                <small class="text-muted">Kilogramos</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">$32.400</span>
-                                <br>
-                                <small class="text-muted">Definitivo</small>
-                            </td>
-                            <td class="text-right">
-                                <strong class="mono">$198.440.000</strong>
-                                <br>
-                                <small class="text-muted mono">CLP</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                <span class="mono">2</span>
-                                <br>
-                                <small class="text-muted"></small>
-                            </td>
-                            <td>
-                                Lorem Ipsum Dolor
-                                <br>
-                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">18.000</span>
-                                <br>
-                                <small class="text-muted">Kilogramos</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">$32.400</span>
-                                <br>
-                                <small class="text-muted">Definitivo</small>
-                            </td>
-                            <td class="text-right">
-                                <strong class="mono">$198.440.000</strong>
-                                <br>
-                                <small class="text-muted mono">CLP</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                <span class="mono">3</span>
-                                <br>
-                                <small class="text-muted"></small>
-                            </td>
-                            <td>
-                                Lorem Ipsum Dolor
-                                <br>
-                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">18.000</span>
-                                <br>
-                                <small class="text-muted">Kilogramos</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">$32.400</span>
-                                <br>
-                                <small class="text-muted">Definitivo</small>
-                            </td>
-                            <td class="text-right">
-                                <strong class="mono">$198.440.000</strong>
-                                <br>
-                                <small class="text-muted mono">CLP</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                <span class="mono">4</span>
-                                <br>
-                                <small class="text-muted"></small>
-                            </td>
-                            <td>
-                                Lorem Ipsum Dolor
-                                <br>
-                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">18.000</span>
-                                <br>
-                                <small class="text-muted">Kilogramos</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">$32.400</span>
-                                <br>
-                                <small class="text-muted">Definitivo</small>
-                            </td>
-                            <td class="text-right">
-                                <strong class="mono">$198.440.000</strong>
-                                <br>
-                                <small class="text-muted mono">CLP</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                <span class="mono">5</span>
-                                <br>
-                                <small class="text-muted"></small>
-                            </td>
-                            <td>
-                                Lorem Ipsum Dolor
-                                <br>
-                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">18.000</span>
-                                <br>
-                                <small class="text-muted">Kilogramos</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">$32.400</span>
-                                <br>
-                                <small class="text-muted">Definitivo</small>
-                            </td>
-                            <td class="text-right">
-                                <strong class="mono">$198.440.000</strong>
-                                <br>
-                                <small class="text-muted mono">CLP</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                <span class="mono">6</span>
-                                <br>
-                                <small class="text-muted"></small>
-                            </td>
-                            <td>
-                                Lorem Ipsum Dolor
-                                <br>
-                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">18.000</span>
-                                <br>
-                                <small class="text-muted">Kilogramos</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">$32.400</span>
-                                <br>
-                                <small class="text-muted">Definitivo</small>
-                            </td>
-                            <td class="text-right">
-                                <strong class="mono">$198.440.000</strong>
-                                <br>
-                                <small class="text-muted mono">CLP</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                <span class="mono">6</span>
-                                <br>
-                                <small class="text-muted"></small>
-                            </td>
-                            <td>
-                                Lorem Ipsum Dolor
-                                <br>
-                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">18.000</span>
-                                <br>
-                                <small class="text-muted">Kilogramos</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">$32.400</span>
-                                <br>
-                                <small class="text-muted">Definitivo</small>
-                            </td>
-                            <td class="text-right">
-                                <strong class="mono">$198.440.000</strong>
-                                <br>
-                                <small class="text-muted mono">CLP</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                <span class="mono">6</span>
-                                <br>
-                                <small class="text-muted"></small>
-                            </td>
-                            <td>
-                                Lorem Ipsum Dolor
-                                <br>
-                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">18.000</span>
-                                <br>
-                                <small class="text-muted">Kilogramos</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">$32.400</span>
-                                <br>
-                                <small class="text-muted">Definitivo</small>
-                            </td>
-                            <td class="text-right">
-                                <strong class="mono">$198.440.000</strong>
+                        <!--<tr><td class="text-right" style="width:50px;">
+                        <span class="mono">1</span><br><small class="text-muted"></small></td>
+                             <td>Lorem Ipsum Dolor<br>
+                             <small class="text-muted">The best lorem in town, try it now or leave forever</small></td>
+                             <td class="text-right"><span class="mono">18.000</span><br>
+                                 <small class="text-muted">Kilogramos</small></td>
+                             <td class="text-right"><span class="mono">$32.400</span><br>
+                                 <small class="text-muted">Definitivo</small></td><td class="text-right">
+                                 <strong class="mono">$198.440.000</strong><br><small class="text-muted mono">CLP</small>
+                             </td>
+                         </tr>-->
 
-                                <small class="text-muted mono">CLP</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                <span class="mono">6</span>
-                                <br>
-                                <small class="text-muted"></small>
-                            </td>
-                            <td>
-                                Lorem Ipsum Dolor
-                                <br>
-                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">18.000</span>
-                                <br>
-                                <small class="text-muted">Kilogramos</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">$32.400</span>
-                                <br>
-                                <small class="text-muted">Definitivo</small>
-                            </td>
-                            <td class="text-right">
-                                <strong class="mono">$198.440.000</strong>
-                                <br>
-                                <small class="text-muted mono">CLP</small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-right">
-                                <span class="mono">6</span>
-                                <br>
-                                <small class="text-muted"></small>
-                            </td>
-                            <td>
-                                Lorem Ipsum Dolor
-                                <br>
-                                <small class="text-muted">The best lorem in town, try it now or leave forever</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">18.000</span>
-                                <br>
-                                <small class="text-muted">Kilogramos</small>
-                            </td>
-                            <td class="text-right">
-                                <span class="mono">$32.400</span>
-                                <br>
-                                <small class="text-muted">Definitivo</small>
-                            </td>
-                            <td class="text-right">
-                                <strong class="mono">$198.440.000</strong>
-
-                                <small class="text-muted mono">CLP</small>
-                            </td>
-                        </tr>
 
                     </tbody>
                 </table>
@@ -472,11 +256,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th class="text-center rowtotal mono">$18.240,00</th>
-                            <th class="text-center rowtotal mono">$12.000,00</th>
-                            <th class="text-center rowtotal mono">$-1.440,00</th>
-                            <th class="text-center rowtotal mono">$38.312,85</th>
-                            <th class="text-center rowtotal mono">$345.312,85</th>
+                            <th class="text-center rowtotal mono" id="NET"></th>
+                            <th class="text-center rowtotal mono" id="EXENT"></th>
+                            <th class="text-center rowtotal mono" id="DISCOUNT"></th>
+                            <th class="text-center rowtotal mono" id="TAX"></th>
+                            <th class="text-center rowtotal mono" id="GRANDTOTAL"></th>
                         </tr>
                     </tbody>
                 </table>

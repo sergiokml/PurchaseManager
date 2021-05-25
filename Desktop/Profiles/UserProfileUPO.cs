@@ -139,7 +139,7 @@ namespace PurchaseDesktop.Profiles
                 {
                     doc.Transactions.Add(transaction);
                     rContext.Entry(item).State = EntityState.Added;
-                    rContext.SaveChanges(trans);
+                    rContext.SaveChanges();
                     trans.Commit();
                 }
                 catch (Exception)
@@ -182,24 +182,30 @@ namespace PurchaseDesktop.Profiles
             {
                 case TypeDocumentHeader.PR:
                     transaction.Event = Eventos.UPDATE_PR.ToString();
-                    using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                    using (var rContext = new PurchaseManagerEntities())
                     {
-                        RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
-                        rContext.Entry(doc).CurrentValues.SetValues(item);
-                        doc.Transactions.Add(transaction);
-                        rContext.SaveChanges();
-                        trans.Commit();
+                        using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                        {
+                            RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
+                            rContext.Entry(doc).CurrentValues.SetValues(item);
+                            doc.Transactions.Add(transaction);
+                            rContext.SaveChanges();
+                            trans.Commit();
+                        }
                     }
                     break;
                 case TypeDocumentHeader.PO:
                     transaction.Event = Eventos.UPDATE_PO.ToString();
-                    using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                    using (var rContext = new PurchaseManagerEntities())
                     {
-                        OrderHeader doc = rContext.OrderHeader.Find(headerID);
-                        rContext.Entry(doc).CurrentValues.SetValues(item);
-                        doc.Transactions.Add(transaction);
-                        rContext.SaveChanges();
-                        trans.Commit();
+                        using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                        {
+                            OrderHeader doc = rContext.OrderHeader.Find(headerID);
+                            rContext.Entry(doc).CurrentValues.SetValues(item);
+                            doc.Transactions.Add(transaction);
+                            rContext.SaveChanges();
+                            trans.Commit();
+                        }
                     }
                     break;
                 default:
@@ -235,6 +241,8 @@ namespace PurchaseDesktop.Profiles
             {
                 case TypeDocumentHeader.PR:
                     RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
+                    //using (var rContext = new PurchaseManagerEntities())
+                    //{
                     using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                     {
                         RequisitionDetails detail = rContext.RequisitionDetails.Find(detailID, pr.RequisitionHeaderID);
@@ -243,9 +251,12 @@ namespace PurchaseDesktop.Profiles
                         rContext.SaveChanges();
                         trans.Commit();
                     }
+                    //  }
                     break;
                 case TypeDocumentHeader.PO:
                     OrderHeader po = rContext.OrderHeader.Find(headerID);
+                    //using (var rContext = new PurchaseManagerEntities())
+                    //{
                     using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                     {
                         OrderDetails detail = rContext.OrderDetails.Find(detailID, po.OrderHeaderID);
@@ -254,6 +265,7 @@ namespace PurchaseDesktop.Profiles
                         rContext.SaveChanges();
                         trans.Commit();
                     }
+                    //}
                     break;
                 default:
                     break;

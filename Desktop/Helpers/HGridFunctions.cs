@@ -28,6 +28,7 @@ namespace PurchaseDesktop.Helpers
             lista.Images.Add(Properties.Resources.icons8_envelope); // Send
             lista.Images.Add(Properties.Resources.icons8_pdf); // Pdf
             lista.Images.Add(Properties.Resources.icons8_edit_row); // draft icon
+            lista.Images.Add(Properties.Resources.icons8_request_money); // currency icon
             return lista;
         }
 
@@ -141,33 +142,33 @@ namespace PurchaseDesktop.Helpers
                         var date = Convert.ToDateTime(Grid.Rows[i].Cells["DateLast"].Value).ToString("dd-MM-yyyy");
                         Grid.Rows[i].Cells["DateLast"].Value = date;
 
-                        decimal net = Convert.ToDecimal(Grid.Rows[i].Cells["Net"].Value);
-                        if (net > 0)
-                        {
-                            Grid.Rows[i].Cells["Net"].Value = net.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
-                        }
-                        else
-                        {
-                            Grid.Rows[i].Cells["Net"].Value = "";
-                        }
-                        decimal exent = Convert.ToDecimal(Grid.Rows[i].Cells["Exent"].Value);
-                        if (exent > 0)
-                        {
-                            Grid.Rows[i].Cells["Exent"].Value = exent.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL")); ;
-                        }
-                        else
-                        {
-                            Grid.Rows[i].Cells["Exent"].Value = "";
-                        }
-                        decimal tax = Convert.ToDecimal(Grid.Rows[i].Cells["Tax"].Value);
-                        if (tax > 0)
-                        {
-                            Grid.Rows[i].Cells["Tax"].Value = tax.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
-                        }
-                        else
-                        {
-                            Grid.Rows[i].Cells["Tax"].Value = "";
-                        }
+                        //decimal net = Convert.ToDecimal(Grid.Rows[i].Cells["Net"].Value);
+                        //if (net > 0)
+                        //{
+                        //    Grid.Rows[i].Cells["Net"].Value = net.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                        //}
+                        //else
+                        //{
+                        //    Grid.Rows[i].Cells["Net"].Value = "";
+                        //}
+                        //decimal exent = Convert.ToDecimal(Grid.Rows[i].Cells["Exent"].Value);
+                        //if (exent > 0)
+                        //{
+                        //    Grid.Rows[i].Cells["Exent"].Value = exent.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL")); ;
+                        //}
+                        //else
+                        //{
+                        //    Grid.Rows[i].Cells["Exent"].Value = "";
+                        //}
+                        //decimal tax = Convert.ToDecimal(Grid.Rows[i].Cells["Tax"].Value);
+                        //if (tax > 0)
+                        //{
+                        //    Grid.Rows[i].Cells["Tax"].Value = tax.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                        //}
+                        //else
+                        //{
+                        //    Grid.Rows[i].Cells["Tax"].Value = "";
+                        //}
                         decimal total = Convert.ToDecimal(Grid.Rows[i].Cells["Total"].Value);
                         if (total > 0)
                         {
@@ -177,7 +178,12 @@ namespace PurchaseDesktop.Helpers
                         {
                             Grid.Rows[i].Cells["Total"].Value = "";
                         }
-
+                        var td = Grid.Rows[i].Cells["Status"].Value.ToString();
+                        if (td.Equals("Draft Document"))
+                        {
+                            Grid.Rows[i].Cells["Status"].ImageIndex = 4;
+                            Grid.Rows[i].Cells["Status"].ImageAlign = iGContentAlignment.BottomRight;
+                        }
                         //if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
                         //{
                         //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(70, 160, 90);
@@ -291,9 +297,9 @@ namespace PurchaseDesktop.Helpers
                     iGCol.AllowGrouping = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
                     iGCol = Grid.Cols.Add("CompanyID", "Company", 58);
+                    iGCol.Visible = false;
+                    iGCol = Grid.Cols.Add("CompanyName", "Company Name", 175);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    //iGCol = Grid.Cols.Add("CompanyName", "Company Name", 175);
-                    //iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("Type", "Type", 93);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
@@ -304,19 +310,24 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
-                    iGCol = Grid.Cols.Add("Net", "Net", 69);
-                    iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol.CellStyle.Font = new Font("Tahoma", 7);
-                    iGCol = Grid.Cols.Add("Exent", "Exent", 64);
-                    iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol.CellStyle.Font = new Font("Tahoma", 7);
+                    //iGCol = Grid.Cols.Add("Net", "Net", 69);
+                    //iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
+                    //iGCol.CellStyle.ReadOnly = iGBool.True;
+                    //iGCol.CellStyle.Font = new Font("Tahoma", 7);
+                    //iGCol = Grid.Cols.Add("Exent", "Exent", 64);
+                    //iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
+                    //iGCol.CellStyle.ReadOnly = iGBool.True;
+                    //iGCol.CellStyle.Font = new Font("Tahoma", 7);
 
-                    iGCol = Grid.Cols.Add("Tax", "Tax", 64);
-                    iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
+                    //iGCol = Grid.Cols.Add("Tax", "Tax", 64);
+                    //iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
+                    //iGCol.CellStyle.ReadOnly = iGBool.True;
+                    //iGCol.CellStyle.Font = new Font("Tahoma", 7);
+                    iGCol = Grid.Cols.Add("CurrencyID", "", 30);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol.CellStyle.Font = new Font("Tahoma", 7);
+                    iGCol.ColHdrStyle.ImageList = ListaImagenes();
+                    iGCol.ImageIndex = 0;
+                    iGCol.ColHdrStyle.ImageAlign = iGContentAlignment.MiddleCenter;
                     iGCol = Grid.Cols.Add("Total", "Total", 69);
                     iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -428,10 +439,13 @@ namespace PurchaseDesktop.Helpers
             iGCol.Visible = false;
             iGCol = Grid.Cols.Add("Qty", "Qty", 39);
             iGCol.CellStyle.ReadOnly = iGBool.True;
-            iGCol = Grid.Cols.Add("NameProduct", "Product", 286);
+            iGCol = Grid.Cols.Add("NameProduct", "Product", 165);
             iGCol.CellStyle.ReadOnly = iGBool.True;
-            iGCol = Grid.Cols.Add("AccountID", "Account", 106);
+            iGCol = Grid.Cols.Add("DescriptionProduct", "Description", 214);
             iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("AccountID", "Account", 84);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol.CellStyle.Font = new Font("Tahoma", 6.5f);
             iGCol = Grid.Cols.Add("delete", "", 22);
             iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
             //! Header
@@ -484,7 +498,9 @@ namespace PurchaseDesktop.Helpers
             iGCol = Grid.Cols.Add("nro", "N°", 32);
             iGCol.CellStyle.ReadOnly = iGBool.True;
             iGCol = Grid.Cols.Add("SupplierID", "RUT", 58);
-            iGCol = Grid.Cols.Add("Name", "Name", 280);
+            iGCol = Grid.Cols.Add("Name", "Name", 366);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("CountryID", "", 22);
             iGCol.CellStyle.ReadOnly = iGBool.True;
             iGCol = Grid.Cols.Add("delete", "", 22);
             iGCol.IncludeInSelect = false;

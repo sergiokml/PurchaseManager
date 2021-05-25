@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
@@ -102,7 +100,7 @@ namespace PurchaseDesktop.Formularios
                         rd = new RequisitionDetails
                         {
                             AccountID = ((Accounts)CboAccount.SelectedItem).AccountID,
-                            Qty = Convert.ToInt32(TxtQty.Text),
+                            Qty = Convert.ToInt32(TxtQty.Text.Replace(".", "")),
                             NameProduct = TxtName.Text.Trim(),
                             DescriptionProduct = TxtDescription.Text.Trim(),
                             HeaderID = Convert.ToInt32(Current["HeaderID"]),
@@ -131,15 +129,17 @@ namespace PurchaseDesktop.Formularios
                             MedidaID = ((Medidas)CboMedidas.SelectedItem).MedidaID
 
                         };
-                        List<OrderDetails> ods = new OrderDetails().GetListByID(Convert.ToInt32(Current["HeaderID"]));
-                        int suma = ods.Sum(s => s.Total) + (od.Price * od.Qty);
-                        if (suma < 1000000000 && suma > 0)
+
+                        var t = Convert.ToDecimal(Current["Total"]);
+
+                        if (t < 10000000 && t > 0)
                         {
                             if (rFachada.InsertDetail(od, Current))
                             {
                                 LlenarGrid();
                                 ClearControles();
                                 SetControles();
+
                             }
                         }
 
@@ -248,13 +248,25 @@ namespace PurchaseDesktop.Formularios
             CboMedidas.SelectedIndex = -1;
             CboMedidas.ValueMember = "MedidaID";
 
-            //!Update totales en header
-            List<OrderDetails> ods = new OrderDetails().GetListByID(Convert.ToInt32(Current["HeaderID"]));
-            int suma = ods.Sum(s => s.Total);
-            rFachada.UpdateItem(suma, Current, "Net");
-            //rFachada.UpdateItem(0, Current, "Exent");
+            CboCurrency.DataSource = new Currencies().GetList();
+            CboCurrency.DisplayMember = "Description";
+            //CboCurrency.SelectedIndex = -1;
+            CboCurrency.ValueMember = "CurrencyID";
+            CboCurrency.SelectedValue = Current["CurrencyID"];
 
-            TxtTotal.Text = $"$ {suma.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"))}";
+            var po = new OrderHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
+
+
+
+            //TxtQty.Text = d.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"));
+            // {0:$#,#;;''}
+
+            TxtNet.Text = $"{Convert.ToDecimal(po.Net).ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"))}";
+            TxtExent.Text = $"{Convert.ToDecimal(po.Exent).ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"))}";
+            TxtDiscount.Text = $"{Convert.ToDecimal(po.Discount).ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"))}";
+            TxtTotal.Text = $"{Convert.ToDecimal(po.Total).ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"))}";
+
+
         }
 
         private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
@@ -352,6 +364,21 @@ namespace PurchaseDesktop.Formularios
             {
                 //throw;
             }
+        }
+
+        private void CboCurrency_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            //! Update Currency
+            System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+            if (rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID"))
+            {
+
+            }
+            else
+            {
+                ((FPrincipal)Owner).Msg("No se puede eliminar.", FPrincipal.MsgProceso.Error);
+            }
+            System.Windows.Forms.Cursor.Current = Cursors.Default;
         }
     }
 }

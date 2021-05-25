@@ -179,5 +179,23 @@ namespace PurchaseDesktop.Formularios
                 e.DoDefault = false;
             }
         }
+
+        private void Grid_CellDoubleClick(object sender, iGCellDoubleClickEventArgs e)
+        {
+            if (Grid.CurCell != null && Grid.CurCell.ColIndex > -1)
+            {
+                var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                if (current != null)
+                {
+                    if (rFachada.UpdateItem(current["SupplierID"], Current, "SupplierID"))
+                    {
+                        LlenarGrid();
+                        ClearControles();
+                        SetControles();
+                        Close();
+                    }
+                }
+            }
+        }
     }
 }

@@ -105,9 +105,14 @@
     <Compile Include="DataModel\Companies.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\ConfigApp.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\Currencies.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\DAConfigApp.cs" />
+    <Compile Include="DataModel\DACurrencies.cs" />
     <Compile Include="DataModel\DAMedidas.cs" />
     <Compile Include="DataModel\DAPurchaseManagerContext.cs" />
     <Compile Include="DataModel\DAAccounts.cs" />
@@ -202,6 +207,7 @@
     </Compile>
     <Compile Include="Helpers\HtmlManipulate.cs" />
     <Compile Include="Helpers\SendEmailTo.cs" />
+    <Compile Include="Helpers\ValidadorRut.cs" />
     <Compile Include="Indicadores\Indicador.cs" />
     <Compile Include="Indicadores\IndicadorDolar.cs" />
     <Compile Include="Indicadores\IndicadorEuro.cs" />

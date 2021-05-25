@@ -46,29 +46,38 @@ namespace PurchaseDesktop.Formularios
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties14 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties15 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties16 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties25 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties26 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties27 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties28 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties21 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties22 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties23 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties24 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties17 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties18 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties19 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties20 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             this.TxtRut = new Bunifu.UI.WinForms.BunifuTextBox();
             this.TxtAddress = new Bunifu.UI.WinForms.BunifuTextBox();
-            this.CboTypeAccount = new System.Windows.Forms.ComboBox();
             this.BtnNewDetail = new Bunifu.UI.WinForms.BunifuImageButton();
             this.TxtName = new Bunifu.UI.WinForms.BunifuTextBox();
             this.Grid = new TenTec.Windows.iGridLib.iGrid();
             this.TxtEmail = new Bunifu.UI.WinForms.BunifuTextBox();
-            this.CboBanks = new System.Windows.Forms.ComboBox();
             this.CboCountries = new System.Windows.Forms.ComboBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.TxtNroAccount = new Bunifu.UI.WinForms.BunifuTextBox();
             this.PanelHeader = new System.Windows.Forms.Panel();
+            this.LabelPanel = new System.Windows.Forms.Label();
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.FDock = new Bunifu.UI.WinForms.BunifuFormDock();
             this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.bunifuSeparator2 = new Bunifu.UI.WinForms.BunifuSeparator();
-            this.LabelPanel = new System.Windows.Forms.Label();
+            this.CboTypeAccount = new System.Windows.Forms.ComboBox();
+            this.CboBanks = new System.Windows.Forms.ComboBox();
+            this.TxtNroAccount = new Bunifu.UI.WinForms.BunifuTextBox();
+            this.bunifuTextBox1 = new Bunifu.UI.WinForms.BunifuTextBox();
+            this.bunifuSeparator3 = new Bunifu.UI.WinForms.BunifuSeparator();
+            this.TxtGiro = new Bunifu.UI.WinForms.BunifuTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.PanelHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,7 +98,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtRut.BorderThickness = 1;
             this.TxtRut.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtRut.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtRut.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtRut.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtRut.DefaultText = "";
             this.TxtRut.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtRut.HideSelection = true;
@@ -99,8 +108,8 @@ namespace PurchaseDesktop.Formularios
             this.TxtRut.IconRight = null;
             this.TxtRut.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtRut.Lines = new string[0];
-            this.TxtRut.Location = new System.Drawing.Point(286, 31);
-            this.TxtRut.MaxLength = 32767;
+            this.TxtRut.Location = new System.Drawing.Point(394, 30);
+            this.TxtRut.MaxLength = 8;
             this.TxtRut.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtRut.Modified = false;
             this.TxtRut.Multiline = false;
@@ -128,7 +137,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtRut.Padding = new System.Windows.Forms.Padding(3);
             this.TxtRut.PasswordChar = '\0';
             this.TxtRut.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.TxtRut.PlaceholderText = "Enter RUT";
+            this.TxtRut.PlaceholderText = "";
             this.TxtRut.ReadOnly = false;
             this.TxtRut.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.TxtRut.SelectedText = "";
@@ -142,7 +151,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtRut.TextMarginBottom = 0;
             this.TxtRut.TextMarginLeft = 3;
             this.TxtRut.TextMarginTop = 0;
-            this.TxtRut.TextPlaceholder = "Enter RUT";
+            this.TxtRut.TextPlaceholder = "";
             this.TxtRut.UseSystemPasswordChar = false;
             this.TxtRut.WordWrap = true;
             // 
@@ -163,7 +172,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtAddress.BorderThickness = 1;
             this.TxtAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtAddress.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtAddress.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtAddress.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtAddress.DefaultText = "";
             this.TxtAddress.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtAddress.HideSelection = true;
@@ -174,7 +183,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtAddress.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtAddress.Lines = new string[0];
             this.TxtAddress.Location = new System.Drawing.Point(12, 62);
-            this.TxtAddress.MaxLength = 32767;
+            this.TxtAddress.MaxLength = 150;
             this.TxtAddress.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtAddress.Modified = false;
             this.TxtAddress.Multiline = false;
@@ -209,7 +218,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtAddress.SelectionLength = 0;
             this.TxtAddress.SelectionStart = 0;
             this.TxtAddress.ShortcutsEnabled = true;
-            this.TxtAddress.Size = new System.Drawing.Size(322, 25);
+            this.TxtAddress.Size = new System.Drawing.Size(494, 25);
             this.TxtAddress.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtAddress.TabIndex = 28;
             this.TxtAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -219,17 +228,6 @@ namespace PurchaseDesktop.Formularios
             this.TxtAddress.TextPlaceholder = "Enter Comercial Address";
             this.TxtAddress.UseSystemPasswordChar = false;
             this.TxtAddress.WordWrap = true;
-            // 
-            // CboTypeAccount
-            // 
-            this.CboTypeAccount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CboTypeAccount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CboTypeAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CboTypeAccount.FormattingEnabled = true;
-            this.CboTypeAccount.Location = new System.Drawing.Point(6, 46);
-            this.CboTypeAccount.Name = "CboTypeAccount";
-            this.CboTypeAccount.Size = new System.Drawing.Size(81, 21);
-            this.CboTypeAccount.TabIndex = 29;
             // 
             // BtnNewDetail
             // 
@@ -251,7 +249,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail.ImageSize = new System.Drawing.Size(40, 40);
             this.BtnNewDetail.ImageZoomSize = new System.Drawing.Size(60, 60);
             this.BtnNewDetail.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.InitialImage")));
-            this.BtnNewDetail.Location = new System.Drawing.Point(340, 69);
+            this.BtnNewDetail.Location = new System.Drawing.Point(428, 144);
             this.BtnNewDetail.Name = "BtnNewDetail";
             this.BtnNewDetail.Rotation = 0;
             this.BtnNewDetail.ShowActiveImage = true;
@@ -261,7 +259,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail.Size = new System.Drawing.Size(60, 60);
             this.BtnNewDetail.TabIndex = 25;
             this.BtnNewDetail.TabStop = false;
-            this.BtnNewDetail.ToolTipText = "";
+            this.BtnNewDetail.ToolTipText = "New Supplier";
             this.BtnNewDetail.WaitOnLoad = false;
             this.BtnNewDetail.Zoom = 20;
             this.BtnNewDetail.ZoomSpeed = 10;
@@ -283,7 +281,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtName.BorderThickness = 1;
             this.TxtName.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtName.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtName.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtName.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtName.DefaultText = "";
             this.TxtName.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtName.HideSelection = true;
@@ -294,7 +292,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtName.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtName.Lines = new string[0];
             this.TxtName.Location = new System.Drawing.Point(12, 31);
-            this.TxtName.MaxLength = 32767;
+            this.TxtName.MaxLength = 100;
             this.TxtName.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtName.Modified = false;
             this.TxtName.Multiline = false;
@@ -329,7 +327,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtName.SelectionLength = 0;
             this.TxtName.SelectionStart = 0;
             this.TxtName.ShortcutsEnabled = true;
-            this.TxtName.Size = new System.Drawing.Size(257, 25);
+            this.TxtName.Size = new System.Drawing.Size(347, 25);
             this.TxtName.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtName.TabIndex = 27;
             this.TxtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -344,11 +342,12 @@ namespace PurchaseDesktop.Formularios
             // 
             this.Grid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Grid.Header.Height = 16;
-            this.Grid.Location = new System.Drawing.Point(0, 198);
+            this.Grid.Location = new System.Drawing.Point(0, 219);
             this.Grid.Name = "Grid";
-            this.Grid.Size = new System.Drawing.Size(410, 121);
+            this.Grid.Size = new System.Drawing.Size(518, 157);
             this.Grid.TabIndex = 31;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
+            this.Grid.CellDoubleClick += new TenTec.Windows.iGridLib.iGCellDoubleClickEventHandler(this.Grid_CellDoubleClick);
             // 
             // TxtEmail
             // 
@@ -367,7 +366,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtEmail.BorderThickness = 1;
             this.TxtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtEmail.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtEmail.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtEmail.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtEmail.DefaultText = "";
             this.TxtEmail.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtEmail.HideSelection = true;
@@ -377,8 +376,8 @@ namespace PurchaseDesktop.Formularios
             this.TxtEmail.IconRight = null;
             this.TxtEmail.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtEmail.Lines = new string[0];
-            this.TxtEmail.Location = new System.Drawing.Point(225, 162);
-            this.TxtEmail.MaxLength = 32767;
+            this.TxtEmail.Location = new System.Drawing.Point(238, 144);
+            this.TxtEmail.MaxLength = 50;
             this.TxtEmail.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtEmail.Modified = false;
             this.TxtEmail.Multiline = false;
@@ -413,7 +412,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtEmail.SelectionLength = 0;
             this.TxtEmail.SelectionStart = 0;
             this.TxtEmail.ShortcutsEnabled = true;
-            this.TxtEmail.Size = new System.Drawing.Size(173, 25);
+            this.TxtEmail.Size = new System.Drawing.Size(175, 25);
             this.TxtEmail.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtEmail.TabIndex = 33;
             this.TxtEmail.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -424,114 +423,16 @@ namespace PurchaseDesktop.Formularios
             this.TxtEmail.UseSystemPasswordChar = false;
             this.TxtEmail.WordWrap = true;
             // 
-            // CboBanks
-            // 
-            this.CboBanks.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CboBanks.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CboBanks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CboBanks.FormattingEnabled = true;
-            this.CboBanks.Location = new System.Drawing.Point(6, 73);
-            this.CboBanks.Name = "CboBanks";
-            this.CboBanks.Size = new System.Drawing.Size(195, 21);
-            this.CboBanks.TabIndex = 35;
-            // 
             // CboCountries
             // 
             this.CboCountries.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.CboCountries.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CboCountries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CboCountries.FormattingEnabled = true;
-            this.CboCountries.Location = new System.Drawing.Point(225, 135);
+            this.CboCountries.Location = new System.Drawing.Point(329, 95);
             this.CboCountries.Name = "CboCountries";
-            this.CboCountries.Size = new System.Drawing.Size(173, 21);
+            this.CboCountries.Size = new System.Drawing.Size(177, 21);
             this.CboCountries.TabIndex = 36;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.TxtNroAccount);
-            this.groupBox1.Controls.Add(this.CboBanks);
-            this.groupBox1.Controls.Add(this.CboTypeAccount);
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(12, 93);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(207, 100);
-            this.groupBox1.TabIndex = 37;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Bank";
-            // 
-            // TxtNroAccount
-            // 
-            this.TxtNroAccount.AcceptsReturn = false;
-            this.TxtNroAccount.AcceptsTab = false;
-            this.TxtNroAccount.AnimationSpeed = 200;
-            this.TxtNroAccount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
-            this.TxtNroAccount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtNroAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            this.TxtNroAccount.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtNroAccount.BackgroundImage")));
-            this.TxtNroAccount.BorderColorActive = System.Drawing.Color.DodgerBlue;
-            this.TxtNroAccount.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.TxtNroAccount.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            this.TxtNroAccount.BorderColorIdle = System.Drawing.Color.Silver;
-            this.TxtNroAccount.BorderRadius = 1;
-            this.TxtNroAccount.BorderThickness = 1;
-            this.TxtNroAccount.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.TxtNroAccount.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtNroAccount.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
-            this.TxtNroAccount.DefaultText = "";
-            this.TxtNroAccount.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            this.TxtNroAccount.HideSelection = true;
-            this.TxtNroAccount.IconLeft = null;
-            this.TxtNroAccount.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtNroAccount.IconPadding = 10;
-            this.TxtNroAccount.IconRight = null;
-            this.TxtNroAccount.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtNroAccount.Lines = new string[0];
-            this.TxtNroAccount.Location = new System.Drawing.Point(6, 15);
-            this.TxtNroAccount.MaxLength = 32767;
-            this.TxtNroAccount.MinimumSize = new System.Drawing.Size(1, 1);
-            this.TxtNroAccount.Modified = false;
-            this.TxtNroAccount.Multiline = false;
-            this.TxtNroAccount.Name = "TxtNroAccount";
-            stateProperties17.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties17.FillColor = System.Drawing.Color.Empty;
-            stateProperties17.ForeColor = System.Drawing.Color.Empty;
-            stateProperties17.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtNroAccount.OnActiveState = stateProperties17;
-            stateProperties18.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            stateProperties18.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            stateProperties18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            stateProperties18.PlaceholderForeColor = System.Drawing.Color.DarkGray;
-            this.TxtNroAccount.OnDisabledState = stateProperties18;
-            stateProperties19.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties19.FillColor = System.Drawing.Color.Empty;
-            stateProperties19.ForeColor = System.Drawing.Color.Empty;
-            stateProperties19.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtNroAccount.OnHoverState = stateProperties19;
-            stateProperties20.BorderColor = System.Drawing.Color.Silver;
-            stateProperties20.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            stateProperties20.ForeColor = System.Drawing.Color.Empty;
-            stateProperties20.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtNroAccount.OnIdleState = stateProperties20;
-            this.TxtNroAccount.Padding = new System.Windows.Forms.Padding(3);
-            this.TxtNroAccount.PasswordChar = '\0';
-            this.TxtNroAccount.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.TxtNroAccount.PlaceholderText = "Enter Number Account";
-            this.TxtNroAccount.ReadOnly = false;
-            this.TxtNroAccount.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.TxtNroAccount.SelectedText = "";
-            this.TxtNroAccount.SelectionLength = 0;
-            this.TxtNroAccount.SelectionStart = 0;
-            this.TxtNroAccount.ShortcutsEnabled = true;
-            this.TxtNroAccount.Size = new System.Drawing.Size(195, 25);
-            this.TxtNroAccount.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
-            this.TxtNroAccount.TabIndex = 36;
-            this.TxtNroAccount.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.TxtNroAccount.TextMarginBottom = 0;
-            this.TxtNroAccount.TextMarginLeft = 3;
-            this.TxtNroAccount.TextMarginTop = 0;
-            this.TxtNroAccount.TextPlaceholder = "Enter Number Account";
-            this.TxtNroAccount.UseSystemPasswordChar = false;
-            this.TxtNroAccount.WordWrap = true;
             // 
             // PanelHeader
             // 
@@ -541,8 +442,20 @@ namespace PurchaseDesktop.Formularios
             this.PanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelHeader.Location = new System.Drawing.Point(0, 1);
             this.PanelHeader.Name = "PanelHeader";
-            this.PanelHeader.Size = new System.Drawing.Size(410, 25);
+            this.PanelHeader.Size = new System.Drawing.Size(518, 25);
             this.PanelHeader.TabIndex = 38;
+            // 
+            // LabelPanel
+            // 
+            this.LabelPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelPanel.ForeColor = System.Drawing.Color.White;
+            this.LabelPanel.Location = new System.Drawing.Point(0, 0);
+            this.LabelPanel.Name = "LabelPanel";
+            this.LabelPanel.Size = new System.Drawing.Size(65, 25);
+            this.LabelPanel.TabIndex = 29;
+            this.LabelPanel.Text = "Suppliers";
+            this.LabelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // BtnCerrar
             // 
@@ -564,7 +477,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar.ImageSize = new System.Drawing.Size(17, 17);
             this.BtnCerrar.ImageZoomSize = new System.Drawing.Size(22, 22);
             this.BtnCerrar.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.InitialImage")));
-            this.BtnCerrar.Location = new System.Drawing.Point(385, 1);
+            this.BtnCerrar.Location = new System.Drawing.Point(493, 1);
             this.BtnCerrar.Name = "BtnCerrar";
             this.BtnCerrar.Rotation = 0;
             this.BtnCerrar.ShowActiveImage = true;
@@ -630,10 +543,10 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
             this.bunifuSeparator1.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.Solid;
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(0, 319);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(0, 376);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
-            this.bunifuSeparator1.Size = new System.Drawing.Size(410, 1);
+            this.bunifuSeparator1.Size = new System.Drawing.Size(518, 1);
             this.bunifuSeparator1.TabIndex = 39;
             // 
             // bunifuSeparator2
@@ -649,32 +562,284 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator2.Location = new System.Drawing.Point(0, 0);
             this.bunifuSeparator2.Name = "bunifuSeparator2";
             this.bunifuSeparator2.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
-            this.bunifuSeparator2.Size = new System.Drawing.Size(410, 1);
+            this.bunifuSeparator2.Size = new System.Drawing.Size(518, 1);
             this.bunifuSeparator2.TabIndex = 40;
             // 
-            // LabelPanel
+            // CboTypeAccount
             // 
-            this.LabelPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelPanel.ForeColor = System.Drawing.Color.White;
-            this.LabelPanel.Location = new System.Drawing.Point(0, 0);
-            this.LabelPanel.Name = "LabelPanel";
-            this.LabelPanel.Size = new System.Drawing.Size(65, 25);
-            this.LabelPanel.TabIndex = 29;
-            this.LabelPanel.Text = "Suppliers";
-            this.LabelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CboTypeAccount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.CboTypeAccount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CboTypeAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboTypeAccount.FormattingEnabled = true;
+            this.CboTypeAccount.Location = new System.Drawing.Point(12, 165);
+            this.CboTypeAccount.Name = "CboTypeAccount";
+            this.CboTypeAccount.Size = new System.Drawing.Size(81, 21);
+            this.CboTypeAccount.TabIndex = 29;
+            // 
+            // CboBanks
+            // 
+            this.CboBanks.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.CboBanks.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CboBanks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboBanks.FormattingEnabled = true;
+            this.CboBanks.Location = new System.Drawing.Point(12, 192);
+            this.CboBanks.Name = "CboBanks";
+            this.CboBanks.Size = new System.Drawing.Size(195, 21);
+            this.CboBanks.TabIndex = 35;
+            // 
+            // TxtNroAccount
+            // 
+            this.TxtNroAccount.AcceptsReturn = false;
+            this.TxtNroAccount.AcceptsTab = false;
+            this.TxtNroAccount.AnimationSpeed = 200;
+            this.TxtNroAccount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.TxtNroAccount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.TxtNroAccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.TxtNroAccount.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtNroAccount.BackgroundImage")));
+            this.TxtNroAccount.BorderColorActive = System.Drawing.Color.DodgerBlue;
+            this.TxtNroAccount.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.TxtNroAccount.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            this.TxtNroAccount.BorderColorIdle = System.Drawing.Color.Silver;
+            this.TxtNroAccount.BorderRadius = 1;
+            this.TxtNroAccount.BorderThickness = 1;
+            this.TxtNroAccount.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.TxtNroAccount.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtNroAccount.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
+            this.TxtNroAccount.DefaultText = "";
+            this.TxtNroAccount.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.TxtNroAccount.HideSelection = true;
+            this.TxtNroAccount.IconLeft = null;
+            this.TxtNroAccount.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtNroAccount.IconPadding = 10;
+            this.TxtNroAccount.IconRight = null;
+            this.TxtNroAccount.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtNroAccount.Lines = new string[0];
+            this.TxtNroAccount.Location = new System.Drawing.Point(12, 134);
+            this.TxtNroAccount.MaxLength = 20;
+            this.TxtNroAccount.MinimumSize = new System.Drawing.Size(1, 1);
+            this.TxtNroAccount.Modified = false;
+            this.TxtNroAccount.Multiline = false;
+            this.TxtNroAccount.Name = "TxtNroAccount";
+            stateProperties25.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties25.FillColor = System.Drawing.Color.Empty;
+            stateProperties25.ForeColor = System.Drawing.Color.Empty;
+            stateProperties25.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtNroAccount.OnActiveState = stateProperties25;
+            stateProperties26.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            stateProperties26.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            stateProperties26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            stateProperties26.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.TxtNroAccount.OnDisabledState = stateProperties26;
+            stateProperties27.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties27.FillColor = System.Drawing.Color.Empty;
+            stateProperties27.ForeColor = System.Drawing.Color.Empty;
+            stateProperties27.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtNroAccount.OnHoverState = stateProperties27;
+            stateProperties28.BorderColor = System.Drawing.Color.Silver;
+            stateProperties28.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            stateProperties28.ForeColor = System.Drawing.Color.Empty;
+            stateProperties28.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtNroAccount.OnIdleState = stateProperties28;
+            this.TxtNroAccount.Padding = new System.Windows.Forms.Padding(3);
+            this.TxtNroAccount.PasswordChar = '\0';
+            this.TxtNroAccount.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.TxtNroAccount.PlaceholderText = "Enter N° Account";
+            this.TxtNroAccount.ReadOnly = false;
+            this.TxtNroAccount.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.TxtNroAccount.SelectedText = "";
+            this.TxtNroAccount.SelectionLength = 0;
+            this.TxtNroAccount.SelectionStart = 0;
+            this.TxtNroAccount.ShortcutsEnabled = true;
+            this.TxtNroAccount.Size = new System.Drawing.Size(169, 25);
+            this.TxtNroAccount.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
+            this.TxtNroAccount.TabIndex = 36;
+            this.TxtNroAccount.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.TxtNroAccount.TextMarginBottom = 0;
+            this.TxtNroAccount.TextMarginLeft = 3;
+            this.TxtNroAccount.TextMarginTop = 0;
+            this.TxtNroAccount.TextPlaceholder = "Enter N° Account";
+            this.TxtNroAccount.UseSystemPasswordChar = false;
+            this.TxtNroAccount.WordWrap = true;
+            // 
+            // bunifuTextBox1
+            // 
+            this.bunifuTextBox1.AcceptsReturn = false;
+            this.bunifuTextBox1.AcceptsTab = false;
+            this.bunifuTextBox1.AnimationSpeed = 200;
+            this.bunifuTextBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.bunifuTextBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.bunifuTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.bunifuTextBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuTextBox1.BackgroundImage")));
+            this.bunifuTextBox1.BorderColorActive = System.Drawing.Color.DodgerBlue;
+            this.bunifuTextBox1.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.bunifuTextBox1.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            this.bunifuTextBox1.BorderColorIdle = System.Drawing.Color.Silver;
+            this.bunifuTextBox1.BorderRadius = 1;
+            this.bunifuTextBox1.BorderThickness = 1;
+            this.bunifuTextBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.bunifuTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.bunifuTextBox1.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
+            this.bunifuTextBox1.DefaultText = "";
+            this.bunifuTextBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.bunifuTextBox1.HideSelection = true;
+            this.bunifuTextBox1.IconLeft = null;
+            this.bunifuTextBox1.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
+            this.bunifuTextBox1.IconPadding = 10;
+            this.bunifuTextBox1.IconRight = null;
+            this.bunifuTextBox1.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
+            this.bunifuTextBox1.Lines = new string[0];
+            this.bunifuTextBox1.Location = new System.Drawing.Point(238, 175);
+            this.bunifuTextBox1.MaxLength = 50;
+            this.bunifuTextBox1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bunifuTextBox1.Modified = false;
+            this.bunifuTextBox1.Multiline = false;
+            this.bunifuTextBox1.Name = "bunifuTextBox1";
+            stateProperties21.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties21.FillColor = System.Drawing.Color.Empty;
+            stateProperties21.ForeColor = System.Drawing.Color.Empty;
+            stateProperties21.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.bunifuTextBox1.OnActiveState = stateProperties21;
+            stateProperties22.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            stateProperties22.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            stateProperties22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            stateProperties22.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.bunifuTextBox1.OnDisabledState = stateProperties22;
+            stateProperties23.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties23.FillColor = System.Drawing.Color.Empty;
+            stateProperties23.ForeColor = System.Drawing.Color.Empty;
+            stateProperties23.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.bunifuTextBox1.OnHoverState = stateProperties23;
+            stateProperties24.BorderColor = System.Drawing.Color.Silver;
+            stateProperties24.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            stateProperties24.ForeColor = System.Drawing.Color.Empty;
+            stateProperties24.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.bunifuTextBox1.OnIdleState = stateProperties24;
+            this.bunifuTextBox1.Padding = new System.Windows.Forms.Padding(3);
+            this.bunifuTextBox1.PasswordChar = '\0';
+            this.bunifuTextBox1.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.bunifuTextBox1.PlaceholderText = "Enter Phone";
+            this.bunifuTextBox1.ReadOnly = false;
+            this.bunifuTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.bunifuTextBox1.SelectedText = "";
+            this.bunifuTextBox1.SelectionLength = 0;
+            this.bunifuTextBox1.SelectionStart = 0;
+            this.bunifuTextBox1.ShortcutsEnabled = true;
+            this.bunifuTextBox1.Size = new System.Drawing.Size(113, 25);
+            this.bunifuTextBox1.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
+            this.bunifuTextBox1.TabIndex = 41;
+            this.bunifuTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.bunifuTextBox1.TextMarginBottom = 0;
+            this.bunifuTextBox1.TextMarginLeft = 3;
+            this.bunifuTextBox1.TextMarginTop = 0;
+            this.bunifuTextBox1.TextPlaceholder = "Enter Phone";
+            this.bunifuTextBox1.UseSystemPasswordChar = false;
+            this.bunifuTextBox1.WordWrap = true;
+            // 
+            // bunifuSeparator3
+            // 
+            this.bunifuSeparator3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.bunifuSeparator3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuSeparator3.BackgroundImage")));
+            this.bunifuSeparator3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuSeparator3.DashCap = Bunifu.UI.WinForms.BunifuSeparator.CapStyles.Flat;
+            this.bunifuSeparator3.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.bunifuSeparator3.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.Solid;
+            this.bunifuSeparator3.LineThickness = 1;
+            this.bunifuSeparator3.Location = new System.Drawing.Point(0, 126);
+            this.bunifuSeparator3.Name = "bunifuSeparator3";
+            this.bunifuSeparator3.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
+            this.bunifuSeparator3.Size = new System.Drawing.Size(518, 2);
+            this.bunifuSeparator3.TabIndex = 42;
+            // 
+            // TxtGiro
+            // 
+            this.TxtGiro.AcceptsReturn = false;
+            this.TxtGiro.AcceptsTab = false;
+            this.TxtGiro.AnimationSpeed = 200;
+            this.TxtGiro.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.TxtGiro.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.TxtGiro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.TxtGiro.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtGiro.BackgroundImage")));
+            this.TxtGiro.BorderColorActive = System.Drawing.Color.DodgerBlue;
+            this.TxtGiro.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.TxtGiro.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            this.TxtGiro.BorderColorIdle = System.Drawing.Color.Silver;
+            this.TxtGiro.BorderRadius = 1;
+            this.TxtGiro.BorderThickness = 1;
+            this.TxtGiro.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.TxtGiro.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtGiro.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
+            this.TxtGiro.DefaultText = "";
+            this.TxtGiro.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.TxtGiro.HideSelection = true;
+            this.TxtGiro.IconLeft = null;
+            this.TxtGiro.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtGiro.IconPadding = 10;
+            this.TxtGiro.IconRight = null;
+            this.TxtGiro.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtGiro.Lines = new string[0];
+            this.TxtGiro.Location = new System.Drawing.Point(12, 95);
+            this.TxtGiro.MaxLength = 100;
+            this.TxtGiro.MinimumSize = new System.Drawing.Size(1, 1);
+            this.TxtGiro.Modified = false;
+            this.TxtGiro.Multiline = false;
+            this.TxtGiro.Name = "TxtGiro";
+            stateProperties17.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties17.FillColor = System.Drawing.Color.Empty;
+            stateProperties17.ForeColor = System.Drawing.Color.Empty;
+            stateProperties17.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtGiro.OnActiveState = stateProperties17;
+            stateProperties18.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            stateProperties18.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            stateProperties18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            stateProperties18.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.TxtGiro.OnDisabledState = stateProperties18;
+            stateProperties19.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties19.FillColor = System.Drawing.Color.Empty;
+            stateProperties19.ForeColor = System.Drawing.Color.Empty;
+            stateProperties19.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtGiro.OnHoverState = stateProperties19;
+            stateProperties20.BorderColor = System.Drawing.Color.Silver;
+            stateProperties20.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            stateProperties20.ForeColor = System.Drawing.Color.Empty;
+            stateProperties20.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtGiro.OnIdleState = stateProperties20;
+            this.TxtGiro.Padding = new System.Windows.Forms.Padding(3);
+            this.TxtGiro.PasswordChar = '\0';
+            this.TxtGiro.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.TxtGiro.PlaceholderText = "Enter Giro";
+            this.TxtGiro.ReadOnly = false;
+            this.TxtGiro.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.TxtGiro.SelectedText = "";
+            this.TxtGiro.SelectionLength = 0;
+            this.TxtGiro.SelectionStart = 0;
+            this.TxtGiro.ShortcutsEnabled = true;
+            this.TxtGiro.Size = new System.Drawing.Size(293, 25);
+            this.TxtGiro.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
+            this.TxtGiro.TabIndex = 43;
+            this.TxtGiro.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.TxtGiro.TextMarginBottom = 0;
+            this.TxtGiro.TextMarginLeft = 3;
+            this.TxtGiro.TextMarginTop = 0;
+            this.TxtGiro.TextPlaceholder = "Enter Giro";
+            this.TxtGiro.UseSystemPasswordChar = false;
+            this.TxtGiro.WordWrap = true;
             // 
             // FSupplier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.ClientSize = new System.Drawing.Size(410, 320);
+            this.ClientSize = new System.Drawing.Size(518, 377);
+            this.Controls.Add(this.TxtGiro);
+            this.Controls.Add(this.bunifuSeparator3);
+            this.Controls.Add(this.bunifuTextBox1);
+            this.Controls.Add(this.TxtNroAccount);
+            this.Controls.Add(this.CboBanks);
             this.Controls.Add(this.PanelHeader);
+            this.Controls.Add(this.CboTypeAccount);
             this.Controls.Add(this.bunifuSeparator2);
             this.Controls.Add(this.Grid);
             this.Controls.Add(this.bunifuSeparator1);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.CboCountries);
             this.Controls.Add(this.TxtEmail);
             this.Controls.Add(this.TxtRut);
@@ -686,7 +851,6 @@ namespace PurchaseDesktop.Formularios
             this.Text = "FSupplier";
             this.Load += new System.EventHandler(this.FSupplier_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).EndInit();
-            this.groupBox1.ResumeLayout(false);
             this.PanelHeader.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -695,20 +859,22 @@ namespace PurchaseDesktop.Formularios
         #endregion
         private Bunifu.UI.WinForms.BunifuTextBox TxtRut;
         private Bunifu.UI.WinForms.BunifuTextBox TxtAddress;
-        private System.Windows.Forms.ComboBox CboTypeAccount;
         private Bunifu.UI.WinForms.BunifuImageButton BtnNewDetail;
         private Bunifu.UI.WinForms.BunifuTextBox TxtName;
         private TenTec.Windows.iGridLib.iGrid Grid;
         private Bunifu.UI.WinForms.BunifuTextBox TxtEmail;
-        private System.Windows.Forms.ComboBox CboBanks;
         private System.Windows.Forms.ComboBox CboCountries;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private Bunifu.UI.WinForms.BunifuTextBox TxtNroAccount;
         private System.Windows.Forms.Panel PanelHeader;
         private Bunifu.UI.WinForms.BunifuFormDock FDock;
         private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator1;
         private Bunifu.UI.WinForms.BunifuImageButton BtnCerrar;
         private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator2;
         private System.Windows.Forms.Label LabelPanel;
+        private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator3;
+        private Bunifu.UI.WinForms.BunifuTextBox bunifuTextBox1;
+        private Bunifu.UI.WinForms.BunifuTextBox TxtNroAccount;
+        private System.Windows.Forms.ComboBox CboBanks;
+        private System.Windows.Forms.ComboBox CboTypeAccount;
+        private Bunifu.UI.WinForms.BunifuTextBox TxtGiro;
     }
 }

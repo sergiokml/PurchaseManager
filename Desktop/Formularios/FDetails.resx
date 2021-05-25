@@ -597,18 +597,11 @@
   <metadata name="FDock.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="TxtTotal.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAGcAAAAZCAYAAAAsaTBIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAqSURBVGhD7cNBDQAwCASw+TfFOQNULDzapA8AAAAAAAAA
-        AAB+SlK7vTY9Xp1OKaBxsK8AAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="bunifuSeparator2.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAdoAAAABCAYAAAB5am/3AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAdSURBVEhLY5h1JPT/KB7Fo3gUj+JRPIppgUP/AwDx1v3R
-        n2og7wAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAAiIAAAABCAYAAADjE8WbAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAeSURBVEhLY5h1JPT/KB7Fo3gUj+JRPIpHMf1x6H8AAzK/
+        8D0ewbwAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="BtnNewDetail.ActiveImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -1143,9 +1136,9 @@
   </data>
   <data name="bunifuSeparator1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAdoAAAABCAYAAAB5am/3AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAdSURBVEhLY5h1JPT/KB7Fo3gUj+JRPIppgUP/AwDx1v3R
-        n2og7wAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAAiIAAAABCAYAAADjE8WbAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAeSURBVEhLY5h1JPT/KB7Fo3gUj+JRPIpHMf1x6H8AAzK/
+        8D0ewbwAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="TxtPrice.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -1157,9 +1150,10 @@
   </data>
   <data name="TxtDescription.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAWkAAAAZCAYAAADzLt87AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABDSURBVHhe7cNBDQAwCASw+TfFOQNULDzapA8AAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+SlK7Vb02PZ+ak9SA0mlpAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAAcQAAAAZCAYAAACviF5aAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABMSURBVHhe7cNBDQAwCASw+TfFOQNE7Eeb9AEAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPySpHar6t3pAX++u0gAY8seAAAAAElFTkSu
+        QmCC
 </value>
   </data>
   <data name="TxtQty.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -1174,6 +1168,34 @@
         iVBORw0KGgoAAAANSUhEUgAAAT0AAAAZCAYAAABD0fkJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA/SURBVHhe7cNBDQAwCASw+TfFOQOe00DapA8AAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAH5Jarfq/ekBy/MFAAw86p4AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="TxtExent.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGcAAAAZCAYAAAAsaTBIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAqSURBVGhD7cNBDQAwCASw+TfFOQNULDzapA8AAAAAAAAA
+        AAB+SlK7vTY9Xp1OKaBxsK8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="TxtNet.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGcAAAAZCAYAAAAsaTBIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAqSURBVGhD7cNBDQAwCASw+TfFOQNULDzapA8AAAAAAAAA
+        AAB+SlK7vTY9Xp1OKaBxsK8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="TxtDiscount.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGcAAAAZCAYAAAAsaTBIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAqSURBVGhD7cNBDQAwCASw+TfFOQNULDzapA8AAAAAAAAA
+        AAB+SlK7vTY9Xp1OKaBxsK8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="TxtTotal.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGcAAAAZCAYAAAAsaTBIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAqSURBVGhD7cNBDQAwCASw+TfFOQNULDzapA8AAAAAAAAA
+        AAB+SlK7vTY9Xp1OKaBxsK8AAAAASUVORK5CYII=
 </value>
   </data>
 </root>

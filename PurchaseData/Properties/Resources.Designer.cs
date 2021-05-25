@@ -59,23 +59,5 @@ namespace PurchaseData.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a 10f91c6c96901e4fd74e7e535235a138229df9b0.
-        /// </summary>
-        internal static string ApikeySBIF {
-            get {
-                return ResourceManager.GetString("ApikeySBIF", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a https://api.sbif.cl/api-sbifv3/recursos_api/.
-        /// </summary>
-        internal static string BaseSBIF {
-            get {
-                return ResourceManager.GetString("BaseSBIF", resourceCulture);
-            }
-        }
     }
 }
