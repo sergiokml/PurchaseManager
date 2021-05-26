@@ -5,11 +5,11 @@ namespace PurchaseData.DataModel
 {
     public partial class OrderDetails
     {
-        public List<OrderDetails> GetListByID(int id)
+        public List<OrderDetails> GetListByID(int HeaderID)
         {
             using (var contextDB = new PurchaseManagerEntities())
             {
-                var lista = contextDB.OrderDetails.Where(c => c.HeaderID == id).ToList();
+                var lista = contextDB.OrderDetails.Where(c => c.HeaderID == HeaderID).ToList();
                 foreach (var item in lista)
                 {
                     contextDB.Entry(item).Reference(c => c.Accounts).Load();
@@ -18,6 +18,15 @@ namespace PurchaseData.DataModel
                 return lista;
             }
         }
+
+        public OrderDetails GetByID(int DetailID)
+        {
+            using (var contextDB = new PurchaseManagerEntities())
+            {
+                return contextDB.OrderDetails.Where(c => c.DetailID == DetailID).Single();
+            }
+        }
+
         //public void AddDetail(OrderDetails orderDetails, OrderHeader orderHeader)
         //{
         //    //todo ESTO POR QUE NO ESTA EN EL PERFILPR??? 

@@ -13,6 +13,8 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
+using static PurchaseDesktop.Helpers.HFunctions;
+
 namespace PurchaseDesktop.Formularios
 {
     public partial class FAttach : Form, IControles, IGridCustom
@@ -57,23 +59,23 @@ namespace PurchaseDesktop.Formularios
 
         public void SetControles()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Id");
-            dt.Columns.Add("Name");
-            DataRow row = dt.NewRow();
-            row[0] = 1;
-            row[1] = "Public";
-            dt.Rows.Add(row);
+            //DataTable dt = new DataTable();
+            //dt.Columns.Add("Id");
+            //dt.Columns.Add("Name");
+            //DataRow row = dt.NewRow();
+            //row[0] = 1;
+            //row[1] = "Public";
+            //dt.Rows.Add(row);
 
-            row = dt.NewRow();
-            row[0] = 2;
-            row[1] = "Private";
-            dt.Rows.Add(row);
+            //row = dt.NewRow();
+            //row[0] = 2;
+            //row[1] = "Private";
+            //dt.Rows.Add(row);
 
 
-            CboTypeFile.DisplayMember = "Name";
-            CboTypeFile.ValueMember = "Id";
-            CboTypeFile.DataSource = dt;
+            //CboTypeFile.DisplayMember = "Name";
+            //CboTypeFile.ValueMember = "Id";
+            CboTypeFile.DataSource = Enum.GetValues(typeof(TypeAttach));
             CboTypeFile.SelectedIndex = -1;
         }
         public iGrid GetGrid()
@@ -89,6 +91,8 @@ namespace PurchaseDesktop.Formularios
             LlenarGrid();
 
             //! Eventos
+            Grid.BeforeCommitEdit += Grid_BeforeCommitEdit;
+            Grid.AfterCommitEdit += Grid_AfterCommitEdit;
             Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
         }
@@ -131,12 +135,36 @@ namespace PurchaseDesktop.Formularios
 
         public void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e)
         {
-            throw new NotImplementedException();
+            System.Windows.Forms.Cursor.Current = Cursors.Default;
         }
 
         public void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.NewValue == null || string.IsNullOrEmpty(e.NewValue.ToString()))
+            {
+                e.Result = iGEditResult.Cancel;
+                return;
+            }
+            if (Equals(e.NewValue, Grid.Cells[e.RowIndex, e.ColIndex].Value))
+            {
+                e.Result = iGEditResult.Cancel;
+                return;
+            }
+            //! Update solo si cambió el dato.
+            System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+            DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            var resultado = rFachada.EditarAttach(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
+            if (resultado == "OK")
+            {
+                LlenarGrid();
+                SetControles();
+            }
+            else
+            {
+                e.Result = iGEditResult.Cancel;
+                ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
+            }
+
         }
 
         private void BtnCerrar_Click(object sender, EventArgs e)
@@ -150,11 +178,12 @@ namespace PurchaseDesktop.Formularios
             {
                 // string serverfolder = configApp.FolderApp;
                 string idFolder = Current["HeaderID"].ToString();
+                Enum.TryParse<TypeAttach>(CboTypeFile.SelectedValue.ToString(), out TypeAttach status);
                 Attaches att = new Attaches
                 {
                     Description = TxtNameFile.Text.Trim(),
                     FileName = $"{idFolder}{@"\"}{Path.GetFileName(TxtPathFile.Text)}",
-                    Modifier = Convert.ToByte(CboTypeFile.SelectedValue)
+                    Modifier = (byte)status
                 };
                 rFachada.InsertAttach(att, Convert.ToInt32(Current["HeaderID"]), FilePath);
                 //File.Copy(FilePath, $"{serverfolder}{@"\"}{@"\"}{att.FileName}", true);

@@ -19,9 +19,8 @@ namespace PurchaseDesktop.Formularios
     public partial class FDetails : Form, IControles, IGridCustom
     {
         private readonly PerfilFachada rFachada;
-        public TextInfo UCase { get; set; }
+        public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
-
 
         public FDetails(PerfilFachada rFachada, DataRow dr)
         {
@@ -44,6 +43,8 @@ namespace PurchaseDesktop.Formularios
             LlenarGrid();
 
             //! Eventos
+            Grid.BeforeCommitEdit += Grid_BeforeCommitEdit;
+            Grid.AfterCommitEdit += Grid_AfterCommitEdit;
             Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
         }
@@ -101,8 +102,8 @@ namespace PurchaseDesktop.Formularios
                         {
                             AccountID = ((Accounts)CboAccount.SelectedItem).AccountID,
                             Qty = Convert.ToInt32(TxtQty.Text.Replace(".", "")),
-                            NameProduct = TxtName.Text.Trim(),
-                            DescriptionProduct = TxtDescription.Text.Trim(),
+                            NameProduct = UCase.ToTitleCase(TxtName.Text.Trim().ToLower()),
+                            DescriptionProduct = UCase.ToTitleCase(TxtDescription.Text.Trim().ToLower()),
                             HeaderID = Convert.ToInt32(Current["HeaderID"]),
                             MedidaID = ((Medidas)CboMedidas.SelectedItem).MedidaID
 
@@ -129,23 +130,18 @@ namespace PurchaseDesktop.Formularios
                             MedidaID = ((Medidas)CboMedidas.SelectedItem).MedidaID
 
                         };
-
-                        var t = Convert.ToDecimal(Current["Total"]);
-
-                        if (t < 10000000 && t > 0)
+                        if (rFachada.InsertDetail(od, Current))
                         {
-                            if (rFachada.InsertDetail(od, Current))
-                            {
-                                LlenarGrid();
-                                ClearControles();
-                                SetControles();
-
-                            }
+                            LlenarGrid();
+                            ClearControles();
+                            SetControles();
                         }
-
+                        else
+                        {
+                            ((FPrincipal)Owner).Msg("Error al insertar producto", FPrincipal.MsgProceso.Error);
+                        }
                         break;
                 }
-
             }
         }
 
@@ -167,6 +163,7 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[i].Cells["nro"].Value = i + 1;
                 }
+                Grid = rFachada.FormatearGrid(Grid, "FDetails");
                 Grid.Refresh();
             }
             catch (Exception)
@@ -236,8 +233,12 @@ namespace PurchaseDesktop.Formularios
         {
             return Grid;
         }
+
         public void SetControles()
         {
+            var user = rFachada.CurrentUser();
+            Enum.TryParse(user.ProfileID, out Perfiles p);
+
             CboAccount.DataSource = new Accounts().GetList();
             CboAccount.DisplayMember = "Description";
             CboAccount.SelectedIndex = -1;
@@ -250,21 +251,63 @@ namespace PurchaseDesktop.Formularios
 
             CboCurrency.DataSource = new Currencies().GetList();
             CboCurrency.DisplayMember = "Description";
-            //CboCurrency.SelectedIndex = -1;
             CboCurrency.ValueMember = "CurrencyID";
-            CboCurrency.SelectedValue = Current["CurrencyID"];
 
-            var po = new OrderHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
+            switch (p)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    CboCurrency.SelectedValue = Current["CurrencyID"];
+                    var po = new OrderHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
+                    decimal neto = Convert.ToDecimal(po.Net);
+                    decimal exent = Convert.ToDecimal(po.Exent);
+                    decimal tax = Convert.ToDecimal(po.Discount);
+                    decimal total = Convert.ToDecimal(po.Total);
+                    if (neto > 0)
+                    {
+                        TxtNet.Text = neto.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        TxtNet.Text = "$ 0";
+                    }
+                    if (exent > 0)
+                    {
+                        TxtExent.Text = exent.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        TxtExent.Text = "$ 0";
+                    }
+                    if (tax > 0)
+                    {
+                        TxtTax.Text = tax.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        TxtTax.Text = "$ 0";
+                    }
+                    if (total > 0)
+                    {
+                        TxtTotal.Text = total.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        TxtTotal.Text = "$ 0";
+                    }
+                    break;
+                case Perfiles.UPR:
+                    CboCurrency.SelectedIndex = -1;
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
 
-
-
-            //TxtQty.Text = d.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"));
-            // {0:$#,#;;''}
-
-            TxtNet.Text = $"{Convert.ToDecimal(po.Net).ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"))}";
-            TxtExent.Text = $"{Convert.ToDecimal(po.Exent).ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"))}";
-            TxtDiscount.Text = $"{Convert.ToDecimal(po.Discount).ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"))}";
-            TxtTotal.Text = $"{Convert.ToDecimal(po.Total).ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"))}";
 
 
         }
@@ -275,18 +318,22 @@ namespace PurchaseDesktop.Formularios
             var currentDetail = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                if (rFachada.DeleteDetail(currentDetail, Current))
+                System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+                var resultado = rFachada.DeleteDetail(currentDetail, Current);
+                if (resultado == "OK")
                 {
                     LlenarGrid();
                     ClearControles();
                     Grid.Focus();
-                    Grid.DrawAsFocused = false;
+
                     SetControles();
                 }
                 else
                 {
-                    ((FPrincipal)Owner).Msg("No se puede eliminar.", FPrincipal.MsgProceso.Error);
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
                 }
+                Grid.DrawAsFocused = false;
+                System.Windows.Forms.Cursor.Current = Cursors.Default;
             }
         }
 
@@ -305,12 +352,35 @@ namespace PurchaseDesktop.Formularios
 
         public void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.NewValue == null || string.IsNullOrEmpty(e.NewValue.ToString()))
+            {
+                e.Result = iGEditResult.Cancel;
+                return;
+            }
+            if (Equals(e.NewValue, Grid.Cells[e.RowIndex, e.ColIndex].Value))
+            {
+                e.Result = iGEditResult.Cancel;
+                return;
+            }
+            //! Update solo si cambió el dato.
+            System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+            DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            var resultado = rFachada.UpdateDetail(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
+            if (resultado == "OK")
+            {
+                LlenarGrid();
+                SetControles();
+            }
+            else
+            {
+                e.Result = iGEditResult.Cancel;
+                ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
+            }
         }
 
         public void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e)
         {
-            throw new NotImplementedException();
+            System.Windows.Forms.Cursor.Current = Cursors.Default;
         }
 
         public void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e)
@@ -322,19 +392,35 @@ namespace PurchaseDesktop.Formularios
         {
             try
             {
-                if (!string.IsNullOrEmpty(TxtQty.Text))
+                if (TxtQty.Text.Length > 0)
                 {
-                    if (Convert.ToDouble(TxtQty.Text) == 0)
+                    var d = Convert.ToDecimal(TxtQty.Text.Replace(".", ","));
+                    TxtQty.Text = d.ToString("#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                    TxtQty.SelectionStart = TxtQty.Text.Length;
+                    foreach (char c in TxtQty.Text)
                     {
-                        TxtQty.Text = string.Empty;
-                    }
-                    else
-                    {
-                        var d = Convert.ToDecimal(TxtQty.Text.Replace(".", ","));
-                        TxtQty.Text = d.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"));
-                        TxtQty.SelectionStart = TxtQty.Text.Length;
+                        if (c < '0' || c > '9')
+                        {
+                            if (c != ',') //! Solo acepto comas
+                            {
+                                return;
+                            }
+                        }
                     }
                 }
+                //if (!string.IsNullOrEmpty(TxtQty.Text))
+                //{
+                //    if (Convert.ToDouble(TxtQty.Text) == 0)
+                //    {
+                //        TxtQty.Text = string.Empty;
+                //    }
+                //    else
+                //    {
+                //        var d = Convert.ToDecimal(TxtQty.Text.Replace(".", ","));
+                //        TxtQty.Text = d.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"));
+                //        TxtQty.SelectionStart = TxtQty.Text.Length;
+                //    }
+                //}
             }
             catch (FormatException)
             {
@@ -370,15 +456,31 @@ namespace PurchaseDesktop.Formularios
         {
             //! Update Currency
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-            if (rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID"))
+            var resultado = rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID");
+            if (resultado == "OK")
             {
-
+                LlenarGrid();
+                SetControles();
             }
             else
             {
-                ((FPrincipal)Owner).Msg("No se puede eliminar.", FPrincipal.MsgProceso.Error);
+                ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
+                CboCurrency.SelectedIndex = -1;
             }
             System.Windows.Forms.Cursor.Current = Cursors.Default;
+        }
+
+        private void TxtQty_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void Grid_RequestCellToolTipText(object sender, iGRequestCellToolTipTextEventArgs e)
+        {
+            if (Grid.Cols[e.ColIndex].Key == "NameProduct")
+            {
+                e.Text = Grid.Rows[e.RowIndex].Cells["DescriptionProduct"].Value.ToString();
+            }
         }
     }
 }

@@ -11,7 +11,6 @@
         <EntityTypeShape EntityType="PurchaseManagerContext.ConfigApp" Width="1.5" PointX="10.75" PointY="1.125" />
         <EntityTypeShape EntityType="PurchaseManagerContext.Currencies" Width="1.5" PointX="3" PointY="12.875" />
         <EntityTypeShape EntityType="PurchaseManagerContext.Medidas" Width="1.5" PointX="8.25" PointY="11.75" />
-        <EntityTypeShape EntityType="PurchaseManagerContext.OrderDetails" Width="1.5" PointX="10.5" PointY="5.75" />
         <EntityTypeShape EntityType="PurchaseManagerContext.OrderHeader" Width="1.5" PointX="5.25" PointY="5" />
         <EntityTypeShape EntityType="PurchaseManagerContext.OrderHitos" Width="1.5" PointX="7.5" PointY="5.125" />
         <EntityTypeShape EntityType="PurchaseManagerContext.OrderNotes" Width="1.5" PointX="7.5" PointY="14.25" />
@@ -29,13 +28,10 @@
         <EntityTypeShape EntityType="PurchaseManagerContext.Users" Width="1.5" PointX="5.25" PointY="21.125" />
         <EntityTypeShape EntityType="PurchaseManagerContext.vOrderByMinTransaction" Width="1.5" PointX="12.75" PointY="4.125" />
         <EntityTypeShape EntityType="PurchaseManagerContext.vRequisitionByMinTransaction" Width="1.5" PointX="12.75" PointY="10.125" />
-        <AssociationConnector Association="PurchaseManagerContext.FK_OrderDetails_Accounts" />
         <AssociationConnector Association="PurchaseManagerContext.FK_RequisitionDetails_Accounts" />
         <AssociationConnector Association="PurchaseManagerContext.FK_RequisitionHeader_Companies" />
         <AssociationConnector Association="PurchaseManagerContext.FK_OrderHeader_Currencies" />
-        <AssociationConnector Association="PurchaseManagerContext.FK_OrderDetails_Medidas" />
         <AssociationConnector Association="PurchaseManagerContext.FK_RequisitionDetails_Medidas" />
-        <AssociationConnector Association="PurchaseManagerContext.FK_OrderDetails_OrderHeader" />
         <AssociationConnector Association="PurchaseManagerContext.FK_OrderHeader_OrderStatus" />
         <AssociationConnector Association="PurchaseManagerContext.FK_OrderHeader_Suppliers" />
         <AssociationConnector Association="PurchaseManagerContext.FK_OrderHitos_OrderHeader" />
@@ -51,6 +47,10 @@
         <AssociationConnector Association="PurchaseManagerContext.AttachesRequisitions" />
         <AssociationConnector Association="PurchaseManagerContext.TransactionsOrders" />
         <AssociationConnector Association="PurchaseManagerContext.TransactionsRequisitions" />
+        <EntityTypeShape EntityType="PurchaseManagerContext.OrderDetails" Width="1.5" PointX="10.5" PointY="5.25" />
+        <AssociationConnector Association="PurchaseManagerContext.FK_OrderDetails_Accounts" />
+        <AssociationConnector Association="PurchaseManagerContext.FK_OrderDetails_Medidas" />
+        <AssociationConnector Association="PurchaseManagerContext.FK_OrderDetails_OrderHeader" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

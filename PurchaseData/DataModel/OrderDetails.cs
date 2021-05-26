@@ -19,8 +19,8 @@ namespace PurchaseData.DataModel
         public string NameProduct { get; set; }
         public string DescriptionProduct { get; set; }
         public int Qty { get; set; }
-        public int Price { get; set; }
-        public int Total { get; set; }
+        public decimal Price { get; set; }
+        public decimal Total { get; set; }
         public string AccountID { get; set; }
         public string MedidaID { get; set; }
     

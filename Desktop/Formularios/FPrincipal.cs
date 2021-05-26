@@ -86,7 +86,7 @@ namespace PurchaseDesktop.Formularios
 
             //! Otros
             Users user = rFachada.CurrentUser();
-            LblUser.Text = $"User: {user.FirstName} {user.LastName} | Profile: {user.ProfileID} | email: {user.Email}";
+            LblUser.Text = $"User: {user.FirstName} {user.LastName} | Profile: {user.ProfileID} | Email: {user.Email}";
 
             //! Banner
             //string s = await rFachada.CargarBanner();
@@ -127,7 +127,7 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
                 }
-                Grid = rFachada.FormatearGrid(Grid);
+                Grid = rFachada.FormatearGrid(Grid, "FPrincipal");
                 Grid.Refresh();
                 Msg($"You have {vista.Rows.Count} documents issued and showing.", MsgProceso.Informacion);
             }
@@ -221,17 +221,14 @@ namespace PurchaseDesktop.Formularios
             }
             if (Equals(e.NewValue, Grid.Cells[e.RowIndex, e.ColIndex].Value))
             {
+                e.Result = iGEditResult.Cancel;
                 return;
             }
             //! Update solo si cambió el dato.
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            if (!rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key))
-            {
-                e.Result = iGEditResult.Cancel;
-                Msg("This document cannot be updated.", MsgProceso.Error);
-            }
-            else
+            var resultado = rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key);
+            if (resultado == "OK")
             {
                 LlenarGrid();
                 if (!Grid.Cols[e.ColIndex].Key.Equals("Description") && !Grid.Cols[e.ColIndex].Key.Equals("Type"))
@@ -239,7 +236,11 @@ namespace PurchaseDesktop.Formularios
                     CargarDashboard();
                 }
                 SetControles();
-
+            }
+            else
+            {
+                e.Result = iGEditResult.Cancel;
+                Msg("This document cannot be updated.", MsgProceso.Error);
             }
         }
 
@@ -250,18 +251,18 @@ namespace PurchaseDesktop.Formularios
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                if (rFachada.DeleteItem(current))
+                var resultado = rFachada.DeleteItem(current);
+                if (resultado == "OK")
                 {
                     LlenarGrid();
                     CargarDashboard();
                     ClearControles();
                     SetControles();
                     Grid.Focus();
-                    Grid.DrawAsFocused = false;
                 }
                 else
                 {
-                    Msg("This document cannot be deleted.", MsgProceso.Error);
+                    Msg(resultado, MsgProceso.Error);
                 }
                 System.Windows.Forms.Cursor.Current = Cursors.Default;
             }
@@ -270,7 +271,6 @@ namespace PurchaseDesktop.Formularios
                 if (!rFachada.VerItemHtml(current))
                 {
                     Grid.Focus();
-                    Grid.DrawAsFocused = false;
                     System.Windows.Forms.Cursor.Current = Cursors.Default;
                     Msg("Cannot open the document.", MsgProceso.Error);
                 }
@@ -296,6 +296,7 @@ namespace PurchaseDesktop.Formularios
                     }
                 }
             }
+            Grid.DrawAsFocused = false;
         }
 
         private void BtnCerrar_Click(object sender, EventArgs e)
@@ -437,9 +438,15 @@ namespace PurchaseDesktop.Formularios
             if (Grid.CurCell != null)
             {
                 DataRow current = (DataRow)Grid.CurRow.Tag;
-                if (!rFachada.OpenAttachForm(current, this))
+                FAttach f = new FAttach(rFachada, current);
+                var resultado = rFachada.OpenAttachForm(f, this);
+                if (resultado == "OK")
                 {
-                    Msg("Your profile does not allow this action", MsgProceso.Error);
+
+                }
+                else
+                {
+                    Msg(resultado, FPrincipal.MsgProceso.Error);
                 }
             }
         }
@@ -451,9 +458,14 @@ namespace PurchaseDesktop.Formularios
                 DataRow current = (DataRow)Grid.CurRow.Tag;
                 FSupplier f = new FSupplier(rFachada, current);
                 f.FormClosed += F_FormClosed;
-                if (!rFachada.OpenSupplierForm(f, this))
+                var resultado = rFachada.OpenSupplierForm(f, this);
+                if (resultado == "OK")
                 {
-                    Msg("Your profile does not allow this action", MsgProceso.Error);
+
+                }
+                else
+                {
+                    Msg(resultado, FPrincipal.MsgProceso.Error);
                 }
             }
         }
@@ -488,13 +500,19 @@ namespace PurchaseDesktop.Formularios
                 var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 if (current != null)
                 {
-                    if (rFachada.GridDobleClick(Current))
+                    var resultado = rFachada.GridDobleClick(Current);
+                    if (resultado == "OK")
                     {
                         LlenarGrid();
                         CargarDashboard();
                         ClearControles();
                         SetControles();
                     }
+                    else
+                    {
+                        Msg(resultado, FPrincipal.MsgProceso.Error);
+                    }
+
                 }
             }
         }

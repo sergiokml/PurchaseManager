@@ -21,7 +21,8 @@
             UPDATE_PO,
             CREATE_PO,
             DELETE_PR,
-            DELETE_PO
+            DELETE_PO,
+            UPDATE_ATTACH
         }
         public enum DocumentType
         {
@@ -35,6 +36,13 @@
         {
             PR = 1,
             PO = 2
+        }
+
+        public enum TypeAttach
+        {
+
+            Public = 1,
+            Private = 2
         }
     }
 }

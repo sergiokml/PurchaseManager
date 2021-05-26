@@ -27,6 +27,9 @@ namespace PurchaseDesktop.Interfaces
 
         //! Update
         void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item, int headerID);
+        void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, int headerID, int detailID);
+
+        void UpdateAttaches<T>(T item, int headerID, int attachID);
 
 
         //! Delete
@@ -34,9 +37,7 @@ namespace PurchaseDesktop.Interfaces
         void DeleteDetail(TypeDocumentHeader headerTD, int headerID, int detailID); // Tabla 1:M
         void DeleteAttach(int headerID, int attachID);
 
-        //! Select
-        //!(Para no poner funciones en las partial Clases)
-        //List<RequisitionDetails> SelectDetails(int headerID);
+
 
 
         //! Auxiliar => sirve para UNIR el rContext + Clase Abastracta.       
@@ -44,94 +45,5 @@ namespace PurchaseDesktop.Interfaces
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //! Types Header        
-        // DataRow Current { get; set; }
-
-
-        //OrderHeader DocumentPO { get; set; }
-        //RequisitionHeader DocumentPR { get; set; }
-
-
-
-        ////! Properties
-        //List<OrderDetails> DetailsPO { get; set; }
-        //List<RequisitionDetails> DetailsPR { get; set; }
-
-        //DataTable TableDetails { get; set; }
-
-        ////! Vistas Formularios
-        //DataTable GetVistaFPrincipal();
-        //DataTable GetVistaFSupplier();
-        //DataTable GetVistaAttaches(int IdItem);
-        //DataTable GetVistaDetalles();
-
-        ////! Details
-        //void GetDetailsRequisition(int id);
-
-
-        //List<OrderDetails> GetDetailsOrder(int id);
-
-        ////! Controles desde Abastractas
-        //iGDropDownList GetStatusItem(DataRow dataRow);
-        //ContextMenuStrip GetMenuStrip();
-
-        //List<Attaches> GetAttaches(int id);
-        //void InsertAttach(int id, Attaches att, Users userDB);
-        ////void InsertOrderHeader(Companies company, OrderType type, Users userDB);
-        //void InsertItemHeader(Users userDB);
-        //void InsertRequisitionDetail(RequisitionDetails detail, Users userDB, int idItem);
-
-        //void DeleteItemHeader();
-        //void DeleteDetail(Users user);
-        //void DeleteAttache(int id, Users userDB, Attaches item);
-
-
-
-        ///// <summary>
-        ///// UPDATE => Header de 1 Documento.
-        ///// </summary>
-        ///// <param name="user"></param>
-        ///// <param name="valor"></param>
-        ///// <param name="campo"></param>
-        //void UpdateItemHeader(Users userDB, object valor, string campo);
-
-        //void GetFunciones();
-
-        ////todo ACA LAS FUNCIONES DEBEN SER GENERICAS!!!!
-        ////TODO POR ALGO SE DECLARA VACIO EL MÉTODO.
     }
 }

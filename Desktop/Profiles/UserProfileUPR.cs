@@ -37,14 +37,19 @@ namespace PurchaseDesktop.Profiles
             switch (headerTD)
             {
                 case TypeDocumentHeader.PR:
-                    return this
+                    using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
+                    {
+                        return this
                         .ToDataTable<RequisitionDetails>(rContext.RequisitionDetails
                         .Where(c => c.HeaderID == headerID).ToList());
-
+                    }
                 case TypeDocumentHeader.PO:
-                    return this
+                    using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
+                    {
+                        return this
                         .ToDataTable<OrderDetails>(rContext.OrderDetails
                         .Where(c => c.HeaderID == headerID).ToList());
+                    }
             }
             return null;
         }
@@ -54,11 +59,19 @@ namespace PurchaseDesktop.Profiles
             switch (headerTD)
             {
                 case TypeDocumentHeader.PR:
-                    RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
-                    return this.ToDataTable<Attaches>(pr.Attaches.ToList());
+                    using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
+                    {
+
+                        RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
+                        return this.ToDataTable<Attaches>(pr.Attaches.ToList());
+                    }
                 case TypeDocumentHeader.PO:
-                    OrderHeader po = rContext.OrderHeader.Find(headerID);
-                    return this.ToDataTable<Attaches>(po.Attaches.ToList());
+                    using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
+                    {
+
+                        OrderHeader po = rContext.OrderHeader.Find(headerID);
+                        return this.ToDataTable<Attaches>(po.Attaches.ToList());
+                    }
                 default:
                     break;
             }
@@ -123,14 +136,17 @@ namespace PurchaseDesktop.Profiles
 
         public void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID)
         {
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            using (var rContext = new PurchaseManagerEntities())
             {
-                RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
-                rContext.Transactions.RemoveRange(doc.Transactions);
-                rContext.RequisitionHeader.Remove(doc);
-                rContext.Attaches.RemoveRange(doc.Attaches);
-                rContext.SaveChanges();
-                trans.Commit();
+                using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                {
+                    RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
+                    rContext.Transactions.RemoveRange(doc.Transactions);
+                    rContext.RequisitionHeader.Remove(doc);
+                    rContext.Attaches.RemoveRange(doc.Attaches);
+                    rContext.SaveChanges();
+                    trans.Commit();
+                }
             }
         }
 
@@ -252,6 +268,79 @@ namespace PurchaseDesktop.Profiles
         public void InsertPOHeader(OrderHeader item)
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, int headerID, int detailID)
+        {
+            Transactions transaction = new Transactions
+            {
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+               .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            switch (headerTD)
+            {
+                case TypeDocumentHeader.PR:
+                    transaction.Event = Eventos.UPDATE_PR.ToString();
+                    using (var rContext = new PurchaseManagerEntities())
+                    {
+                        using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                        {
+                            RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
+                            doc.Transactions.Add(transaction);
+
+                            RequisitionDetails od = rContext.RequisitionDetails.Find(detailID, headerID);
+                            rContext.Entry(od).CurrentValues.SetValues(item);
+                            rContext.SaveChanges();
+                            trans.Commit();
+                        }
+                    }
+                    break;
+                case TypeDocumentHeader.PO:
+                    //transaction.Event = Eventos.UPDATE_PO.ToString();
+                    //using (var rContext = new PurchaseManagerEntities())
+                    //{
+                    //    using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                    //    {
+                    //        OrderHeader doc = rContext.OrderHeader.Find(headerID);
+                    //        doc.Transactions.Add(transaction);
+
+                    //        OrderDetails od = rContext.OrderDetails.Find(detailID, headerID);
+                    //        rContext.Entry(od).CurrentValues.SetValues(item);
+                    //        rContext.SaveChanges();
+                    //        trans.Commit();
+                    //    }
+                    //}
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void UpdateAttaches<T>(T item, int headerID, int attachID)
+        {
+            Transactions transaction = new Transactions
+            {
+                Event = Eventos.UPDATE_ATTACH.ToString(),
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+              .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            //using (var rContext = new PurchaseManagerEntities())
+            //{
+            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            {
+                RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
+                doc.Transactions.Add(transaction);
+
+                rContext.Entry(item).State = EntityState.Modified;
+                Attaches od = rContext.Attaches.Find(attachID);
+                rContext.Entry(od).CurrentValues.SetValues(item);
+                rContext.SaveChanges();
+                trans.Commit();
+            }
+            //}
+
         }
     }
 }

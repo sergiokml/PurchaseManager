@@ -187,12 +187,18 @@ namespace PurchaseDesktop.Formularios
                 var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 if (current != null)
                 {
-                    if (rFachada.UpdateItem(current["SupplierID"], Current, "SupplierID"))
+                    var resultado = rFachada.UpdateItem(current["SupplierID"], Current, "SupplierID");
+                    if (resultado == "OK")
                     {
                         LlenarGrid();
                         ClearControles();
                         SetControles();
                         Close();
+                    }
+                    else
+                    {
+                        ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
+
                     }
                 }
             }

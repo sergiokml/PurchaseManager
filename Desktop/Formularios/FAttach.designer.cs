@@ -132,7 +132,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPathFile.BorderThickness = 1;
             this.TxtPathFile.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtPathFile.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtPathFile.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtPathFile.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtPathFile.DefaultText = "";
             this.TxtPathFile.Enabled = false;
             this.TxtPathFile.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
@@ -140,7 +140,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPathFile.IconLeft = null;
             this.TxtPathFile.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtPathFile.IconPadding = 1;
-            this.TxtPathFile.IconRight = global::PurchaseDesktop.Properties.Resources.icons8_browse_folder_32;
+            this.TxtPathFile.IconRight = ((System.Drawing.Image)(resources.GetObject("TxtPathFile.IconRight")));
             this.TxtPathFile.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtPathFile.Lines = new string[0];
             this.TxtPathFile.Location = new System.Drawing.Point(12, 86);
@@ -264,17 +264,17 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.ImageActive")));
             this.BtnNewDetail.ImageLocation = null;
             this.BtnNewDetail.ImageMargin = 20;
-            this.BtnNewDetail.ImageSize = new System.Drawing.Size(40, 40);
-            this.BtnNewDetail.ImageZoomSize = new System.Drawing.Size(60, 60);
+            this.BtnNewDetail.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnNewDetail.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnNewDetail.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.InitialImage")));
-            this.BtnNewDetail.Location = new System.Drawing.Point(307, 24);
+            this.BtnNewDetail.Location = new System.Drawing.Point(312, 25);
             this.BtnNewDetail.Name = "BtnNewDetail";
             this.BtnNewDetail.Rotation = 0;
             this.BtnNewDetail.ShowActiveImage = true;
             this.BtnNewDetail.ShowCursorChanges = true;
             this.BtnNewDetail.ShowImageBorders = true;
             this.BtnNewDetail.ShowSizeMarkers = false;
-            this.BtnNewDetail.Size = new System.Drawing.Size(60, 60);
+            this.BtnNewDetail.Size = new System.Drawing.Size(55, 55);
             this.BtnNewDetail.TabIndex = 27;
             this.BtnNewDetail.TabStop = false;
             this.BtnNewDetail.ToolTipText = "Save File";
@@ -317,10 +317,11 @@ namespace PurchaseDesktop.Formularios
             this.CboTypeFile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.CboTypeFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CboTypeFile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboTypeFile.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.CboTypeFile.FormattingEnabled = true;
-            this.CboTypeFile.Location = new System.Drawing.Point(193, 44);
+            this.CboTypeFile.Location = new System.Drawing.Point(196, 42);
             this.CboTypeFile.Name = "CboTypeFile";
-            this.CboTypeFile.Size = new System.Drawing.Size(99, 21);
+            this.CboTypeFile.Size = new System.Drawing.Size(99, 24);
             this.CboTypeFile.TabIndex = 30;
             // 
             // TxtNameFile
@@ -340,7 +341,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtNameFile.BorderThickness = 1;
             this.TxtNameFile.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtNameFile.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtNameFile.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtNameFile.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtNameFile.DefaultText = "";
             this.TxtNameFile.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtNameFile.HideSelection = true;

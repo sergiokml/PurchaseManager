@@ -61,7 +61,7 @@ namespace PurchaseData.Helpers
             HtmlDoc.GetElementbyId("Description").InnerHtml = $"{headerDR["Description"]}";
 
 
-            HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[4]/div[1]/table[1]");
+            HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/table[1]");
             HtmlDoc.GetElementbyId("HeaderID").InnerHtml = $"{headerDR["HeaderID"]}";
 
             if (user.ProfileID == "UPO")

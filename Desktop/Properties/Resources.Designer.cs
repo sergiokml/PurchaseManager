@@ -45,14 +45,15 @@ namespace PurchaseDesktop.Properties {
                 return resourceMan;
             }
         }
-        internal static System.Drawing.Icon icons8_data_transfer
+      
+        internal static System.Drawing.Icon icons8_request_money
         {
             get
             {
-                object obj = ResourceManager.GetObject("icons8_data_transfer", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8_request_money", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
-        
+
         }
         internal static System.Drawing.Bitmap icons8_data_transfer_16
         {

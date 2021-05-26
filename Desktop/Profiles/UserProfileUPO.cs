@@ -211,20 +211,21 @@ namespace PurchaseDesktop.Profiles
                 default:
                     break;
             }
-
-
         }
 
         public void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID)
         {
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            using (var rContext = new PurchaseManagerEntities())
             {
-                OrderHeader doc = rContext.OrderHeader.Find(headerID);
-                rContext.Transactions.RemoveRange(doc.Transactions);
-                rContext.OrderHeader.Remove(doc);
-                rContext.Attaches.RemoveRange(doc.Attaches);
-                rContext.SaveChanges();
-                trans.Commit();
+                using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                {
+                    OrderHeader doc = rContext.OrderHeader.Find(headerID);
+                    rContext.Transactions.RemoveRange(doc.Transactions);
+                    rContext.OrderHeader.Remove(doc);
+                    rContext.Attaches.RemoveRange(doc.Attaches);
+                    rContext.SaveChanges();
+                    trans.Commit();
+                }
             }
         }
 
@@ -300,11 +301,63 @@ namespace PurchaseDesktop.Profiles
             OrderGroupByStatus_Results = rContext.ufnGetOrderGroupByStatus().ToList();
         }
 
+        #endregion
+
         public void InsertPRHeader(RequisitionHeader item)
         {
             throw new NotImplementedException();
         }
 
-        #endregion
+        public void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, int headerID, int detailID)
+        {
+            Transactions transaction = new Transactions
+            {
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+             .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            switch (headerTD)
+            {
+                case TypeDocumentHeader.PR:
+                    //transaction.Event = Eventos.UPDATE_PR.ToString();
+                    //using (var rContext = new PurchaseManagerEntities())
+                    //{
+                    //    using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                    //    {
+                    //        RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
+                    //        doc.Transactions.Add(transaction);
+
+                    //        RequisitionDetails od = rContext.RequisitionDetails.Find(detailID, headerID);
+                    //        rContext.Entry(od).CurrentValues.SetValues(item);
+                    //        rContext.SaveChanges();
+                    //        trans.Commit();
+                    //    }
+                    //}
+                    break;
+                case TypeDocumentHeader.PO:
+                    transaction.Event = Eventos.UPDATE_PO.ToString();
+                    using (var rContext = new PurchaseManagerEntities())
+                    {
+                        using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                        {
+                            OrderHeader doc = rContext.OrderHeader.Find(headerID);
+                            doc.Transactions.Add(transaction);
+
+                            OrderDetails od = rContext.OrderDetails.Find(detailID, headerID);
+                            rContext.Entry(od).CurrentValues.SetValues(item);
+                            rContext.SaveChanges();
+                            trans.Commit();
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void UpdateAttaches<T>(T item, int headerID, int attachID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

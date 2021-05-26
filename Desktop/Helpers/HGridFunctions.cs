@@ -71,6 +71,7 @@ namespace PurchaseDesktop.Helpers
             //! General
             Grid.BackColor = Color.FromArgb(37, 37, 38); // Negro de fondo
             Grid.HScrollBar.Visibility = iGScrollBarVisibility.Hide; // nunca lo muestra
+            Grid.VScrollBar.Visibility = iGScrollBarVisibility.Hide; // nunca lo muestra
             Grid.Font = new Font(new FontFamily("Tahoma"), 8.25f);
             Grid.ForeColor = Color.White; // texto en general
             Grid.RowMode = true;
@@ -128,97 +129,140 @@ namespace PurchaseDesktop.Helpers
 
         }
 
-        public void Formatear(Perfiles perfil)
+        public void Formatear(Perfiles perfil, string frm)
         {
-            switch (perfil)
+            switch (frm)
             {
-                case Perfiles.ADM:
-                    break;
-                case Perfiles.BAS:
-                    break;
-                case Perfiles.UPO:
-                    for (int i = 0; i < Grid.Rows.Count; i++)
+                case "FPrincipal":
+                    switch (perfil)
                     {
-                        var date = Convert.ToDateTime(Grid.Rows[i].Cells["DateLast"].Value).ToString("dd-MM-yyyy");
-                        Grid.Rows[i].Cells["DateLast"].Value = date;
+                        case Perfiles.ADM:
+                            break;
+                        case Perfiles.BAS:
+                            break;
+                        case Perfiles.UPO:
+                            for (int i = 0; i < Grid.Rows.Count; i++)
+                            {
+                                var date = Convert.ToDateTime(Grid.Rows[i].Cells["DateLast"].Value).ToString("dd-MM-yyyy");
+                                Grid.Rows[i].Cells["DateLast"].Value = date;
 
-                        //decimal net = Convert.ToDecimal(Grid.Rows[i].Cells["Net"].Value);
-                        //if (net > 0)
-                        //{
-                        //    Grid.Rows[i].Cells["Net"].Value = net.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
-                        //}
-                        //else
-                        //{
-                        //    Grid.Rows[i].Cells["Net"].Value = "";
-                        //}
-                        //decimal exent = Convert.ToDecimal(Grid.Rows[i].Cells["Exent"].Value);
-                        //if (exent > 0)
-                        //{
-                        //    Grid.Rows[i].Cells["Exent"].Value = exent.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL")); ;
-                        //}
-                        //else
-                        //{
-                        //    Grid.Rows[i].Cells["Exent"].Value = "";
-                        //}
-                        //decimal tax = Convert.ToDecimal(Grid.Rows[i].Cells["Tax"].Value);
-                        //if (tax > 0)
-                        //{
-                        //    Grid.Rows[i].Cells["Tax"].Value = tax.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
-                        //}
-                        //else
-                        //{
-                        //    Grid.Rows[i].Cells["Tax"].Value = "";
-                        //}
-                        decimal total = Convert.ToDecimal(Grid.Rows[i].Cells["Total"].Value);
-                        if (total > 0)
-                        {
-                            Grid.Rows[i].Cells["Total"].Value = total.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
-                        }
-                        else
-                        {
-                            Grid.Rows[i].Cells["Total"].Value = "";
-                        }
-                        var td = Grid.Rows[i].Cells["Status"].Value.ToString();
-                        if (td.Equals("Draft Document"))
-                        {
-                            Grid.Rows[i].Cells["Status"].ImageIndex = 4;
-                            Grid.Rows[i].Cells["Status"].ImageAlign = iGContentAlignment.BottomRight;
-                        }
-                        //if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
-                        //{
-                        //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(70, 160, 90);
-                        //}
-                        //else
-                        //{
-                        //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(130, 136, 20);
-                        //}
+                                //decimal net = Convert.ToDecimal(Grid.Rows[i].Cells["Net"].Value);
+                                //if (net > 0)
+                                //{
+                                //    Grid.Rows[i].Cells["Net"].Value = net.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                                //}
+                                //else
+                                //{
+                                //    Grid.Rows[i].Cells["Net"].Value = "";
+                                //}
+                                //decimal exent = Convert.ToDecimal(Grid.Rows[i].Cells["Exent"].Value);
+                                //if (exent > 0)
+                                //{
+                                //    Grid.Rows[i].Cells["Exent"].Value = exent.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL")); ;
+                                //}
+                                //else
+                                //{
+                                //    Grid.Rows[i].Cells["Exent"].Value = "";
+                                //}
+                                //decimal tax = Convert.ToDecimal(Grid.Rows[i].Cells["Tax"].Value);
+                                //if (tax > 0)
+                                //{
+                                //    Grid.Rows[i].Cells["Tax"].Value = tax.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                                //}
+                                //else
+                                //{
+                                //    Grid.Rows[i].Cells["Tax"].Value = "";
+                                //}
+                                decimal total = Convert.ToDecimal(Grid.Rows[i].Cells["Total"].Value);
+                                if (total > 0)
+                                {
+                                    Grid.Rows[i].Cells["Total"].Value = total.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                                }
+                                else
+                                {
+                                    Grid.Rows[i].Cells["Total"].Value = "";
+                                }
+                                var td = Grid.Rows[i].Cells["Status"].Value.ToString();
+                                if (td.Equals("Draft Document"))
+                                {
+                                    Grid.Rows[i].Cells["Status"].ImageIndex = 4;
+                                    Grid.Rows[i].Cells["Status"].ImageAlign = iGContentAlignment.BottomRight;
+                                }
+                                //if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
+                                //{
+                                //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(70, 160, 90);
+                                //}
+                                //else
+                                //{
+                                //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(130, 136, 20);
+                                //}
 
+                            }
+                            break;
+                        case Perfiles.UPR:
+                            for (int i = 0; i < Grid.Rows.Count; i++)
+                            {
+                                var date = Convert.ToDateTime(Grid.Rows[i].Cells["DateLast"].Value).ToString("dd-MM-yyyy");
+                                Grid.Rows[i].Cells["DateLast"].Value = date;
+
+                                var td = Grid.Rows[i].Cells["Status"].Value.ToString();
+                                if (td.Equals("Draft Document"))
+                                {
+                                    Grid.Rows[i].Cells["Status"].ImageIndex = 4;
+                                    Grid.Rows[i].Cells["Status"].ImageAlign = iGContentAlignment.BottomRight;
+                                }
+                                //if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
+                                //{
+                                //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(70, 160, 90);
+                                //}
+                                //else
+                                //{
+                                //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(130, 136, 20);
+                                //}
+                            }
+                            break;
+                        case Perfiles.VAL:
+                            break;
+                        default:
+                            break;
                     }
                     break;
-                case Perfiles.UPR:
-                    for (int i = 0; i < Grid.Rows.Count; i++)
+                case "FDetails":
+                    switch (perfil)
                     {
-                        var date = Convert.ToDateTime(Grid.Rows[i].Cells["DateLast"].Value).ToString("dd-MM-yyyy");
-                        Grid.Rows[i].Cells["DateLast"].Value = date;
+                        case Perfiles.ADM:
+                            break;
+                        case Perfiles.BAS:
+                            break;
+                        case Perfiles.UPO:
+                            // exent.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                            for (int i = 0; i < Grid.Rows.Count; i++)
+                            {
+                                decimal total = Convert.ToDecimal(Grid.Rows[i].Cells["Qty"].Value);
+                                if (total > 0)
+                                {
+                                    Grid.Rows[i].Cells["Qty"].Value = total.
+                                        ToString("#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                                }
+                                decimal price = Convert.ToDecimal(Grid.Rows[i].Cells["Price"].Value);
+                                if (total > 0)
+                                {
+                                    Grid.Rows[i].Cells["Price"].Value = price.
+                                        ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                                }
 
-                        var td = Grid.Rows[i].Cells["Status"].Value.ToString();
-                        if (td.Equals("Draft Document"))
-                        {
-                            Grid.Rows[i].Cells["Status"].ImageIndex = 4;
-                            Grid.Rows[i].Cells["Status"].ImageAlign = iGContentAlignment.BottomRight;
-                        }
-                        //if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
-                        //{
-                        //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(70, 160, 90);
-                        //}
-                        //else
-                        //{
-                        //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(130, 136, 20);
-                        //}
+
+                            }
+                            break;
+                        case Perfiles.UPR:
+                            break;
+                        case Perfiles.VAL:
+                            break;
+                        default:
+                            break;
                     }
                     break;
-                case Perfiles.VAL:
-                    break;
+
                 default:
                     break;
             }
@@ -247,9 +291,20 @@ namespace PurchaseDesktop.Helpers
         public void CargarColumnasFPrincipal(Perfiles perfil)
         {
             iGCol iGCol;
-            iGDropDownList cboStates = new iGDropDownList();
             iGDropDownList cbotype = new iGDropDownList();
             DataTable tablePr;
+            //! Order Type  
+            tablePr = new DataTable();
+            tablePr.Columns.Add("Id");
+            tablePr.Columns.Add("Name");
+            foreach (DocumentType myType in Enum.GetValues(typeof(DocumentType)))
+            {
+                DataRow row = tablePr.NewRow();
+                row[0] = (int)myType;
+                row[1] = myType.ToString();
+                tablePr.Rows.Add(row);
+            }
+            cbotype.FillWithData(tablePr, "id", "Name");
 
             switch (perfil)
             {
@@ -258,30 +313,9 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    //! Order State                    
-                    //tablePr = new DataTable();
-                    //tablePr.Columns.Add("Id");
-                    //tablePr.Columns.Add("Name");
-                    //foreach (var item in new RequisitionStatus().GetList()) //todo ESTO SÍ SIRVE!!!!
-                    //{
-                    //    DataRow row = tablePr.NewRow();
-                    //    row[0] = (int)item.StatuID;
-                    //    row[1] = item.Description.ToString();
-                    //    tablePr.Rows.Add(row);
-                    //}
-                    //cboStates.FillWithData(tablePr, "Id", "Name");
-                    //! Order Type  
-                    tablePr = new DataTable();
-                    tablePr.Columns.Add("Id");
-                    tablePr.Columns.Add("Name");
-                    foreach (DocumentType myType in Enum.GetValues(typeof(DocumentType)))
-                    {
-                        DataRow row = tablePr.NewRow();
-                        row[0] = (int)myType;
-                        row[1] = myType.ToString();
-                        tablePr.Rows.Add(row);
-                    }
-                    cbotype.FillWithData(tablePr, "id", "Name");
+
+                    #region Cols
+
                     //! Cols
                     Grid.GroupBox.Visible = true;
                     Grid.Header.Height = 20;
@@ -305,33 +339,20 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("Status", "Status", 111);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    //iGCol.CellStyle.DropDownControl = cboStates;
-                    //iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
-                    //iGCol = Grid.Cols.Add("Net", "Net", 69);
-                    //iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
-                    //iGCol.CellStyle.ReadOnly = iGBool.True;
-                    //iGCol.CellStyle.Font = new Font("Tahoma", 7);
-                    //iGCol = Grid.Cols.Add("Exent", "Exent", 64);
-                    //iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
-                    //iGCol.CellStyle.ReadOnly = iGBool.True;
-                    //iGCol.CellStyle.Font = new Font("Tahoma", 7);
-
-                    //iGCol = Grid.Cols.Add("Tax", "Tax", 64);
-                    //iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
-                    //iGCol.CellStyle.ReadOnly = iGBool.True;
-                    //iGCol.CellStyle.Font = new Font("Tahoma", 7);
                     iGCol = Grid.Cols.Add("CurrencyID", "", 30);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol.ColHdrStyle.ImageList = ListaImagenes();
-                    iGCol.ImageIndex = 0;
-                    iGCol.ColHdrStyle.ImageAlign = iGContentAlignment.MiddleCenter;
-                    iGCol = Grid.Cols.Add("Total", "Total", 69);
+                    iGCol.ImageIndex = 5;
+                    iGCol.ColHdrStyle.ImageAlign = iGContentAlignment.BottomCenter;
+
+                    iGCol = Grid.Cols.Add("Total", "Total", 74);
                     iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol.CellStyle.Font = new Font("Tahoma", 7);
+
                     iGCol = Grid.Cols.Add("UserID", "User ID", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("CostID", "CC", 32);
@@ -343,32 +364,12 @@ namespace PurchaseDesktop.Helpers
                     iGCol.AllowGrouping = false;
                     iGCol.IncludeInSelect = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+                    #endregion
+
                     break;
                 case Perfiles.UPR:
-                    ////! Order State                   
-                    //tablePr = new DataTable();
-                    //tablePr.Columns.Add("Id");
-                    //tablePr.Columns.Add("Name");
-                    //foreach (var item in new RequisitionStatus().GetList())
-                    //{
-                    //    DataRow row = tablePr.NewRow();
-                    //    row[0] = (int)item.StatuID;
-                    //    row[1] = item.Description.ToString();
-                    //    tablePr.Rows.Add(row);
-                    //}
-                    //cboStates.FillWithData(tablePr, "Id", "Name");
-                    //! Order Type   
-                    tablePr = new DataTable();
-                    tablePr.Columns.Add("Id");
-                    tablePr.Columns.Add("Name");
-                    foreach (DocumentType myType in Enum.GetValues(typeof(DocumentType)))
-                    {
-                        DataRow row = tablePr.NewRow();
-                        row[0] = (int)myType;
-                        row[1] = myType.ToString();
-                        tablePr.Rows.Add(row);
-                    }
-                    cbotype.FillWithData(tablePr, "id", "Name");
+                    #region Cols
+
                     //! Cols
                     Grid.GroupBox.Visible = true;
                     Grid.Header.Height = 20;
@@ -392,10 +393,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("Status", "Status", 111);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    //iGCol.CellStyle.DropDownControl = cboStates;
-                    //iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("UserID", "User ID", 58);
-                    //iGCol.CellStyle.FormatString = "{0:d}";
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("CostID", "CC", 32);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -406,13 +404,14 @@ namespace PurchaseDesktop.Helpers
                     iGCol.AllowGrouping = false;
                     iGCol.IncludeInSelect = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+                    #endregion
+
                     break;
                 case Perfiles.VAL:
                     break;
                 default:
                     break;
             }
-
             //! Header
             foreach (iGColHdr item in Grid.Header.Cells)
             {
@@ -423,12 +422,12 @@ namespace PurchaseDesktop.Helpers
             {
                 //item.AllowSizing = false;
             }
-
         }
 
         public void CargarColumnasFDetail(Perfiles perfil)
         {
             iGCol iGCol;
+
             //! Cols     
             Grid.Header.Height = 20;
             iGCol = Grid.Cols.Add("nro", "N°", 21);
@@ -438,11 +437,45 @@ namespace PurchaseDesktop.Helpers
             iGCol = Grid.Cols.Add("HeaderID", "");
             iGCol.Visible = false;
             iGCol = Grid.Cols.Add("Qty", "Qty", 39);
+            iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
             iGCol.CellStyle.ReadOnly = iGBool.True;
-            iGCol = Grid.Cols.Add("NameProduct", "Product", 165);
+            iGCol.CellStyle.Font = new Font("Tahoma", 7);
+            iGCol = Grid.Cols.Add("MedidaID", "M", 28);
             iGCol.CellStyle.ReadOnly = iGBool.True;
-            iGCol = Grid.Cols.Add("DescriptionProduct", "Description", 214);
-            iGCol.CellStyle.ReadOnly = iGBool.True;
+
+
+            switch (perfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    iGCol = Grid.Cols.Add("NameProduct", "Product", 290);
+                    //iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("DescriptionProduct", "");
+                    iGCol.Visible = false;
+                    iGCol = Grid.Cols.Add("Price", "Price", 64);
+                    iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
+                    //iGCol.CellStyle.ReadOnly = iGBool.True;
+                    // iGCol.CellStyle.MaxInputLength = 6;
+                    iGCol.CellStyle.Font = new Font("Tahoma", 7);
+                    break;
+                case Perfiles.UPR:
+                    iGCol = Grid.Cols.Add("NameProduct", "Product", 352);
+                    //iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("DescriptionProduct", "");
+                    iGCol.Visible = false;
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+
+
+
+
             iGCol = Grid.Cols.Add("AccountID", "Account", 84);
             iGCol.CellStyle.ReadOnly = iGBool.True;
             iGCol.CellStyle.Font = new Font("Tahoma", 6.5f);
@@ -453,26 +486,45 @@ namespace PurchaseDesktop.Helpers
             {
                 item.TextAlign = iGContentAlignment.MiddleCenter;
             }
-
             foreach (iGCol item in Grid.Cols)
             {
-                item.AllowSizing = false;
+                //item.AllowSizing = false;
             }
+
+
         }
 
         public void CargarColumnasFAttach(Perfiles perfil)
         {
             iGCol iGCol;
+            iGDropDownList cbotype = new iGDropDownList();
+            DataTable tablePr;
+            //! Order Type  
+            tablePr = new DataTable();
+            tablePr.Columns.Add("Id");
+            tablePr.Columns.Add("Name");
+            foreach (TypeAttach myType in Enum.GetValues(typeof(TypeAttach)))
+            {
+                DataRow row = tablePr.NewRow();
+                row[0] = (int)myType;
+                row[1] = myType.ToString();
+                tablePr.Rows.Add(row);
+            }
+            cbotype.FillWithData(tablePr, "id", "Name");
+
             //! Cols     
             Grid.Header.Height = 20;
             iGCol = Grid.Cols.Add("nro", "N°", 21);
             iGCol.CellStyle.ReadOnly = iGBool.True;
             iGCol = Grid.Cols.Add("AttachID", "");
             iGCol.Visible = false;
-            iGCol = Grid.Cols.Add("Description", "Description", 315);
-            iGCol.CellStyle.ReadOnly = iGBool.True;
-            iGCol = Grid.Cols.Add("Modifier", "Modifier", 50);
-            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("Description", "Description", 253);
+
+
+            iGCol = Grid.Cols.Add("Modifier", "Modifier", 60);
+            iGCol.CellStyle.DropDownControl = cbotype;
+            iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+
             iGCol = Grid.Cols.Add("view", "", 22);
             iGCol.IncludeInSelect = false;
             iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
@@ -486,7 +538,7 @@ namespace PurchaseDesktop.Helpers
             }
             foreach (iGCol item in Grid.Cols)
             {
-                item.AllowSizing = false;
+                // item.AllowSizing = false;
             }
         }
 
@@ -512,7 +564,7 @@ namespace PurchaseDesktop.Helpers
             }
             foreach (iGCol item in Grid.Cols)
             {
-                // item.AllowSizing = false;
+                item.AllowSizing = false;
             }
         }
     }

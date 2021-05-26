@@ -111,6 +111,7 @@
     <Compile Include="DataModel\Currencies.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\DAAttaches.cs" />
     <Compile Include="DataModel\DAConfigApp.cs" />
     <Compile Include="DataModel\DACurrencies.cs" />
     <Compile Include="DataModel\DAMedidas.cs" />

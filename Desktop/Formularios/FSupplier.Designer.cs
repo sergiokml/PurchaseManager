@@ -246,17 +246,17 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.ImageActive")));
             this.BtnNewDetail.ImageLocation = null;
             this.BtnNewDetail.ImageMargin = 20;
-            this.BtnNewDetail.ImageSize = new System.Drawing.Size(40, 40);
-            this.BtnNewDetail.ImageZoomSize = new System.Drawing.Size(60, 60);
+            this.BtnNewDetail.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnNewDetail.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnNewDetail.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.InitialImage")));
-            this.BtnNewDetail.Location = new System.Drawing.Point(428, 144);
+            this.BtnNewDetail.Location = new System.Drawing.Point(451, 145);
             this.BtnNewDetail.Name = "BtnNewDetail";
             this.BtnNewDetail.Rotation = 0;
             this.BtnNewDetail.ShowActiveImage = true;
             this.BtnNewDetail.ShowCursorChanges = true;
             this.BtnNewDetail.ShowImageBorders = true;
             this.BtnNewDetail.ShowSizeMarkers = false;
-            this.BtnNewDetail.Size = new System.Drawing.Size(60, 60);
+            this.BtnNewDetail.Size = new System.Drawing.Size(55, 55);
             this.BtnNewDetail.TabIndex = 25;
             this.BtnNewDetail.TabStop = false;
             this.BtnNewDetail.ToolTipText = "New Supplier";
@@ -428,10 +428,11 @@ namespace PurchaseDesktop.Formularios
             this.CboCountries.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.CboCountries.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CboCountries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboCountries.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.CboCountries.FormattingEnabled = true;
             this.CboCountries.Location = new System.Drawing.Point(329, 95);
             this.CboCountries.Name = "CboCountries";
-            this.CboCountries.Size = new System.Drawing.Size(177, 21);
+            this.CboCountries.Size = new System.Drawing.Size(177, 24);
             this.CboCountries.TabIndex = 36;
             // 
             // PanelHeader
@@ -570,10 +571,11 @@ namespace PurchaseDesktop.Formularios
             this.CboTypeAccount.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.CboTypeAccount.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CboTypeAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboTypeAccount.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.CboTypeAccount.FormattingEnabled = true;
             this.CboTypeAccount.Location = new System.Drawing.Point(12, 165);
             this.CboTypeAccount.Name = "CboTypeAccount";
-            this.CboTypeAccount.Size = new System.Drawing.Size(81, 21);
+            this.CboTypeAccount.Size = new System.Drawing.Size(81, 24);
             this.CboTypeAccount.TabIndex = 29;
             // 
             // CboBanks
@@ -581,10 +583,11 @@ namespace PurchaseDesktop.Formularios
             this.CboBanks.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.CboBanks.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CboBanks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboBanks.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.CboBanks.FormattingEnabled = true;
             this.CboBanks.Location = new System.Drawing.Point(12, 192);
             this.CboBanks.Name = "CboBanks";
-            this.CboBanks.Size = new System.Drawing.Size(195, 21);
+            this.CboBanks.Size = new System.Drawing.Size(195, 24);
             this.CboBanks.TabIndex = 35;
             // 
             // TxtNroAccount
@@ -777,7 +780,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtGiro.IconRight = null;
             this.TxtGiro.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtGiro.Lines = new string[0];
-            this.TxtGiro.Location = new System.Drawing.Point(12, 95);
+            this.TxtGiro.Location = new System.Drawing.Point(12, 94);
             this.TxtGiro.MaxLength = 100;
             this.TxtGiro.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtGiro.Modified = false;
