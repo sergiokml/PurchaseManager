@@ -5,6 +5,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
+using PurchaseData.DataModel;
+
 namespace PurchaseData.Indicadores
 {
     public class IndicadorDolar
@@ -18,11 +20,15 @@ namespace PurchaseData.Indicadores
 
         private Uri UriBase { get; }
 
-        public IndicadorDolar(DataModel.ConfigApp dbConfig)
+        public IndicadorDolar(ConfigApp dbConfig)
         {
             WebClient = new WebClient();
             ApiKey = dbConfig.ApikeySBIF;
             UriBase = new Uri(dbConfig.BaseSBIF);
+        }
+        public IndicadorDolar()
+        {
+
         }
 
         public async Task<IndicadorDolar> GetPosterior(DateTime d)

@@ -89,8 +89,8 @@ namespace PurchaseDesktop.Formularios
             LblUser.Text = $"User: {user.FirstName} {user.LastName} | Profile: {user.ProfileID} | Email: {user.Email}";
 
             //! Banner
-            //string s = await rFachada.CargarBanner();
-            //WBrowserBanner.Navigate(s);
+            string s = await rFachada.CargarBanner();
+            WBrowserBanner.Navigate(s);
 
 
 

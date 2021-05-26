@@ -196,7 +196,7 @@ namespace PurchaseData.Helpers
                 //await Task.Run(() =>
                 //   {
 
-                IndicadorDolar dolar = await new IndicadorDolar(dbConfig).GetPosterior(semana);
+                var dolar = await new IndicadorDolar(dbConfig).GetPosterior(semana);
                 IndicadorUf uf = await new IndicadorUf(dbConfig).GetPosterior(semana);
                 IndicadorEuro euro = await new IndicadorEuro(dbConfig).GetPosterior(semana);
                 IndicadorIpc ipc = await new IndicadorIpc(dbConfig).GetPosterior(semana.AddMonths(-6));

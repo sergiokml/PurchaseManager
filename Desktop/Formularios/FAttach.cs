@@ -176,20 +176,25 @@ namespace PurchaseDesktop.Formularios
         {
             if (ValidarControles())
             {
-                // string serverfolder = configApp.FolderApp;
-                string idFolder = Current["HeaderID"].ToString();
                 Enum.TryParse<TypeAttach>(CboTypeFile.SelectedValue.ToString(), out TypeAttach status);
                 Attaches att = new Attaches
                 {
                     Description = TxtNameFile.Text.Trim(),
-                    FileName = $"{idFolder}{@"\"}{Path.GetFileName(TxtPathFile.Text)}",
+                    FileName = $"{Current["HeaderID"]}{@"\"}{Path.GetFileName(TxtPathFile.Text)}",
                     Modifier = (byte)status
                 };
-                rFachada.InsertAttach(att, Convert.ToInt32(Current["HeaderID"]), FilePath);
-                //File.Copy(FilePath, $"{serverfolder}{@"\"}{@"\"}{att.FileName}", true);
-                LlenarGrid();
-                ClearControles();
-                SetControles();
+                var resultado = rFachada.InsertAttach(att, Current, FilePath);
+                if (resultado == "OK")
+                {
+                    LlenarGrid();
+                    ClearControles();
+                    SetControles();
+
+                }
+                else
+                {
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
+                }
             }
         }
 
@@ -201,24 +206,34 @@ namespace PurchaseDesktop.Formularios
         private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
+            Grid.Focus();
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                if (rFachada.BorrarAdjunto(current, Current))
+                var resultado = rFachada.BorrarAdjunto(current, Current);
+                if (resultado == "OK")
                 {
                     LlenarGrid();
                     ClearControles();
                     SetControles();
-                    Grid.Focus();
-                    Grid.DrawAsFocused = false;
+                }
+                else
+                {
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
                 }
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
-                ((FPrincipal)Owner).Msg(rFachada.VerAttach(current), FPrincipal.MsgProceso.Error);
-                Grid.Focus();
-                Grid.DrawAsFocused = false;
+                var resultado = rFachada.VerAttach(current);
+                if (resultado != "OK")
+                {
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
+                }
             }
+            //Grid.Focus();
+            Grid.DrawAsFocused = false;
+            System.Windows.Forms.Cursor.Current = Cursors.Default;
         }
 
         public void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e)

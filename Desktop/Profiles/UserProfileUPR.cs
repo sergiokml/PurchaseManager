@@ -326,20 +326,20 @@ namespace PurchaseDesktop.Profiles
                 DateTran = rContext.Database
               .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
             };
-            //using (var rContext = new PurchaseManagerEntities())
-            //{
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            using (var rContext = new PurchaseManagerEntities())
             {
-                RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
-                doc.Transactions.Add(transaction);
+                using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                {
+                    RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
+                    doc.Transactions.Add(transaction);
 
-                rContext.Entry(item).State = EntityState.Modified;
-                Attaches od = rContext.Attaches.Find(attachID);
-                rContext.Entry(od).CurrentValues.SetValues(item);
-                rContext.SaveChanges();
-                trans.Commit();
+                    rContext.Entry(item).State = EntityState.Modified;
+                    Attaches od = rContext.Attaches.Find(attachID);
+                    rContext.Entry(od).CurrentValues.SetValues(item);
+                    rContext.SaveChanges();
+                    trans.Commit();
+                }
             }
-            //}
 
         }
     }

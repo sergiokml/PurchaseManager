@@ -24,6 +24,11 @@ namespace PurchaseData.Indicadores
             UriBase = new Uri(dbConfig.BaseSBIF);
         }
 
+        public IndicadorEuro()
+        {
+
+        }
+
         public async Task<IndicadorEuro> GetPosterior(DateTime d)
         {
             try
