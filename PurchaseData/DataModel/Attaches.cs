@@ -25,6 +25,7 @@ namespace PurchaseData.DataModel
         public string Description { get; set; }
         public string FileName { get; set; }
         public byte Modifier { get; set; }
+        public string Extension { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderHeader> OrderHeader { get; set; }

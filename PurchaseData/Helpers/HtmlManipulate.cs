@@ -27,18 +27,33 @@ namespace PurchaseData.Helpers
             HtmlDoc = new HtmlDocument();
         }
 
-        public string ConvertHtmlToPdf(string path, string id)
+        public Task<string> ConvertHtmlToPdf(string path, string id)
         {
-            IPdfDocument pdfDocument = Pdf.From(path);
+
             try
             {
-                File.WriteAllBytes(Path.GetTempPath() + id + ".pdf", pdfDocument.Content());
+                return Task.Run(() =>
+                  {
+                      var pdf = Pdf.From(File.ReadAllText(path))
+                          .OfSize(PaperSize.Letter)
+                          //.WithTitle("Title")
+                          //.WithoutOutline()
+                          //.WithMargins(1.25.Centimeters())
+                          //.Portrait()
+                          //.Comressed()
+                          .Content();
+
+                      File.WriteAllBytes(Path.GetTempPath() + id + ".pdf", pdf);
+                      return Path.GetTempPath() + id + ".pdf";
+
+                  });
+
             }
             catch (IOException)
             {
                 throw;
             }
-            return Path.GetTempPath() + id + ".pdf";
+            //return null;
         }
 
         public string ReemplazarDatos(DataRow headerDR, Users user, List<RequisitionDetails> details)
@@ -239,12 +254,15 @@ namespace PurchaseData.Helpers
         private void CrearNodo(HtmlNode table, List<Indicador> indicadors, string money)
         {
             string ultimo = string.Empty;
+            string fecha = string.Empty;
             decimal res = 0;
             string node = string.Empty;
             CultureInfo culture = new CultureInfo("es-CL");
             if (indicadors.Count > 2)
             {
                 ultimo = indicadors.ElementAtOrDefault(indicadors.Count() - 1).Valor; // today
+                fecha = indicadors.ElementAtOrDefault(indicadors.Count() - 1).Fecha;
+
                 string penultimo = indicadors.ElementAtOrDefault(indicadors.Count() - 2).Valor;
                 if (ultimo == null || penultimo == null)
                 {
@@ -252,19 +270,56 @@ namespace PurchaseData.Helpers
                 }
                 res = Convert.ToDecimal(ultimo, culture) - Convert.ToDecimal(penultimo, culture);
             }
+            else
+            {
+                ultimo = indicadors.ElementAtOrDefault(indicadors.Count() - 1).Valor; // today
+                fecha = indicadors.ElementAtOrDefault(indicadors.Count() - 1).Fecha;
+
+            }
             if (res > 0)
             {
-                node += $"<a class='currency inc'>";
+                node += $"<a title='{string.Format("{0:dd MMMM yyyy}", Convert.ToDateTime(fecha))}' class='currency inc tooltip_link left'>";
+            }
+            else if (res < 0)
+            {
+                node += $"<a title='{string.Format("{0:dd MMMM yyyy}", Convert.ToDateTime(fecha))}' class='currency dec tooltip_link left'>";
+            }
+            else if (res == 0)
+            {
+                node += $"<a title='{string.Format("{0:dd MMMM yyyy}", Convert.ToDateTime(fecha))}' class='currency zero tooltip_link left'>";
+            }
+            switch (money)
+            {
+                case "USD":
+                    node += $"<div class='flag alt' style='background-image: url(./icons8_usa_16.png)'></div>";
+                    break;
+                case "UF":
+                    node += $"<div class='flag alt' style='background-image: url(./icons8_chile_16.png)'></div>";
+                    break;
+                case "EUR":
+                    node += $"<div class='flag alt' style='background-image: url(./icons8_flag_of_europe_16.png)'></div>";
+                    break;
+                case "IPC":
+                    node += $"<div class='flag alt' style='background-image: url(./icons8_chile_16.png)'></div>";
+                    break;
+                case "UTM":
+                    node += $"<div class='flag alt' style='background-image: url(./icons8_chile_16.png)'></div>";
+                    break;
+            }
+            //node += $"<div class='flag alt' style='background-position:-560px - 64px'></div>";
+            node += $"<div class='currency-name'>{money}</div>/";
+            // node += $"<div class='flag flag-cl'></div>";
+            node += $"<div class='currency-name'></div>";
+            node += $"<div class='rate'>{ultimo}</div>";
+            if (res > 0)
+            {
+                node += $"<div class='change'>{res:+#.##;-#.##;}</div></a>";
             }
             else
             {
-                node += $"<a class='currency dec'>";
+                node += $"<div class='change'>{res}</div></a>";
             }
-            node += $"<div></div><div class='currency-name'>CLP</div>/";
-            node += "<div class='flag flag-cl'></div>";
-            node += $"<div class='currency-name'>{money}</div>";
-            node += $"<div class='rate'>{ultimo}</div>";
-            node += $"<div class='change'>{res}</div></a>";
+            //node += $"<div class='change'>{res:+#.##;-#.##;}</div></a>";
             table.AppendChild(HtmlNode.CreateNode(node));
         }
     }

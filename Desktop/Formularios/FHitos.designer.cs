@@ -1,7 +1,7 @@
 ﻿
 namespace PurchaseDesktop.Formularios
 {
-    partial class FAttach
+    partial class FHitos
     {
         /// <summary>
         /// Required designer variable.
@@ -29,19 +29,14 @@ namespace PurchaseDesktop.Formularios
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FAttach));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FHitos));
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties5 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties6 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties7 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties8 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.LabelPanel = new System.Windows.Forms.Label();
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
-            this.TxtPathFile = new Bunifu.UI.WinForms.BunifuTextBox();
             this.FDock = new Bunifu.UI.WinForms.BunifuFormDock();
             this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.BtnNewDetail = new Bunifu.UI.WinForms.BunifuImageButton();
@@ -50,8 +45,10 @@ namespace PurchaseDesktop.Formularios
             this.iGrid1DefaultCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.iGrid1DefaultColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.iGrid1RowTextColCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.CboTypeFile = new System.Windows.Forms.ComboBox();
-            this.TxtNameFile = new Bunifu.UI.WinForms.BunifuTextBox();
+            this.TxtDescription = new Bunifu.UI.WinForms.BunifuTextBox();
+            this.bunifuRange1 = new Bunifu.Framework.UI.BunifuRange();
+            this.label1 = new System.Windows.Forms.Label();
+            this.CboDays = new System.Windows.Forms.ComboBox();
             this.PanelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
             this.SuspendLayout();
@@ -76,7 +73,7 @@ namespace PurchaseDesktop.Formularios
             this.LabelPanel.Name = "LabelPanel";
             this.LabelPanel.Size = new System.Drawing.Size(87, 25);
             this.LabelPanel.TabIndex = 28;
-            this.LabelPanel.Text = "Attachments";
+            this.LabelPanel.Text = "Hitos";
             this.LabelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // BtnCerrar
@@ -114,82 +111,6 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar.Zoom = 5;
             this.BtnCerrar.ZoomSpeed = 10;
             this.BtnCerrar.Click += new System.EventHandler(this.BtnCerrar_Click);
-            // 
-            // TxtPathFile
-            // 
-            this.TxtPathFile.AcceptsReturn = false;
-            this.TxtPathFile.AcceptsTab = false;
-            this.TxtPathFile.AnimationSpeed = 200;
-            this.TxtPathFile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
-            this.TxtPathFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtPathFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            this.TxtPathFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtPathFile.BackgroundImage")));
-            this.TxtPathFile.BorderColorActive = System.Drawing.Color.DodgerBlue;
-            this.TxtPathFile.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.TxtPathFile.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            this.TxtPathFile.BorderColorIdle = System.Drawing.Color.Silver;
-            this.TxtPathFile.BorderRadius = 1;
-            this.TxtPathFile.BorderThickness = 1;
-            this.TxtPathFile.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.TxtPathFile.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtPathFile.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
-            this.TxtPathFile.DefaultText = "";
-            this.TxtPathFile.Enabled = false;
-            this.TxtPathFile.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            this.TxtPathFile.HideSelection = true;
-            this.TxtPathFile.IconLeft = null;
-            this.TxtPathFile.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtPathFile.IconPadding = 1;
-            this.TxtPathFile.IconRight = ((System.Drawing.Image)(resources.GetObject("TxtPathFile.IconRight")));
-            this.TxtPathFile.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtPathFile.Lines = new string[0];
-            this.TxtPathFile.Location = new System.Drawing.Point(12, 86);
-            this.TxtPathFile.MaxLength = 32767;
-            this.TxtPathFile.MinimumSize = new System.Drawing.Size(1, 1);
-            this.TxtPathFile.Modified = false;
-            this.TxtPathFile.Multiline = false;
-            this.TxtPathFile.Name = "TxtPathFile";
-            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties1.FillColor = System.Drawing.Color.Empty;
-            stateProperties1.ForeColor = System.Drawing.Color.Empty;
-            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtPathFile.OnActiveState = stateProperties1;
-            stateProperties2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            stateProperties2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            stateProperties2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            stateProperties2.PlaceholderForeColor = System.Drawing.Color.DarkGray;
-            this.TxtPathFile.OnDisabledState = stateProperties2;
-            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties3.FillColor = System.Drawing.Color.Empty;
-            stateProperties3.ForeColor = System.Drawing.Color.Empty;
-            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtPathFile.OnHoverState = stateProperties3;
-            stateProperties4.BorderColor = System.Drawing.Color.Silver;
-            stateProperties4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            stateProperties4.ForeColor = System.Drawing.Color.Empty;
-            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtPathFile.OnIdleState = stateProperties4;
-            this.TxtPathFile.Padding = new System.Windows.Forms.Padding(3);
-            this.TxtPathFile.PasswordChar = '\0';
-            this.TxtPathFile.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.TxtPathFile.PlaceholderText = "Click for search the file...";
-            this.TxtPathFile.ReadOnly = false;
-            this.TxtPathFile.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.TxtPathFile.SelectedText = "";
-            this.TxtPathFile.SelectionLength = 0;
-            this.TxtPathFile.SelectionStart = 0;
-            this.TxtPathFile.ShortcutsEnabled = true;
-            this.TxtPathFile.Size = new System.Drawing.Size(355, 25);
-            this.TxtPathFile.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
-            this.TxtPathFile.TabIndex = 8;
-            this.TxtPathFile.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.TxtPathFile.TextMarginBottom = 0;
-            this.TxtPathFile.TextMarginLeft = 1;
-            this.TxtPathFile.TextMarginTop = 0;
-            this.TxtPathFile.TextPlaceholder = "Click for search the file...";
-            this.TxtPathFile.UseSystemPasswordChar = false;
-            this.TxtPathFile.WordWrap = true;
-            this.TxtPathFile.Click += new System.EventHandler(this.TxtPathFile_Click);
             // 
             // FDock
             // 
@@ -312,120 +233,147 @@ namespace PurchaseDesktop.Formularios
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
             // 
-            // CboTypeFile
+            // TxtDescription
             // 
-            this.CboTypeFile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CboTypeFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CboTypeFile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CboTypeFile.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.CboTypeFile.FormattingEnabled = true;
-            this.CboTypeFile.Location = new System.Drawing.Point(196, 42);
-            this.CboTypeFile.Name = "CboTypeFile";
-            this.CboTypeFile.Size = new System.Drawing.Size(99, 24);
-            this.CboTypeFile.TabIndex = 30;
+            this.TxtDescription.AcceptsReturn = false;
+            this.TxtDescription.AcceptsTab = false;
+            this.TxtDescription.AnimationSpeed = 200;
+            this.TxtDescription.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.TxtDescription.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.TxtDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.TxtDescription.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtDescription.BackgroundImage")));
+            this.TxtDescription.BorderColorActive = System.Drawing.Color.DodgerBlue;
+            this.TxtDescription.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.TxtDescription.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            this.TxtDescription.BorderColorIdle = System.Drawing.Color.Silver;
+            this.TxtDescription.BorderRadius = 1;
+            this.TxtDescription.BorderThickness = 1;
+            this.TxtDescription.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.TxtDescription.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtDescription.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
+            this.TxtDescription.DefaultText = "";
+            this.TxtDescription.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            this.TxtDescription.HideSelection = true;
+            this.TxtDescription.IconLeft = null;
+            this.TxtDescription.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtDescription.IconPadding = 10;
+            this.TxtDescription.IconRight = null;
+            this.TxtDescription.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
+            this.TxtDescription.Lines = new string[0];
+            this.TxtDescription.Location = new System.Drawing.Point(12, 43);
+            this.TxtDescription.MaxLength = 32767;
+            this.TxtDescription.MinimumSize = new System.Drawing.Size(1, 1);
+            this.TxtDescription.Modified = false;
+            this.TxtDescription.Multiline = false;
+            this.TxtDescription.Name = "TxtDescription";
+            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties1.FillColor = System.Drawing.Color.Empty;
+            stateProperties1.ForeColor = System.Drawing.Color.Empty;
+            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtDescription.OnActiveState = stateProperties1;
+            stateProperties2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            stateProperties2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            stateProperties2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            stateProperties2.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.TxtDescription.OnDisabledState = stateProperties2;
+            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties3.FillColor = System.Drawing.Color.Empty;
+            stateProperties3.ForeColor = System.Drawing.Color.Empty;
+            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtDescription.OnHoverState = stateProperties3;
+            stateProperties4.BorderColor = System.Drawing.Color.Silver;
+            stateProperties4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            stateProperties4.ForeColor = System.Drawing.Color.Empty;
+            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtDescription.OnIdleState = stateProperties4;
+            this.TxtDescription.Padding = new System.Windows.Forms.Padding(3);
+            this.TxtDescription.PasswordChar = '\0';
+            this.TxtDescription.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.TxtDescription.PlaceholderText = "Enter Name File";
+            this.TxtDescription.ReadOnly = false;
+            this.TxtDescription.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.TxtDescription.SelectedText = "";
+            this.TxtDescription.SelectionLength = 0;
+            this.TxtDescription.SelectionStart = 0;
+            this.TxtDescription.ShortcutsEnabled = true;
+            this.TxtDescription.Size = new System.Drawing.Size(223, 25);
+            this.TxtDescription.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
+            this.TxtDescription.TabIndex = 31;
+            this.TxtDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.TxtDescription.TextMarginBottom = 0;
+            this.TxtDescription.TextMarginLeft = 1;
+            this.TxtDescription.TextMarginTop = 0;
+            this.TxtDescription.TextPlaceholder = "Enter Name File";
+            this.TxtDescription.UseSystemPasswordChar = false;
+            this.TxtDescription.WordWrap = true;
             // 
-            // TxtNameFile
+            // bunifuRange1
             // 
-            this.TxtNameFile.AcceptsReturn = false;
-            this.TxtNameFile.AcceptsTab = false;
-            this.TxtNameFile.AnimationSpeed = 200;
-            this.TxtNameFile.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
-            this.TxtNameFile.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.TxtNameFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            this.TxtNameFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TxtNameFile.BackgroundImage")));
-            this.TxtNameFile.BorderColorActive = System.Drawing.Color.DodgerBlue;
-            this.TxtNameFile.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.TxtNameFile.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            this.TxtNameFile.BorderColorIdle = System.Drawing.Color.Silver;
-            this.TxtNameFile.BorderRadius = 1;
-            this.TxtNameFile.BorderThickness = 1;
-            this.TxtNameFile.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.TxtNameFile.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtNameFile.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
-            this.TxtNameFile.DefaultText = "";
-            this.TxtNameFile.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            this.TxtNameFile.HideSelection = true;
-            this.TxtNameFile.IconLeft = null;
-            this.TxtNameFile.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtNameFile.IconPadding = 10;
-            this.TxtNameFile.IconRight = null;
-            this.TxtNameFile.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtNameFile.Lines = new string[0];
-            this.TxtNameFile.Location = new System.Drawing.Point(12, 42);
-            this.TxtNameFile.MaxLength = 32767;
-            this.TxtNameFile.MinimumSize = new System.Drawing.Size(1, 1);
-            this.TxtNameFile.Modified = false;
-            this.TxtNameFile.Multiline = false;
-            this.TxtNameFile.Name = "TxtNameFile";
-            stateProperties5.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties5.FillColor = System.Drawing.Color.Empty;
-            stateProperties5.ForeColor = System.Drawing.Color.Empty;
-            stateProperties5.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtNameFile.OnActiveState = stateProperties5;
-            stateProperties6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            stateProperties6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            stateProperties6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            stateProperties6.PlaceholderForeColor = System.Drawing.Color.DarkGray;
-            this.TxtNameFile.OnDisabledState = stateProperties6;
-            stateProperties7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties7.FillColor = System.Drawing.Color.Empty;
-            stateProperties7.ForeColor = System.Drawing.Color.Empty;
-            stateProperties7.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtNameFile.OnHoverState = stateProperties7;
-            stateProperties8.BorderColor = System.Drawing.Color.Silver;
-            stateProperties8.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            stateProperties8.ForeColor = System.Drawing.Color.Empty;
-            stateProperties8.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtNameFile.OnIdleState = stateProperties8;
-            this.TxtNameFile.Padding = new System.Windows.Forms.Padding(3);
-            this.TxtNameFile.PasswordChar = '\0';
-            this.TxtNameFile.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.TxtNameFile.PlaceholderText = "Enter Name File";
-            this.TxtNameFile.ReadOnly = false;
-            this.TxtNameFile.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.TxtNameFile.SelectedText = "";
-            this.TxtNameFile.SelectionLength = 0;
-            this.TxtNameFile.SelectionStart = 0;
-            this.TxtNameFile.ShortcutsEnabled = true;
-            this.TxtNameFile.Size = new System.Drawing.Size(164, 25);
-            this.TxtNameFile.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
-            this.TxtNameFile.TabIndex = 31;
-            this.TxtNameFile.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.TxtNameFile.TextMarginBottom = 0;
-            this.TxtNameFile.TextMarginLeft = 1;
-            this.TxtNameFile.TextMarginTop = 0;
-            this.TxtNameFile.TextPlaceholder = "Enter Name File";
-            this.TxtNameFile.UseSystemPasswordChar = false;
-            this.TxtNameFile.WordWrap = true;
+            this.bunifuRange1.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuRange1.BackgroudColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.bunifuRange1.BorderRadius = 0;
+            this.bunifuRange1.IndicatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
+            this.bunifuRange1.Location = new System.Drawing.Point(12, 86);
+            this.bunifuRange1.MaximumRange = 100;
+            this.bunifuRange1.Name = "bunifuRange1";
+            this.bunifuRange1.RangeMax = 50;
+            this.bunifuRange1.RangeMin = 0;
+            this.bunifuRange1.Size = new System.Drawing.Size(274, 30);
+            this.bunifuRange1.TabIndex = 32;
+            this.bunifuRange1.RangeChanged += new System.EventHandler(this.bunifuRange1_RangeChanged);
             // 
-            // FAttach
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(297, 96);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(12, 16);
+            this.label1.TabIndex = 33;
+            this.label1.Text = ".";
+            // 
+            // CboDays
+            // 
+            this.CboDays.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.CboDays.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CboDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboDays.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.CboDays.FormattingEnabled = true;
+            this.CboDays.Location = new System.Drawing.Point(252, 44);
+            this.CboDays.Name = "CboDays";
+            this.CboDays.Size = new System.Drawing.Size(34, 24);
+            this.CboDays.TabIndex = 34;
+            // 
+            // FHitos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(379, 264);
-            this.Controls.Add(this.TxtNameFile);
-            this.Controls.Add(this.CboTypeFile);
+            this.Controls.Add(this.CboDays);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.bunifuRange1);
+            this.Controls.Add(this.TxtDescription);
             this.Controls.Add(this.Grid);
             this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.bunifuSeparator2);
             this.Controls.Add(this.BtnNewDetail);
             this.Controls.Add(this.bunifuSeparator1);
-            this.Controls.Add(this.TxtPathFile);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FAttach";
+            this.Name = "FHitos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FAttachment";
             this.Load += new System.EventHandler(this.FAttachment_Load);
             this.PanelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Panel PanelHeader;
-        private Bunifu.UI.WinForms.BunifuTextBox TxtPathFile;
         private Bunifu.UI.WinForms.BunifuFormDock FDock;
         private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator1;
         private Bunifu.UI.WinForms.BunifuImageButton BtnNewDetail;
@@ -436,7 +384,9 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1DefaultCellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle iGrid1DefaultColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1RowTextColCellStyle;
-        private System.Windows.Forms.ComboBox CboTypeFile;
-        private Bunifu.UI.WinForms.BunifuTextBox TxtNameFile;
+        private Bunifu.UI.WinForms.BunifuTextBox TxtDescription;
+        private Bunifu.Framework.UI.BunifuRange bunifuRange1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox CboDays;
     }
 }

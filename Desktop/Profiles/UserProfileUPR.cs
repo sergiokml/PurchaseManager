@@ -80,7 +80,10 @@ namespace PurchaseDesktop.Profiles
 
         public DataTable VistaFProveedores(TypeDocumentHeader headerTD, int headerID)
         {
-            return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
+            }
         }
 
         public void InsertPRHeader(RequisitionHeader item)
@@ -150,15 +153,6 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        #region Funciones Auxiliares UNION "abstract class" + "rContext"
-
-        public void SetResultFunctions()
-        {
-            ReqGroupByCost_Results = rContext.ufnGetReqGroupByCost(2).ToList();
-            OrderGroupByStatus_Results = rContext.ufnGetOrderGroupByStatus().ToList();
-        }
-
-        #endregion
 
         public void InsertDetail<T>(T item, int headerID)
         {
@@ -341,6 +335,21 @@ namespace PurchaseDesktop.Profiles
                 }
             }
 
+        }
+
+        public DataRow GetDataRow(TypeDocumentHeader headerTD, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable VistaFHitos(TypeDocumentHeader headerTD, int headerID)
+        {
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                return this
+                .ToDataTable<OrderHitos>(rContext.OrderHitos
+                .Where(c => c.OrderHeaderID == headerID).ToList());
+            }
         }
     }
 }

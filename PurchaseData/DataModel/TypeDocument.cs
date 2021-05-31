@@ -12,21 +12,21 @@ namespace PurchaseData.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Medidas
+    public partial class TypeDocument
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Medidas()
+        public TypeDocument()
         {
-            this.OrderDetails = new HashSet<OrderDetails>();
-            this.RequisitionDetails = new HashSet<RequisitionDetails>();
+            this.OrderHeader = new HashSet<OrderHeader>();
+            this.RequisitionHeader = new HashSet<RequisitionHeader>();
         }
     
-        public string MedidaID { get; set; }
+        public byte TypeID { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual ICollection<OrderHeader> OrderHeader { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequisitionDetails> RequisitionDetails { get; set; }
+        public virtual ICollection<RequisitionHeader> RequisitionHeader { get; set; }
     }
 }

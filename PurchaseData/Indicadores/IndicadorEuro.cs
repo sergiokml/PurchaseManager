@@ -42,6 +42,7 @@ namespace PurchaseData.Indicadores
                         var r = JsonSerializer.Deserialize<IndicadorEuro>(response);
                         if (r != null)
                         {
+                            r.Euro.RemoveAll(c => Convert.ToDateTime(c.Fecha) > DateTime.Now);
                             return r;
                         }
                     }

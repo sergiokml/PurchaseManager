@@ -39,7 +39,7 @@ namespace PurchaseDesktop.Formularios
             Icon = Properties.Resources.icons8_survey;
             SetControles();
             //! Grid Principal
-            rFachada.CargarGrid(Grid, "FDetails");
+            rFachada.CargarGrid(Grid, "FDetails", Current);
             LlenarGrid();
 
             //! Eventos
@@ -89,16 +89,12 @@ namespace PurchaseDesktop.Formularios
             if (ValidarControles())
             {
                 Enum.TryParse(rFachada.CurrentUser().ProfileID, out Perfiles p);
-                RequisitionDetails rd;
-                OrderDetails od;
-                switch (p)
+                var resultado = string.Empty;
+                Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+                switch (td)
                 {
-                    case Perfiles.ADM:
-                        break;
-                    case Perfiles.BAS:
-                        break;
-                    case Perfiles.UPR:
-                        rd = new RequisitionDetails
+                    case TypeDocumentHeader.PR:
+                        var rd = new RequisitionDetails
                         {
                             AccountID = ((Accounts)CboAccount.SelectedItem).AccountID,
                             Qty = Convert.ToInt32(TxtQty.Text.Replace(".", "")),
@@ -108,18 +104,10 @@ namespace PurchaseDesktop.Formularios
                             MedidaID = ((Medidas)CboMedidas.SelectedItem).MedidaID
 
                         };
-                        if (rFachada.InsertDetail(rd, Current))
-                        {
-                            LlenarGrid();
-                            ClearControles();
-                            SetControles();
-                        }
-
+                        resultado = rFachada.InsertDetail(rd, Current);
                         break;
-                    case Perfiles.VAL:
-                        break;
-                    case Perfiles.UPO:
-                        od = new OrderDetails
+                    case TypeDocumentHeader.PO:
+                        var od = new OrderDetails
                         {
                             AccountID = ((Accounts)CboAccount.SelectedItem).AccountID,
                             Qty = Convert.ToInt32(TxtQty.Text.Replace(".", "")),
@@ -128,19 +116,23 @@ namespace PurchaseDesktop.Formularios
                             HeaderID = Convert.ToInt32(Current["HeaderID"]),
                             Price = Convert.ToInt32(TxtPrice.Text.Replace(".", "")),
                             MedidaID = ((Medidas)CboMedidas.SelectedItem).MedidaID
-
                         };
-                        if (rFachada.InsertDetail(od, Current))
-                        {
-                            LlenarGrid();
-                            ClearControles();
-                            SetControles();
-                        }
-                        else
-                        {
-                            ((FPrincipal)Owner).Msg("Error al insertar producto", FPrincipal.MsgProceso.Error);
-                        }
+                        resultado = rFachada.InsertDetail(od, Current);
                         break;
+                    default:
+                        break;
+                }
+                if (resultado == "OK")
+                {
+                    LlenarGrid();
+                    ClearControles();
+                    SetControles();
+                    ((FPrincipal)Owner).LlenarGrid();
+                    ((FPrincipal)Owner).SetControles();
+                }
+                else
+                {
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
                 }
             }
         }
@@ -163,7 +155,7 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[i].Cells["nro"].Value = i + 1;
                 }
-                Grid = rFachada.FormatearGrid(Grid, "FDetails");
+                Grid = rFachada.FormatearGrid(Grid, "FDetails", Current);
                 Grid.Refresh();
             }
             catch (Exception)
@@ -178,9 +170,8 @@ namespace PurchaseDesktop.Formularios
 
         public bool ValidarControles()
         {
-            var user = rFachada.CurrentUser();
-            Enum.TryParse(user.ProfileID, out Perfiles p);
-
+            Enum.TryParse(rFachada.CurrentUser().ProfileID, out Perfiles p);
+            Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             if (CboAccount.SelectedIndex == -1)
             {
                 return false;
@@ -197,27 +188,19 @@ namespace PurchaseDesktop.Formularios
             {
                 return false;
             }
-
-            switch (p)
+            switch (td)
             {
-                case Perfiles.ADM:
+                case TypeDocumentHeader.PR:
                     break;
-                case Perfiles.BAS:
-                    break;
-                case Perfiles.UPO:
+                case TypeDocumentHeader.PO:
                     if (!int.TryParse(TxtPrice.Text.Replace(".", ""), out int parsedValue))
                     {
                         return false;
                     }
                     break;
-                case Perfiles.UPR:
-                    break;
-                case Perfiles.VAL:
-                    break;
                 default:
                     break;
             }
-
             return true;
         }
 
@@ -236,8 +219,8 @@ namespace PurchaseDesktop.Formularios
 
         public void SetControles()
         {
-            var user = rFachada.CurrentUser();
-            Enum.TryParse(user.ProfileID, out Perfiles p);
+            Enum.TryParse(rFachada.CurrentUser().ProfileID, out Perfiles p);
+            Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
 
             CboAccount.DataSource = new Accounts().GetList();
             CboAccount.DisplayMember = "Description";
@@ -249,10 +232,6 @@ namespace PurchaseDesktop.Formularios
             CboMedidas.SelectedIndex = -1;
             CboMedidas.ValueMember = "MedidaID";
 
-            CboCurrency.DataSource = new Currencies().GetList();
-            CboCurrency.DisplayMember = "Description";
-            CboCurrency.ValueMember = "CurrencyID";
-
             switch (p)
             {
                 case Perfiles.ADM:
@@ -260,47 +239,58 @@ namespace PurchaseDesktop.Formularios
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    CboCurrency.SelectedValue = Current["CurrencyID"];
-                    var po = new OrderHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
-                    decimal neto = Convert.ToDecimal(po.Net);
-                    decimal exent = Convert.ToDecimal(po.Exent);
-                    decimal tax = Convert.ToDecimal(po.Discount);
-                    decimal total = Convert.ToDecimal(po.Total);
-                    if (neto > 0)
+                    switch (td)
                     {
-                        TxtNet.Text = neto.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                        case TypeDocumentHeader.PR:
+                            TxtPrice.Enabled = false;
+
+                            break;
+                        case TypeDocumentHeader.PO:
+                            var po = new OrderHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
+                            decimal neto = Convert.ToDecimal(po.Net);
+                            decimal exent = Convert.ToDecimal(po.Exent);
+                            decimal tax = Convert.ToDecimal(po.Discount);
+                            decimal total = Convert.ToDecimal(po.Total);
+                            if (neto > 0)
+                            {
+                                TxtNet.Text = neto.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                            }
+                            else
+                            {
+                                TxtNet.Text = "$ 0";
+                            }
+                            if (exent > 0)
+                            {
+                                TxtExent.Text = exent.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                            }
+                            else
+                            {
+                                TxtExent.Text = "$ 0";
+                            }
+                            if (tax > 0)
+                            {
+                                TxtTax.Text = tax.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                            }
+                            else
+                            {
+                                TxtTax.Text = "$ 0";
+                            }
+                            if (total > 0)
+                            {
+                                TxtTotal.Text = total.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                            }
+                            else
+                            {
+                                TxtTotal.Text = "$ 0";
+                            }
+                            break;
+                        default:
+                            break;
                     }
-                    else
-                    {
-                        TxtNet.Text = "$ 0";
-                    }
-                    if (exent > 0)
-                    {
-                        TxtExent.Text = exent.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
-                    }
-                    else
-                    {
-                        TxtExent.Text = "$ 0";
-                    }
-                    if (tax > 0)
-                    {
-                        TxtTax.Text = tax.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
-                    }
-                    else
-                    {
-                        TxtTax.Text = "$ 0";
-                    }
-                    if (total > 0)
-                    {
-                        TxtTotal.Text = total.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
-                    }
-                    else
-                    {
-                        TxtTotal.Text = "$ 0";
-                    }
+
                     break;
                 case Perfiles.UPR:
-                    CboCurrency.SelectedIndex = -1;
+
                     break;
                 case Perfiles.VAL:
                     break;
@@ -327,10 +317,12 @@ namespace PurchaseDesktop.Formularios
                     Grid.Focus();
 
                     SetControles();
+                    ((FPrincipal)Owner).LlenarGrid();
+                    ((FPrincipal)Owner).SetControles();
                 }
                 else
                 {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
                 }
                 Grid.DrawAsFocused = false;
                 System.Windows.Forms.Cursor.Current = Cursors.Default;
@@ -370,11 +362,13 @@ namespace PurchaseDesktop.Formularios
             {
                 LlenarGrid();
                 SetControles();
+                ((FPrincipal)Owner).LlenarGrid();
+                ((FPrincipal)Owner).SetControles();
             }
             else
             {
                 e.Result = iGEditResult.Cancel;
-                ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
+                ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
             }
         }
 
@@ -450,29 +444,6 @@ namespace PurchaseDesktop.Formularios
             {
                 //throw;
             }
-        }
-
-        private void CboCurrency_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            //! Update Currency
-            System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-            var resultado = rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID");
-            if (resultado == "OK")
-            {
-                LlenarGrid();
-                SetControles();
-            }
-            else
-            {
-                ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
-                CboCurrency.SelectedIndex = -1;
-            }
-            System.Windows.Forms.Cursor.Current = Cursors.Default;
-        }
-
-        private void TxtQty_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
         }
 
         private void Grid_RequestCellToolTipText(object sender, iGRequestCellToolTipTextEventArgs e)

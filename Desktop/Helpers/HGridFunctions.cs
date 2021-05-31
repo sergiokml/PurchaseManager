@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
+using PurchaseData.DataModel;
+
 using TenTec.Windows.iGridLib;
 
 namespace PurchaseDesktop.Helpers
@@ -23,31 +25,53 @@ namespace PurchaseDesktop.Helpers
         private ImageList ListaImagenes()
         {
             ImageList lista = new ImageList();
-            lista.Images.Add(Properties.Resources.icons8_html_filetype); // Ver Html 
-            lista.Images.Add(Properties.Resources.icons8_erase); // Remove
-            lista.Images.Add(Properties.Resources.icons8_envelope); // Send
-            lista.Images.Add(Properties.Resources.icons8_pdf); // Pdf
-            lista.Images.Add(Properties.Resources.icons8_edit_row); // draft icon
-            lista.Images.Add(Properties.Resources.icons8_request_money); // currency icon
+            lista.Images.Add(Properties.Resources.icons8_html_filetype);            //0 Ver Html 
+            lista.Images.Add(Properties.Resources.icons8_erase);                    //1 Remove
+            lista.Images.Add(Properties.Resources.icons8_envelope);                 //2 Send
+            lista.Images.Add(Properties.Resources.icons8_pdf);                      //3 Pdf
+            lista.Images.Add(Properties.Resources.icons8_left_arrow);               //4 draft icon
+            lista.Images.Add(Properties.Resources.icons8_us_dollar);                 //5 currency icon
+            lista.Images.Add(Properties.Resources.icons8_doc);                      //6 word
+            lista.Images.Add(Properties.Resources.icons8_xls);                       //7 Excel
+            //lista.Images.Add(Properties.Resources.icons8_ball_point_pen); //
             return lista;
         }
 
-        public void LLenarMenuContext()
+        public void LLenarMenuContext(DataRow headerDR)
         {
             CtxMenu.Items.Clear();
             CtxMenu.BackColor = Color.FromArgb(37, 37, 38);
             CtxMenu.ForeColor = Color.White;
+            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+            ToolStripItem item;
 
-            ToolStripItem item = CtxMenu.Items.Add("Sent To Supplier"); // index 0
-            item.Font = new Font("Tahoma", 8, FontStyle.Italic);
-            item.Image = Properties.Resources.send_18px;
-            item.BackColor = Color.FromArgb(37, 37, 38);
+            switch (td)
+            {
+                case TypeDocumentHeader.PR:
+                    item = CtxMenu.Items.Add("Convert To PO");  // index 1
+                    item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                    item.Image = Properties.Resources.icons8_change.ToBitmap();
+                    item.BackColor = Color.FromArgb(37, 37, 38);
+                    item.Name = "CONVERTREQ";
+                    break;
+                case TypeDocumentHeader.PO:
+                    if (headerDR["RequisitionHeaderID"] != DBNull.Value)
+                    {
+                        item = CtxMenu.Items.Add($"Open Requisition {headerDR["RequisitionHeaderID"]}");
+                        item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                        item.Image = Properties.Resources.icons8_html_filetype.ToBitmap();
+                        item.Name = "OPENREQ";
+                    }
+                    item = CtxMenu.Items.Add("Send To Supplier"); // index 0
+                    item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                    item.Image = Properties.Resources.icons8_envelope.ToBitmap();
+                    item.BackColor = Color.FromArgb(37, 37, 38);
+                    item.Name = "SEND";
 
-
-            item = CtxMenu.Items.Add("Convert To PO");  // index 1
-            item.Font = new Font("Tahoma", 8, FontStyle.Italic);
-            item.Image = Properties.Resources.icons8_data_transfer_16;
-            item.BackColor = Color.FromArgb(37, 37, 38);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void LLenarCombo(DataTable table)
@@ -123,13 +147,9 @@ namespace PurchaseDesktop.Helpers
             Grid.Header.SeparatingLine = lineasStyle;
             Grid.Header.BackColor = Color.FromArgb(37, 37, 38);
             Grid.Header.HotTrackForeColor = Color.FromArgb(154, 196, 85); // verde al seleccionar el header
-
-
-
-
         }
 
-        public void Formatear(Perfiles perfil, string frm)
+        public void Formatear(Perfiles perfil, string frm, DataRow headerDR)
         {
             switch (frm)
             {
@@ -143,37 +163,10 @@ namespace PurchaseDesktop.Helpers
                         case Perfiles.UPO:
                             for (int i = 0; i < Grid.Rows.Count; i++)
                             {
-                                var date = Convert.ToDateTime(Grid.Rows[i].Cells["DateLast"].Value).ToString("dd-MM-yyyy");
-                                Grid.Rows[i].Cells["DateLast"].Value = date;
+                                DataRow row = (DataRow)Grid.Rows[i].Tag;
+                                Grid.Rows[i].Cells["DateLast"].Value = Convert.ToDateTime(row["DateLast"]).ToString("dd-MM-yyyy");
 
-                                //decimal net = Convert.ToDecimal(Grid.Rows[i].Cells["Net"].Value);
-                                //if (net > 0)
-                                //{
-                                //    Grid.Rows[i].Cells["Net"].Value = net.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
-                                //}
-                                //else
-                                //{
-                                //    Grid.Rows[i].Cells["Net"].Value = "";
-                                //}
-                                //decimal exent = Convert.ToDecimal(Grid.Rows[i].Cells["Exent"].Value);
-                                //if (exent > 0)
-                                //{
-                                //    Grid.Rows[i].Cells["Exent"].Value = exent.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL")); ;
-                                //}
-                                //else
-                                //{
-                                //    Grid.Rows[i].Cells["Exent"].Value = "";
-                                //}
-                                //decimal tax = Convert.ToDecimal(Grid.Rows[i].Cells["Tax"].Value);
-                                //if (tax > 0)
-                                //{
-                                //    Grid.Rows[i].Cells["Tax"].Value = tax.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
-                                //}
-                                //else
-                                //{
-                                //    Grid.Rows[i].Cells["Tax"].Value = "";
-                                //}
-                                decimal total = Convert.ToDecimal(Grid.Rows[i].Cells["Total"].Value);
+                                decimal total = Convert.ToDecimal(row["Total"]);
                                 if (total > 0)
                                 {
                                     Grid.Rows[i].Cells["Total"].Value = total.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
@@ -182,31 +175,66 @@ namespace PurchaseDesktop.Helpers
                                 {
                                     Grid.Rows[i].Cells["Total"].Value = "";
                                 }
-                                var td = Grid.Rows[i].Cells["Status"].Value.ToString();
-                                if (td.Equals("Draft Document"))
+                                var res = Convert.ToByte(row["StatusID"]);
+                                if (res == 1)
                                 {
                                     Grid.Rows[i].Cells["Status"].ImageIndex = 4;
                                     Grid.Rows[i].Cells["Status"].ImageAlign = iGContentAlignment.BottomRight;
                                 }
-                                //if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
-                                //{
-                                //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(70, 160, 90);
-                                //}
-                                //else
-                                //{
-                                //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(130, 136, 20);
-                                //}
 
                             }
+                            //for (int i = 0; i < Grid.Rows.Count; i++)
+                            //{
+
+
+                            //    //decimal net = Convert.ToDecimal(Grid.Rows[i].Cells["Net"].Value);
+                            //    //if (net > 0)
+                            //    //{
+                            //    //    Grid.Rows[i].Cells["Net"].Value = net.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                            //    //}
+                            //    //else
+                            //    //{
+                            //    //    Grid.Rows[i].Cells["Net"].Value = "";
+                            //    //}
+                            //    //decimal exent = Convert.ToDecimal(Grid.Rows[i].Cells["Exent"].Value);
+                            //    //if (exent > 0)
+                            //    //{
+                            //    //    Grid.Rows[i].Cells["Exent"].Value = exent.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL")); ;
+                            //    //}
+                            //    //else
+                            //    //{
+                            //    //    Grid.Rows[i].Cells["Exent"].Value = "";
+                            //    //}
+                            //    //decimal tax = Convert.ToDecimal(Grid.Rows[i].Cells["Tax"].Value);
+                            //    //if (tax > 0)
+                            //    //{
+                            //    //    Grid.Rows[i].Cells["Tax"].Value = tax.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                            //    //}
+                            //    //else
+                            //    //{
+                            //    //    Grid.Rows[i].Cells["Tax"].Value = "";
+                            //    //}
+
+                            //    //if (Grid.Rows[i].Cells["TypeDocumentHeader"].Value.ToString() == "PR")
+                            //    //{
+                            //    //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(70, 160, 90);
+                            //    //}
+                            //    //else
+                            //    //{
+                            //    //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(130, 136, 20);
+                            //    //}
+
+                            //}
                             break;
                         case Perfiles.UPR:
                             for (int i = 0; i < Grid.Rows.Count; i++)
                             {
-                                var date = Convert.ToDateTime(Grid.Rows[i].Cells["DateLast"].Value).ToString("dd-MM-yyyy");
+                                DataRow row = (DataRow)Grid.Rows[i].Tag;
+                                var date = Convert.ToDateTime(row["DateLast"]).ToString("dd-MM-yyyy");
                                 Grid.Rows[i].Cells["DateLast"].Value = date;
 
-                                var td = Grid.Rows[i].Cells["Status"].Value.ToString();
-                                if (td.Equals("Draft Document"))
+                                var res = Convert.ToByte(row["StatusID"]);
+                                if (res == 1)
                                 {
                                     Grid.Rows[i].Cells["Status"].ImageIndex = 4;
                                     Grid.Rows[i].Cells["Status"].ImageAlign = iGContentAlignment.BottomRight;
@@ -228,14 +256,21 @@ namespace PurchaseDesktop.Helpers
                     }
                     break;
                 case "FDetails":
-                    switch (perfil)
+                    Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+                    switch (td)
                     {
-                        case Perfiles.ADM:
+                        case TypeDocumentHeader.PR:
+                            for (int i = 0; i < Grid.Rows.Count; i++)
+                            {
+                                decimal total = Convert.ToDecimal(Grid.Rows[i].Cells["Qty"].Value);
+                                if (total > 0)
+                                {
+                                    Grid.Rows[i].Cells["Qty"].Value = total.
+                                        ToString("#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                                }
+                            }
                             break;
-                        case Perfiles.BAS:
-                            break;
-                        case Perfiles.UPO:
-                            // exent.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                        case TypeDocumentHeader.PO:
                             for (int i = 0; i < Grid.Rows.Count; i++)
                             {
                                 decimal total = Convert.ToDecimal(Grid.Rows[i].Cells["Qty"].Value);
@@ -250,61 +285,57 @@ namespace PurchaseDesktop.Helpers
                                     Grid.Rows[i].Cells["Price"].Value = price.
                                         ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
                                 }
-
-
                             }
-                            break;
-                        case Perfiles.UPR:
-                            break;
-                        case Perfiles.VAL:
                             break;
                         default:
                             break;
                     }
                     break;
+                case "FAttach":
+                    //for (int i = 0; i < Grid.Rows.Count; i++)
+                    //{
+
+                    //}
+                    break;
 
                 default:
                     break;
             }
-
-
-            //iGCellStyle myCellStyle = Grid.Cols["Total"].CellStyle;
-            //myCellStyle.TextAlign = iGContentAlignment.TopCenter;
-            //myCellStyle.FormatString = "{0:$#,##0}";
-            //myCellStyle.Font = new Font("Arial", 8, FontStyle.Italic);
-            //myCellStyle.ForeColor = Color.Blue;
-            //iGCellStyle myCellStyle = new iGCellStyle
-            //{
-            //    //0:#,0.00
-            //    FormatString = "{0:#,0.00}"
-            //};
-            //Grid.Cols["Tax"].CellStyle = myCellStyle;
-            //Grid.Cols["Total"].CellStyle = myCellStyle;
-
-
-            //Grid.Cols["Net"].CellStyle.FormatString = "{0:#,0.00}";
-            //iGCellStyle style = Grid.Cols["DateLast"].CellStyle;
-            //style.FormatString = "{0:dd-MM-yyyy}";
-            //style.ForeColor = Color.Red;
         }
 
         public void CargarColumnasFPrincipal(Perfiles perfil)
         {
             iGCol iGCol;
             iGDropDownList cbotype = new iGDropDownList();
+            iGDropDownList cbocurrency = new iGDropDownList();
             DataTable tablePr;
             //! Order Type  
             tablePr = new DataTable();
             tablePr.Columns.Add("Id");
             tablePr.Columns.Add("Name");
-            foreach (DocumentType myType in Enum.GetValues(typeof(DocumentType)))
+            foreach (var myType in new TypeDocument().GetList())
             {
                 DataRow row = tablePr.NewRow();
-                row[0] = (int)myType;
-                row[1] = myType.ToString();
+                row[0] = myType.TypeID;
+                row[1] = myType.Description;
                 tablePr.Rows.Add(row);
             }
             cbotype.FillWithData(tablePr, "id", "Name");
+
+            //! Currency
+            tablePr = new DataTable();
+            tablePr.Columns.Add("Id");
+            tablePr.Columns.Add("Name");
+            foreach (var myType in new Currencies().GetList())
+            {
+                DataRow row = tablePr.NewRow();
+                row[0] = myType.CurrencyID;
+                row[1] = myType.Description;
+                tablePr.Rows.Add(row);
+            }
+            cbocurrency.FillWithData(tablePr, "id", "id");
+
+
 
             switch (perfil)
             {
@@ -342,8 +373,9 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
-                    iGCol = Grid.Cols.Add("CurrencyID", "", 30);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("CurrencyID", "", 50);
+                    iGCol.CellStyle.DropDownControl = cbocurrency;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol.ColHdrStyle.ImageList = ListaImagenes();
                     iGCol.ImageIndex = 5;
                     iGCol.ColHdrStyle.ImageAlign = iGContentAlignment.BottomCenter;
@@ -424,10 +456,9 @@ namespace PurchaseDesktop.Helpers
             }
         }
 
-        public void CargarColumnasFDetail(Perfiles perfil)
+        public void CargarColumnasFDetail(Perfiles perfil, TypeDocumentHeader td)
         {
             iGCol iGCol;
-
             //! Cols     
             Grid.Header.Height = 20;
             iGCol = Grid.Cols.Add("nro", "N°", 21);
@@ -443,15 +474,16 @@ namespace PurchaseDesktop.Helpers
             iGCol = Grid.Cols.Add("MedidaID", "M", 28);
             iGCol.CellStyle.ReadOnly = iGBool.True;
 
-
-            switch (perfil)
+            switch (td)
             {
-                case Perfiles.ADM:
+                case TypeDocumentHeader.PR:
+                    iGCol = Grid.Cols.Add("NameProduct", "Product", 352);
+                    //iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("DescriptionProduct", "");
+                    iGCol.Visible = false;
                     break;
-                case Perfiles.BAS:
-                    break;
-                case Perfiles.UPO:
-                    iGCol = Grid.Cols.Add("NameProduct", "Product", 290);
+                case TypeDocumentHeader.PO:
+                    iGCol = Grid.Cols.Add("NameProduct", "Product", 288);
                     //iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("DescriptionProduct", "");
                     iGCol.Visible = false;
@@ -461,20 +493,9 @@ namespace PurchaseDesktop.Helpers
                     // iGCol.CellStyle.MaxInputLength = 6;
                     iGCol.CellStyle.Font = new Font("Tahoma", 7);
                     break;
-                case Perfiles.UPR:
-                    iGCol = Grid.Cols.Add("NameProduct", "Product", 352);
-                    //iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("DescriptionProduct", "");
-                    iGCol.Visible = false;
-                    break;
-                case Perfiles.VAL:
-                    break;
                 default:
                     break;
             }
-
-
-
 
             iGCol = Grid.Cols.Add("AccountID", "Account", 84);
             iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -490,8 +511,6 @@ namespace PurchaseDesktop.Helpers
             {
                 //item.AllowSizing = false;
             }
-
-
         }
 
         public void CargarColumnasFAttach(Perfiles perfil)
@@ -517,6 +536,8 @@ namespace PurchaseDesktop.Helpers
             iGCol = Grid.Cols.Add("nro", "N°", 21);
             iGCol.CellStyle.ReadOnly = iGBool.True;
             iGCol = Grid.Cols.Add("AttachID", "");
+            iGCol.Visible = false;
+            iGCol = Grid.Cols.Add("Extension", "");
             iGCol.Visible = false;
             iGCol = Grid.Cols.Add("Description", "Description", 253);
 
@@ -550,7 +571,7 @@ namespace PurchaseDesktop.Helpers
             iGCol = Grid.Cols.Add("nro", "N°", 32);
             iGCol.CellStyle.ReadOnly = iGBool.True;
             iGCol = Grid.Cols.Add("SupplierID", "RUT", 58);
-            iGCol = Grid.Cols.Add("Name", "Name", 366);
+            iGCol = Grid.Cols.Add("Name", "Name", 387);
             iGCol.CellStyle.ReadOnly = iGBool.True;
             iGCol = Grid.Cols.Add("CountryID", "", 22);
             iGCol.CellStyle.ReadOnly = iGBool.True;

@@ -33,6 +33,7 @@ namespace PurchaseData.DataModel
         public virtual DbSet<ConfigApp> ConfigApp { get; set; }
         public virtual DbSet<Currencies> Currencies { get; set; }
         public virtual DbSet<Medidas> Medidas { get; set; }
+        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<OrderHeader> OrderHeader { get; set; }
         public virtual DbSet<OrderHitos> OrderHitos { get; set; }
         public virtual DbSet<OrderNotes> OrderNotes { get; set; }
@@ -45,12 +46,12 @@ namespace PurchaseData.DataModel
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Transactions> Transactions { get; set; }
+        public virtual DbSet<TypeDocument> TypeDocument { get; set; }
         public virtual DbSet<UserCosts> UserCosts { get; set; }
         public virtual DbSet<UserProfiles> UserProfiles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<vOrderByMinTransaction> vOrderByMinTransaction { get; set; }
         public virtual DbSet<vRequisitionByMinTransaction> vRequisitionByMinTransaction { get; set; }
-        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
     
         [DbFunction("PurchaseManagerEntities", "ufnGetOrderGroupByStatus")]
         public virtual IQueryable<ufnGetOrderGroupByStatus_Result> ufnGetOrderGroupByStatus()

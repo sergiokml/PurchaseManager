@@ -3,7 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
-using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
@@ -13,20 +13,18 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-using static PurchaseDesktop.Helpers.HFunctions;
-
 namespace PurchaseDesktop.Formularios
 {
-    public partial class FAttach : Form, IControles, IGridCustom
+    public partial class FHitos : Form, IControles, IGridCustom
     {
         private readonly PerfilFachada rFachada;
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
         public Users CurrentUser { get; set; }
 
-        private string FilePath { get; set; }
 
-        public FAttach(PerfilFachada rFachada, DataRow dr)
+
+        public FHitos(PerfilFachada rFachada, DataRow dr)
         {
             this.rFachada = rFachada;
             Current = dr;
@@ -35,15 +33,8 @@ namespace PurchaseDesktop.Formularios
 
         public bool ValidarControles()
         {
-            if (string.IsNullOrEmpty(TxtPathFile.Text))
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(TxtNameFile.Text))
-            {
-                return false;
-            }
-            else if (CboTypeFile.SelectedIndex == -1)
+
+            if (string.IsNullOrEmpty(TxtDescription.Text))
             {
                 return false;
             }
@@ -52,13 +43,15 @@ namespace PurchaseDesktop.Formularios
 
         public void ClearControles()
         {
-            TxtPathFile.Text = string.Empty;
-            TxtNameFile.Text = string.Empty;
-            CboTypeFile.SelectedIndex = -1;
+
+            TxtDescription.Text = string.Empty;
         }
 
         public void SetControles()
         {
+            //! Combobox días
+            CboDays.DataSource = Enumerable.Range(1, 30).ToArray();
+
             //DataTable dt = new DataTable();
             //dt.Columns.Add("Id");
             //dt.Columns.Add("Name");
@@ -75,8 +68,7 @@ namespace PurchaseDesktop.Formularios
 
             //CboTypeFile.DisplayMember = "Name";
             //CboTypeFile.ValueMember = "Id";
-            CboTypeFile.DataSource = Enum.GetValues(typeof(TypeAttach));
-            CboTypeFile.SelectedIndex = -1;
+
         }
         public iGrid GetGrid()
         {
@@ -104,7 +96,7 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                DataTable vista = rFachada.GetVistaAttaches(Current);
+                DataTable vista = rFachada.GetVistaHitos(Current);
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //!Data Bound * **!
@@ -176,25 +168,8 @@ namespace PurchaseDesktop.Formularios
         {
             if (ValidarControles())
             {
-                Enum.TryParse<TypeAttach>(CboTypeFile.SelectedValue.ToString(), out TypeAttach status);
-                Attaches att = new Attaches
-                {
-                    Description = UCase.ToTitleCase(TxtNameFile.Text.Trim().ToLower()),
-                    FileName = $"{Current["HeaderID"]}{@"\"}{Path.GetFileName(TxtPathFile.Text)}",
-                    Modifier = (byte)status
-                };
-                var resultado = rFachada.InsertAttach(att, Current, FilePath);
-                if (resultado == "OK")
-                {
-                    LlenarGrid();
-                    ClearControles();
-                    SetControles();
 
-                }
-                else
-                {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
-                }
+
             }
         }
 
@@ -223,14 +198,7 @@ namespace PurchaseDesktop.Formularios
                     ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
                 }
             }
-            else if (Grid.Cols["view"].Index == e.ColIndex)
-            {
-                var resultado = rFachada.OpenAttach(current);
-                if (resultado != "OK")
-                {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
-                }
-            }
+
             //Grid.Focus();
             Grid.DrawAsFocused = false;
             System.Windows.Forms.Cursor.Current = Cursors.Default;
@@ -244,38 +212,6 @@ namespace PurchaseDesktop.Formularios
                 if (myBounds.Width > 0 || myBounds.Height > 0)
                 {
                     Grid.ImageList.Draw(e.Graphics, myBounds.Location, 1);
-                    e.DoDefault = false;
-                }
-            }
-            else if (e.ColIndex == Grid.Cols["view"].Index)
-            {
-                Rectangle myBounds = e.Bounds;
-                if (myBounds.Width > 0 || myBounds.Height > 0)
-                {
-                    var ext = Grid.Rows[e.RowIndex].Cells["Extension"].Value.ToString();
-                    switch (ext)
-                    {
-                        case "pdf":
-                            Grid.ImageList.Draw(e.Graphics, myBounds.Location, 3);
-                            break;
-                        case "xls":
-                            Grid.ImageList.Draw(e.Graphics, myBounds.Location, 7);
-                            break;
-                        case "xlsx":
-                            Grid.ImageList.Draw(e.Graphics, myBounds.Location, 7);
-                            break;
-                        case "xlsm":
-                            Grid.ImageList.Draw(e.Graphics, myBounds.Location, 7);
-                            break;
-                        case "doc":
-                            Grid.ImageList.Draw(e.Graphics, myBounds.Location, 6);
-                            break;
-                        case "docx":
-                            Grid.ImageList.Draw(e.Graphics, myBounds.Location, 6);
-                            break;
-                        default:
-                            break;
-                    }
                     e.DoDefault = false;
                 }
             }
@@ -308,21 +244,11 @@ namespace PurchaseDesktop.Formularios
             throw new NotImplementedException();
         }
 
-        private void TxtPathFile_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openF = new OpenFileDialog
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                Filter = "Pdf files (*.pdf)|*.pdf" +
-                         "|Word files (*.doc,*.docx)|*.doc;*.docx" +
-                         "|Excel files (*.xls,*.xlsx,*.xlsm)|*.xls;*.xlsx;*.xlsm"
 
-            };
-            if (openF.ShowDialog() == DialogResult.OK)
-            {
-                FilePath = openF.FileName.Trim();
-                TxtPathFile.Text = FilePath;
-            }
+
+        private void bunifuRange1_RangeChanged(object sender, EventArgs e)
+        {
+            label1.Text = bunifuRange1.RangeMax.ToString() + "%";
         }
     }
 }

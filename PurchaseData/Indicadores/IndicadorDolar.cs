@@ -44,6 +44,7 @@ namespace PurchaseData.Indicadores
                         var r = JsonSerializer.Deserialize<IndicadorDolar>(response);
                         if (r != null)
                         {
+                            r.Dolar.RemoveAll(c => Convert.ToDateTime(c.Fecha) > DateTime.Now);
                             return r;
                         }
                     }

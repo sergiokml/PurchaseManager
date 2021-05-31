@@ -14,10 +14,11 @@ namespace PurchaseDesktop.Interfaces
 
         //! Vistas 
         DataTable VistaFPrincipal();
+        DataRow GetDataRow(TypeDocumentHeader headerTD, int headerID);
         DataTable VistaFDetalles(TypeDocumentHeader headerTD, int headerID);
         DataTable VistaFAdjuntos(TypeDocumentHeader headerTD, int headerID);
         DataTable VistaFProveedores(TypeDocumentHeader headerTD, int headerID);
-
+        DataTable VistaFHitos(TypeDocumentHeader headerTD, int headerID);
 
         //! Insert
         void InsertPRHeader(RequisitionHeader item);
@@ -36,13 +37,6 @@ namespace PurchaseDesktop.Interfaces
         void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID);
         void DeleteDetail(TypeDocumentHeader headerTD, int headerID, int detailID); // Tabla 1:M
         void DeleteAttach(int headerID, int attachID);
-
-
-
-
-        //! Auxiliar => sirve para UNIR el rContext + Clase Abastracta.       
-        void SetResultFunctions();
-
 
 
     }

@@ -81,7 +81,6 @@ namespace PurchaseDesktop.Formularios
             this.TxtTax = new Bunifu.UI.WinForms.BunifuTextBox();
             this.TxtNet = new Bunifu.UI.WinForms.BunifuTextBox();
             this.TxtExent = new Bunifu.UI.WinForms.BunifuTextBox();
-            this.CboCurrency = new System.Windows.Forms.ComboBox();
             this.PanelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
             this.PanelFooter.SuspendLayout();
@@ -433,7 +432,6 @@ namespace PurchaseDesktop.Formularios
             this.TxtQty.UseSystemPasswordChar = false;
             this.TxtQty.WordWrap = true;
             this.TxtQty.TextChange += new System.EventHandler(this.TxtQty_TextChange);
-            this.TxtQty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtQty_KeyPress);
             // 
             // TxtName
             // 
@@ -896,26 +894,12 @@ namespace PurchaseDesktop.Formularios
             this.TxtExent.UseSystemPasswordChar = false;
             this.TxtExent.WordWrap = true;
             // 
-            // CboCurrency
-            // 
-            this.CboCurrency.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CboCurrency.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CboCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CboCurrency.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.CboCurrency.FormattingEnabled = true;
-            this.CboCurrency.Location = new System.Drawing.Point(352, 95);
-            this.CboCurrency.Name = "CboCurrency";
-            this.CboCurrency.Size = new System.Drawing.Size(110, 24);
-            this.CboCurrency.TabIndex = 31;
-            this.CboCurrency.SelectionChangeCommitted += new System.EventHandler(this.CboCurrency_SelectionChangeCommitted);
-            // 
             // FDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(546, 325);
-            this.Controls.Add(this.CboCurrency);
             this.Controls.Add(this.Grid);
             this.Controls.Add(this.PanelFooter);
             this.Controls.Add(this.CboMedidas);
@@ -958,7 +942,6 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.ComboBox CboMedidas;
         private Bunifu.UI.WinForms.BunifuTextBox TxtNet;
         private Bunifu.UI.WinForms.BunifuTextBox TxtExent;
-        private System.Windows.Forms.ComboBox CboCurrency;
         private Bunifu.UI.WinForms.BunifuTextBox TxtTotal;
         private Bunifu.UI.WinForms.BunifuTextBox TxtTax;
     }

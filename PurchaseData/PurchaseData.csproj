@@ -127,6 +127,9 @@
     <Compile Include="DataModel\DABank.cs" />
     <Compile Include="DataModel\DASuppliers.cs" />
     <Compile Include="DataModel\DACompany.cs" />
+    <Compile Include="DataModel\DATypeDocument.cs" />
+    <Compile Include="DataModel\DAufnGetOrderGroupByStatus_Result.cs" />
+    <Compile Include="DataModel\DAufnGetReqGroupByCost_Result.cs" />
     <Compile Include="DataModel\DAUserDB.cs" />
     <Compile Include="DataModel\Medidas.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
@@ -183,6 +186,9 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Transactions.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\TypeDocument.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\ufnGetOrderGroupByStatus_Result.cs">

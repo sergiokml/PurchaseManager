@@ -45,33 +45,7 @@ namespace PurchaseDesktop.Properties {
                 return resourceMan;
             }
         }
-      
-        internal static System.Drawing.Icon icons8_request_money
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("icons8_request_money", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-
-        }
-        internal static System.Drawing.Bitmap icons8_data_transfer_16
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("icons8_data_transfer_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        internal static System.Drawing.Bitmap icons8_browse_folder_32
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("icons8_browse_folder_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-
+        
         /// <summary>
         ///   Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las
         ///   búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
@@ -89,9 +63,9 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap checked_18px {
+        internal static System.Drawing.Bitmap cancel_18px {
             get {
-                object obj = ResourceManager.GetObject("checked_18px", resourceCulture);
+                object obj = ResourceManager.GetObject("cancel_18px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -107,11 +81,41 @@ namespace PurchaseDesktop.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap good_pincode_18px {
+            get {
+                object obj = ResourceManager.GetObject("good_pincode_18px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
         /// </summary>
-        internal static System.Drawing.Icon icons8_draft {
+        internal static System.Drawing.Icon icons8_browse_folder {
             get {
-                object obj = ResourceManager.GetObject("icons8_draft", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8_browse_folder", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_browse_folder_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_browse_folder_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon icons8_change {
+            get {
+                object obj = ResourceManager.GetObject("icons8_change", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -119,9 +123,9 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
         /// </summary>
-        internal static System.Drawing.Icon icons8_edit_row {
+        internal static System.Drawing.Icon icons8_doc {
             get {
-                object obj = ResourceManager.GetObject("icons8_edit_row", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8_doc", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -159,6 +163,16 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
         /// </summary>
+        internal static System.Drawing.Icon icons8_left_arrow {
+            get {
+                object obj = ResourceManager.GetObject("icons8_left_arrow", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
         internal static System.Drawing.Icon icons8_pdf {
             get {
                 object obj = ResourceManager.GetObject("icons8_pdf", resourceCulture);
@@ -172,6 +186,26 @@ namespace PurchaseDesktop.Properties {
         internal static System.Drawing.Icon icons8_survey {
             get {
                 object obj = ResourceManager.GetObject("icons8_survey", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon icons8_us_dollar {
+            get {
+                object obj = ResourceManager.GetObject("icons8_us_dollar", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon icons8_xls {
+            get {
+                object obj = ResourceManager.GetObject("icons8_xls", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -199,9 +233,9 @@ namespace PurchaseDesktop.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap send_18px {
+        internal static System.Drawing.Bitmap received_18px {
             get {
-                object obj = ResourceManager.GetObject("send_18px", resourceCulture);
+                object obj = ResourceManager.GetObject("received_18px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

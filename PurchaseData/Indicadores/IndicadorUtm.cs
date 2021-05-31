@@ -42,6 +42,7 @@ namespace PurchaseData.Indicadores
                         var r = JsonSerializer.Deserialize<IndicadorUtm>(response);
                         if (r != null)
                         {
+                            r.Utm.RemoveAll(c => Convert.ToDateTime(c.Fecha) > DateTime.Now);
                             return r;
                         }
                     }

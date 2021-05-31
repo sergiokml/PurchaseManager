@@ -39,8 +39,10 @@ namespace PurchaseData.Indicadores
                     if (response != null)
                     {
                         var r = JsonSerializer.Deserialize<IndicadorUf>(response);
-                        if (r != null)
+                        if (r != null && r.Uf.Count > 2)
                         {
+                            r.Uf.RemoveAll(c => Convert.ToDateTime(c.Fecha) > DateTime.Now);
+
                             return r;
                         }
                     }

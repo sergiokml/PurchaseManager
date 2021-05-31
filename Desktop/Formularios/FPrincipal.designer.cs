@@ -218,6 +218,7 @@ namespace PurchaseDesktop.Formularios
             // 
             // LabelPanel
             // 
+            this.LabelPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.LabelPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelPanel.ForeColor = System.Drawing.Color.White;
             this.LabelPanel.Location = new System.Drawing.Point(457, 1);
@@ -279,7 +280,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnAttach.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnAttach.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnAttach.InitialImage = null;
-            this.BtnAttach.Location = new System.Drawing.Point(752, 51);
+            this.BtnAttach.Location = new System.Drawing.Point(757, 51);
             this.BtnAttach.Name = "BtnAttach";
             this.BtnAttach.Rotation = 0;
             this.BtnAttach.ShowActiveImage = true;
@@ -299,11 +300,10 @@ namespace PurchaseDesktop.Formularios
             this.LblTitulo2.AutoSize = true;
             this.LblTitulo2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblTitulo2.ForeColor = System.Drawing.Color.White;
-            this.LblTitulo2.Location = new System.Drawing.Point(249, 93);
+            this.LblTitulo2.Location = new System.Drawing.Point(285, 92);
             this.LblTitulo2.Name = "LblTitulo2";
-            this.LblTitulo2.Size = new System.Drawing.Size(94, 13);
+            this.LblTitulo2.Size = new System.Drawing.Size(0, 13);
             this.LblTitulo2.TabIndex = 31;
-            this.LblTitulo2.Text = "Purchase Order";
             this.LblTitulo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LblTitulo1
@@ -311,86 +311,66 @@ namespace PurchaseDesktop.Formularios
             this.LblTitulo1.AutoSize = true;
             this.LblTitulo1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblTitulo1.ForeColor = System.Drawing.Color.White;
-            this.LblTitulo1.Location = new System.Drawing.Point(14, 93);
+            this.LblTitulo1.Location = new System.Drawing.Point(66, 92);
             this.LblTitulo1.Name = "LblTitulo1";
-            this.LblTitulo1.Size = new System.Drawing.Size(125, 13);
+            this.LblTitulo1.Size = new System.Drawing.Size(0, 13);
             this.LblTitulo1.TabIndex = 30;
-            this.LblTitulo1.Text = "Purchase Requisition";
             this.LblTitulo1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Lbl4
             // 
             this.Lbl4.AutoSize = true;
-            this.Lbl4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.Lbl4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl4.ForeColor = System.Drawing.Color.White;
-            this.Lbl4.Location = new System.Drawing.Point(357, 2);
+            this.Lbl4.Location = new System.Drawing.Point(357, 6);
             this.Lbl4.Name = "Lbl4";
-            this.Lbl4.Size = new System.Drawing.Size(0, 18);
+            this.Lbl4.Size = new System.Drawing.Size(0, 13);
             this.Lbl4.TabIndex = 29;
             // 
             // Lbl6
             // 
             this.Lbl6.AutoSize = true;
-            this.Lbl6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.Lbl6.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl6.ForeColor = System.Drawing.Color.White;
-            this.Lbl6.Location = new System.Drawing.Point(357, 62);
+            this.Lbl6.Location = new System.Drawing.Point(357, 66);
             this.Lbl6.Name = "Lbl6";
-            this.Lbl6.Size = new System.Drawing.Size(0, 18);
+            this.Lbl6.Size = new System.Drawing.Size(0, 13);
             this.Lbl6.TabIndex = 28;
             // 
             // Lbl5
             // 
             this.Lbl5.AutoSize = true;
-            this.Lbl5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.Lbl5.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl5.ForeColor = System.Drawing.Color.White;
-            this.Lbl5.Location = new System.Drawing.Point(357, 32);
+            this.Lbl5.Location = new System.Drawing.Point(357, 36);
             this.Lbl5.Name = "Lbl5";
-            this.Lbl5.Size = new System.Drawing.Size(0, 18);
+            this.Lbl5.Size = new System.Drawing.Size(0, 13);
             this.Lbl5.TabIndex = 27;
             // 
             // Lbl1
             // 
             this.Lbl1.AutoSize = true;
-            this.Lbl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.Lbl1.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold);
-            this.Lbl1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
             this.Lbl1.Location = new System.Drawing.Point(138, 6);
             this.Lbl1.Name = "Lbl1";
-            this.Lbl1.Size = new System.Drawing.Size(0, 18);
+            this.Lbl1.Size = new System.Drawing.Size(0, 13);
             this.Lbl1.TabIndex = 17;
             // 
             // Lbl3
             // 
             this.Lbl3.AutoSize = true;
-            this.Lbl3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.Lbl3.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbl3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
             this.Lbl3.Location = new System.Drawing.Point(138, 66);
             this.Lbl3.Name = "Lbl3";
-            this.Lbl3.Size = new System.Drawing.Size(0, 18);
+            this.Lbl3.Size = new System.Drawing.Size(0, 13);
             this.Lbl3.TabIndex = 16;
             // 
             // Lbl2
             // 
             this.Lbl2.AutoSize = true;
-            this.Lbl2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.Lbl2.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Bold);
-            this.Lbl2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
             this.Lbl2.Location = new System.Drawing.Point(138, 36);
             this.Lbl2.Name = "Lbl2";
-            this.Lbl2.Size = new System.Drawing.Size(0, 18);
+            this.Lbl2.Size = new System.Drawing.Size(0, 13);
             this.Lbl2.TabIndex = 15;
             // 
             // ChartCanvas1
             // 
             this.ChartCanvas1.AnimationDuration = 1000;
             this.ChartCanvas1.AnimationType = Bunifu.Charts.WinForms.BunifuChartCanvas.AnimationOptions.easeOutQuart;
-            this.ChartCanvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.ChartCanvas1.BackColor = System.Drawing.Color.White;
             this.ChartCanvas1.CanvasPadding = new System.Windows.Forms.Padding(0);
-            this.ChartCanvas1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ChartCanvas1.Labels = null;
             this.ChartCanvas1.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
             this.ChartCanvas1.LegendDisplay = true;
@@ -402,8 +382,8 @@ namespace PurchaseDesktop.Formularios
             this.ChartCanvas1.LegendRTL = false;
             this.ChartCanvas1.Location = new System.Drawing.Point(-27, -7);
             this.ChartCanvas1.Name = "ChartCanvas1";
-            this.ChartCanvas1.ShowXAxis = false;
-            this.ChartCanvas1.ShowYAxis = false;
+            this.ChartCanvas1.ShowXAxis = true;
+            this.ChartCanvas1.ShowYAxis = true;
             this.ChartCanvas1.Size = new System.Drawing.Size(205, 103);
             this.ChartCanvas1.TabIndex = 26;
             this.ChartCanvas1.Title = "";
@@ -446,9 +426,8 @@ namespace PurchaseDesktop.Formularios
             // 
             this.ChartCanvas2.AnimationDuration = 1000;
             this.ChartCanvas2.AnimationType = Bunifu.Charts.WinForms.BunifuChartCanvas.AnimationOptions.easeOutQuart;
-            this.ChartCanvas2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.ChartCanvas2.BackColor = System.Drawing.Color.White;
             this.ChartCanvas2.CanvasPadding = new System.Windows.Forms.Padding(0);
-            this.ChartCanvas2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ChartCanvas2.Labels = null;
             this.ChartCanvas2.LegendAlignment = Bunifu.Charts.WinForms.BunifuChartCanvas.LegendAlignmentOptions.center;
             this.ChartCanvas2.LegendDisplay = true;
@@ -460,8 +439,8 @@ namespace PurchaseDesktop.Formularios
             this.ChartCanvas2.LegendRTL = false;
             this.ChartCanvas2.Location = new System.Drawing.Point(193, -7);
             this.ChartCanvas2.Name = "ChartCanvas2";
-            this.ChartCanvas2.ShowXAxis = false;
-            this.ChartCanvas2.ShowYAxis = false;
+            this.ChartCanvas2.ShowXAxis = true;
+            this.ChartCanvas2.ShowYAxis = true;
             this.ChartCanvas2.Size = new System.Drawing.Size(205, 103);
             this.ChartCanvas2.TabIndex = 25;
             this.ChartCanvas2.Title = "";
@@ -520,7 +499,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnHitos.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnHitos.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnHitos.InitialImage = null;
-            this.BtnHitos.Location = new System.Drawing.Point(807, 51);
+            this.BtnHitos.Location = new System.Drawing.Point(808, 51);
             this.BtnHitos.Name = "BtnHitos";
             this.BtnHitos.Rotation = 0;
             this.BtnHitos.ShowActiveImage = true;
@@ -533,7 +512,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnHitos.WaitOnLoad = false;
             this.BtnHitos.Zoom = 20;
             this.BtnHitos.ZoomSpeed = 10;
-            this.BtnHitos.Click += new System.EventHandler(this.bunifuImageButton3_Click);
+            this.BtnHitos.Click += new System.EventHandler(this.BtnHitos_Click);
             // 
             // BtnDetails
             // 
@@ -555,7 +534,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnDetails.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnDetails.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnDetails.InitialImage = null;
-            this.BtnDetails.Location = new System.Drawing.Point(644, 51);
+            this.BtnDetails.Location = new System.Drawing.Point(656, 51);
             this.BtnDetails.Name = "BtnDetails";
             this.BtnDetails.Rotation = 0;
             this.BtnDetails.ShowActiveImage = true;
@@ -590,7 +569,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnSupplier.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnSupplier.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnSupplier.InitialImage = null;
-            this.BtnSupplier.Location = new System.Drawing.Point(697, 51);
+            this.BtnSupplier.Location = new System.Drawing.Point(706, 51);
             this.BtnSupplier.Name = "BtnSupplier";
             this.BtnSupplier.Rotation = 0;
             this.BtnSupplier.ShowActiveImage = true;
@@ -614,7 +593,7 @@ namespace PurchaseDesktop.Formularios
             this.CboType.ForeColor = System.Drawing.Color.White;
             this.CboType.Location = new System.Drawing.Point(878, 36);
             this.CboType.Name = "CboType";
-            this.CboType.Size = new System.Drawing.Size(136, 24);
+            this.CboType.Size = new System.Drawing.Size(121, 24);
             this.CboType.TabIndex = 21;
             // 
             // CboCompany
@@ -623,11 +602,11 @@ namespace PurchaseDesktop.Formularios
             this.CboCompany.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CboCompany.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.CboCompany.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CboCompany.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CboCompany.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CboCompany.ForeColor = System.Drawing.Color.White;
             this.CboCompany.Location = new System.Drawing.Point(878, 6);
             this.CboCompany.Name = "CboCompany";
-            this.CboCompany.Size = new System.Drawing.Size(212, 21);
+            this.CboCompany.Size = new System.Drawing.Size(212, 22);
             this.CboCompany.TabIndex = 20;
             // 
             // BtnInsert
@@ -671,6 +650,7 @@ namespace PurchaseDesktop.Formularios
             this.WBrowserBanner.Location = new System.Drawing.Point(0, 25);
             this.WBrowserBanner.MinimumSize = new System.Drawing.Size(20, 20);
             this.WBrowserBanner.Name = "WBrowserBanner";
+            this.WBrowserBanner.ScriptErrorsSuppressed = true;
             this.WBrowserBanner.ScrollBarsEnabled = false;
             this.WBrowserBanner.Size = new System.Drawing.Size(1100, 45);
             this.WBrowserBanner.TabIndex = 11;
@@ -778,7 +758,6 @@ namespace PurchaseDesktop.Formularios
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellDoubleClick += new TenTec.Windows.iGridLib.iGCellDoubleClickEventHandler(this.Grid_CellDoubleClick);
             this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
-            this.Grid.CurCellChangeRequest += new TenTec.Windows.iGridLib.iGCurCellChangeRequestEventHandler(this.Grid_CurCellChangeRequest);
             this.Grid.AfterAutoGroupRowCreated += new TenTec.Windows.iGridLib.iGAfterAutoGroupRowCreatedEventHandler(this.Grid_AfterAutoGroupRowCreated);
             // 
             // GridCol0CellStyle
@@ -908,6 +887,7 @@ namespace PurchaseDesktop.Formularios
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Purchase Manager";
             this.Load += new System.EventHandler(this.FPrincipal_Load);
+            this.Shown += new System.EventHandler(this.FPrincipal_Shown);
             this.PanelHeader.ResumeLayout(false);
             this.PanelDash.ResumeLayout(false);
             this.PanelDash.PerformLayout();

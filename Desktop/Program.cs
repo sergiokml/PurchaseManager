@@ -35,11 +35,11 @@ namespace Desktop
 
                 using (var contextDB = new PurchaseManagerEntities())
                 {
-                    var P = "18018850";
+                    //var P = "18018850";
                     //var P = "14720891";
 
 
-                    //var P = "13779971";
+                    var P = "13779971";
                     //var P = "15325038";
 
 

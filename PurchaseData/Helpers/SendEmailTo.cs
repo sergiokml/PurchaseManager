@@ -27,15 +27,21 @@ namespace PurchaseData.Helpers
 
         public async Task<string> SendEmail(string path, string asunto, Users user)
         {
-            BodyBuilder bodyBuilder = new BodyBuilder
+            BodyBuilder bodyBuilder = new BodyBuilder();
+            if (Path.GetExtension(path) == ".pdf")
             {
-                HtmlBody = File.ReadAllText(path)
-            };
+                bodyBuilder.Attachments.Add(path);
+            }
+            else if (Path.GetExtension(path) == ".html")
+            {
+                bodyBuilder.HtmlBody = File.ReadAllText(path);
+            }
+
             //! From
             Message.From.Add(new MailboxAddress($"Purchase Manager", Email));
             Message.ReplyTo.Add(new MailboxAddress($"{user.FirstName} {user.LastName}", user.Email));
             Message.Subject = asunto;
-            Message.Importance = MessageImportance.High;
+            //Message.Importance = MessageImportance.High;
             //! To
             Message.To.Add(new MailboxAddress("Sergio Ayala", "sergiokml@outlook.com"));
             //! Body
@@ -48,7 +54,8 @@ namespace PurchaseData.Helpers
                 await client.AuthenticateAsync(Email, Password);
                 await client.SendAsync(Message);
                 await client.DisconnectAsync(true);
-                MessageResult = $"Message sent successfully to: {Message.To[0].Name}.";
+                //MessageResult = $"Message sent successfully to: {Message.To[0].Name}.";
+                MessageResult = "OK";
                 return MessageResult;
             }
         }

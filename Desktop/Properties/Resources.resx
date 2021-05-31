@@ -121,26 +121,11 @@
   <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_edit_row" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_edit_row.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8_html_filetype" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_html_filetype.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8_erase" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_erase.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="error_18px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\error_18px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8_pdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_pdf.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="checked_18px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\checked_18px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8_envelope" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_envelope.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo_cve" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_cve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,19 +133,43 @@
   <data name="icons8_survey" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_survey.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="send_18px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\send_18px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8_browse_folder_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_browse_folder_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icons8_browse_folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8_browse_folder.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_data_transfer_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_data_transfer_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_change" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_change.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8_request_money" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8_request_money.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8_left_arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_left_arrow.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_us_dollar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_us_dollar.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cancel_18px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancel_18px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="good_pincode_18px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\good_pincode_18px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_envelope" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_envelope.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="received_18px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\received_18px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_doc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_doc.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_html_filetype" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_html_filetype.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_pdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_pdf.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_xls" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8_xls.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -24,13 +24,6 @@
             DELETE_PO,
             UPDATE_ATTACH
         }
-        public enum DocumentType
-        {
-            Materiales = 1,
-            Servicios = 2,
-            SubContratos = 3
-        }
-
 
         public enum TypeDocumentHeader
         {
@@ -40,9 +33,15 @@
 
         public enum TypeAttach
         {
-
             Public = 1,
             Private = 2
+        }
+
+        public enum TypeAccount
+        {
+            Corriente = 1,
+            Vista = 2,
+            Ahorros = 3
         }
     }
 }
