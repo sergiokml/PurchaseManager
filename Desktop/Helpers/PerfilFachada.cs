@@ -900,6 +900,30 @@ namespace PurchaseDesktop.Helpers
         }
         #endregion
 
+        #region Supplier CRUD
+
+        public string InsertSupplier(Suppliers item, DataRow headerDR)
+        {
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    break;
+                case Perfiles.UPR:
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+            return "OK";
+        }
+
+        #endregion
+
         #region Acciones Varias
 
         public string VerItemHtml(DataRow headerDR)

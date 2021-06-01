@@ -64,7 +64,7 @@ namespace PurchaseDesktop.Formularios
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties20 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             this.TxtRut = new Bunifu.UI.WinForms.BunifuTextBox();
             this.TxtAddress = new Bunifu.UI.WinForms.BunifuTextBox();
-            this.BtnNewDetail = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.BtnNewSupplier = new Bunifu.UI.WinForms.BunifuImageButton();
             this.TxtName = new Bunifu.UI.WinForms.BunifuTextBox();
             this.Grid = new TenTec.Windows.iGridLib.iGrid();
             this.TxtEmail = new Bunifu.UI.WinForms.BunifuTextBox();
@@ -114,7 +114,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtRut.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtRut.Lines = new string[0];
             this.TxtRut.Location = new System.Drawing.Point(394, 30);
-            this.TxtRut.MaxLength = 8;
+            this.TxtRut.MaxLength = 10;
             this.TxtRut.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtRut.Modified = false;
             this.TxtRut.Multiline = false;
@@ -234,40 +234,41 @@ namespace PurchaseDesktop.Formularios
             this.TxtAddress.UseSystemPasswordChar = false;
             this.TxtAddress.WordWrap = true;
             // 
-            // BtnNewDetail
+            // BtnNewSupplier
             // 
-            this.BtnNewDetail.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.ActiveImage")));
-            this.BtnNewDetail.AllowAnimations = true;
-            this.BtnNewDetail.AllowBuffering = false;
-            this.BtnNewDetail.AllowToggling = false;
-            this.BtnNewDetail.AllowZooming = true;
-            this.BtnNewDetail.AllowZoomingOnFocus = false;
-            this.BtnNewDetail.BackColor = System.Drawing.Color.Transparent;
-            this.BtnNewDetail.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.BtnNewDetail.ErrorImage = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.ErrorImage")));
-            this.BtnNewDetail.FadeWhenInactive = false;
-            this.BtnNewDetail.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
-            this.BtnNewDetail.Image = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.Image")));
-            this.BtnNewDetail.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.ImageActive")));
-            this.BtnNewDetail.ImageLocation = null;
-            this.BtnNewDetail.ImageMargin = 20;
-            this.BtnNewDetail.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnNewDetail.ImageZoomSize = new System.Drawing.Size(55, 55);
-            this.BtnNewDetail.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.InitialImage")));
-            this.BtnNewDetail.Location = new System.Drawing.Point(451, 145);
-            this.BtnNewDetail.Name = "BtnNewDetail";
-            this.BtnNewDetail.Rotation = 0;
-            this.BtnNewDetail.ShowActiveImage = true;
-            this.BtnNewDetail.ShowCursorChanges = true;
-            this.BtnNewDetail.ShowImageBorders = true;
-            this.BtnNewDetail.ShowSizeMarkers = false;
-            this.BtnNewDetail.Size = new System.Drawing.Size(55, 55);
-            this.BtnNewDetail.TabIndex = 25;
-            this.BtnNewDetail.TabStop = false;
-            this.BtnNewDetail.ToolTipText = "New Supplier";
-            this.BtnNewDetail.WaitOnLoad = false;
-            this.BtnNewDetail.Zoom = 20;
-            this.BtnNewDetail.ZoomSpeed = 10;
+            this.BtnNewSupplier.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnNewSupplier.ActiveImage")));
+            this.BtnNewSupplier.AllowAnimations = true;
+            this.BtnNewSupplier.AllowBuffering = false;
+            this.BtnNewSupplier.AllowToggling = false;
+            this.BtnNewSupplier.AllowZooming = true;
+            this.BtnNewSupplier.AllowZoomingOnFocus = false;
+            this.BtnNewSupplier.BackColor = System.Drawing.Color.Transparent;
+            this.BtnNewSupplier.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnNewSupplier.ErrorImage = ((System.Drawing.Image)(resources.GetObject("BtnNewSupplier.ErrorImage")));
+            this.BtnNewSupplier.FadeWhenInactive = false;
+            this.BtnNewSupplier.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnNewSupplier.Image = ((System.Drawing.Image)(resources.GetObject("BtnNewSupplier.Image")));
+            this.BtnNewSupplier.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnNewSupplier.ImageActive")));
+            this.BtnNewSupplier.ImageLocation = null;
+            this.BtnNewSupplier.ImageMargin = 20;
+            this.BtnNewSupplier.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnNewSupplier.ImageZoomSize = new System.Drawing.Size(55, 55);
+            this.BtnNewSupplier.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnNewSupplier.InitialImage")));
+            this.BtnNewSupplier.Location = new System.Drawing.Point(451, 145);
+            this.BtnNewSupplier.Name = "BtnNewSupplier";
+            this.BtnNewSupplier.Rotation = 0;
+            this.BtnNewSupplier.ShowActiveImage = true;
+            this.BtnNewSupplier.ShowCursorChanges = true;
+            this.BtnNewSupplier.ShowImageBorders = true;
+            this.BtnNewSupplier.ShowSizeMarkers = false;
+            this.BtnNewSupplier.Size = new System.Drawing.Size(55, 55);
+            this.BtnNewSupplier.TabIndex = 25;
+            this.BtnNewSupplier.TabStop = false;
+            this.BtnNewSupplier.ToolTipText = "New Supplier";
+            this.BtnNewSupplier.WaitOnLoad = false;
+            this.BtnNewSupplier.Zoom = 20;
+            this.BtnNewSupplier.ZoomSpeed = 10;
+            this.BtnNewSupplier.Click += new System.EventHandler(this.BtnNewSupplier_Click);
             // 
             // TxtName
             // 
@@ -347,7 +348,7 @@ namespace PurchaseDesktop.Formularios
             // 
             this.Grid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Grid.Header.Height = 16;
-            this.Grid.Location = new System.Drawing.Point(0, 223);
+            this.Grid.Location = new System.Drawing.Point(0, 230);
             this.Grid.Name = "Grid";
             this.Grid.Size = new System.Drawing.Size(518, 200);
             this.Grid.TabIndex = 31;
@@ -927,7 +928,7 @@ namespace PurchaseDesktop.Formularios
             this.Controls.Add(this.CboCountries);
             this.Controls.Add(this.TxtRut);
             this.Controls.Add(this.TxtAddress);
-            this.Controls.Add(this.BtnNewDetail);
+            this.Controls.Add(this.BtnNewSupplier);
             this.Controls.Add(this.TxtName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FSupplier";
@@ -942,7 +943,7 @@ namespace PurchaseDesktop.Formularios
         #endregion
         private Bunifu.UI.WinForms.BunifuTextBox TxtRut;
         private Bunifu.UI.WinForms.BunifuTextBox TxtAddress;
-        private Bunifu.UI.WinForms.BunifuImageButton BtnNewDetail;
+        private Bunifu.UI.WinForms.BunifuImageButton BtnNewSupplier;
         private Bunifu.UI.WinForms.BunifuTextBox TxtName;
         private TenTec.Windows.iGridLib.iGrid Grid;
         private Bunifu.UI.WinForms.BunifuTextBox TxtEmail;

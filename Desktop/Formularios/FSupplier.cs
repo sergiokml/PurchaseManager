@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
+using PurchaseData.Helpers;
 
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
@@ -128,16 +129,50 @@ namespace PurchaseDesktop.Formularios
 
         public bool ValidarControles()
         {
-            throw new NotImplementedException();
+            var res = new ValidadorRut().ValidaRut(TxtRut.Text);
+            if (!res)
+            {
+                return false;
+            }
+            else if (string.IsNullOrEmpty(TxtName.Text))
+            {
+                return false;
+            }
+            else if (string.IsNullOrEmpty(TxtNroAccount.Text))
+            {
+                return false;
+            }
+            else if (string.IsNullOrEmpty(TxtAddress.Text))
+            {
+                return false;
+            }
+            else if (string.IsNullOrEmpty(TxtGiro.Text))
+            {
+                return false;
+            }
+            else if (CboCountries.SelectedIndex == -1)
+            {
+                return false;
+            }
+            else if (CboTypeAccount.SelectedIndex == -1)
+            {
+                return false;
+            }
+            else if (CboBanks.SelectedIndex == -1)
+            {
+                return false;
+            }
+            return true;
         }
 
         public void ClearControles()
         {
-            TxtAddress.Text = string.Empty;
-            TxtEmail.Text = string.Empty;
             TxtName.Text = string.Empty;
             TxtNroAccount.Text = string.Empty;
+            TxtEmail.Text = string.Empty;
+            TxtAddress.Text = string.Empty;
             TxtRut.Text = string.Empty;
+            TxtGiro.Text = string.Empty;
         }
 
         public void SetControles()
@@ -244,6 +279,36 @@ namespace PurchaseDesktop.Formularios
                         ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
 
                     }
+                }
+            }
+        }
+
+        private void BtnNewSupplier_Click(object sender, EventArgs e)
+        {
+            if (ValidarControles())
+            {
+                var s = new Suppliers
+                {
+                    Name = UCase.ToTitleCase(TxtName.Text.Trim().ToLower()),
+                    Account = TxtNroAccount.Text.Trim(),
+                    TypeAccount = (byte)CboTypeAccount.SelectedItem,
+                    Email = TxtEmail.Text.Trim(),
+                    Address = UCase.ToTitleCase(TxtAddress.Text.Trim()),
+                    BankID = CboBanks.SelectedItem.ToString(),
+                    CountryID = CboCountries.SelectedItem.ToString(),
+                    Giro = UCase.ToTitleCase(TxtGiro.Text.Trim()),
+                    Phone = TxtPhone.Text,
+                    ContactName = UCase.ToTitleCase(TxtContact.Text.Trim().ToLower())
+                };
+
+                var resultado = rFachada.InsertSupplier(s, Current);
+                if (resultado == "OK")
+                {
+
+                }
+                else
+                {
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
                 }
             }
         }
