@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
@@ -12,6 +12,8 @@ using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
+
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PurchaseDesktop.Formularios
 {
@@ -38,36 +40,28 @@ namespace PurchaseDesktop.Formularios
             {
                 return false;
             }
+            else if (CboDays.SelectedIndex == -1)
+            {
+                return false;
+            }
+            else if (TrackBar.Value == 0)
+            {
+                return false;
+            }
             return true;
         }
 
         public void ClearControles()
         {
-
             TxtDescription.Text = string.Empty;
+            LblMensaje.Text = $"{TrackBar.Value} %";
+            CboDays.SelectedIndex = -1;
+
         }
 
         public void SetControles()
         {
-            //! Combobox días
-            CboDays.DataSource = Enumerable.Range(1, 30).ToArray();
 
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("Id");
-            //dt.Columns.Add("Name");
-            //DataRow row = dt.NewRow();
-            //row[0] = 1;
-            //row[1] = "Public";
-            //dt.Rows.Add(row);
-
-            //row = dt.NewRow();
-            //row[0] = 2;
-            //row[1] = "Private";
-            //dt.Rows.Add(row);
-
-
-            //CboTypeFile.DisplayMember = "Name";
-            //CboTypeFile.ValueMember = "Id";
 
         }
         public iGrid GetGrid()
@@ -77,9 +71,16 @@ namespace PurchaseDesktop.Formularios
         private void FAttachment_Load(object sender, EventArgs e)
         {
             Icon = Properties.Resources.icons8_survey;
-            SetControles();
+            //! Combobox días
+            CboDays.DataSource = new List<short>() { 5, 10, 15, 30, 45, 60, 90, 120 };
+
+
+            //TrackBar.TickFrequency = 5;
+            //TrackBar.SmallChange = 5;
+            //TrackBar.LargeChange = 5;
+
             //! Grid Principal
-            rFachada.CargarGrid(Grid, "FAttach", Current);
+            rFachada.CargarGrid(Grid, "FHitos", Current);
             LlenarGrid();
 
             //! Eventos
@@ -87,6 +88,7 @@ namespace PurchaseDesktop.Formularios
             Grid.AfterCommitEdit += Grid_AfterCommitEdit;
             Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
+            Grid.CellEllipsisButtonClick += Grid_CellEllipsisButtonClick;
         }
 
 
@@ -104,10 +106,14 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
                 }
+                int porcent = 0;
                 for (int i = 0; i < Grid.Rows.Count; i++)
                 {
-                    Grid.Rows[i].Cells["nro"].Value = i + 1;
+                    Grid.Rows[i].Cells["nro"].Value = $"Hito {i + 1}";
+                    porcent += Convert.ToByte(Grid.Rows[i].Cells["Porcent"].Value);
                 }
+                TrackBar.Value = TrackBar.Minimum;
+                TrackBar.Maximum = 100 - porcent;
                 Grid.Refresh();
             }
             catch (Exception)
@@ -145,7 +151,7 @@ namespace PurchaseDesktop.Formularios
             //! Update solo si cambió el dato.
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            var resultado = rFachada.UpdateAttach(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
+            var resultado = rFachada.UpdateHito(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
             if (resultado == "OK")
             {
                 LlenarGrid();
@@ -168,7 +174,24 @@ namespace PurchaseDesktop.Formularios
         {
             if (ValidarControles())
             {
+                var h = new OrderHitos
+                {
+                    Description = UCase.ToTitleCase(TxtDescription.Text.Trim().ToLower()),
+                    Days = Convert.ToByte(CboDays.SelectedValue),
+                    Porcent = Convert.ToByte(TrackBar.Value)
 
+                };
+                var resultado = rFachada.InsertHito(h, Current);
+                if (resultado == "OK")
+                {
+                    LlenarGrid();
+                    ClearControles();
+                    SetControles();
+                }
+                else
+                {
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                }
 
             }
         }
@@ -178,7 +201,7 @@ namespace PurchaseDesktop.Formularios
             Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
         }
 
-        private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
+        public void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
             Grid.Focus();
@@ -186,7 +209,7 @@ namespace PurchaseDesktop.Formularios
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                var resultado = rFachada.DeleteAttach(current, Current);
+                var resultado = rFachada.DeleteHito(current, Current);
                 if (resultado == "OK")
                 {
                     LlenarGrid();
@@ -244,11 +267,11 @@ namespace PurchaseDesktop.Formularios
             throw new NotImplementedException();
         }
 
-
-
-        private void bunifuRange1_RangeChanged(object sender, EventArgs e)
+        private void TrackBar_Scroll(object sender, EventArgs e)
         {
-            label1.Text = bunifuRange1.RangeMax.ToString() + "%";
+            LblMensaje.Text = $"{TrackBar.Value} %";
         }
+
+
     }
 }

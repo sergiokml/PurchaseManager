@@ -76,8 +76,33 @@ namespace PurchaseDesktop.Formularios
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
             Grid.CellMouseDown += Grid_CellMouseDown;
             Grid.CellMouseUp += Grid_CellMouseUp;
+            Grid.CellEllipsisButtonClick += Grid_CellEllipsisButtonClick;
 
 
+        }
+
+        public void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
+        {
+            Grid.DrawAsFocused = true;
+            var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            if (Grid.Cols["delete"].Index == e.ColIndex)
+            {
+                System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+                var resultado = rFachada.DeleteSupplier(current["SupplierID"].ToString());
+                if (resultado == "OK")
+                {
+                    LlenarGrid();
+                    ClearControles();
+                    Grid.Focus();
+                    SetControles();
+                }
+                else
+                {
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
+                }
+                Grid.DrawAsFocused = false;
+                System.Windows.Forms.Cursor.Current = Cursors.Default;
+            }
         }
 
         public void LlenarGrid()
@@ -129,8 +154,12 @@ namespace PurchaseDesktop.Formularios
 
         public bool ValidarControles()
         {
-            var res = new ValidadorRut().ValidaRut(TxtRut.Text);
-            if (!res)
+
+            if (!IsValidEmail(TxtEmail.Text))
+            {
+                return false;
+            }
+            else if (!new ValidadorRut().ValidaRut(TxtRut.Text))
             {
                 return false;
             }
@@ -164,6 +193,18 @@ namespace PurchaseDesktop.Formularios
             }
             return true;
         }
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public void ClearControles()
         {
@@ -173,6 +214,11 @@ namespace PurchaseDesktop.Formularios
             TxtAddress.Text = string.Empty;
             TxtRut.Text = string.Empty;
             TxtGiro.Text = string.Empty;
+            TxtPhone.Text = string.Empty;
+            TxtContact.Text = string.Empty;
+            CboBanks.SelectedIndex = -1;
+            CboCountries.SelectedIndex = -1;
+            CboTypeAccount.SelectedIndex = -1;
         }
 
         public void SetControles()
@@ -198,7 +244,10 @@ namespace PurchaseDesktop.Formularios
                 TxtGiro.Text = current["Giro"].ToString();
                 CboCountries.SelectedValue = current["CountryID"].ToString();
                 TxtNroAccount.Text = current["Account"].ToString();
-                CboTypeAccount.SelectedIndex = Convert.ToByte(current["TypeAccount"]);
+                if (current["TypeAccount"] != DBNull.Value)
+                {
+                    CboTypeAccount.SelectedIndex = Convert.ToByte(current["TypeAccount"]) - 1;
+                }
                 CboBanks.SelectedValue = current["BankID"];
                 TxtEmail.Text = current["Email"].ToString();
                 TxtPhone.Text = current["Phone"].ToString();
@@ -291,19 +340,36 @@ namespace PurchaseDesktop.Formularios
                 {
                     Name = UCase.ToTitleCase(TxtName.Text.Trim().ToLower()),
                     Account = TxtNroAccount.Text.Trim(),
-                    TypeAccount = (byte)CboTypeAccount.SelectedItem,
+                    TypeAccount = Convert.ToByte(CboTypeAccount.SelectedIndex + 1),
                     Email = TxtEmail.Text.Trim(),
                     Address = UCase.ToTitleCase(TxtAddress.Text.Trim()),
-                    BankID = CboBanks.SelectedItem.ToString(),
-                    CountryID = CboCountries.SelectedItem.ToString(),
+                    BankID = CboBanks.SelectedValue.ToString(),
+                    CountryID = CboCountries.SelectedValue.ToString(),
                     Giro = UCase.ToTitleCase(TxtGiro.Text.Trim()),
                     Phone = TxtPhone.Text,
-                    ContactName = UCase.ToTitleCase(TxtContact.Text.Trim().ToLower())
+                    ContactName = UCase.ToTitleCase(TxtContact.Text.Trim().ToLower()),
+                    SupplierID = TxtRut.Text.Split('-')[0]
                 };
 
-                var resultado = rFachada.InsertSupplier(s, Current);
+                var resultado = rFachada.InsertSupplier(s);
                 if (resultado == "OK")
                 {
+                    LlenarGrid();
+                    ClearControles();
+                    SetControles();
+                    //! Set Supplier 
+                    if (Current["SupplierID"] != DBNull.Value)
+                    {
+                        var rut = Current["SupplierID"].ToString();
+                        for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
+                        {
+                            if (s.SupplierID == Grid.Rows[myRowIndex].Cells["SupplierID"].Value.ToString())
+                            {
+                                Grid.SetCurRow(myRowIndex);
+                                Grid.Rows[myRowIndex].EnsureVisible();
+                            }
+                        }
+                    }
 
                 }
                 else

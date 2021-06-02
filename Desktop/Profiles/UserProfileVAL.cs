@@ -98,5 +98,30 @@ namespace PurchaseDesktop.Profiles
         {
             throw new System.NotImplementedException();
         }
+
+        public void InsertSupplier(Suppliers item)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int DeleteSupplier(string headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void InsertHito(OrderHitos item, int headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UpdateHito(OrderHitos item, int headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int DeleteHito(int headerID, int hitoID)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

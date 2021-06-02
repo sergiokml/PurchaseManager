@@ -76,6 +76,8 @@ namespace PurchaseDesktop.Formularios
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
             Grid.CellMouseDown += Grid_CellMouseDown;
             Grid.CellMouseUp += Grid_CellMouseUp;
+            Grid.CellEllipsisButtonClick += Grid_CellEllipsisButtonClick;
+
 
 
             //! Grid Principal
@@ -240,7 +242,7 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-        private async void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
+        public async void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
@@ -572,6 +574,24 @@ namespace PurchaseDesktop.Formularios
         }
 
         private void BtnHitos_Click(object sender, EventArgs e)
+        {
+            if (Grid.CurCell != null)
+            {
+                DataRow current = (DataRow)Grid.CurRow.Tag;
+                FHitos f = new FHitos(rFachada, current);
+                var resultado = rFachada.OpenHitosForm(f, this);
+                if (resultado == "OK")
+                {
+
+                }
+                else
+                {
+                    Msg(resultado, FPrincipal.MsgProceso.Warning);
+                }
+            }
+        }
+
+        private void BtnNotes_Click(object sender, EventArgs e)
         {
             if (Grid.CurCell != null)
             {

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Data.Entity.Validation;
+﻿using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace PurchaseData.DataModel
 {
@@ -7,29 +7,24 @@ namespace PurchaseData.DataModel
     {
         public override int SaveChanges()
         {
+            int res = 0;
             try
             {
                 // Your code...
                 // Could also be before try if you know the exception occurs in SaveChanges
 
-                return base.SaveChanges();
+                res = base.SaveChanges();
             }
-            catch (DbEntityValidationException e)
+            catch (DbUpdateException ex)
             {
-                foreach (var eve in e.EntityValidationErrors)
+                var sqlException = ex.GetBaseException() as SqlException;
+
+                if (sqlException != null)
                 {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
+                    return sqlException.Number;
                 }
-                throw;
             }
-
-
+            return res;
         }
     }
 }

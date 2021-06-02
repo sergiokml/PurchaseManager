@@ -310,7 +310,6 @@ namespace PurchaseDesktop.Formularios
             this.Grid.Size = new System.Drawing.Size(379, 141);
             this.Grid.TabIndex = 29;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
-            this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
             // 
             // CboTypeFile
             // 

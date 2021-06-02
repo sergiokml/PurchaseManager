@@ -285,7 +285,6 @@ namespace PurchaseDesktop.Profiles
 
         public void DeleteAttach(int headerID, int attachID)
         {
-            OrderHeader doc = rContext.OrderHeader.Find(headerID);
             Transactions transaction = new Transactions
             {
                 Event = Eventos.DELETE_ATTACH.ToString(),
@@ -295,9 +294,10 @@ namespace PurchaseDesktop.Profiles
             };
             using (DbContextTransaction trans = rContext.Database.BeginTransaction())
             {
+                OrderHeader po = rContext.OrderHeader.Find(headerID);
                 Attaches att = rContext.Attaches.Find(attachID);
-                rContext.Entry(att).State = EntityState.Deleted;
-                doc.Transactions.Add(transaction);
+                rContext.Attaches.Remove(att);
+                po.Transactions.Add(transaction);
                 rContext.SaveChanges();
                 trans.Commit();
             }
@@ -370,8 +370,6 @@ namespace PurchaseDesktop.Profiles
                 {
                     OrderHeader doc = rContext.OrderHeader.Find(headerID);
                     doc.Transactions.Add(transaction);
-
-                    rContext.Entry(item).State = EntityState.Modified;
                     Attaches od = rContext.Attaches.Find(attachID);
                     rContext.Entry(od).CurrentValues.SetValues(item);
                     rContext.SaveChanges();
@@ -408,6 +406,80 @@ namespace PurchaseDesktop.Profiles
                 .ToDataTable<OrderHitos>(rContext.OrderHitos
                 .Where(c => c.OrderHeaderID == headerID).ToList());
             }
+        }
+
+        public void InsertSupplier(Suppliers item)
+        {
+            rContext.Suppliers.Add(item);
+            rContext.SaveChanges();
+        }
+
+        public int DeleteSupplier(string headerID)
+        {
+            Suppliers s = rContext.Suppliers.Find(headerID);
+            rContext.Suppliers.Remove(s);
+            return rContext.SaveChanges();
+        }
+
+        public void InsertHito(OrderHitos item, int headerID)
+        {
+            Transactions transaction = new Transactions
+            {
+                Event = Eventos.INSERT_HITO.ToString(),
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            {
+                OrderHeader pr = rContext.OrderHeader.Find(headerID);
+                pr.Transactions.Add(transaction);
+                pr.OrderHitos.Add(item);
+                rContext.SaveChanges();
+                trans.Commit();
+            }
+        }
+
+        public void UpdateHito(OrderHitos item, int headerID)
+        {
+            Transactions transaction = new Transactions
+            {
+                Event = Eventos.UPDATE_HITO.ToString(),
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+            .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            {
+                OrderHeader pr = rContext.OrderHeader.Find(headerID);
+                pr.Transactions.Add(transaction);
+                OrderHitos h = rContext.OrderHitos.Find(item.HitoID, headerID);
+                rContext.Entry(h).CurrentValues.SetValues(item);
+                rContext.SaveChanges();
+                trans.Commit();
+            }
+        }
+
+        public int DeleteHito(int headerID, int hitoID)
+        {
+            var res = 0;
+            Transactions transaction = new Transactions
+            {
+                Event = Eventos.DELETE_HITO.ToString(),
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            {
+                OrderHeader po = rContext.OrderHeader.Find(headerID);
+                OrderHitos h = rContext.OrderHitos.Find(hitoID, headerID);
+                rContext.OrderHitos.Remove(h);
+                po.Transactions.Add(transaction);
+                res = rContext.SaveChanges();
+                trans.Commit();
+            }
+            return res; // 3 porque son 3 tablas
         }
     }
 }

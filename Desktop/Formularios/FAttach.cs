@@ -95,6 +95,7 @@ namespace PurchaseDesktop.Formularios
             Grid.AfterCommitEdit += Grid_AfterCommitEdit;
             Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
+            Grid.CellEllipsisButtonClick += Grid_CellEllipsisButtonClick;
         }
 
 
@@ -203,7 +204,7 @@ namespace PurchaseDesktop.Formularios
             Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
         }
 
-        private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
+        public void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
             Grid.Focus();

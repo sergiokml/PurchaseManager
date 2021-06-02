@@ -12,6 +12,8 @@
         }
         public enum Eventos
         {
+            //! Solamente eventos que son asociados a Transacciones, o sea para documentos.
+            //! No mantención de tablas.
             CREATE_PR,
             UPDATE_PR,
             DELETE_DETAIL,
@@ -22,7 +24,10 @@
             CREATE_PO,
             DELETE_PR,
             DELETE_PO,
-            UPDATE_ATTACH
+            UPDATE_ATTACH,
+            INSERT_HITO,
+            DELETE_HITO,
+            UPDATE_HITO
         }
 
         public enum TypeDocumentHeader

@@ -71,6 +71,9 @@ namespace PurchaseDesktop.Helpers
                         case "FSupplier":
                             perfilPo.CargarColumnasFSupplier(Perfiles.UPO);
                             break;
+                        case "FHitos":
+                            perfilPo.CargarColumnasFHitos(Perfiles.UPO);
+                            break;
                     }
                     break;
                 case Perfiles.UPR:
@@ -90,6 +93,9 @@ namespace PurchaseDesktop.Helpers
                             break;
                         case "FSupplier":
                             perfilPr.CargarColumnasFSupplier(Perfiles.UPR);
+                            break;
+                        case "FHitos":
+                            perfilPo.CargarColumnasFHitos(Perfiles.UPR);
                             break;
                     }
                     break;
@@ -304,9 +310,9 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    return perfilPo.VistaFDetalles(td, Convert.ToInt32(headerDR["headerID"]));
+                    return perfilPo.VistaFHitos(td, Convert.ToInt32(headerDR["headerID"]));
                 case Perfiles.UPR:
-                    return perfilPr.VistaFDetalles(td, Convert.ToInt32(headerDR["headerID"]));
+                    break;
                 case Perfiles.VAL:
                     break;
             }
@@ -902,7 +908,7 @@ namespace PurchaseDesktop.Helpers
 
         #region Supplier CRUD
 
-        public string InsertSupplier(Suppliers item, DataRow headerDR)
+        public string InsertSupplier(Suppliers item)
         {
             switch (currentPerfil)
             {
@@ -911,6 +917,62 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
+                    perfilPo.InsertSupplier(item);
+                    break;
+                case Perfiles.UPR:
+
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+            return "OK";
+        }
+
+        public string DeleteSupplier(string headerID)
+        {
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    var res = perfilPo.DeleteSupplier(headerID);
+                    if (res == 547)
+                    {
+                        return "It has associated data, it cannot be deleted.";
+                    }
+                    break;
+                case Perfiles.UPR:
+
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+            return "OK";
+        }
+
+        #endregion
+
+        #region Hitos CRUD
+
+        public string InsertHito(OrderHitos item, DataRow headerDR)
+        {
+            int status = Convert.ToInt32(headerDR["StatusID"]);
+            var headerID = Convert.ToInt32(headerDR["headerID"]);
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
+                    perfilPo.InsertHito(item, headerID);
                     break;
                 case Perfiles.UPR:
                     break;
@@ -920,6 +982,65 @@ namespace PurchaseDesktop.Helpers
                     break;
             }
             return "OK";
+        }
+
+        public string DeleteHito(DataRow hitoDR, DataRow headerDR)
+        {
+            int status = Convert.ToInt32(headerDR["StatusID"]);
+            var headerID = Convert.ToInt32(headerDR["headerID"]);
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
+                    perfilPo.DeleteHito(headerID, Convert.ToInt32(hitoDR["HitoID"]));
+                    break;
+                case Perfiles.UPR:
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+            return "OK";
+        }
+
+        public string UpdateHito(object newValue, DataRow hitoDR, DataRow headerDR, string campo)
+        {
+            int status = Convert.ToInt32(headerDR["StatusID"]);
+            var headerID = Convert.ToInt32(headerDR["headerID"]);
+            var hitoID = Convert.ToInt32(hitoDR["HitoID"]);
+            var h = new OrderHitos().GetByID(hitoID);
+            switch (currentPerfil)
+            {
+                case Perfiles.ADM:
+                    break;
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
+                    switch (campo)
+                    {
+                        case "Description":
+                            h.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
+                            perfilPo.UpdateHito(h, headerID);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case Perfiles.UPR:
+                    break;
+                case Perfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+            return "OK";
+
         }
 
         #endregion

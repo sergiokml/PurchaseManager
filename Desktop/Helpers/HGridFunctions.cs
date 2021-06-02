@@ -588,5 +588,32 @@ namespace PurchaseDesktop.Helpers
                 item.AllowSizing = false;
             }
         }
+
+        public void CargarColumnasFHitos(Perfiles perfil)
+        {
+            iGCol iGCol;
+            //! Cols     
+            Grid.Header.Height = 20;
+            iGCol = Grid.Cols.Add("nro", "N°", 58);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("Description", "Description", 245);
+            iGCol = Grid.Cols.Add("Porcent", "%", 27);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("Days", "D°", 27);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("delete", "", 22);
+            iGCol.IncludeInSelect = false;
+            iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+            //! Header
+            foreach (iGColHdr item in Grid.Header.Cells)
+            {
+                item.TextAlign = iGContentAlignment.MiddleCenter;
+            }
+            foreach (iGCol item in Grid.Cols)
+            {
+                //item.AllowSizing = false;
+            }
+
+        }
     }
 }

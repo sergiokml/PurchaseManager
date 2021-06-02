@@ -30,10 +30,10 @@ namespace PurchaseDesktop.Formularios
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FHitos));
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties9 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties10 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties11 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties12 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.LabelPanel = new System.Windows.Forms.Label();
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
@@ -45,12 +45,13 @@ namespace PurchaseDesktop.Formularios
             this.iGrid1DefaultCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.iGrid1DefaultColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
             this.iGrid1RowTextColCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.TxtDescription = new Bunifu.UI.WinForms.BunifuTextBox();
-            this.bunifuRange1 = new Bunifu.Framework.UI.BunifuRange();
-            this.label1 = new System.Windows.Forms.Label();
             this.CboDays = new System.Windows.Forms.ComboBox();
+            this.TxtDescription = new Bunifu.UI.WinForms.BunifuTextBox();
+            this.LblMensaje = new System.Windows.Forms.Label();
+            this.TrackBar = new System.Windows.Forms.TrackBar();
             this.PanelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // PanelHeader
@@ -188,7 +189,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnNewDetail.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnNewDetail.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.InitialImage")));
-            this.BtnNewDetail.Location = new System.Drawing.Point(312, 25);
+            this.BtnNewDetail.Location = new System.Drawing.Point(312, 43);
             this.BtnNewDetail.Name = "BtnNewDetail";
             this.BtnNewDetail.Rotation = 0;
             this.BtnNewDetail.ShowActiveImage = true;
@@ -231,7 +232,18 @@ namespace PurchaseDesktop.Formularios
             this.Grid.Size = new System.Drawing.Size(379, 141);
             this.Grid.TabIndex = 29;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
-            this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
+            // 
+            // CboDays
+            // 
+            this.CboDays.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.CboDays.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CboDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboDays.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.CboDays.FormattingEnabled = true;
+            this.CboDays.Location = new System.Drawing.Point(242, 43);
+            this.CboDays.Name = "CboDays";
+            this.CboDays.Size = new System.Drawing.Size(55, 24);
+            this.CboDays.TabIndex = 34;
             // 
             // TxtDescription
             // 
@@ -266,84 +278,65 @@ namespace PurchaseDesktop.Formularios
             this.TxtDescription.Modified = false;
             this.TxtDescription.Multiline = false;
             this.TxtDescription.Name = "TxtDescription";
-            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties1.FillColor = System.Drawing.Color.Empty;
-            stateProperties1.ForeColor = System.Drawing.Color.Empty;
-            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtDescription.OnActiveState = stateProperties1;
-            stateProperties2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            stateProperties2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            stateProperties2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            stateProperties2.PlaceholderForeColor = System.Drawing.Color.DarkGray;
-            this.TxtDescription.OnDisabledState = stateProperties2;
-            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties3.FillColor = System.Drawing.Color.Empty;
-            stateProperties3.ForeColor = System.Drawing.Color.Empty;
-            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtDescription.OnHoverState = stateProperties3;
-            stateProperties4.BorderColor = System.Drawing.Color.Silver;
-            stateProperties4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            stateProperties4.ForeColor = System.Drawing.Color.Empty;
-            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtDescription.OnIdleState = stateProperties4;
+            stateProperties9.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties9.FillColor = System.Drawing.Color.Empty;
+            stateProperties9.ForeColor = System.Drawing.Color.Empty;
+            stateProperties9.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtDescription.OnActiveState = stateProperties9;
+            stateProperties10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            stateProperties10.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            stateProperties10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            stateProperties10.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.TxtDescription.OnDisabledState = stateProperties10;
+            stateProperties11.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties11.FillColor = System.Drawing.Color.Empty;
+            stateProperties11.ForeColor = System.Drawing.Color.Empty;
+            stateProperties11.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtDescription.OnHoverState = stateProperties11;
+            stateProperties12.BorderColor = System.Drawing.Color.Silver;
+            stateProperties12.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            stateProperties12.ForeColor = System.Drawing.Color.Empty;
+            stateProperties12.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtDescription.OnIdleState = stateProperties12;
             this.TxtDescription.Padding = new System.Windows.Forms.Padding(3);
             this.TxtDescription.PasswordChar = '\0';
             this.TxtDescription.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.TxtDescription.PlaceholderText = "Enter Name File";
+            this.TxtDescription.PlaceholderText = "Enter Description";
             this.TxtDescription.ReadOnly = false;
             this.TxtDescription.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.TxtDescription.SelectedText = "";
             this.TxtDescription.SelectionLength = 0;
             this.TxtDescription.SelectionStart = 0;
             this.TxtDescription.ShortcutsEnabled = true;
-            this.TxtDescription.Size = new System.Drawing.Size(223, 25);
+            this.TxtDescription.Size = new System.Drawing.Size(212, 25);
             this.TxtDescription.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
-            this.TxtDescription.TabIndex = 31;
+            this.TxtDescription.TabIndex = 36;
             this.TxtDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.TxtDescription.TextMarginBottom = 0;
             this.TxtDescription.TextMarginLeft = 1;
             this.TxtDescription.TextMarginTop = 0;
-            this.TxtDescription.TextPlaceholder = "Enter Name File";
+            this.TxtDescription.TextPlaceholder = "Enter Description";
             this.TxtDescription.UseSystemPasswordChar = false;
             this.TxtDescription.WordWrap = true;
             // 
-            // bunifuRange1
+            // LblMensaje
             // 
-            this.bunifuRange1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuRange1.BackgroudColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.bunifuRange1.BorderRadius = 0;
-            this.bunifuRange1.IndicatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
-            this.bunifuRange1.Location = new System.Drawing.Point(12, 86);
-            this.bunifuRange1.MaximumRange = 100;
-            this.bunifuRange1.Name = "bunifuRange1";
-            this.bunifuRange1.RangeMax = 50;
-            this.bunifuRange1.RangeMin = 0;
-            this.bunifuRange1.Size = new System.Drawing.Size(274, 30);
-            this.bunifuRange1.TabIndex = 32;
-            this.bunifuRange1.RangeChanged += new System.EventHandler(this.bunifuRange1_RangeChanged);
+            this.LblMensaje.AutoSize = true;
+            this.LblMensaje.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblMensaje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
+            this.LblMensaje.Location = new System.Drawing.Point(248, 86);
+            this.LblMensaje.Name = "LblMensaje";
+            this.LblMensaje.Size = new System.Drawing.Size(43, 19);
+            this.LblMensaje.TabIndex = 38;
+            this.LblMensaje.Text = "0 %";
             // 
-            // label1
+            // TrackBar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(297, 96);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(12, 16);
-            this.label1.TabIndex = 33;
-            this.label1.Text = ".";
-            // 
-            // CboDays
-            // 
-            this.CboDays.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.CboDays.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CboDays.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CboDays.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.CboDays.FormattingEnabled = true;
-            this.CboDays.Location = new System.Drawing.Point(252, 44);
-            this.CboDays.Name = "CboDays";
-            this.CboDays.Size = new System.Drawing.Size(34, 24);
-            this.CboDays.TabIndex = 34;
+            this.TrackBar.Location = new System.Drawing.Point(12, 74);
+            this.TrackBar.Name = "TrackBar";
+            this.TrackBar.Size = new System.Drawing.Size(212, 45);
+            this.TrackBar.TabIndex = 39;
+            this.TrackBar.Scroll += new System.EventHandler(this.TrackBar_Scroll);
             // 
             // FHitos
             // 
@@ -351,10 +344,10 @@ namespace PurchaseDesktop.Formularios
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(379, 264);
-            this.Controls.Add(this.CboDays);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.bunifuRange1);
+            this.Controls.Add(this.TrackBar);
+            this.Controls.Add(this.LblMensaje);
             this.Controls.Add(this.TxtDescription);
+            this.Controls.Add(this.CboDays);
             this.Controls.Add(this.Grid);
             this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.bunifuSeparator2);
@@ -367,6 +360,7 @@ namespace PurchaseDesktop.Formularios
             this.Load += new System.EventHandler(this.FAttachment_Load);
             this.PanelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Grid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -384,9 +378,9 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1DefaultCellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle iGrid1DefaultColHdrStyle;
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1RowTextColCellStyle;
-        private Bunifu.UI.WinForms.BunifuTextBox TxtDescription;
-        private Bunifu.Framework.UI.BunifuRange bunifuRange1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox CboDays;
+        private Bunifu.UI.WinForms.BunifuTextBox TxtDescription;
+        private System.Windows.Forms.Label LblMensaje;
+        private System.Windows.Forms.TrackBar TrackBar;
     }
 }

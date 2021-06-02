@@ -110,6 +110,7 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator3 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.PanelHechizoBanner = new System.Windows.Forms.Panel();
             this.CtxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.BtnNotes = new Bunifu.UI.WinForms.BunifuImageButton();
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
             this.PanelBtns.SuspendLayout();
@@ -229,6 +230,7 @@ namespace PurchaseDesktop.Formularios
             // 
             // PanelDash
             // 
+            this.PanelDash.Controls.Add(this.BtnNotes);
             this.PanelDash.Controls.Add(this.PanelHechizo);
             this.PanelDash.Controls.Add(this.BtnAttach);
             this.PanelDash.Controls.Add(this.LblTitulo2);
@@ -280,7 +282,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnAttach.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnAttach.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnAttach.InitialImage = null;
-            this.BtnAttach.Location = new System.Drawing.Point(757, 51);
+            this.BtnAttach.Location = new System.Drawing.Point(710, 51);
             this.BtnAttach.Name = "BtnAttach";
             this.BtnAttach.Rotation = 0;
             this.BtnAttach.ShowActiveImage = true;
@@ -499,7 +501,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnHitos.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnHitos.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnHitos.InitialImage = null;
-            this.BtnHitos.Location = new System.Drawing.Point(808, 51);
+            this.BtnHitos.Location = new System.Drawing.Point(765, 51);
             this.BtnHitos.Name = "BtnHitos";
             this.BtnHitos.Rotation = 0;
             this.BtnHitos.ShowActiveImage = true;
@@ -534,7 +536,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnDetails.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnDetails.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnDetails.InitialImage = null;
-            this.BtnDetails.Location = new System.Drawing.Point(656, 51);
+            this.BtnDetails.Location = new System.Drawing.Point(600, 51);
             this.BtnDetails.Name = "BtnDetails";
             this.BtnDetails.Rotation = 0;
             this.BtnDetails.ShowActiveImage = true;
@@ -569,7 +571,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnSupplier.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnSupplier.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnSupplier.InitialImage = null;
-            this.BtnSupplier.Location = new System.Drawing.Point(706, 51);
+            this.BtnSupplier.Location = new System.Drawing.Point(655, 51);
             this.BtnSupplier.Name = "BtnSupplier";
             this.BtnSupplier.Rotation = 0;
             this.BtnSupplier.ShowActiveImage = true;
@@ -757,7 +759,6 @@ namespace PurchaseDesktop.Formularios
             this.Grid.TabIndex = 8;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
             this.Grid.CellDoubleClick += new TenTec.Windows.iGridLib.iGCellDoubleClickEventHandler(this.Grid_CellDoubleClick);
-            this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
             this.Grid.AfterAutoGroupRowCreated += new TenTec.Windows.iGridLib.iGAfterAutoGroupRowCreatedEventHandler(this.Grid_AfterAutoGroupRowCreated);
             // 
             // GridCol0CellStyle
@@ -868,6 +869,41 @@ namespace PurchaseDesktop.Formularios
             this.CtxMenu.Size = new System.Drawing.Size(61, 4);
             this.CtxMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMenu_ItemClicked);
             // 
+            // BtnNotes
+            // 
+            this.BtnNotes.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnNotes.ActiveImage")));
+            this.BtnNotes.AllowAnimations = true;
+            this.BtnNotes.AllowBuffering = false;
+            this.BtnNotes.AllowToggling = false;
+            this.BtnNotes.AllowZooming = true;
+            this.BtnNotes.AllowZoomingOnFocus = false;
+            this.BtnNotes.BackColor = System.Drawing.Color.Transparent;
+            this.BtnNotes.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnNotes.ErrorImage = null;
+            this.BtnNotes.FadeWhenInactive = false;
+            this.BtnNotes.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnNotes.Image = ((System.Drawing.Image)(resources.GetObject("BtnNotes.Image")));
+            this.BtnNotes.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnNotes.ImageActive")));
+            this.BtnNotes.ImageLocation = null;
+            this.BtnNotes.ImageMargin = 20;
+            this.BtnNotes.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnNotes.ImageZoomSize = new System.Drawing.Size(55, 55);
+            this.BtnNotes.InitialImage = null;
+            this.BtnNotes.Location = new System.Drawing.Point(820, 51);
+            this.BtnNotes.Name = "BtnNotes";
+            this.BtnNotes.Rotation = 0;
+            this.BtnNotes.ShowActiveImage = true;
+            this.BtnNotes.ShowCursorChanges = true;
+            this.BtnNotes.ShowImageBorders = true;
+            this.BtnNotes.ShowSizeMarkers = false;
+            this.BtnNotes.Size = new System.Drawing.Size(55, 55);
+            this.BtnNotes.TabIndex = 34;
+            this.BtnNotes.ToolTipText = "Hitos";
+            this.BtnNotes.WaitOnLoad = false;
+            this.BtnNotes.Zoom = 20;
+            this.BtnNotes.ZoomSpeed = 10;
+            this.BtnNotes.Click += new System.EventHandler(this.BtnNotes_Click);
+            // 
             // FPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -977,6 +1013,7 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.Panel PanelHechizoBanner;
         private System.Windows.Forms.ContextMenuStrip CtxMenu;
         private System.Windows.Forms.Label LblMsg;
+        private Bunifu.UI.WinForms.BunifuImageButton BtnNotes;
     }
 }
 

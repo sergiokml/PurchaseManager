@@ -47,6 +47,7 @@ namespace PurchaseDesktop.Formularios
             Grid.AfterCommitEdit += Grid_AfterCommitEdit;
             Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
+            Grid.CellEllipsisButtonClick += Grid_CellEllipsisButtonClick;
         }
 
         public void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
@@ -302,14 +303,14 @@ namespace PurchaseDesktop.Formularios
 
         }
 
-        private void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
+        public void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
-            var currentDetail = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                var resultado = rFachada.DeleteDetail(currentDetail, Current);
+                var resultado = rFachada.DeleteDetail(current, Current);
                 if (resultado == "OK")
                 {
                     LlenarGrid();

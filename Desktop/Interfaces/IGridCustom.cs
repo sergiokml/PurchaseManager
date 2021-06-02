@@ -19,5 +19,7 @@ namespace PurchaseDesktop.Interfaces
         void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e);
         void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e);
 
+        void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e);
+
     }
 }

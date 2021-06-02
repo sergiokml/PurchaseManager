@@ -241,7 +241,6 @@ namespace PurchaseDesktop.Profiles
 
         public void DeleteAttach(int headerID, int attachID)
         {
-            RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
             Transactions transaction = new Transactions
             {
                 Event = Eventos.DELETE_ATTACH.ToString(),
@@ -251,8 +250,10 @@ namespace PurchaseDesktop.Profiles
             };
             using (DbContextTransaction trans = rContext.Database.BeginTransaction())
             {
+                RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
                 Attaches att = rContext.Attaches.Find(attachID);
-                rContext.Entry(att).State = EntityState.Deleted;
+                rContext.Attaches.Remove(att);
+                //rContext.Entry(att).State = EntityState.Deleted;
                 pr.Transactions.Add(transaction);
                 rContext.SaveChanges();
                 trans.Commit();
@@ -326,10 +327,9 @@ namespace PurchaseDesktop.Profiles
                 {
                     RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
                     doc.Transactions.Add(transaction);
-
                     rContext.Entry(item).State = EntityState.Modified;
-                    Attaches od = rContext.Attaches.Find(attachID);
-                    rContext.Entry(od).CurrentValues.SetValues(item);
+                    //Attaches od = rContext.Attaches.Find(attachID);
+                    //rContext.Entry(od).CurrentValues.SetValues(item);
                     rContext.SaveChanges();
                     trans.Commit();
                 }
@@ -350,6 +350,31 @@ namespace PurchaseDesktop.Profiles
                 .ToDataTable<OrderHitos>(rContext.OrderHitos
                 .Where(c => c.OrderHeaderID == headerID).ToList());
             }
+        }
+
+        public void InsertSupplier(Suppliers item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteSupplier(string headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertHito(OrderHitos item, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateHito(OrderHitos item, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteHito(int headerID, int hitoID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

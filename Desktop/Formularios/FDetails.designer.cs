@@ -194,7 +194,6 @@ namespace PurchaseDesktop.Formularios
             this.Grid.Size = new System.Drawing.Size(546, 161);
             this.Grid.TabIndex = 18;
             this.Grid.ColDividerDoubleClick += new TenTec.Windows.iGridLib.iGColDividerDoubleClickEventHandler(this.Grid_ColDividerDoubleClick);
-            this.Grid.CellEllipsisButtonClick += new TenTec.Windows.iGridLib.iGEllipsisButtonClickEventHandler(this.Grid_CellEllipsisButtonClick);
             this.Grid.RequestCellToolTipText += new TenTec.Windows.iGridLib.iGRequestCellToolTipTextEventHandler(this.Grid_RequestCellToolTipText);
             // 
             // TxtPrice
