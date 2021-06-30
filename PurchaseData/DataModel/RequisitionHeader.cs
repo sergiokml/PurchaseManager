@@ -29,6 +29,7 @@ namespace PurchaseData.DataModel
         public byte StatusID { get; set; }
         public string Code { get; set; }
         public string TypeDocumentHeader { get; set; }
+        public string UserPO { get; set; }
     
         public virtual Companies Companies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -17,6 +17,8 @@ namespace PurchaseData.DataModel
         public int OrderNoteID { get; set; }
         public int OrderHeaderID { get; set; }
         public string Description { get; set; }
+        public string Title { get; set; }
+        public byte Modifier { get; set; }
     
         public virtual OrderHeader OrderHeader { get; set; }
     }

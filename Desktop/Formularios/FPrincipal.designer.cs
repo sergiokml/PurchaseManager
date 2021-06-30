@@ -33,11 +33,9 @@ namespace PurchaseDesktop.Formularios
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPrincipal));
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.bunifuSeparator2 = new Bunifu.UI.WinForms.BunifuSeparator();
-            this.BtnMinimizar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.LabelPanel = new System.Windows.Forms.Label();
             this.PanelDash = new System.Windows.Forms.Panel();
-            this.PanelHechizo = new System.Windows.Forms.Panel();
             this.BtnAttach = new Bunifu.UI.WinForms.BunifuImageButton();
             this.LblTitulo2 = new System.Windows.Forms.Label();
             this.LblTitulo1 = new System.Windows.Forms.Label();
@@ -110,7 +108,9 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator3 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.PanelHechizoBanner = new System.Windows.Forms.Panel();
             this.CtxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.PanelHechizo = new System.Windows.Forms.Panel();
             this.BtnNotes = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.BtnConfig = new Bunifu.UI.WinForms.BunifuImageButton();
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
             this.PanelBtns.SuspendLayout();
@@ -121,7 +121,6 @@ namespace PurchaseDesktop.Formularios
             // 
             this.PanelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.PanelHeader.Controls.Add(this.bunifuSeparator2);
-            this.PanelHeader.Controls.Add(this.BtnMinimizar);
             this.PanelHeader.Controls.Add(this.BtnCerrar);
             this.PanelHeader.Controls.Add(this.LabelPanel);
             this.PanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
@@ -145,41 +144,6 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator2.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
             this.bunifuSeparator2.Size = new System.Drawing.Size(1100, 1);
             this.bunifuSeparator2.TabIndex = 29;
-            // 
-            // BtnMinimizar
-            // 
-            this.BtnMinimizar.ActiveImage = null;
-            this.BtnMinimizar.AllowAnimations = true;
-            this.BtnMinimizar.AllowBuffering = false;
-            this.BtnMinimizar.AllowToggling = false;
-            this.BtnMinimizar.AllowZooming = true;
-            this.BtnMinimizar.AllowZoomingOnFocus = false;
-            this.BtnMinimizar.BackColor = System.Drawing.Color.Transparent;
-            this.BtnMinimizar.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.BtnMinimizar.ErrorImage = null;
-            this.BtnMinimizar.FadeWhenInactive = false;
-            this.BtnMinimizar.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
-            this.BtnMinimizar.Image = null;
-            this.BtnMinimizar.ImageActive = null;
-            this.BtnMinimizar.ImageLocation = null;
-            this.BtnMinimizar.ImageMargin = 5;
-            this.BtnMinimizar.ImageSize = new System.Drawing.Size(17, 17);
-            this.BtnMinimizar.ImageZoomSize = new System.Drawing.Size(22, 22);
-            this.BtnMinimizar.InitialImage = null;
-            this.BtnMinimizar.Location = new System.Drawing.Point(1047, 1);
-            this.BtnMinimizar.Name = "BtnMinimizar";
-            this.BtnMinimizar.Rotation = 0;
-            this.BtnMinimizar.ShowActiveImage = true;
-            this.BtnMinimizar.ShowCursorChanges = true;
-            this.BtnMinimizar.ShowImageBorders = true;
-            this.BtnMinimizar.ShowSizeMarkers = false;
-            this.BtnMinimizar.Size = new System.Drawing.Size(22, 22);
-            this.BtnMinimizar.TabIndex = 29;
-            this.BtnMinimizar.TabStop = false;
-            this.BtnMinimizar.ToolTipText = "";
-            this.BtnMinimizar.WaitOnLoad = false;
-            this.BtnMinimizar.Zoom = 5;
-            this.BtnMinimizar.ZoomSpeed = 10;
             // 
             // BtnCerrar
             // 
@@ -230,6 +194,7 @@ namespace PurchaseDesktop.Formularios
             // 
             // PanelDash
             // 
+            this.PanelDash.Controls.Add(this.BtnConfig);
             this.PanelDash.Controls.Add(this.BtnNotes);
             this.PanelDash.Controls.Add(this.PanelHechizo);
             this.PanelDash.Controls.Add(this.BtnAttach);
@@ -254,13 +219,6 @@ namespace PurchaseDesktop.Formularios
             this.PanelDash.Name = "PanelDash";
             this.PanelDash.Size = new System.Drawing.Size(1100, 109);
             this.PanelDash.TabIndex = 3;
-            // 
-            // PanelHechizo
-            // 
-            this.PanelHechizo.Location = new System.Drawing.Point(0, 2);
-            this.PanelHechizo.Name = "PanelHechizo";
-            this.PanelHechizo.Size = new System.Drawing.Size(398, 107);
-            this.PanelHechizo.TabIndex = 33;
             // 
             // BtnAttach
             // 
@@ -869,6 +827,13 @@ namespace PurchaseDesktop.Formularios
             this.CtxMenu.Size = new System.Drawing.Size(61, 4);
             this.CtxMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMenu_ItemClicked);
             // 
+            // PanelHechizo
+            // 
+            this.PanelHechizo.Location = new System.Drawing.Point(0, 2);
+            this.PanelHechizo.Name = "PanelHechizo";
+            this.PanelHechizo.Size = new System.Drawing.Size(398, 107);
+            this.PanelHechizo.TabIndex = 33;
+            // 
             // BtnNotes
             // 
             this.BtnNotes.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnNotes.ActiveImage")));
@@ -898,11 +863,46 @@ namespace PurchaseDesktop.Formularios
             this.BtnNotes.ShowSizeMarkers = false;
             this.BtnNotes.Size = new System.Drawing.Size(55, 55);
             this.BtnNotes.TabIndex = 34;
-            this.BtnNotes.ToolTipText = "Hitos";
+            this.BtnNotes.ToolTipText = "Notes";
             this.BtnNotes.WaitOnLoad = false;
             this.BtnNotes.Zoom = 20;
             this.BtnNotes.ZoomSpeed = 10;
             this.BtnNotes.Click += new System.EventHandler(this.BtnNotes_Click);
+            // 
+            // BtnConfig
+            // 
+            this.BtnConfig.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnConfig.ActiveImage")));
+            this.BtnConfig.AllowAnimations = true;
+            this.BtnConfig.AllowBuffering = false;
+            this.BtnConfig.AllowToggling = false;
+            this.BtnConfig.AllowZooming = true;
+            this.BtnConfig.AllowZoomingOnFocus = false;
+            this.BtnConfig.BackColor = System.Drawing.Color.Transparent;
+            this.BtnConfig.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnConfig.ErrorImage = null;
+            this.BtnConfig.FadeWhenInactive = false;
+            this.BtnConfig.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnConfig.Image = ((System.Drawing.Image)(resources.GetObject("BtnConfig.Image")));
+            this.BtnConfig.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnConfig.ImageActive")));
+            this.BtnConfig.ImageLocation = null;
+            this.BtnConfig.ImageMargin = 20;
+            this.BtnConfig.ImageSize = new System.Drawing.Size(20, 20);
+            this.BtnConfig.ImageZoomSize = new System.Drawing.Size(40, 40);
+            this.BtnConfig.InitialImage = null;
+            this.BtnConfig.Location = new System.Drawing.Point(959, 63);
+            this.BtnConfig.Name = "BtnConfig";
+            this.BtnConfig.Rotation = 0;
+            this.BtnConfig.ShowActiveImage = true;
+            this.BtnConfig.ShowCursorChanges = true;
+            this.BtnConfig.ShowImageBorders = true;
+            this.BtnConfig.ShowSizeMarkers = false;
+            this.BtnConfig.Size = new System.Drawing.Size(40, 40);
+            this.BtnConfig.TabIndex = 35;
+            this.BtnConfig.ToolTipText = "Notes";
+            this.BtnConfig.WaitOnLoad = false;
+            this.BtnConfig.Zoom = 20;
+            this.BtnConfig.ZoomSpeed = 10;
+            this.BtnConfig.Click += new System.EventHandler(this.BtnConfig_Click);
             // 
             // FPrincipal
             // 
@@ -980,7 +980,6 @@ namespace PurchaseDesktop.Formularios
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol19ColHdrStyle1;
         private TenTec.Windows.iGridLib.iGCellStyle GridCol20CellStyle;
         private TenTec.Windows.iGridLib.iGColHdrStyle GridCol20ColHdrStyle;
-        private Bunifu.UI.WinForms.BunifuImageButton BtnMinimizar;
         private Bunifu.UI.WinForms.BunifuImageButton BtnCerrar;
         private TenTec.Windows.iGridLib.iGrid Grid;
         private TenTec.Windows.iGridLib.iGCellStyle iGrid1DefaultCellStyle;
@@ -1009,11 +1008,12 @@ namespace PurchaseDesktop.Formularios
         private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas1;
         private Bunifu.Charts.WinForms.BunifuChartCanvas ChartCanvas2;
         private Bunifu.UI.WinForms.BunifuImageButton BtnAttach;
-        private System.Windows.Forms.Panel PanelHechizo;
         private System.Windows.Forms.Panel PanelHechizoBanner;
         private System.Windows.Forms.ContextMenuStrip CtxMenu;
         private System.Windows.Forms.Label LblMsg;
+        private Bunifu.UI.WinForms.BunifuImageButton BtnConfig;
         private Bunifu.UI.WinForms.BunifuImageButton BtnNotes;
+        private System.Windows.Forms.Panel PanelHechizo;
     }
 }
 

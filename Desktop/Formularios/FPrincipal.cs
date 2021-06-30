@@ -24,31 +24,20 @@ namespace PurchaseDesktop.Formularios
 
         public DataRow Current { get; set; }
 
+        #region Constructor
+
         public FPrincipal(PerfilFachada rFachada)
         {
             this.rFachada = rFachada;
             InitializeComponent();
         }
-
         public FPrincipal()
         {
         }
 
-        private void BtnInsert_Click(object sender, EventArgs e)
-        {
-            //! Validar Controles
-            if (ValidarControles())
-            {
-                rFachada.InsertItem((Companies)CboCompany.SelectedItem
-                    , (TypeDocument)CboType.SelectedItem);
-                LlenarGrid();
-                CargarDashboard();
-                //Grid.Rows[0].EnsureVisible();
-                ClearControles();
-                SetControles();
-            }
-        }
+        #endregion
 
+        #region Métodos Privados
         private void CargarDashboard()
         {
             rFachada.CargarDashBoard(Grid, PieChart1, PieChart2, PanelDash);
@@ -90,7 +79,7 @@ namespace PurchaseDesktop.Formularios
 
             //! Banner
             //string s = await rFachada.CargarBanner();
-            //WBrowserBanner.Navigate(s);
+            // WBrowserBanner.Navigate(s);
 
 
 
@@ -111,104 +100,41 @@ namespace PurchaseDesktop.Formularios
 
         }
 
-
-        public void LlenarGrid()
+        private void FPrincipal_Shown(object sender, EventArgs e)
         {
-            Grid.BeginUpdate();
-            try
-            {
-                DataTable vista = rFachada.GetVistaFPrincipal();
-                Grid.Rows.Clear();
-                Grid.FillWithData(vista, true);
-                //! Data Bound  ***!
-                for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
-                {
-                    Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
-                }
-                Grid = rFachada.FormatearGrid(Grid, "FPrincipal", Current);
-                Grid.Refresh();
-                Msg($"You have {vista.Rows.Count} documents issued and showing.", MsgProceso.Informacion);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                Grid.EndUpdate();
-            }
-        }
-
-        public bool ValidarControles()
-        {
-            //! Company
-            if (CboCompany.SelectedIndex == -1)
-            {
-                return false;
-            }
-            else if (CboType.SelectedIndex == -1)
-            {
-                return false;
-            }
-            //else if (string.IsNullOrEmpty(TxtId.Text))
-            //{
-            //    return false;
-            //}
-            return true;
-        }
-
-        public void ClearControles()
-        {
-            CboCompany.SelectedIndex = -1;
-            CboCompany.Select(1, 0);
-            CboType.SelectedIndex = -1;
-            CboType.Select(1, 0);
+            LabelPanel.Text = "Purchase Manager V1.0";
+            LabelPanel.TextAlign = ContentAlignment.MiddleLeft;
+            LabelPanel.Visible = true;
 
         }
 
-        public void SetControles()
+        #endregion
+
+        #region Botones Form
+
+        private void BtnInsert_Click(object sender, EventArgs e)
         {
-            //! Company
-            //var cbo = (Companies)CboCompany.SelectedItem;
-            //if (rFachada.GetUser().ProfileID == "UPO")
-            //{
-            if (Grid.Rows.Count > 0)
+            //! Validar Controles
+            if (ValidarControles())
             {
-                int nPO = 0;
-                int nPR = 0;
-                for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
-                {
-                    if (Grid.Cols["TypeDocumentHeader"].Cells[myRowIndex].Value.ToString() == "PR")
-                    {
-                        nPR++;
-                    }
-                    else if (Grid.Cols["TypeDocumentHeader"].Cells[myRowIndex].Value.ToString() == "PO")
-                    {
-                        nPO++;
-                    }
-                }
-                if (nPO > 0 && nPR > 0)
-                {
-                    Grid.DefaultAutoGroupRow.Expanded = true;
-                    Grid.GroupObject.Add("TypeDocumentHeader");
-                    //if (Grid.GroupObject.Count > 1)
-                    //{
-
-                    Grid.Group();
-                }
-                else
-                {
-                    Grid.GroupObject.Clear();
-                    Grid.Group();
-                }
-
-
-                //}
-
+                rFachada.InsertItem((Companies)CboCompany.SelectedItem
+                    , (TypeDocument)CboType.SelectedItem);
+                LlenarGrid();
+                CargarDashboard();
+                //Grid.Rows[0].EnsureVisible();
+                ClearControles();
+                SetControles();
             }
-            //}
-
         }
+
+        private void BtnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        #endregion
+
+        #region Eventos Grid Principal 
 
         public void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e)
         {
@@ -229,7 +155,7 @@ namespace PurchaseDesktop.Formularios
             if (resultado == "OK")
             {
                 LlenarGrid();
-                if (!Grid.Cols[e.ColIndex].Key.Equals("Description") && !Grid.Cols[e.ColIndex].Key.Equals("Type"))
+                if (!Grid.Cols[e.ColIndex].Key.Equals("Description") && !Grid.Cols[e.ColIndex].Key.Equals("Type") && !Grid.Cols[e.ColIndex].Key.Equals("UserPO"))
                 {
                     CargarDashboard();
                 }
@@ -302,16 +228,6 @@ namespace PurchaseDesktop.Formularios
             Grid.DrawAsFocused = false;
         }
 
-        private void BtnCerrar_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
-        {
-            Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
-        }
-
         public void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
         {
             if (e.ColIndex == Grid.Cols["delete"].Index || e.ColIndex == Grid.Cols["view"].Index || e.ColIndex == Grid.Cols["send"].Index)
@@ -365,20 +281,181 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-        private void BtnDetails_Click(object sender, EventArgs e)
+        private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
         {
-            if (Grid.CurCell != null)
+            Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
+        }
+
+        public void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e)
+        {
+            System.Windows.Forms.Cursor.Current = Cursors.Default;
+        }
+
+        private void Grid_CellDoubleClick(object sender, iGCellDoubleClickEventArgs e)
+        {
+            if (Grid.CurCell != null && Grid.CurCell.ColIndex > -1 && Grid.Cols[e.ColIndex].Key != "delete")
             {
-                DataRow current = (DataRow)Grid.CurRow.Tag;
-                FDetails f = new FDetails(rFachada, current);
-                rFachada.OPenDetailForm(f, this);
+                var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                if (current != null)
+                {
+                    var resultado = rFachada.GridDobleClick(Current);
+                    if (resultado == "OK")
+                    {
+                        LlenarGrid();
+                        CargarDashboard();
+                        ClearControles();
+                        SetControles();
+                    }
+                    else
+                    {
+                        e.DoDefault = false;
+                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    }
+                }
+            }
+        }
+
+        private void Grid_AfterAutoGroupRowCreated(object sender, iGAfterAutoGroupRowCreatedEventArgs e)
+        {
+            iGCell myGroupRowCell = Grid.RowTextCol.Cells[e.AutoGroupRowIndex];
+            iGCell myFirstCellInGroup = Grid.Cells[e.GroupedRowIndex, e.GroupedColIndex];
+            if (Grid.Cols[e.GroupedColIndex].Key == "TypeDocumentHeader")
+            {
+                if (myFirstCellInGroup.Value.ToString() == "PO")
+                {
+                    myGroupRowCell.Value = "Purchase  Orders";
+                }
+                else if (myFirstCellInGroup.Value.ToString() == "PR")
+                {
+                    myGroupRowCell.Value = "Purchase  Requisitions";
+                }
             }
         }
 
 
+        #endregion
+
+        #region Interfaz IControles
+
+        public bool ValidarControles()
+        {
+            //! Company
+            if (CboCompany.SelectedIndex == -1)
+            {
+                return false;
+            }
+            else if (CboType.SelectedIndex == -1)
+            {
+                return false;
+            }
+            //else if (string.IsNullOrEmpty(TxtId.Text))
+            //{
+            //    return false;
+            //}
+            return true;
+        }
+
+        public void ClearControles()
+        {
+            CboCompany.SelectedIndex = -1;
+            CboCompany.Select(1, 0);
+            CboType.SelectedIndex = -1;
+            CboType.Select(1, 0);
+
+        }
+
+        public void SetControles()
+        {
+
+            if (Grid.Rows.Count > 0)
+            {
+                int nPO = 0;
+                int nPR = 0;
+                for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
+                {
+                    if (Grid.Cols["TypeDocumentHeader"].Cells[myRowIndex].Value.ToString() == "PR")
+                    {
+                        nPR++;
+                    }
+                    else if (Grid.Cols["TypeDocumentHeader"].Cells[myRowIndex].Value.ToString() == "PO")
+                    {
+                        nPO++;
+                    }
+                }
+                if (nPO > 0 && nPR > 0)
+                {
+                    Grid.DefaultAutoGroupRow.Expanded = true;
+                    if (rFachada.CurrentUser().ProfileID == "UPO")
+                    {
+                        Grid.GroupObject.Add("TypeDocumentHeader").SortOrder = iGSortOrder.Ascending;
+                    }
+                    else
+                    {
+
+                        Grid.GroupObject.Add("TypeDocumentHeader").SortOrder = iGSortOrder.Descending;
+                    }
 
 
 
+                    //Grid.SortObject.Add("TypeDocumentHeader");
+                    //Grid.SortObject[0].SortType = iGSortType.ByValue;
+                    //Grid.SortObject[0].SortOrder = iGSortOrder.Descending;
+
+                    Grid.Group();
+
+
+
+
+                }
+                else
+                {
+                    Grid.GroupObject.Clear();
+                    Grid.Group();
+                }
+
+
+
+
+            }
+
+
+        }
+
+        public iGrid GetGrid()
+        {
+            return Grid;
+        }
+
+        public void LlenarGrid()
+        {
+            Grid.BeginUpdate();
+            try
+            {
+                DataTable vista = rFachada.GetVistaFPrincipal();
+                Grid.Rows.Clear();
+                Grid.FillWithData(vista, true);
+                //! Data Bound  ***!
+                for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
+                {
+                    Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
+                }
+                Grid = rFachada.FormatearGrid(Grid, "FPrincipal", Current);
+                Grid.Refresh();
+                Msg($"You have {vista.Rows.Count} documents issued and showing.", MsgProceso.Informacion);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Grid.EndUpdate();
+            }
+        }
+
+        #endregion
+
+        #region Métodos Públicos
         public void Msg(string msg, MsgProceso proceso)
         {
             Timer TimerMsg = new Timer
@@ -427,9 +504,18 @@ namespace PurchaseDesktop.Formularios
             Empty = 5
         }
 
-        public iGrid GetGrid()
+        #endregion
+
+        #region Open Formularios
+
+        private void BtnDetails_Click(object sender, EventArgs e)
         {
-            return Grid;
+            if (Grid.CurCell != null)
+            {
+                DataRow current = (DataRow)Grid.CurRow.Tag;
+                FDetails f = new FDetails(rFachada, current);
+                rFachada.OPenDetailForm(f, this);
+            }
         }
 
         private void BtnAttach_Click(object sender, EventArgs e)
@@ -468,111 +554,6 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-
-        public void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e)
-        {
-            System.Windows.Forms.Cursor.Current = Cursors.Default;
-        }
-
-        private void Grid_CellDoubleClick(object sender, iGCellDoubleClickEventArgs e)
-        {
-            if (Grid.CurCell != null && Grid.CurCell.ColIndex > -1 && Grid.Cols[e.ColIndex].Key != "delete")
-            {
-                var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-                if (current != null)
-                {
-                    var resultado = rFachada.GridDobleClick(Current);
-                    if (resultado == "OK")
-                    {
-                        LlenarGrid();
-                        CargarDashboard();
-                        ClearControles();
-                        SetControles();
-                    }
-                    else
-                    {
-                        e.DoDefault = false;
-                        Msg(resultado, FPrincipal.MsgProceso.Warning);
-                    }
-
-                }
-            }
-        }
-
-        public void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e)
-        {
-            if (e.ColIndex > 0)
-            {
-                if (e.Button == MouseButtons.Right)
-                {
-                    Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-                    rFachada.CargarContextMenuStrip(CtxMenu, Current);
-                    CtxMenu.Show(Grid, e.MousePos);
-
-                }
-            }
-
-        }
-
-        public void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e)
-        {
-            if (e.ColIndex > 0)
-            {
-                Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-                if (e.Button == MouseButtons.Right)
-                {
-                    Grid.SetCurCell(e.RowIndex, e.ColIndex);
-                    e.DoDefault = false;
-                }
-
-
-            }
-        }
-
-        private void Grid_AfterAutoGroupRowCreated(object sender, iGAfterAutoGroupRowCreatedEventArgs e)
-        {
-            iGCell myGroupRowCell = Grid.RowTextCol.Cells[e.AutoGroupRowIndex];
-            iGCell myFirstCellInGroup = Grid.Cells[e.GroupedRowIndex, e.GroupedColIndex];
-
-            if (Grid.Cols[e.GroupedColIndex].Key == "TypeDocumentHeader")
-            {
-                if (myFirstCellInGroup.Value.ToString() == "PO")
-                {
-                    myGroupRowCell.Value = "Purchase  Orders";
-
-                }
-                else if (myFirstCellInGroup.Value.ToString() == "PR")
-                {
-                    myGroupRowCell.Value = "Purchase  Requisitions";
-                }
-            }
-
-        }
-
-        private void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            var resultado = rFachada.SeleccionarContextMenuStrip(Current, e.ClickedItem.Name);
-            if (resultado == "OK")
-            {
-                LlenarGrid();
-                CargarDashboard();
-                ClearControles();
-                SetControles();
-            }
-            else
-            {
-                Msg(resultado, FPrincipal.MsgProceso.Warning);
-            }
-
-        }
-
-        private void FPrincipal_Shown(object sender, EventArgs e)
-        {
-            LabelPanel.Text = "Purchase Manager V1.0";
-            LabelPanel.TextAlign = ContentAlignment.MiddleLeft;
-            LabelPanel.Visible = true;
-        }
-
         private void BtnHitos_Click(object sender, EventArgs e)
         {
             if (Grid.CurCell != null)
@@ -596,8 +577,8 @@ namespace PurchaseDesktop.Formularios
             if (Grid.CurCell != null)
             {
                 DataRow current = (DataRow)Grid.CurRow.Tag;
-                FHitos f = new FHitos(rFachada, current);
-                var resultado = rFachada.OpenHitosForm(f, this);
+                FNotes f = new FNotes(rFachada, current);
+                var resultado = rFachada.OpenNotesForm(f, this);
                 if (resultado == "OK")
                 {
 
@@ -608,5 +589,66 @@ namespace PurchaseDesktop.Formularios
                 }
             }
         }
+
+        private void BtnConfig_Click(object sender, EventArgs e)
+        {
+            var f = new FConfig(rFachada.CurrentUser())
+            {
+                ShowInTaskbar = false,
+                StartPosition = FormStartPosition.CenterParent
+            };
+            f.ShowDialog(this);
+        }
+
+        #endregion
+
+        #region Menú Contextual
+
+        public void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e)
+        {
+            if (e.ColIndex > 0)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                    CtxMenu.Items.Clear();
+                    rFachada.CargarContextMenuStrip(CtxMenu, Current);
+                    CtxMenu.Show(Grid, e.MousePos);
+
+                }
+            }
+        }
+        public void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e)
+        {
+            if (e.ColIndex > 0)
+            {
+                Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                if (e.Button == MouseButtons.Right)
+                {
+                    Grid.SetCurCell(e.RowIndex, e.ColIndex);
+                    e.DoDefault = false;
+                }
+            }
+        }
+        private void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var resultado = rFachada.SeleccionarContextMenuStrip(Current, e.ClickedItem.Name);
+            if (resultado == "OK")
+            {
+                LlenarGrid();
+                CargarDashboard();
+                ClearControles();
+                SetControles();
+            }
+            else
+            {
+                Msg(resultado, FPrincipal.MsgProceso.Warning);
+            }
+
+        }
+
+
+        #endregion
+
     }
 }

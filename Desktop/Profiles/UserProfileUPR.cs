@@ -28,6 +28,52 @@ namespace PurchaseDesktop.Profiles
                 List<vRequisitionByMinTransaction> l = rContext.vRequisitionByMinTransaction
               .Where(c => c.UserID == CurrentUser.UserID)
               .OrderByDescending(c => c.DateLast).ToList();
+
+                var poList = new List<vOrderByMinTransaction>();
+                foreach (var item in l)
+                {
+                    if (item.StatusID == 3)
+                    {
+                        var po = rContext.vOrderByMinTransaction.Where(c => c.RequisitionHeaderID == item.HeaderID).Single();
+                        poList.Add(po);
+                    }
+                }
+
+                foreach (var item in poList)
+                {
+                    var pr = new vRequisitionByMinTransaction
+                    {
+                        StatusID = item.StatusID,
+                        Code = item.Code,
+                        UserID = item.UserID,
+                        DateLast = item.DateLast,
+                        CompanyCode = item.CompanyCode,
+                        CompanyID = item.CompanyID,
+                        CompanyName = item.CompanyName,
+                        CostID = item.CostID,
+                        Description = item.Description,
+                        DetailsCount = item.DetailsCount,
+                        Event = item.Event,
+                        HeaderID = item.HeaderID,
+                        NameBiz = item.NameBiz,
+                        Status = item.Status,
+                        Type = (byte)item.Type,
+                        TypeDocumentHeader = item.TypeDocumentHeader
+                    };
+
+                    l.Add(pr);
+
+                }
+
+
+                l.RemoveAll(c => c.StatusID == 3);
+
+
+
+
+
+
+
                 return this.ToDataTable<vRequisitionByMinTransaction>(l);
             }
         }
@@ -276,7 +322,7 @@ namespace PurchaseDesktop.Profiles
             switch (headerTD)
             {
                 case TypeDocumentHeader.PR:
-                    transaction.Event = Eventos.UPDATE_PR.ToString();
+                    transaction.Event = Eventos.UPDATE_DETAIL.ToString();
                     using (var rContext = new PurchaseManagerEntities())
                     {
                         using (DbContextTransaction trans = rContext.Database.BeginTransaction())
@@ -373,6 +419,26 @@ namespace PurchaseDesktop.Profiles
         }
 
         public int DeleteHito(int headerID, int hitoID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable VistaFNotes(TypeDocumentHeader headerTD, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertNote(OrderNotes item, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateNote(OrderNotes item, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteNote(int headerID, int noteID)
         {
             throw new NotImplementedException();
         }

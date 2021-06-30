@@ -3,22 +3,21 @@ using System.Linq;
 
 namespace PurchaseData.DataModel
 {
-    public partial class OrderHitos
+    public partial class OrderNotes
     {
-        public OrderHitos GetByID(int hitoID)
+        public OrderNotes GetByID(int noteID)
         {
             using (var contextDB = new PurchaseManagerEntities())
             {
-                return contextDB.OrderHitos.Where(c => c.HitoID == hitoID).Single();
+                return contextDB.OrderNotes.Where(c => c.OrderNoteID == noteID).Single();
             }
         }
 
-        public List<OrderHitos> GetListByID(int HeaderID)
+        public List<OrderNotes> GetListByID(int HeaderID)
         {
-
             using (var contextDB = new PurchaseManagerEntities())
             {
-                return contextDB.OrderHitos.Where(c => c.OrderHeaderID == HeaderID).ToList();
+                return contextDB.OrderNotes.Where(c => c.OrderHeaderID == HeaderID).ToList();
             }
         }
     }

@@ -15,6 +15,14 @@ namespace PurchaseData.DataModel
             }
         }
 
+        public List<Users> GetListByPerfil(string p)
+        {
+            using (var contextDB = new PurchaseManagerEntities())
+            {
+                return contextDB.Users.Where(c => c.ProfileID == p).ToList();
+            }
+        }
+
 
     }
 }

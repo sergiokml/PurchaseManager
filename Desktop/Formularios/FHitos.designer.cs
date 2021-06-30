@@ -30,10 +30,10 @@ namespace PurchaseDesktop.Formularios
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FHitos));
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties9 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties10 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties11 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties12 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties5 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties6 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties7 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties8 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             this.PanelHeader = new System.Windows.Forms.Panel();
             this.LabelPanel = new System.Windows.Forms.Label();
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
@@ -42,9 +42,6 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail = new Bunifu.UI.WinForms.BunifuImageButton();
             this.bunifuSeparator2 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.Grid = new TenTec.Windows.iGridLib.iGrid();
-            this.iGrid1DefaultCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
-            this.iGrid1DefaultColHdrStyle = new TenTec.Windows.iGridLib.iGColHdrStyle(true);
-            this.iGrid1RowTextColCellStyle = new TenTec.Windows.iGridLib.iGCellStyle(true);
             this.CboDays = new System.Windows.Forms.ComboBox();
             this.TxtDescription = new Bunifu.UI.WinForms.BunifuTextBox();
             this.LblMensaje = new System.Windows.Forms.Label();
@@ -203,7 +200,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail.WaitOnLoad = false;
             this.BtnNewDetail.Zoom = 20;
             this.BtnNewDetail.ZoomSpeed = 10;
-            this.BtnNewDetail.Click += new System.EventHandler(this.BtnNewDetail_Click);
+            this.BtnNewDetail.Click += new System.EventHandler(this.BtnNewHito_Click);
             // 
             // bunifuSeparator2
             // 
@@ -223,8 +220,6 @@ namespace PurchaseDesktop.Formularios
             // 
             // Grid
             // 
-            this.Grid.DefaultCol.CellStyle = this.iGrid1DefaultCellStyle;
-            this.Grid.DefaultCol.ColHdrStyle = this.iGrid1DefaultColHdrStyle;
             this.Grid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Grid.Header.Height = 16;
             this.Grid.Location = new System.Drawing.Point(0, 122);
@@ -273,31 +268,31 @@ namespace PurchaseDesktop.Formularios
             this.TxtDescription.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtDescription.Lines = new string[0];
             this.TxtDescription.Location = new System.Drawing.Point(12, 43);
-            this.TxtDescription.MaxLength = 32767;
+            this.TxtDescription.MaxLength = 20;
             this.TxtDescription.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtDescription.Modified = false;
             this.TxtDescription.Multiline = false;
             this.TxtDescription.Name = "TxtDescription";
-            stateProperties9.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties9.FillColor = System.Drawing.Color.Empty;
-            stateProperties9.ForeColor = System.Drawing.Color.Empty;
-            stateProperties9.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtDescription.OnActiveState = stateProperties9;
-            stateProperties10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            stateProperties10.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            stateProperties10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            stateProperties10.PlaceholderForeColor = System.Drawing.Color.DarkGray;
-            this.TxtDescription.OnDisabledState = stateProperties10;
-            stateProperties11.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties11.FillColor = System.Drawing.Color.Empty;
-            stateProperties11.ForeColor = System.Drawing.Color.Empty;
-            stateProperties11.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtDescription.OnHoverState = stateProperties11;
-            stateProperties12.BorderColor = System.Drawing.Color.Silver;
-            stateProperties12.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            stateProperties12.ForeColor = System.Drawing.Color.Empty;
-            stateProperties12.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtDescription.OnIdleState = stateProperties12;
+            stateProperties5.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties5.FillColor = System.Drawing.Color.Empty;
+            stateProperties5.ForeColor = System.Drawing.Color.Empty;
+            stateProperties5.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtDescription.OnActiveState = stateProperties5;
+            stateProperties6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            stateProperties6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            stateProperties6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            stateProperties6.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.TxtDescription.OnDisabledState = stateProperties6;
+            stateProperties7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties7.FillColor = System.Drawing.Color.Empty;
+            stateProperties7.ForeColor = System.Drawing.Color.Empty;
+            stateProperties7.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtDescription.OnHoverState = stateProperties7;
+            stateProperties8.BorderColor = System.Drawing.Color.Silver;
+            stateProperties8.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            stateProperties8.ForeColor = System.Drawing.Color.Empty;
+            stateProperties8.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtDescription.OnIdleState = stateProperties8;
             this.TxtDescription.Padding = new System.Windows.Forms.Padding(3);
             this.TxtDescription.PasswordChar = '\0';
             this.TxtDescription.PlaceholderForeColor = System.Drawing.Color.Silver;
@@ -375,9 +370,6 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.Label LabelPanel;
         private Bunifu.UI.WinForms.BunifuSeparator bunifuSeparator2;
         private TenTec.Windows.iGridLib.iGrid Grid;
-        private TenTec.Windows.iGridLib.iGCellStyle iGrid1DefaultCellStyle;
-        private TenTec.Windows.iGridLib.iGColHdrStyle iGrid1DefaultColHdrStyle;
-        private TenTec.Windows.iGridLib.iGCellStyle iGrid1RowTextColCellStyle;
         private System.Windows.Forms.ComboBox CboDays;
         private Bunifu.UI.WinForms.BunifuTextBox TxtDescription;
         private System.Windows.Forms.Label LblMensaje;

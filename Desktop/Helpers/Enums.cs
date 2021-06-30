@@ -16,18 +16,22 @@
             //! No mantención de tablas.
             CREATE_PR,
             UPDATE_PR,
-            DELETE_DETAIL,
+            DELETE_PR,
+            CREATE_PO,
+            UPDATE_PO,
+            DELETE_PO,
             INSERT_DETAIL,
+            DELETE_DETAIL,
+            UPDATE_DETAIL,
             INSERT_ATTACH,
             DELETE_ATTACH,
-            UPDATE_PO,
-            CREATE_PO,
-            DELETE_PR,
-            DELETE_PO,
             UPDATE_ATTACH,
             INSERT_HITO,
             DELETE_HITO,
-            UPDATE_HITO
+            UPDATE_HITO,
+            INSERT_NOTE,
+            DELETE_NOTE,
+            UPDATE_NOTE
         }
 
         public enum TypeDocumentHeader

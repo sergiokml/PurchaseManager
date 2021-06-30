@@ -1,5 +1,8 @@
 ﻿
+using System;
 using System.Data;
+using System.Data.Entity;
+using System.Linq;
 
 using PurchaseData.DataModel;
 
@@ -21,7 +24,9 @@ namespace PurchaseDesktop.Profiles
 
         public DataTable VistaFPrincipal()
         {
-            throw new System.NotImplementedException();
+            //todo INCLUIR LAS PO QUE YO VALIDÉ !!!!
+            var l = rContext.vOrderByMinTransaction.Where(c => c.StatusID == 2).OrderByDescending(c => c.DateLast).ToList();
+            return this.ToDataTable<vOrderByMinTransaction>(l);
         }
 
         public DataRow GetDataRow(TypeDocumentHeader headerTD, int headerID)
@@ -71,7 +76,25 @@ namespace PurchaseDesktop.Profiles
 
         public void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item, int headerID)
         {
-            throw new System.NotImplementedException();
+            Transactions transaction = new Transactions
+            {
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+              .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+
+            transaction.Event = Eventos.UPDATE_PO.ToString();
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                {
+                    OrderHeader doc = rContext.OrderHeader.Find(headerID);
+                    rContext.Entry(doc).CurrentValues.SetValues(item);
+                    doc.Transactions.Add(transaction);
+                    rContext.SaveChanges();
+                    trans.Commit();
+                }
+            }
         }
 
         public void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, int headerID, int detailID)
@@ -120,6 +143,26 @@ namespace PurchaseDesktop.Profiles
         }
 
         public int DeleteHito(int headerID, int hitoID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public DataTable VistaFNotes(TypeDocumentHeader headerTD, int headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void InsertNote(OrderNotes item, int headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UpdateNote(OrderNotes item, int headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int DeleteNote(int headerID, int noteID)
         {
             throw new System.NotImplementedException();
         }

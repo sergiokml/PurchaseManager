@@ -30,33 +30,29 @@ namespace Desktop
                 UserProfileUPO perfilPo = new UserProfileUPO(new PurchaseManagerEntities());
                 UserProfileUPR perfilPr = new UserProfileUPR(new PurchaseManagerEntities());
                 UserProfileVAL perfilVal = new UserProfileVAL(new PurchaseManagerEntities());
-
                 Users user;
-
                 using (var contextDB = new PurchaseManagerEntities())
                 {
-                    //var P = "18018850";
-                    //var P = "14720891";
+                    //var P = "14720891"; // PR Jhoana
 
+                    var P = "24886938"; // PO (TODAS LAS PR)
+                    //var P = "15960233"; // VAL DEV 
 
-                    var P = "13779971";
-                    //var P = "15325038";
-
+                    //var P = "16003040"; // FCA "VALIDADOR TODOS" 
 
                     user = contextDB.Users.Find(P);
-                    contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
-                    //CargarUPR(20);
+                    //contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
+                    //CargarUPR(10);
                     //CargaUPO(4, "13779971"); // Booorador PO (Po user)
                 }
 
-                //FLogin loginForm = new FLogin();
+                FLogin loginForm = new FLogin();
                 //Application.Run(loginForm);
                 PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, user);
                 FPrincipal f = new FPrincipal(facade);
                 //if (loginForm.UserSuccessfullyAuthenticated)
                 //{
                 Application.Run(f);
-
                 //}
             }
         }
@@ -69,6 +65,7 @@ namespace Desktop
             using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
             {
                 users = rContext.Users.Where(c => c.ProfileID == "UPR").ToList();
+                users.OrderBy(c => c.UserID).ToList();
                 companies = rContext.Companies.ToList();
                 acc = rContext.Accounts.ToList();
                 foreach (Users user in users)
@@ -80,7 +77,7 @@ namespace Desktop
                         {
                             Description = $"Purchase Requisition N°{i + 1}",
                             Type = (byte)n,
-                            StatusID = 1, // 1: Borrrador PR                        
+                            StatusID = 2, // 1: Borrrador PR                        
                             CompanyID = companies[new Random().Next(companies.Count())].CompanyID,
                         };
                         for (int y = 0; y < 2; y++)
@@ -90,7 +87,8 @@ namespace Desktop
                                 AccountID = acc[new Random().Next(acc.Count())].AccountID,
                                 Qty = new Random(y).Next(10),
                                 NameProduct = "Producto Foo",
-                                DescriptionProduct = "Description Bar Lorem ipsum dolor sit amet"
+                                DescriptionProduct = "Description Bar Lorem ipsum dolor sit amet",
+                                MedidaID = "UN"
                             };
                             // Thread.Sleep(500);
                             pr.RequisitionDetails.Add(detail);
@@ -102,15 +100,14 @@ namespace Desktop
                             Event = "CREATE_PR",
                             DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single(),
                             UserID = user.UserID
-                            //StatuID = 1
                         };
                         pr.Transactions.Add(tran);
-                        Attaches att = new Attaches
-                        {
-                            Description = $"Archivo_autocad_2018_A{new Random(i).Next(100)}",
-                            FileName = @"Licencia_registro_animal_137182_1616120103375.pdf"
-                        };
-                        pr.Attaches.Add(att);
+                        //Attaches att = new Attaches
+                        //{
+                        //    Description = $"Archivo_autocad_2018_A{new Random(i).Next(100)}",
+                        //    FileName = @"Licencia_registro_animal_137182_1616120103375.pdf"
+                        //};
+                        //pr.Attaches.Add(att);
                         rContext.RequisitionHeader.Add(pr);
                         rContext.SaveChanges();
                         // Thread.Sleep(500);

@@ -164,6 +164,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formularios\FConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FConfig.Designer.cs">
+      <DependentUpon>FConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FEmail.Designer.cs">
+      <DependentUpon>FEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FNotes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FNotes.designer.cs">
+      <DependentUpon>FNotes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\FHitos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,6 +234,15 @@
     <Compile Include="Profiles\UserProfileVAL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formularios\FConfig.resx">
+      <DependentUpon>FConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FEmail.resx">
+      <DependentUpon>FEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FNotes.resx">
+      <DependentUpon>FNotes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FHitos.resx">
       <DependentUpon>FHitos.cs</DependentUpon>
     </EmbeddedResource>

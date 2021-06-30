@@ -116,6 +116,7 @@
     <Compile Include="DataModel\DACurrencies.cs" />
     <Compile Include="DataModel\DAOrderHitos.cs" />
     <Compile Include="DataModel\DAMedidas.cs" />
+    <Compile Include="DataModel\DAOrderNotes.cs" />
     <Compile Include="DataModel\DAPurchaseManagerContext.cs" />
     <Compile Include="DataModel\DAAccounts.cs" />
     <Compile Include="DataModel\DAOrderDetails.cs" />

@@ -30,5 +30,6 @@ namespace PurchaseData.DataModel
         public string Status { get; set; }
         public string TypeDocumentHeader { get; set; }
         public Nullable<int> DetailsCount { get; set; }
+        public string UserPO { get; set; }
     }
 }

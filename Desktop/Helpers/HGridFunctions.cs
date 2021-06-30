@@ -33,13 +33,12 @@ namespace PurchaseDesktop.Helpers
             lista.Images.Add(Properties.Resources.icons8_us_dollar);                 //5 currency icon
             lista.Images.Add(Properties.Resources.icons8_doc);                      //6 word
             lista.Images.Add(Properties.Resources.icons8_xls);                       //7 Excel
-            //lista.Images.Add(Properties.Resources.icons8_ball_point_pen); //
             return lista;
         }
 
-        public void LLenarMenuContext(DataRow headerDR)
+        public void LLenarMenuContext(DataRow headerDR, int status)
         {
-            CtxMenu.Items.Clear();
+
             CtxMenu.BackColor = Color.FromArgb(37, 37, 38);
             CtxMenu.ForeColor = Color.White;
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
@@ -48,13 +47,18 @@ namespace PurchaseDesktop.Helpers
             switch (td)
             {
                 case TypeDocumentHeader.PR:
-                    item = CtxMenu.Items.Add("Convert To PO");  // index 1
-                    item.Font = new Font("Tahoma", 8, FontStyle.Regular);
-                    item.Image = Properties.Resources.icons8_change.ToBitmap();
-                    item.BackColor = Color.FromArgb(37, 37, 38);
-                    item.Name = "CONVERTREQ";
+                    if (status == 2)
+                    {
+                        item = CtxMenu.Items.Add("Convert To PO");  // index 1
+                        item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                        item.Image = Properties.Resources.icons8_change.ToBitmap();
+                        item.BackColor = Color.FromArgb(37, 37, 38);
+                        item.Name = "CONVERTREQ";
+                    }
+
                     break;
                 case TypeDocumentHeader.PO:
+
                     if (headerDR["RequisitionHeaderID"] != DBNull.Value)
                     {
                         item = CtxMenu.Items.Add($"Open Requisition {headerDR["RequisitionHeaderID"]}");
@@ -62,11 +66,15 @@ namespace PurchaseDesktop.Helpers
                         item.Image = Properties.Resources.icons8_html_filetype.ToBitmap();
                         item.Name = "OPENREQ";
                     }
-                    item = CtxMenu.Items.Add("Send To Supplier"); // index 0
-                    item.Font = new Font("Tahoma", 8, FontStyle.Regular);
-                    item.Image = Properties.Resources.icons8_envelope.ToBitmap();
-                    item.BackColor = Color.FromArgb(37, 37, 38);
-                    item.Name = "SEND";
+                    if (status == 3)
+                    {
+                        item = CtxMenu.Items.Add("Send To Supplier"); // index 0
+                        item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                        item.Image = Properties.Resources.icons8_envelope.ToBitmap();
+                        item.BackColor = Color.FromArgb(37, 37, 38);
+                        item.Name = "SEND";
+                    }
+
 
                     break;
                 default:
@@ -248,8 +256,34 @@ namespace PurchaseDesktop.Helpers
                                 //    Grid.Rows[i].CellStyle.BackColor = Color.FromArgb(130, 136, 20);
                                 //}
                             }
+
+                            //Grid.Cols["TypeDocumentHeader"].SortType = iGSortType.ByText;
+                            //Grid.Cols["TypeDocumentHeader"].SortOrder = iGSortOrder.Descending;
+                            // Grid.Sort();
                             break;
                         case Perfiles.VAL:
+                            for (int i = 0; i < Grid.Rows.Count; i++)
+                            {
+                                DataRow row = (DataRow)Grid.Rows[i].Tag;
+                                Grid.Rows[i].Cells["DateLast"].Value = Convert.ToDateTime(row["DateLast"]).ToString("dd-MM-yyyy");
+
+                                decimal total = Convert.ToDecimal(row["Total"]);
+                                if (total > 0)
+                                {
+                                    Grid.Rows[i].Cells["Total"].Value = total.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"));
+                                }
+                                else
+                                {
+                                    Grid.Rows[i].Cells["Total"].Value = "";
+                                }
+                                var res = Convert.ToByte(row["StatusID"]);
+                                if (res == 1)
+                                {
+                                    Grid.Rows[i].Cells["Status"].ImageIndex = 4;
+                                    Grid.Rows[i].Cells["Status"].ImageAlign = iGContentAlignment.BottomRight;
+                                }
+
+                            }
                             break;
                         default:
                             break;
@@ -297,6 +331,13 @@ namespace PurchaseDesktop.Helpers
 
                     //}
                     break;
+                case "FNotes":
+                    for (int i = 0; i < Grid.Rows.Count; i++)
+                    {
+                        Grid.Rows[i].Height = 40;
+
+                    }
+                    break;
 
                 default:
                     break;
@@ -334,9 +375,8 @@ namespace PurchaseDesktop.Helpers
                 tablePr.Rows.Add(row);
             }
             cbocurrency.FillWithData(tablePr, "id", "id");
-
-
-
+            //Grid.DefaultCol.Width = 10;
+            //Grid.Cols.Add().CellStyle.CustomDrawFlags = iGCustomDrawFlags.Foreground;
             switch (perfil)
             {
                 case Perfiles.ADM:
@@ -355,6 +395,8 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("Code", "Code", 53);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("Description", "Description", 196);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol.CellStyle.MaxInputLength = 100;
                     iGCol = Grid.Cols.Add("view", "", 22);
                     iGCol.AllowGrouping = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
@@ -365,7 +407,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol.Visible = false;
                     iGCol = Grid.Cols.Add("CompanyName", "Company Name", 175);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("Type", "Type", 93);
+                    iGCol = Grid.Cols.Add("Type", "Type", 97);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("Status", "Status", 111);
@@ -401,7 +443,19 @@ namespace PurchaseDesktop.Helpers
                     break;
                 case Perfiles.UPR:
                     #region Cols
-
+                    iGDropDownList cbouserPo = new iGDropDownList();
+                    tablePr = new DataTable();
+                    tablePr.Columns.Add("Id");
+                    tablePr.Columns.Add("Name");
+                    foreach (var myType in new Users().GetListByPerfil("UPO"))
+                    {
+                        DataRow row = tablePr.NewRow();
+                        row[0] = myType.UserID;
+                        row[1] = $"{myType.FirstName + " " + myType.LastName}";
+                        tablePr.Rows.Add(row);
+                    }
+                    cbouserPo.FillWithData(tablePr, "id", "Name");
+                    ;
                     //! Cols
                     Grid.GroupBox.Visible = true;
                     Grid.Header.Height = 20;
@@ -410,6 +464,8 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("Code", "Code", 53);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("Description", "Description", 196);
+                    iGCol.CellStyle.MaxInputLength = 100;
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("view", "", 22);
                     iGCol.AllowGrouping = false;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
@@ -420,13 +476,20 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("CompanyName", "Company Name", 175);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("Type", "Type", 93);
+                    iGCol = Grid.Cols.Add("Type", "Type", 97);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol = Grid.Cols.Add("Status", "Status", 111);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
-                    iGCol = Grid.Cols.Add("UserID", "User ID", 58);
-                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+                    //! Los usuarios PO para seleccionar
+                    iGCol = Grid.Cols.Add("UserPO", "User PO", 135);
+                    iGCol.CellStyle.DropDownControl = cbouserPo;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+
+
+
+
                     iGCol = Grid.Cols.Add("CostID", "CC", 32);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("DateLast", "Creation", 66);
@@ -440,6 +503,59 @@ namespace PurchaseDesktop.Helpers
 
                     break;
                 case Perfiles.VAL:
+                    #region Cols
+
+                    //! Cols
+                    Grid.GroupBox.Visible = true;
+                    Grid.Header.Height = 20;
+                    iGCol = Grid.Cols.Add("HeaderID", "ID", 39);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("Code", "Code", 53);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("Description", "Description", 196);
+                    iGCol.CellStyle.MaxInputLength = 100;
+                    iGCol = Grid.Cols.Add("view", "", 22);
+                    iGCol.AllowGrouping = false;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+                    iGCol = Grid.Cols.Add("send", "", 22);
+                    iGCol.AllowGrouping = false;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+                    iGCol = Grid.Cols.Add("CompanyID", "Company", 58);
+                    iGCol.Visible = false;
+                    iGCol = Grid.Cols.Add("CompanyName", "Company Name", 175);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("Type", "Type", 97);
+                    iGCol.CellStyle.DropDownControl = cbotype;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+                    iGCol = Grid.Cols.Add("Status", "Status", 111);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+
+                    iGCol = Grid.Cols.Add("CurrencyID", "", 50);
+                    iGCol.CellStyle.DropDownControl = cbocurrency;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+                    iGCol.ColHdrStyle.ImageList = ListaImagenes();
+                    iGCol.ImageIndex = 5;
+                    iGCol.ColHdrStyle.ImageAlign = iGContentAlignment.BottomCenter;
+
+                    iGCol = Grid.Cols.Add("Total", "Total", 74);
+                    iGCol.CellStyle.TextAlign = iGContentAlignment.MiddleRight;
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol.CellStyle.Font = new Font("Tahoma", 7);
+
+                    iGCol = Grid.Cols.Add("UserID", "User ID", 58);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("CostID", "CC", 32);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("DateLast", "Creation", 66);
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    iGCol = Grid.Cols.Add("TypeDocumentHeader", "TD", 22);
+                    iGCol = Grid.Cols.Add("delete", "", 22);
+                    iGCol.AllowGrouping = false;
+                    iGCol.IncludeInSelect = false;
+                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+                    #endregion
                     break;
                 default:
                     break;
@@ -537,10 +653,10 @@ namespace PurchaseDesktop.Helpers
             iGCol.CellStyle.ReadOnly = iGBool.True;
             iGCol = Grid.Cols.Add("AttachID", "");
             iGCol.Visible = false;
-            iGCol = Grid.Cols.Add("Extension", "");
-            iGCol.Visible = false;
-            iGCol = Grid.Cols.Add("Description", "Description", 253);
-
+            iGCol = Grid.Cols.Add("Description", "Description", 219);
+            iGCol.CellStyle.MaxInputLength = 20;
+            iGCol = Grid.Cols.Add("Extension", "Ext", 35);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
 
             iGCol = Grid.Cols.Add("Modifier", "Modifier", 60);
             iGCol.CellStyle.DropDownControl = cbotype;
@@ -613,7 +729,54 @@ namespace PurchaseDesktop.Helpers
             {
                 //item.AllowSizing = false;
             }
+        }
 
+        public void CargarColumnasFNotes(Perfiles perfil)
+        {
+            iGCol iGCol;
+            iGDropDownList cbotype = new iGDropDownList();
+            DataTable tablePr;
+            //! Order Type  
+            tablePr = new DataTable();
+            tablePr.Columns.Add("Id");
+            tablePr.Columns.Add("Name");
+            foreach (TypeAttach myType in Enum.GetValues(typeof(TypeAttach)))
+            {
+                DataRow row = tablePr.NewRow();
+                row[0] = (int)myType;
+                row[1] = myType.ToString();
+                tablePr.Rows.Add(row);
+            }
+            cbotype.FillWithData(tablePr, "id", "Name");
+
+            //! Cols     
+            Grid.Header.Height = 20;
+            iGCol = Grid.Cols.Add("nro", "N°", 21);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("OrderNoteID", "");
+            iGCol.Visible = false;
+
+            iGCol = Grid.Cols.Add("Title", "Title", 51);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+            iGCol = Grid.Cols.Add("Description", "Description", 225);
+
+            iGCol = Grid.Cols.Add("Modifier", "Modifier", 60);
+            iGCol.CellStyle.DropDownControl = cbotype;
+            iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+
+
+            iGCol = Grid.Cols.Add("delete", "", 22);
+            iGCol.IncludeInSelect = false;
+            iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+            //! Header
+            foreach (iGColHdr item in Grid.Header.Cells)
+            {
+                item.TextAlign = iGContentAlignment.MiddleCenter;
+            }
+            foreach (iGCol item in Grid.Cols)
+            {
+                // item.AllowSizing = false;
+            }
         }
     }
 }

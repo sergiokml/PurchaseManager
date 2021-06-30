@@ -134,7 +134,6 @@ namespace PurchaseDesktop.Formularios
             this.TxtPathFile.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtPathFile.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtPathFile.DefaultText = "";
-            this.TxtPathFile.Enabled = false;
             this.TxtPathFile.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtPathFile.HideSelection = true;
             this.TxtPathFile.IconLeft = null;
@@ -144,7 +143,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPathFile.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtPathFile.Lines = new string[0];
             this.TxtPathFile.Location = new System.Drawing.Point(12, 86);
-            this.TxtPathFile.MaxLength = 32767;
+            this.TxtPathFile.MaxLength = 200;
             this.TxtPathFile.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtPathFile.Modified = false;
             this.TxtPathFile.Multiline = false;
@@ -173,7 +172,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPathFile.PasswordChar = '\0';
             this.TxtPathFile.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.TxtPathFile.PlaceholderText = "Click for search the file...";
-            this.TxtPathFile.ReadOnly = false;
+            this.TxtPathFile.ReadOnly = true;
             this.TxtPathFile.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.TxtPathFile.SelectedText = "";
             this.TxtPathFile.SelectionLength = 0;
@@ -189,6 +188,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPathFile.TextPlaceholder = "Click for search the file...";
             this.TxtPathFile.UseSystemPasswordChar = false;
             this.TxtPathFile.WordWrap = true;
+            this.TxtPathFile.TextChange += new System.EventHandler(this.TxtPathFile_TextChange);
             this.TxtPathFile.Click += new System.EventHandler(this.TxtPathFile_Click);
             // 
             // FDock
@@ -267,7 +267,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnNewDetail.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnNewDetail.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnNewDetail.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnNewDetail.InitialImage")));
-            this.BtnNewDetail.Location = new System.Drawing.Point(312, 25);
+            this.BtnNewDetail.Location = new System.Drawing.Point(289, 28);
             this.BtnNewDetail.Name = "BtnNewDetail";
             this.BtnNewDetail.Rotation = 0;
             this.BtnNewDetail.ShowActiveImage = true;
@@ -320,7 +320,7 @@ namespace PurchaseDesktop.Formularios
             this.CboTypeFile.FormattingEnabled = true;
             this.CboTypeFile.Location = new System.Drawing.Point(196, 42);
             this.CboTypeFile.Name = "CboTypeFile";
-            this.CboTypeFile.Size = new System.Drawing.Size(99, 24);
+            this.CboTypeFile.Size = new System.Drawing.Size(75, 24);
             this.CboTypeFile.TabIndex = 30;
             // 
             // TxtNameFile
@@ -351,7 +351,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtNameFile.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtNameFile.Lines = new string[0];
             this.TxtNameFile.Location = new System.Drawing.Point(12, 42);
-            this.TxtNameFile.MaxLength = 32767;
+            this.TxtNameFile.MaxLength = 20;
             this.TxtNameFile.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtNameFile.Modified = false;
             this.TxtNameFile.Multiline = false;

@@ -335,7 +335,7 @@ namespace PurchaseDesktop.Profiles
                     //}
                     break;
                 case TypeDocumentHeader.PO:
-                    transaction.Event = Eventos.UPDATE_PO.ToString();
+                    transaction.Event = Eventos.UPDATE_DETAIL.ToString();
                     using (var rContext = new PurchaseManagerEntities())
                     {
                         using (DbContextTransaction trans = rContext.Database.BeginTransaction())
@@ -475,6 +475,77 @@ namespace PurchaseDesktop.Profiles
                 OrderHeader po = rContext.OrderHeader.Find(headerID);
                 OrderHitos h = rContext.OrderHitos.Find(hitoID, headerID);
                 rContext.OrderHitos.Remove(h);
+                po.Transactions.Add(transaction);
+                res = rContext.SaveChanges();
+                trans.Commit();
+            }
+            return res; // 3 porque son 3 tablas
+        }
+
+        public DataTable VistaFNotes(TypeDocumentHeader headerTD, int headerID)
+        {
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                return this
+                .ToDataTable<OrderNotes>(rContext.OrderNotes
+                .Where(c => c.OrderHeaderID == headerID).ToList());
+            }
+        }
+
+        public void InsertNote(OrderNotes item, int headerID)
+        {
+            Transactions transaction = new Transactions
+            {
+                Event = Eventos.INSERT_NOTE.ToString(),
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            {
+                OrderHeader pr = rContext.OrderHeader.Find(headerID);
+                pr.Transactions.Add(transaction);
+                pr.OrderNotes.Add(item);
+                rContext.SaveChanges();
+                trans.Commit();
+            }
+        }
+
+        public void UpdateNote(OrderNotes item, int headerID)
+        {
+            Transactions transaction = new Transactions
+            {
+                Event = Eventos.UPDATE_NOTE.ToString(),
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+            .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            {
+                OrderHeader pr = rContext.OrderHeader.Find(headerID);
+                pr.Transactions.Add(transaction);
+                OrderNotes n = rContext.OrderNotes.Find(item.OrderNoteID, headerID);
+                rContext.Entry(n).CurrentValues.SetValues(item);
+                rContext.SaveChanges();
+                trans.Commit();
+            }
+        }
+
+        public int DeleteNote(int headerID, int noteID)
+        {
+            var res = 0;
+            Transactions transaction = new Transactions
+            {
+                Event = Eventos.DELETE_NOTE.ToString(),
+                UserID = CurrentUser.UserID,
+                DateTran = rContext.Database
+                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            };
+            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+            {
+                OrderHeader po = rContext.OrderHeader.Find(headerID);
+                OrderNotes n = rContext.OrderNotes.Find(noteID, headerID);
+                rContext.OrderNotes.Remove(n);
                 po.Transactions.Add(transaction);
                 res = rContext.SaveChanges();
                 trans.Commit();

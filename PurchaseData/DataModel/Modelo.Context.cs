@@ -68,5 +68,18 @@ namespace PurchaseData.DataModel
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufnGetReqGroupByCost_Result>("[PurchaseManagerEntities].[ufnGetReqGroupByCost](@StatusID)", statusIDParameter);
         }
+    
+        public virtual int UPDATE_PASSWORD_HASH(string password, string iD)
+        {
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var iDParameter = iD != null ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UPDATE_PASSWORD_HASH", passwordParameter, iDParameter);
+        }
     }
 }

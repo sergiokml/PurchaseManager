@@ -309,14 +309,21 @@ namespace PurchaseDesktop.Formularios
             throw new NotImplementedException();
         }
 
+
+        private void TxtPathFile_TextChange(object sender, EventArgs e)
+        {
+            TxtPathFile.Font = new Font("Tahoma", 7, FontStyle.Regular);
+            TxtPathFile.SelectionStart = 0;
+        }    
+
         private void TxtPathFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openF = new OpenFileDialog
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 Filter = "Pdf files (*.pdf)|*.pdf" +
-                         "|Word files (*.doc,*.docx)|*.doc;*.docx" +
-                         "|Excel files (*.xls,*.xlsx,*.xlsm)|*.xls;*.xlsx;*.xlsm"
+                        "|Word files (*.doc,*.docx)|*.doc;*.docx" +
+                        "|Excel files (*.xls,*.xlsx,*.xlsm)|*.xls;*.xlsx;*.xlsm"
 
             };
             if (openF.ShowDialog() == DialogResult.OK)

@@ -71,7 +71,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtID.BorderThickness = 1;
             this.TxtID.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtID.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtID.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtID.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtID.DefaultText = "";
             this.TxtID.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtID.HideSelection = true;
@@ -117,7 +117,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtID.SelectionLength = 0;
             this.TxtID.SelectionStart = 0;
             this.TxtID.ShortcutsEnabled = true;
-            this.TxtID.Size = new System.Drawing.Size(143, 37);
+            this.TxtID.Size = new System.Drawing.Size(143, 36);
             this.TxtID.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtID.TabIndex = 1;
             this.TxtID.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -146,7 +146,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPassword.BorderThickness = 1;
             this.TxtPassword.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtPassword.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtPassword.DefaultFont = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.TxtPassword.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
             this.TxtPassword.DefaultText = "";
             this.TxtPassword.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtPassword.HideSelection = true;
@@ -192,7 +192,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPassword.SelectionLength = 0;
             this.TxtPassword.SelectionStart = 0;
             this.TxtPassword.ShortcutsEnabled = true;
-            this.TxtPassword.Size = new System.Drawing.Size(143, 37);
+            this.TxtPassword.Size = new System.Drawing.Size(143, 36);
             this.TxtPassword.Style = Bunifu.UI.WinForms.BunifuTextBox._Style.Material;
             this.TxtPassword.TabIndex = 2;
             this.TxtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;

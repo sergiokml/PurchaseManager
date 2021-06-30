@@ -220,7 +220,6 @@ namespace PurchaseDesktop.Formularios
 
         public void SetControles()
         {
-            Enum.TryParse(rFachada.CurrentUser().ProfileID, out Perfiles p);
             Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
 
             CboAccount.DataSource = new Accounts().GetList();
@@ -233,74 +232,69 @@ namespace PurchaseDesktop.Formularios
             CboMedidas.SelectedIndex = -1;
             CboMedidas.ValueMember = "MedidaID";
 
-            switch (p)
-            {
-                case Perfiles.ADM:
-                    break;
-                case Perfiles.BAS:
-                    break;
-                case Perfiles.UPO:
-                    switch (td)
-                    {
-                        case TypeDocumentHeader.PR:
-                            TxtPrice.Enabled = false;
+            TxtGlosa.Text = Current["Description"].ToString();
 
-                            break;
-                        case TypeDocumentHeader.PO:
-                            var po = new OrderHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
-                            decimal neto = Convert.ToDecimal(po.Net);
-                            decimal exent = Convert.ToDecimal(po.Exent);
-                            decimal tax = Convert.ToDecimal(po.Discount);
-                            decimal total = Convert.ToDecimal(po.Total);
-                            if (neto > 0)
-                            {
-                                TxtNet.Text = neto.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
-                            }
-                            else
-                            {
-                                TxtNet.Text = "$ 0";
-                            }
-                            if (exent > 0)
-                            {
-                                TxtExent.Text = exent.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
-                            }
-                            else
-                            {
-                                TxtExent.Text = "$ 0";
-                            }
-                            if (tax > 0)
-                            {
-                                TxtTax.Text = tax.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
-                            }
-                            else
-                            {
-                                TxtTax.Text = "$ 0";
-                            }
-                            if (total > 0)
-                            {
-                                TxtTotal.Text = total.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
-                            }
-                            else
-                            {
-                                TxtTotal.Text = "$ 0";
-                            }
-                            break;
-                        default:
-                            break;
+            switch (td)
+            {
+                case TypeDocumentHeader.PR:
+                    TxtPrice.Visible = false;
+                    TxtNet.Visible = false;
+                    TxtExent.Visible = false;
+                    TxtTotal.Visible = false;
+                    TxtTax.Visible = false;
+
+                    var pr = new RequisitionHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
+                    TxtGlosa.Text = pr.Description;
+                    int status = Convert.ToInt32(Current["StatusID"]);
+                    if (status >= 2)
+                    {
+                        BtnNewDetail.Enabled = false;
                     }
 
                     break;
-                case Perfiles.UPR:
-
-                    break;
-                case Perfiles.VAL:
+                case TypeDocumentHeader.PO:
+                    TxtPrice.Enabled = true;
+                    var po = new OrderHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
+                    decimal neto = Convert.ToDecimal(po.Net);
+                    decimal exent = Convert.ToDecimal(po.Exent);
+                    decimal tax = Convert.ToDecimal(po.Discount);
+                    decimal total = Convert.ToDecimal(po.Total);
+                    if (neto > 0)
+                    {
+                        TxtNet.Text = neto.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        TxtNet.Text = "$ 0";
+                    }
+                    if (exent > 0)
+                    {
+                        TxtExent.Text = exent.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        TxtExent.Text = "$ 0";
+                    }
+                    if (tax > 0)
+                    {
+                        TxtTax.Text = tax.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        TxtTax.Text = "$ 0";
+                    }
+                    if (total > 0)
+                    {
+                        TxtTotal.Text = total.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));
+                    }
+                    else
+                    {
+                        TxtTotal.Text = "$ 0";
+                    }
                     break;
                 default:
                     break;
             }
-
-
-
         }
 
         public void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
@@ -452,6 +446,23 @@ namespace PurchaseDesktop.Formularios
             if (Grid.Cols[e.ColIndex].Key == "NameProduct")
             {
                 e.Text = Grid.Rows[e.RowIndex].Cells["DescriptionProduct"].Value.ToString();
+            }
+        }
+
+        private void TxtGlosa_Leave(object sender, EventArgs e)
+        {
+            var resultado = rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+            if (resultado == "OK")
+            {
+                LlenarGrid();
+                SetControles();
+                ((FPrincipal)Owner).LlenarGrid();
+                ((FPrincipal)Owner).SetControles();
+            }
+            else
+            {
+                ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                TxtGlosa.Text = Current["Description"].ToString();
             }
         }
     }
