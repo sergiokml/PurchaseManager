@@ -57,13 +57,13 @@ namespace PurchaseDesktop.Helpers
             PieChart2.Data.Clear();
 
 
-            var prByDepartments1 = new ufnGetReqGroupByCost_Result().GetList(1);
-            var prByDepartments2 = new ufnGetReqGroupByCost_Result().GetList(2);
-            var prTodas = prByDepartments2.Sum(c => c.Nro);
+            var prByDepartments1 = new ufnGetReqGroupByCost_Result().GetList(1); // Borrador
+            var prByDepartments2 = new ufnGetReqGroupByCost_Result().GetList(2); // Activas
+            //var prTodas = prByDepartments2.Sum(c => c.Nro);
 
             foreach (var item in prByDepartments2)
             {
-                PieChart1.Data.Add(Convert.ToDouble((item.Nro * 100) / prTodas));
+                PieChart1.Data.Add(Convert.ToDouble((item.Nro * 100) / prByDepartments2.Sum(c => c.Nro)));
                 labels.Add(item.Description);
                 if (item.CostID == user.CostID)
                 {
@@ -74,11 +74,11 @@ namespace PurchaseDesktop.Helpers
             ChartCanvas1.Labels = labels.ToArray();
 
             var prByStatus = new ufnGetOrderGroupByStatus_Result().GetList();
-            var total2 = prByStatus.Sum(c => c.Nro);
+            //var total2 = prByStatus.Sum(c => c.Nro);
             labels.Clear();
             foreach (var item in prByStatus)
             {
-                PieChart2.Data.Add(Convert.ToDouble((item.Nro * 100) / total2));
+                PieChart2.Data.Add(Convert.ToDouble((item.Nro * 100) / prByStatus.Sum(c => c.Nro)));
                 labels.Add(item.Description);
             }
 
@@ -115,12 +115,12 @@ namespace PurchaseDesktop.Helpers
             //}
 
             //! Labels Pr
-            Label1.Text = $"All :     {prTodas + prByDepartments2.Count}"; // total
-            Label2.Text = $"Actives : {prTodas}"; // Mias
+            Label1.Text = $"All :     {prByDepartments1.Sum(c => c.Nro) + prByDepartments2.Sum(c => c.Nro)}"; // total
+            Label2.Text = $"Actives : {prByDepartments2.Sum(c => c.Nro)}"; // Mias
             Label3.Text = $"{ user.CostID} :    {prCC}";
 
             //! Labels Po
-            Label4.Text = $"All :     {total2}"; // total
+            Label4.Text = $"All :     {prByStatus.Sum(c => c.Nro)}"; // total
             Label5.Text = $"Actives : {prByStatus.Count(c => c.StatusID == 2)}"; // Mias
             Label6.Text = $"{ user.CostID} :    {0}";
         }

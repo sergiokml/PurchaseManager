@@ -19,17 +19,16 @@ namespace PurchaseData.Helpers
     public class HtmlManipulate
     {
         public HtmlDocument HtmlDoc { get; set; }
-        private ConfigApp dbConfig { get; set; }
+        private readonly ConfigApp configApp;
 
-        public HtmlManipulate(ConfigApp dbConfig)
+        public HtmlManipulate(ConfigApp configApp)
         {
-            this.dbConfig = dbConfig;
+            this.configApp = configApp;
             HtmlDoc = new HtmlDocument();
         }
 
         public Task<string> ConvertHtmlToPdf(string path, string id)
         {
-
             try
             {
                 return Task.Run(() =>
@@ -42,10 +41,8 @@ namespace PurchaseData.Helpers
                           //.Portrait()
                           //.Comressed()
                           .Content();
-
                       File.WriteAllBytes(Path.GetTempPath() + id + ".pdf", pdf);
                       return Path.GetTempPath() + id + ".pdf";
-
                   });
 
             }
@@ -58,6 +55,7 @@ namespace PurchaseData.Helpers
 
         public string ReemplazarDatos(DataRow headerDR, Users user, List<RequisitionDetails> details)
         {
+            //! PR
             string path = Environment.CurrentDirectory + @"\HtmlDocuments\RequisitionDoc.html";
             HtmlDoc.Load(path);
             string userName = $"{user.FirstName} {user.LastName}";
@@ -87,13 +85,10 @@ namespace PurchaseData.Helpers
             }
             else if (user.ProfileID == "UPR")
             {
-
                 HtmlDoc.GetElementbyId("vandor_name").InnerHtml = "The following Purchase Requisition has been created by you, " +
                            "the next step is to create the <b>Purchase Order</b> by the corresponding user so complete all the required fields. " +
                            "The reference code for this Purchase Requisition is: ";
             }
-
-
             HtmlDoc.GetElementbyId("code").InnerHtml = $"{headerDR["Code"]}";
             if (details.Count > 0)
             {
@@ -115,6 +110,7 @@ namespace PurchaseData.Helpers
 
         public string ReemplazarDatos(DataRow headerDR, Users user, List<OrderDetails> details)
         {
+            //! PO
             string path = Environment.CurrentDirectory + @"\HtmlDocuments\OrderDoc.html";
             HtmlDoc.Load(path);
             int line = 1;
@@ -125,13 +121,13 @@ namespace PurchaseData.Helpers
             //! Company
             HtmlDoc.GetElementbyId("NAMECOMPANY").InnerHtml = $"<strong>{headerDR["CompanyName"]}</strong>";
             HtmlDoc.GetElementbyId("CODE").InnerHtml = $"N° {headerDR["Code"]} | ({headerDR["Status"]})";
-            HtmlDoc.GetElementbyId("NAMEBIZ").InnerHtml = $"{headerDR["NameBiz"]} - {headerDR["CompanyCode"]}";
+            // HtmlDoc.GetElementbyId("NAMEBIZ").InnerHtml = $"{headerDR["NameBiz"]} - {headerDR["CompanyCode"]}";
             HtmlDoc.GetElementbyId("RUTCOMPANY").InnerHtml = $"{headerDR["CompanyID"]}-{new ValidadorRut().Digito(Convert.ToInt32(headerDR["CompanyID"]))}";
-            HtmlDoc.GetElementbyId("GiroCompany").InnerHtml = dbConfig.GiroCompany;
-            HtmlDoc.GetElementbyId("AddressCompany").InnerHtml = dbConfig.AddressCompany;
-            HtmlDoc.GetElementbyId("PhoneCompany").InnerHtml = dbConfig.PhoneCompany;
-            HtmlDoc.GetElementbyId("EMAIL").InnerHtml = dbConfig.Email;
-            HtmlDoc.GetElementbyId("NAMECONTACT").InnerHtml = "Contacto yo?";
+            HtmlDoc.GetElementbyId("GiroCompany").InnerHtml = configApp.GiroCompany;
+            HtmlDoc.GetElementbyId("AddressCompany").InnerHtml = configApp.AddressCompany;
+            HtmlDoc.GetElementbyId("PhoneCompany").InnerHtml = configApp.PhoneCompany;
+            HtmlDoc.GetElementbyId("EMAIL").InnerHtml = configApp.Email;
+            HtmlDoc.GetElementbyId("NAMECONTACT").InnerHtml = $"{user.FirstName} {user.LastName}";
 
             //! Supplier
             var supp = new Suppliers().GetList(headerDR["SupplierID"].ToString());
@@ -158,43 +154,47 @@ namespace PurchaseData.Helpers
             {
                 HtmlDoc.GetElementbyId("NAMECONTACTSupplier").InnerHtml = supp.ContactName;
             }
-
             //! Hitos
+            HtmlNode tablehitos = HtmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[2]/div[5]/div[1]/div/div[2]/table");
             var hitos = new OrderHitos().GetListByID(headerID);
-            HtmlNode tablehitos = HtmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[2]/div[5]/div/div[2]/table");
             if (hitos.Count > 0)
             {
                 foreach (var item in hitos)
                 {
-
                     DateTime fecha = creationFile.AddDays(item.Days);
                     var n = (Convert.ToDecimal(headerDR["Net"]) * item.Porcent) / 100;
-
-                    //node = $"<li>{item.Description}:<strong>{item.Porcent}%</strong><span style='padding: 10px;'>Neto: ${n.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"))}</span>";
-                    //node += $"</br><span class='mono'>vcto.:{fecha:dd-MM-yyyy}</span></li>";
-                    //
                     string node = $"<tr><td>{item.Description}:&nbsp;&nbsp;<strong>{item.Porcent}%</strong>&nbsp;";
                     node += $"<small>{fecha:dd-MM-yyyy}&nbsp;&nbsp;({item.Days} Días)</small></td><td class='text-right'>";
                     node += $"<span class='mono'>${n.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"))}</span></td>";
-
                     tablehitos.AppendChild(HtmlNode.CreateNode(node));
                 }
             }
-
             //! Notas
+            HtmlNode tablenotas = HtmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[2]/div[5]/div[3]/div/div/ul");
             var notes = new OrderNotes().GetListByID(headerID);
-            HtmlNode tablenotas = HtmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[2]/div[6]/div/div/div/ul");
             if (notes.Count > 0)
             {
                 foreach (var item in notes)
                 {
-                    if (item.Modifier == 1) // 1 = Púnlico
+                    if (item.Modifier == 1) // 1 = Público
                     {
                         string node = $"<li>{item.Title}- <span class='mono'>{item.Description}</span></li>";
                         tablenotas.AppendChild(HtmlNode.CreateNode(node));
                     }
                 }
             }
+            //! Fechas de entrega
+            HtmlNode tabledelivery = HtmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[2]/div[5]/div[2]/div/div[2]/table");
+            var delivery = new OrderDelivery().GetListByID(headerID);
+            if (delivery.Count > 0)
+            {
+                foreach (var item in delivery)
+                {
+                    string node = $"<tr><td>{item.Description}</td><td class='text-right'><span class='mono'>{item.Date:dd-MM-yyyy}</span></td>";
+                    tabledelivery.AppendChild(HtmlNode.CreateNode(node));
+                }
+            }
+
             //! totales
             var neto = Convert.ToDecimal(headerDR["Net"]);
             HtmlDoc.GetElementbyId("NET").InnerHtml = $"${neto.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"))}";
@@ -206,7 +206,6 @@ namespace PurchaseData.Helpers
             HtmlDoc.GetElementbyId("GRANDTOTAL").InnerHtml = $"${total.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"))}";
             var discount = Convert.ToDecimal(headerDR["Discount"]);
             HtmlDoc.GetElementbyId("DISCOUNT").InnerHtml = $"${discount.ToString("#,0.00", CultureInfo.GetCultureInfo("es-CL"))}";
-
 
             //! Details
             HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[2]/div[3]/div/table");
@@ -227,17 +226,21 @@ namespace PurchaseData.Helpers
                     node += $"<strong class='mono'>${item.Total.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"))}</strong><br><small class='text-muted mono'>{currency}</small>";
 
                     table.AppendChild(HtmlNode.CreateNode(node));
-
                 }
             }
 
             //! Glosa
             HtmlDoc.GetElementbyId("GLOSA").InnerHtml = headerDR["Description"].ToString();
 
+            //! Comentarios
+            HtmlDoc.GetElementbyId("COMENTARIOS").InnerHtml = configApp.Comentarios;
+            HtmlDoc.GetElementbyId("APPYEAR").InnerHtml = configApp.Year.ToString();
+
             string pathcomplete = Environment.CurrentDirectory + @"\" + headerDR["HeaderID"].ToString() + ".html";
             HtmlDoc.Save(pathcomplete, System.Text.Encoding.UTF8);
             return pathcomplete;
         }
+
         public async Task<string> ReemplazarDatos()
         {
             string path = Environment.CurrentDirectory + @"\HtmlBanner\Banner.html";
@@ -249,11 +252,11 @@ namespace PurchaseData.Helpers
                 //await Task.Run(() =>
                 //   {
 
-                var dolar = await new IndicadorDolar(dbConfig).GetPosterior(semana);
-                IndicadorUf uf = await new IndicadorUf(dbConfig).GetPosterior(semana);
-                IndicadorEuro euro = await new IndicadorEuro(dbConfig).GetPosterior(semana);
-                IndicadorIpc ipc = await new IndicadorIpc(dbConfig).GetPosterior(semana.AddMonths(-6));
-                IndicadorUtm utm = await new IndicadorUtm(dbConfig).GetPosterior(semana.AddMonths(-6));
+                var dolar = await new IndicadorDolar(configApp).GetPosterior(semana);
+                IndicadorUf uf = await new IndicadorUf(configApp).GetPosterior(semana);
+                IndicadorEuro euro = await new IndicadorEuro(configApp).GetPosterior(semana);
+                IndicadorIpc ipc = await new IndicadorIpc(configApp).GetPosterior(semana.AddMonths(-6));
+                IndicadorUtm utm = await new IndicadorUtm(configApp).GetPosterior(semana.AddMonths(-6));
                 if (dolar != null)
                 {
                     CrearNodo(table, dolar.Dolar, "USD");

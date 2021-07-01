@@ -29,7 +29,7 @@ namespace PurchaseDesktop.Profiles
                 var l = rContext.vOrderByMinTransaction.Where(c => c.UserID == CurrentUser.UserID)
               .OrderByDescending(c => c.DateLast).ToList();
 
-                var r = rContext.vRequisitionByMinTransaction.Where(c => c.StatusID == 2).ToList();
+                var r = rContext.vRequisitionByMinTransaction.Where(c => c.StatusID == 2).Where(c => c.UserPO == CurrentUser.UserID).ToList();
                 foreach (var item in r)
                 {
                     var n = new vOrderByMinTransaction

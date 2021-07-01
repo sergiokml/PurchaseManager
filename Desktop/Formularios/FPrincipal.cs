@@ -168,6 +168,64 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
+        public void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e)
+        {
+            System.Windows.Forms.Cursor.Current = Cursors.Default;
+        }
+
+        public void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
+        {
+            if (e.ColIndex == Grid.Cols["delete"].Index || e.ColIndex == Grid.Cols["view"].Index || e.ColIndex == Grid.Cols["send"].Index)
+            {
+                Rectangle myBounds = e.Bounds;
+                myBounds.Inflate(2, 1);
+                LinearGradientBrush myBrush;
+                switch (e.State)
+                {
+                    case iGControlState.HotPressed:
+                        myBrush = new LinearGradientBrush(e.Bounds, Color.FromArgb(37, 37, 38), Color.FromArgb(37, 37, 38), 1);
+                        e.Graphics.FillRectangle(myBrush, myBounds);
+                        break;
+                    case iGControlState.Hot:
+                        myBrush = new LinearGradientBrush(e.Bounds, Color.FromArgb(154, 196, 85), Color.FromArgb(154, 196, 85), 1);
+                        e.Graphics.FillRectangle(myBrush, myBounds);
+                        break;
+                }
+                e.DoDefault = false;
+            }
+        }
+
+        public void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
+        {
+            if (e.ColIndex == Grid.Cols["delete"].Index)
+            {
+                Rectangle myBounds = e.Bounds;
+                if (myBounds.Width > 0 || myBounds.Height > 0)
+                {
+                    Grid.ImageList.Draw(e.Graphics, myBounds.Location, 1);
+                    e.DoDefault = false;
+                }
+            }
+            else if (e.ColIndex == Grid.Cols["view"].Index)
+            {
+                Rectangle myBounds = e.Bounds;
+                if (myBounds.Width > 0 || myBounds.Height > 0)
+                {
+                    Grid.ImageList.Draw(e.Graphics, myBounds.Location, 0);
+                    e.DoDefault = false;
+                }
+            }
+            else if (e.ColIndex == Grid.Cols["send"].Index)
+            {
+                Rectangle myBounds = e.Bounds;
+                if (myBounds.Width > 0 || myBounds.Height > 0)
+                {
+                    Grid.ImageList.Draw(e.Graphics, myBounds.Location, 2);
+                    e.DoDefault = false;
+                }
+            }
+        }
+
         public async void Grid_CellEllipsisButtonClick(object sender, iGEllipsisButtonClickEventArgs e)
         {
             Grid.DrawAsFocused = true;
@@ -228,67 +286,9 @@ namespace PurchaseDesktop.Formularios
             Grid.DrawAsFocused = false;
         }
 
-        public void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
-        {
-            if (e.ColIndex == Grid.Cols["delete"].Index || e.ColIndex == Grid.Cols["view"].Index || e.ColIndex == Grid.Cols["send"].Index)
-            {
-                Rectangle myBounds = e.Bounds;
-                myBounds.Inflate(2, 1);
-                LinearGradientBrush myBrush;
-                switch (e.State)
-                {
-                    case iGControlState.HotPressed:
-                        myBrush = new LinearGradientBrush(e.Bounds, Color.FromArgb(37, 37, 38), Color.FromArgb(37, 37, 38), 1);
-                        e.Graphics.FillRectangle(myBrush, myBounds);
-                        break;
-                    case iGControlState.Hot:
-                        myBrush = new LinearGradientBrush(e.Bounds, Color.FromArgb(154, 196, 85), Color.FromArgb(154, 196, 85), 1);
-                        e.Graphics.FillRectangle(myBrush, myBounds);
-                        break;
-                }
-                e.DoDefault = false;
-            }
-        }
-
-        public void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
-        {
-            if (e.ColIndex == Grid.Cols["delete"].Index)
-            {
-                Rectangle myBounds = e.Bounds;
-                if (myBounds.Width > 0 || myBounds.Height > 0)
-                {
-                    Grid.ImageList.Draw(e.Graphics, myBounds.Location, 1);
-                    e.DoDefault = false;
-                }
-            }
-            else if (e.ColIndex == Grid.Cols["view"].Index)
-            {
-                Rectangle myBounds = e.Bounds;
-                if (myBounds.Width > 0 || myBounds.Height > 0)
-                {
-                    Grid.ImageList.Draw(e.Graphics, myBounds.Location, 0);
-                    e.DoDefault = false;
-                }
-            }
-            else if (e.ColIndex == Grid.Cols["send"].Index)
-            {
-                Rectangle myBounds = e.Bounds;
-                if (myBounds.Width > 0 || myBounds.Height > 0)
-                {
-                    Grid.ImageList.Draw(e.Graphics, myBounds.Location, 2);
-                    e.DoDefault = false;
-                }
-            }
-        }
-
         private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
         {
             Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
-        }
-
-        public void Grid_AfterCommitEdit(object sender, iGAfterCommitEditEventArgs e)
-        {
-            System.Windows.Forms.Cursor.Current = Cursors.Default;
         }
 
         private void Grid_CellDoubleClick(object sender, iGCellDoubleClickEventArgs e)
@@ -332,6 +332,54 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
+
+        #region Menú Contextual
+
+        public void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e)
+        {
+            if (e.ColIndex > 0)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                    CtxMenu.Items.Clear();
+                    rFachada.CargarContextMenuStrip(CtxMenu, Current);
+                    CtxMenu.Show(Grid, e.MousePos);
+                }
+            }
+        }
+
+        public void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e)
+        {
+            if (e.ColIndex > 0)
+            {
+                Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                if (e.Button == MouseButtons.Right)
+                {
+                    Grid.SetCurCell(e.RowIndex, e.ColIndex);
+                    e.DoDefault = false;
+                }
+            }
+        }
+
+        private void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var resultado = rFachada.SeleccionarContextMenuStrip(Current, e.ClickedItem.Name);
+            if (resultado == "OK")
+            {
+                LlenarGrid();
+                CargarDashboard();
+                ClearControles();
+                SetControles();
+            }
+            else
+            {
+                Msg(resultado, FPrincipal.MsgProceso.Warning);
+            }
+        }
+
+
+        #endregion
 
         #endregion
 
@@ -602,53 +650,6 @@ namespace PurchaseDesktop.Formularios
 
         #endregion
 
-        #region Menú Contextual
-
-        public void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e)
-        {
-            if (e.ColIndex > 0)
-            {
-                if (e.Button == MouseButtons.Right)
-                {
-                    Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-                    CtxMenu.Items.Clear();
-                    rFachada.CargarContextMenuStrip(CtxMenu, Current);
-                    CtxMenu.Show(Grid, e.MousePos);
-
-                }
-            }
-        }
-        public void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e)
-        {
-            if (e.ColIndex > 0)
-            {
-                Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-                if (e.Button == MouseButtons.Right)
-                {
-                    Grid.SetCurCell(e.RowIndex, e.ColIndex);
-                    e.DoDefault = false;
-                }
-            }
-        }
-        private void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            var resultado = rFachada.SeleccionarContextMenuStrip(Current, e.ClickedItem.Name);
-            if (resultado == "OK")
-            {
-                LlenarGrid();
-                CargarDashboard();
-                ClearControles();
-                SetControles();
-            }
-            else
-            {
-                Msg(resultado, FPrincipal.MsgProceso.Warning);
-            }
-
-        }
-
-
-        #endregion
 
     }
 }

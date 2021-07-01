@@ -106,6 +106,8 @@ namespace PurchaseDesktop.Formularios
 
                         };
                         resultado = rFachada.InsertDetail(rd, Current);
+                        //! Update Glosa
+                        rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
                         break;
                     case TypeDocumentHeader.PO:
                         var od = new OrderDetails
@@ -119,6 +121,8 @@ namespace PurchaseDesktop.Formularios
                             MedidaID = ((Medidas)CboMedidas.SelectedItem).MedidaID
                         };
                         resultado = rFachada.InsertDetail(od, Current);
+                        //! Update Glosa
+                        rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
                         break;
                     default:
                         break;
@@ -211,6 +215,7 @@ namespace PurchaseDesktop.Formularios
             TxtName.Text = string.Empty;
             TxtPrice.Text = string.Empty;
             TxtQty.Text = string.Empty;
+
         }
 
         public iGrid GetGrid()
@@ -229,7 +234,7 @@ namespace PurchaseDesktop.Formularios
 
             CboMedidas.DataSource = new Medidas().GetList();
             CboMedidas.DisplayMember = "Description";
-            CboMedidas.SelectedIndex = -1;
+            CboMedidas.SelectedIndex = CboMedidas.FindStringExact("Unidad");
             CboMedidas.ValueMember = "MedidaID";
 
             TxtGlosa.Text = Current["Description"].ToString();
@@ -257,7 +262,7 @@ namespace PurchaseDesktop.Formularios
                     var po = new OrderHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
                     decimal neto = Convert.ToDecimal(po.Net);
                     decimal exent = Convert.ToDecimal(po.Exent);
-                    decimal tax = Convert.ToDecimal(po.Discount);
+                    decimal tax = Convert.ToDecimal(po.Tax);
                     decimal total = Convert.ToDecimal(po.Total);
                     if (neto > 0)
                     {
@@ -451,19 +456,19 @@ namespace PurchaseDesktop.Formularios
 
         private void TxtGlosa_Leave(object sender, EventArgs e)
         {
-            var resultado = rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
-            if (resultado == "OK")
-            {
-                LlenarGrid();
-                SetControles();
-                ((FPrincipal)Owner).LlenarGrid();
-                ((FPrincipal)Owner).SetControles();
-            }
-            else
-            {
-                ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
-                TxtGlosa.Text = Current["Description"].ToString();
-            }
+            //var resultado = rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+            //if (resultado == "OK")
+            //{
+            //    LlenarGrid();
+            //    SetControles();
+            //    ((FPrincipal)Owner).LlenarGrid();
+            //    ((FPrincipal)Owner).SetControles();
+            //}
+            //else
+            //{
+            //    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+            //    TxtGlosa.Text = Current["Description"].ToString();
+            //}
         }
     }
 }

@@ -54,6 +54,9 @@
         <AssociationConnector Association="PurchaseManagerContext.AttachesRequisitions" />
         <AssociationConnector Association="PurchaseManagerContext.TransactionsOrders" />
         <AssociationConnector Association="PurchaseManagerContext.TransactionsRequisitions" />
+        <AssociationConnector Association="PurchaseManagerContext.FK_RequisitionHeader_Users" />
+        <EntityTypeShape EntityType="PurchaseManagerContext.OrderDelivery" Width="1.5" PointX="0.875" PointY="1.375" />
+        <AssociationConnector Association="PurchaseManagerContext.FK_OrderDelivery_OrderHeader" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

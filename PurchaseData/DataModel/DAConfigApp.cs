@@ -4,7 +4,7 @@ namespace PurchaseData.DataModel
 {
     public partial class ConfigApp
     {
-        public ConfigApp GetUnique()
+        public ConfigApp GetConfigApp()
         {
             using (var contextDB = new PurchaseManagerEntities())
             {

@@ -18,6 +18,7 @@ namespace PurchaseData.DataModel
         public Users()
         {
             this.Transactions = new HashSet<Transactions>();
+            this.RequisitionHeader = new HashSet<RequisitionHeader>();
         }
     
         public string UserID { get; set; }
@@ -35,5 +36,7 @@ namespace PurchaseData.DataModel
         public virtual ICollection<Transactions> Transactions { get; set; }
         public virtual UserCosts UserCosts { get; set; }
         public virtual UserProfiles UserProfiles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionHeader> RequisitionHeader { get; set; }
     }
 }

@@ -114,6 +114,7 @@
     <Compile Include="DataModel\DAAttaches.cs" />
     <Compile Include="DataModel\DAConfigApp.cs" />
     <Compile Include="DataModel\DACurrencies.cs" />
+    <Compile Include="DataModel\DAOrderDelivery.cs" />
     <Compile Include="DataModel\DAOrderHitos.cs" />
     <Compile Include="DataModel\DAMedidas.cs" />
     <Compile Include="DataModel\DAOrderNotes.cs" />
@@ -150,6 +151,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Modelo.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\OrderDelivery.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\OrderDetails.cs">
       <DependentUpon>Modelo.tt</DependentUpon>

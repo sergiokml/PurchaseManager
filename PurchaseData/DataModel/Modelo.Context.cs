@@ -52,6 +52,7 @@ namespace PurchaseData.DataModel
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<vOrderByMinTransaction> vOrderByMinTransaction { get; set; }
         public virtual DbSet<vRequisitionByMinTransaction> vRequisitionByMinTransaction { get; set; }
+        public virtual DbSet<OrderDelivery> OrderDelivery { get; set; }
     
         [DbFunction("PurchaseManagerEntities", "ufnGetOrderGroupByStatus")]
         public virtual IQueryable<ufnGetOrderGroupByStatus_Result> ufnGetOrderGroupByStatus()

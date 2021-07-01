@@ -12,18 +12,13 @@ namespace PurchaseData.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class ConfigApp
+    public partial class OrderDelivery
     {
-        public int ConfigID { get; set; }
-        public string ApikeySBIF { get; set; }
-        public string BaseSBIF { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string FolderApp { get; set; }
-        public string AddressCompany { get; set; }
-        public string GiroCompany { get; set; }
-        public string PhoneCompany { get; set; }
-        public string Comentarios { get; set; }
-        public int Year { get; set; }
+        public int DeliveryID { get; set; }
+        public int OrderHeaderID { get; set; }
+        public string Description { get; set; }
+        public System.DateTime Date { get; set; }
+    
+        public virtual OrderHeader OrderHeader { get; set; }
     }
 }

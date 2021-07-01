@@ -228,7 +228,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtPrice.IconRight = null;
             this.TxtPrice.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtPrice.Lines = new string[0];
-            this.TxtPrice.Location = new System.Drawing.Point(242, 95);
+            this.TxtPrice.Location = new System.Drawing.Point(333, 95);
             this.TxtPrice.MaxLength = 9;
             this.TxtPrice.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtPrice.Modified = false;
@@ -359,7 +359,7 @@ namespace PurchaseDesktop.Formularios
             this.CboAccount.FormattingEnabled = true;
             this.CboAccount.Location = new System.Drawing.Point(9, 95);
             this.CboAccount.Name = "CboAccount";
-            this.CboAccount.Size = new System.Drawing.Size(221, 24);
+            this.CboAccount.Size = new System.Drawing.Size(273, 24);
             this.CboAccount.TabIndex = 23;
             // 
             // TxtQty

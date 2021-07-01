@@ -13,6 +13,5 @@ namespace PurchaseDesktop.Interfaces
         void SetControles();
         iGrid GetGrid();
         void LlenarGrid();
-
     }
 }

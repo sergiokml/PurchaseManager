@@ -32,7 +32,7 @@ namespace PurchaseDesktop.Helpers
 
         public PerfilFachada(UserProfileUPR upr, UserProfileUPO upo, UserProfileVAL val, Users user)
         {
-            configApp = new ConfigApp().GetUnique();
+            configApp = new ConfigApp().GetConfigApp();
             perfilPr = upr;
             perfilPo = upo;
             perfilVal = val;
@@ -641,7 +641,7 @@ namespace PurchaseDesktop.Helpers
                     //! Insert PO
                     var po = new OrderHeader
                     {
-                        Description = $"[From PR] {pr.Description}",
+                        Description = pr.Description,
                         Type = Convert.ToByte(headerDR["Type"]),
                         StatusID = 1,
                         Net = 0,
@@ -651,19 +651,19 @@ namespace PurchaseDesktop.Helpers
                         Discount = 0
                     };
                     //! Traspasar los detalles
-                    //var details = new RequisitionDetails().GetListByID(headerID);
-                    //foreach (var item in details)
-                    //{
-                    //    var detail = new OrderDetails
-                    //    {
-                    //        Qty = item.Qty,
-                    //        AccountID = item.AccountID,
-                    //        DescriptionProduct = $"[From PR] {item.DescriptionProduct}",
-                    //        NameProduct = $"[From PR] {item.NameProduct}",
-                    //        MedidaID = item.MedidaID
-                    //    };
-                    //    po.OrderDetails.Add(detail);
-                    //}
+                    var details = new RequisitionDetails().GetListByID(headerID);
+                    foreach (var item in details)
+                    {
+                        var detail = new OrderDetails
+                        {
+                            Qty = item.Qty,
+                            AccountID = item.AccountID,
+                            DescriptionProduct = item.DescriptionProduct,
+                            NameProduct = item.NameProduct,
+                            MedidaID = item.MedidaID
+                        };
+                        po.OrderDetails.Add(detail);
+                    }
 
                     perfilPo.InsertPOHeader(po);
                     break;
@@ -1665,8 +1665,8 @@ namespace PurchaseDesktop.Helpers
         {
             int status = Convert.ToInt32(headerDR["StatusID"]);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
-            var hitoID = Convert.ToInt32(hitoDR["OrderNoteID"]);
-            var n = new OrderNotes().GetByID(hitoID);
+            var noteID = Convert.ToInt32(hitoDR["OrderNoteID"]);
+            var n = new OrderNotes().GetByID(noteID);
             switch (currentPerfil)
             {
                 case Perfiles.ADM:

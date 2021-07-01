@@ -36,6 +36,9 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.LabelPanel = new System.Windows.Forms.Label();
             this.PanelDash = new System.Windows.Forms.Panel();
+            this.BtnConfig = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.BtnNotes = new Bunifu.UI.WinForms.BunifuImageButton();
+            this.PanelHechizo = new System.Windows.Forms.Panel();
             this.BtnAttach = new Bunifu.UI.WinForms.BunifuImageButton();
             this.LblTitulo2 = new System.Windows.Forms.Label();
             this.LblTitulo1 = new System.Windows.Forms.Label();
@@ -108,9 +111,6 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator3 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.PanelHechizoBanner = new System.Windows.Forms.Panel();
             this.CtxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.PanelHechizo = new System.Windows.Forms.Panel();
-            this.BtnNotes = new Bunifu.UI.WinForms.BunifuImageButton();
-            this.BtnConfig = new Bunifu.UI.WinForms.BunifuImageButton();
             this.PanelHeader.SuspendLayout();
             this.PanelDash.SuspendLayout();
             this.PanelBtns.SuspendLayout();
@@ -220,6 +220,83 @@ namespace PurchaseDesktop.Formularios
             this.PanelDash.Size = new System.Drawing.Size(1100, 109);
             this.PanelDash.TabIndex = 3;
             // 
+            // BtnConfig
+            // 
+            this.BtnConfig.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnConfig.ActiveImage")));
+            this.BtnConfig.AllowAnimations = true;
+            this.BtnConfig.AllowBuffering = false;
+            this.BtnConfig.AllowToggling = false;
+            this.BtnConfig.AllowZooming = true;
+            this.BtnConfig.AllowZoomingOnFocus = false;
+            this.BtnConfig.BackColor = System.Drawing.Color.Transparent;
+            this.BtnConfig.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnConfig.ErrorImage = null;
+            this.BtnConfig.FadeWhenInactive = false;
+            this.BtnConfig.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnConfig.Image = ((System.Drawing.Image)(resources.GetObject("BtnConfig.Image")));
+            this.BtnConfig.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnConfig.ImageActive")));
+            this.BtnConfig.ImageLocation = null;
+            this.BtnConfig.ImageMargin = 20;
+            this.BtnConfig.ImageSize = new System.Drawing.Size(20, 20);
+            this.BtnConfig.ImageZoomSize = new System.Drawing.Size(40, 40);
+            this.BtnConfig.InitialImage = null;
+            this.BtnConfig.Location = new System.Drawing.Point(959, 63);
+            this.BtnConfig.Name = "BtnConfig";
+            this.BtnConfig.Rotation = 0;
+            this.BtnConfig.ShowActiveImage = true;
+            this.BtnConfig.ShowCursorChanges = true;
+            this.BtnConfig.ShowImageBorders = true;
+            this.BtnConfig.ShowSizeMarkers = false;
+            this.BtnConfig.Size = new System.Drawing.Size(40, 40);
+            this.BtnConfig.TabIndex = 35;
+            this.BtnConfig.ToolTipText = "Notes";
+            this.BtnConfig.WaitOnLoad = false;
+            this.BtnConfig.Zoom = 20;
+            this.BtnConfig.ZoomSpeed = 10;
+            this.BtnConfig.Click += new System.EventHandler(this.BtnConfig_Click);
+            // 
+            // BtnNotes
+            // 
+            this.BtnNotes.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnNotes.ActiveImage")));
+            this.BtnNotes.AllowAnimations = true;
+            this.BtnNotes.AllowBuffering = false;
+            this.BtnNotes.AllowToggling = false;
+            this.BtnNotes.AllowZooming = true;
+            this.BtnNotes.AllowZoomingOnFocus = false;
+            this.BtnNotes.BackColor = System.Drawing.Color.Transparent;
+            this.BtnNotes.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnNotes.ErrorImage = null;
+            this.BtnNotes.FadeWhenInactive = false;
+            this.BtnNotes.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnNotes.Image = ((System.Drawing.Image)(resources.GetObject("BtnNotes.Image")));
+            this.BtnNotes.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnNotes.ImageActive")));
+            this.BtnNotes.ImageLocation = null;
+            this.BtnNotes.ImageMargin = 20;
+            this.BtnNotes.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnNotes.ImageZoomSize = new System.Drawing.Size(55, 55);
+            this.BtnNotes.InitialImage = null;
+            this.BtnNotes.Location = new System.Drawing.Point(754, 24);
+            this.BtnNotes.Name = "BtnNotes";
+            this.BtnNotes.Rotation = 0;
+            this.BtnNotes.ShowActiveImage = true;
+            this.BtnNotes.ShowCursorChanges = true;
+            this.BtnNotes.ShowImageBorders = true;
+            this.BtnNotes.ShowSizeMarkers = false;
+            this.BtnNotes.Size = new System.Drawing.Size(55, 55);
+            this.BtnNotes.TabIndex = 34;
+            this.BtnNotes.ToolTipText = "Notes";
+            this.BtnNotes.WaitOnLoad = false;
+            this.BtnNotes.Zoom = 20;
+            this.BtnNotes.ZoomSpeed = 10;
+            this.BtnNotes.Click += new System.EventHandler(this.BtnNotes_Click);
+            // 
+            // PanelHechizo
+            // 
+            this.PanelHechizo.Location = new System.Drawing.Point(0, 2);
+            this.PanelHechizo.Name = "PanelHechizo";
+            this.PanelHechizo.Size = new System.Drawing.Size(398, 107);
+            this.PanelHechizo.TabIndex = 33;
+            // 
             // BtnAttach
             // 
             this.BtnAttach.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnAttach.ActiveImage")));
@@ -240,7 +317,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnAttach.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnAttach.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnAttach.InitialImage = null;
-            this.BtnAttach.Location = new System.Drawing.Point(710, 51);
+            this.BtnAttach.Location = new System.Drawing.Point(644, 24);
             this.BtnAttach.Name = "BtnAttach";
             this.BtnAttach.Rotation = 0;
             this.BtnAttach.ShowActiveImage = true;
@@ -459,7 +536,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnHitos.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnHitos.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnHitos.InitialImage = null;
-            this.BtnHitos.Location = new System.Drawing.Point(765, 51);
+            this.BtnHitos.Location = new System.Drawing.Point(699, 24);
             this.BtnHitos.Name = "BtnHitos";
             this.BtnHitos.Rotation = 0;
             this.BtnHitos.ShowActiveImage = true;
@@ -494,7 +571,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnDetails.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnDetails.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnDetails.InitialImage = null;
-            this.BtnDetails.Location = new System.Drawing.Point(600, 51);
+            this.BtnDetails.Location = new System.Drawing.Point(534, 24);
             this.BtnDetails.Name = "BtnDetails";
             this.BtnDetails.Rotation = 0;
             this.BtnDetails.ShowActiveImage = true;
@@ -529,7 +606,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnSupplier.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnSupplier.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnSupplier.InitialImage = null;
-            this.BtnSupplier.Location = new System.Drawing.Point(655, 51);
+            this.BtnSupplier.Location = new System.Drawing.Point(589, 24);
             this.BtnSupplier.Name = "BtnSupplier";
             this.BtnSupplier.Rotation = 0;
             this.BtnSupplier.ShowActiveImage = true;
@@ -826,83 +903,6 @@ namespace PurchaseDesktop.Formularios
             this.CtxMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.CtxMenu.Size = new System.Drawing.Size(61, 4);
             this.CtxMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMenu_ItemClicked);
-            // 
-            // PanelHechizo
-            // 
-            this.PanelHechizo.Location = new System.Drawing.Point(0, 2);
-            this.PanelHechizo.Name = "PanelHechizo";
-            this.PanelHechizo.Size = new System.Drawing.Size(398, 107);
-            this.PanelHechizo.TabIndex = 33;
-            // 
-            // BtnNotes
-            // 
-            this.BtnNotes.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnNotes.ActiveImage")));
-            this.BtnNotes.AllowAnimations = true;
-            this.BtnNotes.AllowBuffering = false;
-            this.BtnNotes.AllowToggling = false;
-            this.BtnNotes.AllowZooming = true;
-            this.BtnNotes.AllowZoomingOnFocus = false;
-            this.BtnNotes.BackColor = System.Drawing.Color.Transparent;
-            this.BtnNotes.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.BtnNotes.ErrorImage = null;
-            this.BtnNotes.FadeWhenInactive = false;
-            this.BtnNotes.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
-            this.BtnNotes.Image = ((System.Drawing.Image)(resources.GetObject("BtnNotes.Image")));
-            this.BtnNotes.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnNotes.ImageActive")));
-            this.BtnNotes.ImageLocation = null;
-            this.BtnNotes.ImageMargin = 20;
-            this.BtnNotes.ImageSize = new System.Drawing.Size(35, 35);
-            this.BtnNotes.ImageZoomSize = new System.Drawing.Size(55, 55);
-            this.BtnNotes.InitialImage = null;
-            this.BtnNotes.Location = new System.Drawing.Point(820, 51);
-            this.BtnNotes.Name = "BtnNotes";
-            this.BtnNotes.Rotation = 0;
-            this.BtnNotes.ShowActiveImage = true;
-            this.BtnNotes.ShowCursorChanges = true;
-            this.BtnNotes.ShowImageBorders = true;
-            this.BtnNotes.ShowSizeMarkers = false;
-            this.BtnNotes.Size = new System.Drawing.Size(55, 55);
-            this.BtnNotes.TabIndex = 34;
-            this.BtnNotes.ToolTipText = "Notes";
-            this.BtnNotes.WaitOnLoad = false;
-            this.BtnNotes.Zoom = 20;
-            this.BtnNotes.ZoomSpeed = 10;
-            this.BtnNotes.Click += new System.EventHandler(this.BtnNotes_Click);
-            // 
-            // BtnConfig
-            // 
-            this.BtnConfig.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnConfig.ActiveImage")));
-            this.BtnConfig.AllowAnimations = true;
-            this.BtnConfig.AllowBuffering = false;
-            this.BtnConfig.AllowToggling = false;
-            this.BtnConfig.AllowZooming = true;
-            this.BtnConfig.AllowZoomingOnFocus = false;
-            this.BtnConfig.BackColor = System.Drawing.Color.Transparent;
-            this.BtnConfig.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.BtnConfig.ErrorImage = null;
-            this.BtnConfig.FadeWhenInactive = false;
-            this.BtnConfig.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
-            this.BtnConfig.Image = ((System.Drawing.Image)(resources.GetObject("BtnConfig.Image")));
-            this.BtnConfig.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnConfig.ImageActive")));
-            this.BtnConfig.ImageLocation = null;
-            this.BtnConfig.ImageMargin = 20;
-            this.BtnConfig.ImageSize = new System.Drawing.Size(20, 20);
-            this.BtnConfig.ImageZoomSize = new System.Drawing.Size(40, 40);
-            this.BtnConfig.InitialImage = null;
-            this.BtnConfig.Location = new System.Drawing.Point(959, 63);
-            this.BtnConfig.Name = "BtnConfig";
-            this.BtnConfig.Rotation = 0;
-            this.BtnConfig.ShowActiveImage = true;
-            this.BtnConfig.ShowCursorChanges = true;
-            this.BtnConfig.ShowImageBorders = true;
-            this.BtnConfig.ShowSizeMarkers = false;
-            this.BtnConfig.Size = new System.Drawing.Size(40, 40);
-            this.BtnConfig.TabIndex = 35;
-            this.BtnConfig.ToolTipText = "Notes";
-            this.BtnConfig.WaitOnLoad = false;
-            this.BtnConfig.Zoom = 20;
-            this.BtnConfig.ZoomSpeed = 10;
-            this.BtnConfig.Click += new System.EventHandler(this.BtnConfig_Click);
             // 
             // FPrincipal
             // 

@@ -123,8 +123,15 @@
             margin-top: 10px;
             margin-bottom: 0px;
         }
+
         .col-xs-12 {
             width: 100%;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 0px;
         }
     </style>
 </head>
@@ -150,7 +157,7 @@
                 <div class="col-xs-6">
                     <div class="panel panel-default panel-wrong">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Compañía emisora</h3>
+                            <h3 class="panel-title">Cliente Emisor</h3>
                         </div>
                         <div class="panel-body">
                             <dl class="dl-horizontal">
@@ -158,8 +165,8 @@
                                 <dd id="NAMECOMPANY"></dd>
                                 <dt>RUT:</dt>
                                 <dd id="RUTCOMPANY"></dd>
-                                <dt>Biz:</dt>
-                                <dd id="NAMEBIZ"></dd>
+                                <!--<dt>Biz:</dt>
+                                <dd id="NAMEBIZ"></dd>-->
                                 <dt>Giro:</dt>
                                 <dd id="GiroCompany"></dd>
                                 <dt>Dirección</dt>
@@ -195,7 +202,7 @@
                                 <dd id="EMAILSupplier"></dd>
                                 <dt>Contacto:</dt>
                                 <dd class="mono" id="NAMECONTACTSupplier"></dd>
-                                <dt>&nbsp;</dt>
+                                <!--<dt>&nbsp;</dt>-->
                                 <!--<dd>&nbsp;</dd>-->
                             </dl>
                         </div>
@@ -219,62 +226,63 @@
             <div style="height:400px">
                 <div class="panel panel-default panel-wrong">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Productos / servicios</h3>
+                        <h3 class="panel-title">Productos / Servicios</h3>
                     </div>
                     <table class="table table-bordered table-condensed">
                         <thead>
                             <tr>
                                 <th class="text-center">Línea</th>
                                 <th>Item / Descripción</th>
-                                <th class="text-center colfix">Qty</th>
+                                <th class="text-center colfix">Cantidad</th>
                                 <th class="text-center colfix">Precio</th>
                                 <th class="text-center colfix">Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!--<tr><td class="text-right" style="width:50px;">
-                <span class="mono">1</span><br><small class="text-muted"></small></td>
-                     <td>Lorem Ipsum Dolor<br>
-                     <small class="text-muted">The best lorem in town, try it now or leave forever</small></td>
-                     <td class="text-right"><span class="mono">18.000</span><br>
-                         <small class="text-muted">Kilogramos</small></td>
-                     <td class="text-right"><span class="mono">$32.400</span><br>
-                         <small class="text-muted">Definitivo</small></td><td class="text-right">
-                         <strong class="mono">$198.440.000</strong><br><small class="text-muted mono">CLP</small>
-                     </td>
-                 </tr>-->
+                            <span class="mono">1</span><br><small class="text-muted"></small></td>
+                                 <td>Lorem Ipsum Dolor<br>
+                                 <small class="text-muted">The best lorem in town, try it now or leave forever</small></td>
+                                 <td class="text-right"><span class="mono">18.000</span><br>
+                                     <small class="text-muted">Kilogramos</small></td>
+                                 <td class="text-right"><span class="mono">$32.400</span><br>
+                                     <small class="text-muted">Definitivo</small></td><td class="text-right">
+                                     <strong class="mono">$198.440.000</strong><br><small class="text-muted mono">CLP</small>
+                                 </td>
+                             </tr>-->
 
 
                         </tbody>
                     </table>
                 </div>
             </div>
-                <!--FIN PRODUCTOS-->
-                <!--INICIO TOTALES-->
-                <div class="panel panel-default panel-wrong">
-                    <table class="table table-bordered table-condensed">
-                        <thead>
-                            <tr>
-                                <td class="text-center col-xs-1">Net</td>
-                                <td class="text-center col-xs-1">Exent</td>
-                                <td class="text-center col-xs-1">Discount</td>
-                                <td class="text-center col-xs-1">Tax</td>
-                                <td class="text-center col-xs-1">Grand Total</td>
+            <!--FIN PRODUCTOS-->
+            <!--INICIO TOTALES-->
+            <div class="panel panel-default panel-wrong">
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <td class="text-center col-xs-1">Neto</td>
+                            <td class="text-center col-xs-1">Exento</td>
+                            <td class="text-center col-xs-1">Descuentos</td>
+                            <td class="text-center col-xs-1">Iva</td>
+                            <td class="text-center col-xs-1">Total</td>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th class="text-center rowtotal mono" id="NET"></th>
-                                <th class="text-center rowtotal mono" id="EXENT"></th>
-                                <th class="text-center rowtotal mono" id="DISCOUNT"></th>
-                                <th class="text-center rowtotal mono" id="TAX"></th>
-                                <th class="text-center rowtotal mono" id="GRANDTOTAL"></th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!--FIN TOTALES-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="text-center rowtotal mono" id="NET"></th>
+                            <th class="text-center rowtotal mono" id="EXENT"></th>
+                            <th class="text-center rowtotal mono" id="DISCOUNT"></th>
+                            <th class="text-center rowtotal mono" id="TAX"></th>
+                            <th class="text-center rowtotal mono" id="GRANDTOTAL"></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--FIN TOTALES-->
+            <div class="row">
                 <!--INICIO HITOS-->
                 <div class="col-xs-6">
                     <div class="panel panel-default panel-wrong">
@@ -282,59 +290,60 @@
                             <h3 class="panel-title">Forma de Pago</h3>
                         </div>
                         <div class="panel-body">
-                            <!--<p>For your convenience, you may deposite the final ammount at one of our banks</p>-->
                             <table class="table table-bordered table-condensed">
-                                <!--<thead>
-
-                        </thead>-->
                                 <tbody>
-                                    <!--<tr>
-                                <td>
-                                    Lorem Ipsum Dolor
-                                </td>
-                                <td class="text-right">
-                                    <span class="mono">$32.400</span>
-                                </td>
-                            </tr>-->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
                 <!--FIN HITOS-->
-                <div class="row">
-                    <div class="col-xs-6">
-                        <div class="panel panel-default panel-wrong">
-                            <div class="panel-body">
-                                <i>Notas</i>
-                                <hr style="margin:3px" />
-                                <ul class="list-unstyled">
-                                    <!--<li>Alpha Bank - <span class="mono">MO123456789456123</span></li>
-                            <li>Beta Bank - <span class="mono">MO123456789456123</span></li>
-                            <li>Gamma Bank - <span class="mono">MO123456789456123</span></li>-->
-                                </ul>
-                            </div>
+                <!--INICIO FECHAS-->
+                <div class="col-xs-6">
+                    <div class="panel panel-default panel-wrong">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Fechas de Entrega</h3>
                         </div>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <div class="panel panel-default">
                         <div class="panel-body">
-                            <i>Commentarios</i>
-                            <hr style="margin:3px 0 5px">
-                            Enviar copia de Factura a: robert.kerkhoff@cvegroup.com
-                            con copia a: pablo.moya@cvegroup.com;francisca.negron@cvegroup.com,margarita.valdenegro@cvegroup.com
+                            <table class="table table-bordered table-condensed">
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+                <!--FIN FECHAS-->
 
+                <div class="col-xs-6">
+                    <div class="panel panel-default panel-wrong">
+                        <div class="panel-body">
+                            <i>Notas</i>
+                            <hr style="margin:3px" />
+                            <ul class="list-unstyled">
+                                <!--<li>Alpha Bank - <span class="mono">MO123456789456123</span></li>
+                                <li>Beta Bank - <span class="mono">MO123456789456123</span></li>
+                                <li>Gamma Bank - <span class="mono">MO123456789456123</span></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="invoice-footer">
-                Purchase Manager V1.0
-                <br /> purchasemanager@cvegroup.com
-                <br />
-                <strong>2021</strong>
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <i>Comentarios</i>
+                        <hr style="margin:3px 0 5px" id="COMENTARIOS">
+                    </div>
+                </div>
             </div>
+
         </div>
+        <div class="invoice-footer">
+            Purchase Manager V1.0
+            <br /> purchasemanager@cvegroup.com
+            <br />
+            <strong id="APPYEAR"></strong>
+        </div>
+    </div>
 </body>
 </html>

@@ -40,5 +40,6 @@ namespace PurchaseData.DataModel
         public virtual ICollection<Attaches> Attaches { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transactions> Transactions { get; set; }
+        public virtual Users Users { get; set; }
     }
 }
