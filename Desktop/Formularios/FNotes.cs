@@ -268,6 +268,8 @@ namespace PurchaseDesktop.Formularios
                     LlenarGrid();
                     ClearControles();
                     SetControles();
+                    ((FPrincipal)Owner).LlenarGrid();
+                    ((FPrincipal)Owner).SetControles();
                 }
                 else
                 {

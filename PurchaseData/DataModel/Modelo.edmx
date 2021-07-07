@@ -104,6 +104,7 @@
           <Property Name="Total" Type="decimal" Precision="22" Scale="2" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="AccountID" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="MedidaID" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="IsExent" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderHeader">
           <Key>
@@ -143,7 +144,7 @@
           </Key>
           <Property Name="OrderNoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderHeaderID" Type="int" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Modifier" Type="tinyint" Nullable="false" />
         </EntityType>
@@ -300,6 +301,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTransaction' 
             <PropertyRef Name="Code" />
             <PropertyRef Name="Tax" />
             <PropertyRef Name="Total" />
+            
             <PropertyRef Name="StatusID" />
             <PropertyRef Name="UserID" />
             <PropertyRef Name="Event" />
@@ -316,7 +318,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTransaction' 
           <Property Name="Exent" Type="decimal" Precision="11" Scale="2" />
           <Property Name="Tax" Type="numeric" Precision="14" Scale="4" Nullable="false" />
           <Property Name="Total" Type="numeric" Precision="17" Scale="4" Nullable="false" />
-          <Property Name="Type" Type="tinyint" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
           <Property Name="StatusID" Type="tinyint" Nullable="false" />
           <Property Name="UserID" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="CostID" Type="varchar" MaxLength="3" />
@@ -333,6 +335,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTransaction' 
           <Property Name="TypeDocumentHeader" Type="nvarchar" MaxLength="2" Nullable="false" />
           <Property Name="DetailsCount" Type="int" />
           <Property Name="Discount" Type="decimal" Precision="11" Scale="2" />
+          <Property Name="HitosCount" Type="int" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransaction' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -755,6 +758,20 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DELETE_ORDERDETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DetailID" Type="int" Mode="In" />
+          <Parameter Name="HeaderID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="INSERT_ORDERDETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="HeaderID" Type="int" Mode="In" />
+          <Parameter Name="NameProduct" Type="varchar" Mode="In" />
+          <Parameter Name="DescriptionProduct" Type="varchar" Mode="In" />
+          <Parameter Name="Qty" Type="int" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="AccountID" Type="varchar" Mode="In" />
+          <Parameter Name="MedidaID" Type="varchar" Mode="In" />
+          <Parameter Name="IsExent" Type="bit" Mode="In" />
+        </Function>
         <Function Name="ufnGetOrderGroupByStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <ReturnType>
             <CollectionType>
@@ -777,6 +794,17 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               </RowType>
             </CollectionType>
           </ReturnType>
+        </Function>
+        <Function Name="UPDATE_ORDERDETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DetailID" Type="int" Mode="In" />
+          <Parameter Name="HeaderID" Type="int" Mode="In" />
+          <Parameter Name="NameProduct" Type="varchar" Mode="In" />
+          <Parameter Name="DescriptionProduct" Type="varchar" Mode="In" />
+          <Parameter Name="Qty" Type="int" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="AccountID" Type="varchar" Mode="In" />
+          <Parameter Name="MedidaID" Type="varchar" Mode="In" />
+          <Parameter Name="IsExent" Type="bit" Mode="In" />
         </Function>
         <Function Name="UPDATE_PASSWORD_HASH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Password" Type="varchar" Mode="In" />
@@ -836,7 +864,8 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     [vOrderByMinTransaction].[Status] AS [Status], 
     [vOrderByMinTransaction].[TypeDocumentHeader] AS [TypeDocumentHeader], 
     [vOrderByMinTransaction].[DetailsCount] AS [DetailsCount], 
-    [vOrderByMinTransaction].[Discount] AS [Discount]
+    [vOrderByMinTransaction].[Discount] AS [Discount], 
+    [vOrderByMinTransaction].[HitosCount] AS [HitosCount]
     FROM [dbo].[vOrderByMinTransaction] AS [vOrderByMinTransaction]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vRequisitionByMinTransaction" EntityType="Self.vRequisitionByMinTransaction" store:Type="Views" store:Schema="dbo">
@@ -1134,6 +1163,31 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <End Role="OrderHeader" EntitySet="OrderHeader" />
             <End Role="OrderDelivery" EntitySet="OrderDelivery" />
           </AssociationSet>
+          <FunctionImport Name="INSERT_ORDERDETAILS">
+            <Parameter Name="HeaderID" Mode="In" Type="Int32" />
+            <Parameter Name="NameProduct" Mode="In" Type="String" />
+            <Parameter Name="DescriptionProduct" Mode="In" Type="String" />
+            <Parameter Name="Qty" Mode="In" Type="Int32" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="AccountID" Mode="In" Type="String" />
+            <Parameter Name="MedidaID" Mode="In" Type="String" />
+            <Parameter Name="IsExent" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="UPDATE_ORDERDETAILS">
+            <Parameter Name="DetailID" Mode="In" Type="Int32" />
+            <Parameter Name="HeaderID" Mode="In" Type="Int32" />
+            <Parameter Name="NameProduct" Mode="In" Type="String" />
+            <Parameter Name="DescriptionProduct" Mode="In" Type="String" />
+            <Parameter Name="Qty" Mode="In" Type="Int32" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="AccountID" Mode="In" Type="String" />
+            <Parameter Name="MedidaID" Mode="In" Type="String" />
+            <Parameter Name="IsExent" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="DELETE_ORDERDETAILS">
+            <Parameter Name="DetailID" Mode="In" Type="Int32" />
+            <Parameter Name="HeaderID" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Accounts">
           <Key>
@@ -1219,6 +1273,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <NavigationProperty Name="Accounts" Relationship="PurchaseManagerContext.FK_OrderDetails_Accounts" FromRole="OrderDetails" ToRole="Accounts" />
           <NavigationProperty Name="Medidas" Relationship="PurchaseManagerContext.FK_OrderDetails_Medidas" FromRole="OrderDetails" ToRole="Medidas" />
           <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerContext.FK_OrderDetails_OrderHeader" FromRole="OrderDetails" ToRole="OrderHeader" />
+          <Property Name="IsExent" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderHeader">
           <Key>
@@ -1269,7 +1324,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           </Key>
           <Property Name="OrderNoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderHeaderID" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerContext.FK_OrderNotes_OrderHeader" FromRole="OrderNotes" ToRole="OrderHeader" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Modifier" Type="Byte" Nullable="false" />
@@ -1453,7 +1508,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="Exent" Type="Decimal" Precision="11" Scale="2" />
           <Property Name="Tax" Type="Decimal" Nullable="false" Precision="14" Scale="4" />
           <Property Name="Total" Type="Decimal" Nullable="false" Precision="17" Scale="4" />
-          <Property Name="Type" Type="Byte" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
           <Property Name="StatusID" Type="Byte" Nullable="false" />
           <Property Name="UserID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="CostID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
@@ -1470,6 +1525,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="TypeDocumentHeader" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="DetailsCount" Type="Int32" />
           <Property Name="Discount" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="HitosCount" Type="Int32" />
         </EntityType>
         <EntityType Name="vRequisitionByMinTransaction">
           <Key>
@@ -1897,6 +1953,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="PurchaseManagerContext.OrderDetails">
               <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="IsExent" ColumnName="IsExent" />
                 <ScalarProperty Name="MedidaID" ColumnName="MedidaID" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
@@ -2096,6 +2153,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySetMapping Name="vOrderByMinTransaction">
             <EntityTypeMapping TypeName="PurchaseManagerContext.vOrderByMinTransaction">
               <MappingFragment StoreEntitySet="vOrderByMinTransaction">
+                <ScalarProperty Name="HitosCount" ColumnName="HitosCount" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="DetailsCount" ColumnName="DetailsCount" />
                 <ScalarProperty Name="TypeDocumentHeader" ColumnName="TypeDocumentHeader" />
@@ -2189,6 +2247,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="INSERT_ORDERDETAILS" FunctionName="PurchaseManagerContext.Store.INSERT_ORDERDETAILS" />
+          <FunctionImportMapping FunctionImportName="UPDATE_ORDERDETAILS" FunctionName="PurchaseManagerContext.Store.UPDATE_ORDERDETAILS" />
+          <FunctionImportMapping FunctionImportName="DELETE_ORDERDETAILS" FunctionName="PurchaseManagerContext.Store.DELETE_ORDERDETAILS" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

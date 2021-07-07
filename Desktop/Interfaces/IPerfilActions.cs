@@ -19,15 +19,17 @@ namespace PurchaseDesktop.Interfaces
         DataTable VistaFProveedores(TypeDocumentHeader headerTD, int headerID);
         DataTable VistaFHitos(TypeDocumentHeader headerTD, int headerID);
         DataTable VistaFNotes(TypeDocumentHeader headerTD, int headerID);
+        DataTable VistaDelivery(TypeDocumentHeader headerTD, int headerID);
 
         //! Insert
         void InsertPRHeader(RequisitionHeader item);
         void InsertPOHeader(OrderHeader item);
         void InsertDetail<T>(T item, int headerID); // Tabla 1:M => para PR y PO
         void InsertAttach(Attaches item, int headerID); // Tabla M:M => para PR y PO
-        void InsertSupplier(Suppliers item);
+        int InsertSupplier(Suppliers item);
         void InsertHito(OrderHitos item, int headerID); // Tabla 1:M pero solo para PO
         void InsertNote(OrderNotes item, int headerID);
+        void InsertDelivery(OrderDelivery item, int headerID); // Tabla 1:M pero solo para PO
 
 
 
@@ -37,6 +39,7 @@ namespace PurchaseDesktop.Interfaces
         void UpdateAttaches<T>(T item, int headerID, int attachID);
         void UpdateHito(OrderHitos item, int headerID);
         void UpdateNote(OrderNotes item, int headerID);
+        void UpdateSupplier(Suppliers item);
 
 
 
@@ -47,6 +50,7 @@ namespace PurchaseDesktop.Interfaces
         int DeleteSupplier(string headerID);
         int DeleteHito(int headerID, int hitoID);
         int DeleteNote(int headerID, int noteID);
+        int DeleteDelivery(int headerID, int deliverID);
 
     }
 }

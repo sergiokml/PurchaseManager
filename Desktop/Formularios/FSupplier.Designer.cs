@@ -114,7 +114,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtRut.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtRut.Lines = new string[0];
             this.TxtRut.Location = new System.Drawing.Point(394, 30);
-            this.TxtRut.MaxLength = 10;
+            this.TxtRut.MaxLength = 8;
             this.TxtRut.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtRut.Modified = false;
             this.TxtRut.Multiline = false;

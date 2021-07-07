@@ -36,6 +36,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar = new Bunifu.UI.WinForms.BunifuImageButton();
             this.LabelPanel = new System.Windows.Forms.Label();
             this.PanelDash = new System.Windows.Forms.Panel();
+            this.BtnDelivery = new Bunifu.UI.WinForms.BunifuImageButton();
             this.BtnConfig = new Bunifu.UI.WinForms.BunifuImageButton();
             this.BtnNotes = new Bunifu.UI.WinForms.BunifuImageButton();
             this.PanelHechizo = new System.Windows.Forms.Panel();
@@ -194,6 +195,7 @@ namespace PurchaseDesktop.Formularios
             // 
             // PanelDash
             // 
+            this.PanelDash.Controls.Add(this.BtnDelivery);
             this.PanelDash.Controls.Add(this.BtnConfig);
             this.PanelDash.Controls.Add(this.BtnNotes);
             this.PanelDash.Controls.Add(this.PanelHechizo);
@@ -219,6 +221,41 @@ namespace PurchaseDesktop.Formularios
             this.PanelDash.Name = "PanelDash";
             this.PanelDash.Size = new System.Drawing.Size(1100, 109);
             this.PanelDash.TabIndex = 3;
+            // 
+            // BtnDelivery
+            // 
+            this.BtnDelivery.ActiveImage = ((System.Drawing.Image)(resources.GetObject("BtnDelivery.ActiveImage")));
+            this.BtnDelivery.AllowAnimations = true;
+            this.BtnDelivery.AllowBuffering = false;
+            this.BtnDelivery.AllowToggling = false;
+            this.BtnDelivery.AllowZooming = true;
+            this.BtnDelivery.AllowZoomingOnFocus = false;
+            this.BtnDelivery.BackColor = System.Drawing.Color.Transparent;
+            this.BtnDelivery.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.BtnDelivery.ErrorImage = null;
+            this.BtnDelivery.FadeWhenInactive = false;
+            this.BtnDelivery.Flip = Bunifu.UI.WinForms.BunifuImageButton.FlipOrientation.Normal;
+            this.BtnDelivery.Image = ((System.Drawing.Image)(resources.GetObject("BtnDelivery.Image")));
+            this.BtnDelivery.ImageActive = ((System.Drawing.Image)(resources.GetObject("BtnDelivery.ImageActive")));
+            this.BtnDelivery.ImageLocation = null;
+            this.BtnDelivery.ImageMargin = 20;
+            this.BtnDelivery.ImageSize = new System.Drawing.Size(35, 35);
+            this.BtnDelivery.ImageZoomSize = new System.Drawing.Size(55, 55);
+            this.BtnDelivery.InitialImage = null;
+            this.BtnDelivery.Location = new System.Drawing.Point(755, 43);
+            this.BtnDelivery.Name = "BtnDelivery";
+            this.BtnDelivery.Rotation = 0;
+            this.BtnDelivery.ShowActiveImage = true;
+            this.BtnDelivery.ShowCursorChanges = true;
+            this.BtnDelivery.ShowImageBorders = true;
+            this.BtnDelivery.ShowSizeMarkers = false;
+            this.BtnDelivery.Size = new System.Drawing.Size(55, 55);
+            this.BtnDelivery.TabIndex = 36;
+            this.BtnDelivery.ToolTipText = "Notes";
+            this.BtnDelivery.WaitOnLoad = false;
+            this.BtnDelivery.Zoom = 20;
+            this.BtnDelivery.ZoomSpeed = 10;
+            this.BtnDelivery.Click += new System.EventHandler(this.BtnDelivery_Click);
             // 
             // BtnConfig
             // 
@@ -275,7 +312,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnNotes.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnNotes.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnNotes.InitialImage = null;
-            this.BtnNotes.Location = new System.Drawing.Point(754, 24);
+            this.BtnNotes.Location = new System.Drawing.Point(699, 43);
             this.BtnNotes.Name = "BtnNotes";
             this.BtnNotes.Rotation = 0;
             this.BtnNotes.ShowActiveImage = true;
@@ -317,7 +354,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnAttach.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnAttach.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnAttach.InitialImage = null;
-            this.BtnAttach.Location = new System.Drawing.Point(644, 24);
+            this.BtnAttach.Location = new System.Drawing.Point(587, 43);
             this.BtnAttach.Name = "BtnAttach";
             this.BtnAttach.Rotation = 0;
             this.BtnAttach.ShowActiveImage = true;
@@ -536,7 +573,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnHitos.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnHitos.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnHitos.InitialImage = null;
-            this.BtnHitos.Location = new System.Drawing.Point(699, 24);
+            this.BtnHitos.Location = new System.Drawing.Point(643, 43);
             this.BtnHitos.Name = "BtnHitos";
             this.BtnHitos.Rotation = 0;
             this.BtnHitos.ShowActiveImage = true;
@@ -571,7 +608,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnDetails.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnDetails.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnDetails.InitialImage = null;
-            this.BtnDetails.Location = new System.Drawing.Point(534, 24);
+            this.BtnDetails.Location = new System.Drawing.Point(475, 43);
             this.BtnDetails.Name = "BtnDetails";
             this.BtnDetails.Rotation = 0;
             this.BtnDetails.ShowActiveImage = true;
@@ -606,7 +643,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnSupplier.ImageSize = new System.Drawing.Size(35, 35);
             this.BtnSupplier.ImageZoomSize = new System.Drawing.Size(55, 55);
             this.BtnSupplier.InitialImage = null;
-            this.BtnSupplier.Location = new System.Drawing.Point(589, 24);
+            this.BtnSupplier.Location = new System.Drawing.Point(531, 43);
             this.BtnSupplier.Name = "BtnSupplier";
             this.BtnSupplier.Rotation = 0;
             this.BtnSupplier.ShowActiveImage = true;
@@ -1010,10 +1047,11 @@ namespace PurchaseDesktop.Formularios
         private Bunifu.UI.WinForms.BunifuImageButton BtnAttach;
         private System.Windows.Forms.Panel PanelHechizoBanner;
         private System.Windows.Forms.ContextMenuStrip CtxMenu;
-        private System.Windows.Forms.Label LblMsg;
         private Bunifu.UI.WinForms.BunifuImageButton BtnConfig;
         private Bunifu.UI.WinForms.BunifuImageButton BtnNotes;
         private System.Windows.Forms.Panel PanelHechizo;
+        public System.Windows.Forms.Label LblMsg;
+        private Bunifu.UI.WinForms.BunifuImageButton BtnDelivery;
     }
 }
 

@@ -23,6 +23,7 @@ namespace PurchaseData.DataModel
         public decimal Total { get; set; }
         public string AccountID { get; set; }
         public string MedidaID { get; set; }
+        public bool IsExent { get; set; }
     
         public virtual Accounts Accounts { get; set; }
         public virtual Medidas Medidas { get; set; }

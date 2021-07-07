@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -13,18 +12,16 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
 namespace PurchaseDesktop.Formularios
 {
-    public partial class FHitos : Form, IControles, IGridCustom
+    public partial class FDeliverys : Form, IControles, IGridCustom
     {
         private readonly PerfilFachada rFachada;
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
         public Users CurrentUser { get; set; }
 
-        public FHitos(PerfilFachada rFachada, DataRow dr)
+        public FDeliverys(PerfilFachada rFachada, DataRow dr)
         {
             this.rFachada = rFachada;
             Current = dr;
@@ -33,33 +30,40 @@ namespace PurchaseDesktop.Formularios
 
         public bool ValidarControles()
         {
-            if (string.IsNullOrEmpty(TxtDescription.Text))
+
+            if (string.IsNullOrEmpty(TxtTitle.Text))
             {
                 return false;
             }
-            else if (CboDays.SelectedIndex == -1)
-            {
-                return false;
-            }
-            else if (TrackBar.Value == 0)
-            {
-                return false;
-            }
+
             return true;
         }
 
         public void ClearControles()
         {
-            TxtDescription.Text = string.Empty;
-            LblMensaje.Text = $"{TrackBar.Value} %";
-            CboDays.SelectedIndex = -1;
-
+            TxtTitle.Text = string.Empty;
         }
 
         public void SetControles()
         {
+            //DatePicker.Format = DateTimePickerFormat.Custom;
+            //DatePicker.CustomFormat = "dd/MM/yyyy";
+            //DataTable dt = new DataTable();
+            //dt.Columns.Add("Id");
+            //dt.Columns.Add("Name");
+            //DataRow row = dt.NewRow();
+            //row[0] = 1;
+            //row[1] = "Public";
+            //dt.Rows.Add(row);
+
+            //row = dt.NewRow();
+            //row[0] = 2;
+            //row[1] = "Private";
+            //dt.Rows.Add(row);
 
 
+            //CboTypeFile.DisplayMember = "Name";
+            //CboTypeFile.ValueMember = "Id";
         }
         public iGrid GetGrid()
         {
@@ -68,16 +72,9 @@ namespace PurchaseDesktop.Formularios
         private void FAttachment_Load(object sender, EventArgs e)
         {
             Icon = Properties.Resources.icons8_survey;
-            //! Combobox días
-            CboDays.DataSource = new List<short>() { 0, 5, 10, 15, 30, 45, 60, 90, 120, 150, 180 };
-
-
-            //TrackBar.TickFrequency = 5;
-            //TrackBar.SmallChange = 5;
-            //TrackBar.LargeChange = 5;
-
+            SetControles();
             //! Grid Principal
-            rFachada.CargarGrid(Grid, "FHitos", Current);
+            rFachada.CargarGrid(Grid, "FDelivery", Current);
             LlenarGrid();
 
             //! Eventos
@@ -95,7 +92,7 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                DataTable vista = rFachada.GetVistaHitos(Current);
+                DataTable vista = rFachada.GetVistaDelivery(Current);
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //!Data Bound * **!
@@ -103,14 +100,11 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
                 }
-                int porcent = 0;
                 for (int i = 0; i < Grid.Rows.Count; i++)
                 {
-                    Grid.Rows[i].Cells["nro"].Value = $"Hito {i + 1}";
-                    porcent += Convert.ToByte(Grid.Rows[i].Cells["Porcent"].Value);
+                    Grid.Rows[i].Cells["nro"].Value = i + 1;
                 }
-                TrackBar.Value = TrackBar.Minimum;
-                TrackBar.Maximum = 100 - porcent;
+                Grid = rFachada.FormatearGrid(Grid, "FDelivery", Current);
                 Grid.Refresh();
             }
             catch (Exception)
@@ -135,32 +129,30 @@ namespace PurchaseDesktop.Formularios
 
         public void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e)
         {
-            if (e.NewValue == null || string.IsNullOrEmpty(e.NewValue.ToString()))
-            {
-                e.Result = iGEditResult.Cancel;
-                return;
-            }
-            if (Equals(e.NewValue, Grid.Cells[e.RowIndex, e.ColIndex].Value))
-            {
-                e.Result = iGEditResult.Cancel;
-                return;
-            }
-            //! Update solo si cambió el dato.
-            System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-            DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            var resultado = rFachada.UpdateHito(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
-            if (resultado == "OK")
-            {
-                LlenarGrid();
-                SetControles();
-                ((FPrincipal)Owner).LlenarGrid();
-                ((FPrincipal)Owner).SetControles();
-            }
-            else
-            {
-                e.Result = iGEditResult.Cancel;
-                ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
-            }
+            //if (e.NewValue == null || string.IsNullOrEmpty(e.NewValue.ToString()))
+            //{
+            //    e.Result = iGEditResult.Cancel;
+            //    return;
+            //}
+            //if (Equals(e.NewValue, Grid.Cells[e.RowIndex, e.ColIndex].Value))
+            //{
+            //    e.Result = iGEditResult.Cancel;
+            //    return;
+            //}
+            ////! Update solo si cambió el dato.
+            //System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+            //DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+            //var resultado = rFachada.UpdateNote(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
+            //if (resultado == "OK")
+            //{
+            //    LlenarGrid();
+            //    SetControles();
+            //}
+            //else
+            //{
+            //    e.Result = iGEditResult.Cancel;
+            //    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+            //}
 
         }
 
@@ -169,33 +161,6 @@ namespace PurchaseDesktop.Formularios
             Close();
         }
 
-        private void BtnNewHito_Click(object sender, EventArgs e)
-        {
-            if (ValidarControles())
-            {
-                var h = new OrderHitos
-                {
-                    Description = UCase.ToTitleCase(TxtDescription.Text.Trim().ToLower()),
-                    Days = Convert.ToByte(CboDays.SelectedValue),
-                    Porcent = Convert.ToByte(TrackBar.Value)
-
-                };
-                var resultado = rFachada.InsertHito(h, Current);
-                if (resultado == "OK")
-                {
-                    LlenarGrid();
-                    ClearControles();
-                    SetControles();
-                    ((FPrincipal)Owner).LlenarGrid();
-                    ((FPrincipal)Owner).SetControles();
-                }
-                else
-                {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
-                }
-
-            }
-        }
 
         private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
         {
@@ -210,21 +175,18 @@ namespace PurchaseDesktop.Formularios
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                var resultado = rFachada.DeleteHito(current, Current);
+                var resultado = rFachada.DeleteDelivery(current, Current);
                 if (resultado == "OK")
                 {
                     LlenarGrid();
                     ClearControles();
                     SetControles();
-                    ((FPrincipal)Owner).LlenarGrid();
-                    ((FPrincipal)Owner).SetControles();
                 }
                 else
                 {
                     ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
                 }
             }
-
             //Grid.Focus();
             Grid.DrawAsFocused = false;
             System.Windows.Forms.Cursor.Current = Cursors.Default;
@@ -245,7 +207,7 @@ namespace PurchaseDesktop.Formularios
 
         public void Grid_CustomDrawCellEllipsisButtonBackground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
         {
-            if (e.ColIndex == Grid.Cols["delete"].Index || e.ColIndex == Grid.Cols["view"].Index)
+            if (e.ColIndex == Grid.Cols["delete"].Index)
             {
                 Rectangle myBounds = e.Bounds;
                 myBounds.Inflate(2, 1);
@@ -270,11 +232,29 @@ namespace PurchaseDesktop.Formularios
             throw new NotImplementedException();
         }
 
-        private void TrackBar_Scroll(object sender, EventArgs e)
+        private void BtnNewNote_Click(object sender, EventArgs e)
         {
-            LblMensaje.Text = $"{TrackBar.Value} %";
+            if (ValidarControles())
+            {
+                OrderDelivery del = new OrderDelivery
+                {
+                    Description = TxtTitle.Text.Trim(),
+                    Date = DatePicker.Value,
+                };
+                var resultado = rFachada.InsertDelivery(del, Current);
+                if (resultado == "OK")
+                {
+                    LlenarGrid();
+                    ClearControles();
+                    SetControles();
+                    ((FPrincipal)Owner).LlenarGrid();
+                    ((FPrincipal)Owner).SetControles();
+                }
+                else
+                {
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                }
+            }
         }
-
-
     }
 }

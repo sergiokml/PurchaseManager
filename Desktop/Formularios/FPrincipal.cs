@@ -232,10 +232,10 @@ namespace PurchaseDesktop.Formularios
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                var resultado = rFachada.DeleteItem(current);
+                var resultado = rFachada.DeleteItem(current, this);
                 if (resultado == "OK")
                 {
+                    System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
                     LlenarGrid();
                     CargarDashboard();
                     ClearControles();
@@ -267,10 +267,7 @@ namespace PurchaseDesktop.Formularios
             {
                 if (!IsSending)
                 {
-                    IsSending = true;
-                    LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                    LblMsg.Image = Properties.Resources.loading;
-                    string resultado = await rFachada.SendItem(current);
+                    string resultado = await rFachada.SendItem(current, this);
                     if (resultado == "OK")
                     {
                         Msg("The message has been sent successfully.", MsgProceso.Send);
@@ -281,6 +278,7 @@ namespace PurchaseDesktop.Formularios
                         Msg(resultado, MsgProceso.Warning);
                         IsSending = false;
                     }
+
                 }
             }
             Grid.DrawAsFocused = false;
@@ -561,8 +559,12 @@ namespace PurchaseDesktop.Formularios
             if (Grid.CurCell != null)
             {
                 DataRow current = (DataRow)Grid.CurRow.Tag;
-                FDetails f = new FDetails(rFachada, current);
-                rFachada.OPenDetailForm(f, this);
+                if (current != null)
+                {
+                    FDetails f = new FDetails(rFachada, current);
+                    rFachada.OPenDetailForm(f, this);
+
+                }
             }
         }
 
@@ -571,16 +573,20 @@ namespace PurchaseDesktop.Formularios
             if (Grid.CurCell != null)
             {
                 DataRow current = (DataRow)Grid.CurRow.Tag;
-                FAttach f = new FAttach(rFachada, current);
-                var resultado = rFachada.OpenAttachForm(f, this);
-                if (resultado == "OK")
+                if (current != null)
                 {
+                    FAttach f = new FAttach(rFachada, current);
+                    var resultado = rFachada.OpenAttachForm(f, this);
+                    if (resultado == "OK")
+                    {
 
+                    }
+                    else
+                    {
+                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    }
                 }
-                else
-                {
-                    Msg(resultado, FPrincipal.MsgProceso.Warning);
-                }
+
             }
         }
 
@@ -589,16 +595,20 @@ namespace PurchaseDesktop.Formularios
             if (Grid.CurCell != null)
             {
                 DataRow current = (DataRow)Grid.CurRow.Tag;
-                FSupplier f = new FSupplier(rFachada, current);
-                var resultado = rFachada.OpenSupplierForm(f, this);
-                if (resultado == "OK")
+                if (current != null)
                 {
+                    FSupplier f = new FSupplier(rFachada, current);
+                    var resultado = rFachada.OpenSupplierForm(f, this);
+                    if (resultado == "OK")
+                    {
 
+                    }
+                    else
+                    {
+                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    }
                 }
-                else
-                {
-                    Msg(resultado, FPrincipal.MsgProceso.Warning);
-                }
+
             }
         }
 
@@ -607,16 +617,20 @@ namespace PurchaseDesktop.Formularios
             if (Grid.CurCell != null)
             {
                 DataRow current = (DataRow)Grid.CurRow.Tag;
-                FHitos f = new FHitos(rFachada, current);
-                var resultado = rFachada.OpenHitosForm(f, this);
-                if (resultado == "OK")
+                if (current != null)
                 {
+                    FHitos f = new FHitos(rFachada, current);
+                    var resultado = rFachada.OpenHitosForm(f, this);
+                    if (resultado == "OK")
+                    {
 
+                    }
+                    else
+                    {
+                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    }
                 }
-                else
-                {
-                    Msg(resultado, FPrincipal.MsgProceso.Warning);
-                }
+
             }
         }
 
@@ -625,16 +639,20 @@ namespace PurchaseDesktop.Formularios
             if (Grid.CurCell != null)
             {
                 DataRow current = (DataRow)Grid.CurRow.Tag;
-                FNotes f = new FNotes(rFachada, current);
-                var resultado = rFachada.OpenNotesForm(f, this);
-                if (resultado == "OK")
+                if (current != null)
                 {
+                    FNotes f = new FNotes(rFachada, current);
+                    var resultado = rFachada.OpenNotesForm(f, this);
+                    if (resultado == "OK")
+                    {
 
+                    }
+                    else
+                    {
+                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    }
                 }
-                else
-                {
-                    Msg(resultado, FPrincipal.MsgProceso.Warning);
-                }
+
             }
         }
 
@@ -648,8 +666,29 @@ namespace PurchaseDesktop.Formularios
             f.ShowDialog(this);
         }
 
+
         #endregion
 
+        private void BtnDelivery_Click(object sender, EventArgs e)
+        {
+            if (Grid.CurCell != null)
+            {
+                DataRow current = (DataRow)Grid.CurRow.Tag;
+                if (current != null)
+                {
+                    FDeliverys f = new FDeliverys(rFachada, current);
+                    var resultado = rFachada.OpenDeliveryForm(f, this);
+                    if (resultado == "OK")
+                    {
 
+                    }
+                    else
+                    {
+                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    }
+                }
+
+            }
+        }
     }
 }

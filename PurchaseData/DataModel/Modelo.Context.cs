@@ -82,5 +82,96 @@ namespace PurchaseData.DataModel
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UPDATE_PASSWORD_HASH", passwordParameter, iDParameter);
         }
+    
+        public virtual int INSERT_ORDERDETAILS(Nullable<int> headerID, string nameProduct, string descriptionProduct, Nullable<int> qty, Nullable<decimal> price, string accountID, string medidaID, Nullable<bool> isExent)
+        {
+            var headerIDParameter = headerID.HasValue ?
+                new ObjectParameter("HeaderID", headerID) :
+                new ObjectParameter("HeaderID", typeof(int));
+    
+            var nameProductParameter = nameProduct != null ?
+                new ObjectParameter("NameProduct", nameProduct) :
+                new ObjectParameter("NameProduct", typeof(string));
+    
+            var descriptionProductParameter = descriptionProduct != null ?
+                new ObjectParameter("DescriptionProduct", descriptionProduct) :
+                new ObjectParameter("DescriptionProduct", typeof(string));
+    
+            var qtyParameter = qty.HasValue ?
+                new ObjectParameter("Qty", qty) :
+                new ObjectParameter("Qty", typeof(int));
+    
+            var priceParameter = price.HasValue ?
+                new ObjectParameter("Price", price) :
+                new ObjectParameter("Price", typeof(decimal));
+    
+            var accountIDParameter = accountID != null ?
+                new ObjectParameter("AccountID", accountID) :
+                new ObjectParameter("AccountID", typeof(string));
+    
+            var medidaIDParameter = medidaID != null ?
+                new ObjectParameter("MedidaID", medidaID) :
+                new ObjectParameter("MedidaID", typeof(string));
+    
+            var isExentParameter = isExent.HasValue ?
+                new ObjectParameter("IsExent", isExent) :
+                new ObjectParameter("IsExent", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_ORDERDETAILS", headerIDParameter, nameProductParameter, descriptionProductParameter, qtyParameter, priceParameter, accountIDParameter, medidaIDParameter, isExentParameter);
+        }
+    
+        public virtual int UPDATE_ORDERDETAILS(Nullable<int> detailID, Nullable<int> headerID, string nameProduct, string descriptionProduct, Nullable<int> qty, Nullable<decimal> price, string accountID, string medidaID, Nullable<bool> isExent)
+        {
+            var detailIDParameter = detailID.HasValue ?
+                new ObjectParameter("DetailID", detailID) :
+                new ObjectParameter("DetailID", typeof(int));
+    
+            var headerIDParameter = headerID.HasValue ?
+                new ObjectParameter("HeaderID", headerID) :
+                new ObjectParameter("HeaderID", typeof(int));
+    
+            var nameProductParameter = nameProduct != null ?
+                new ObjectParameter("NameProduct", nameProduct) :
+                new ObjectParameter("NameProduct", typeof(string));
+    
+            var descriptionProductParameter = descriptionProduct != null ?
+                new ObjectParameter("DescriptionProduct", descriptionProduct) :
+                new ObjectParameter("DescriptionProduct", typeof(string));
+    
+            var qtyParameter = qty.HasValue ?
+                new ObjectParameter("Qty", qty) :
+                new ObjectParameter("Qty", typeof(int));
+    
+            var priceParameter = price.HasValue ?
+                new ObjectParameter("Price", price) :
+                new ObjectParameter("Price", typeof(decimal));
+    
+            var accountIDParameter = accountID != null ?
+                new ObjectParameter("AccountID", accountID) :
+                new ObjectParameter("AccountID", typeof(string));
+    
+            var medidaIDParameter = medidaID != null ?
+                new ObjectParameter("MedidaID", medidaID) :
+                new ObjectParameter("MedidaID", typeof(string));
+    
+            var isExentParameter = isExent.HasValue ?
+                new ObjectParameter("IsExent", isExent) :
+                new ObjectParameter("IsExent", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UPDATE_ORDERDETAILS", detailIDParameter, headerIDParameter, nameProductParameter, descriptionProductParameter, qtyParameter, priceParameter, accountIDParameter, medidaIDParameter, isExentParameter);
+        }
+    
+        public virtual int DELETE_ORDERDETAILS(Nullable<int> detailID, Nullable<int> headerID)
+        {
+            var detailIDParameter = detailID.HasValue ?
+                new ObjectParameter("DetailID", detailID) :
+                new ObjectParameter("DetailID", typeof(int));
+    
+            var headerIDParameter = headerID.HasValue ?
+                new ObjectParameter("HeaderID", headerID) :
+                new ObjectParameter("HeaderID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DELETE_ORDERDETAILS", detailIDParameter, headerIDParameter);
+        }
     }
 }

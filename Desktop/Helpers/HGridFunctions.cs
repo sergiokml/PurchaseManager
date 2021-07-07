@@ -126,7 +126,7 @@ namespace PurchaseDesktop.Helpers
             //! Celda seleccionada
             Grid.FocusRectColor1 = Color.FromArgb(45, 45, 48);
             Grid.FocusRectColor2 = Color.FromArgb(45, 45, 48); // evita la linea punteada que bordea la celda
-                                                               //! Fila seleccionada focus
+            //! Fila seleccionada focus
             Grid.SelRowsBackColor = Color.FromArgb(154, 196, 85); // verde            
             Grid.SelRowsForeColor = Color.Black;
             //! Fila seleccionada no focus
@@ -338,7 +338,15 @@ namespace PurchaseDesktop.Helpers
 
                     }
                     break;
+                case "FDelivery":
+                    for (int i = 0; i < Grid.Rows.Count; i++)
+                    {
+                        DataRow row = (DataRow)Grid.Rows[i].Tag;
+                        Grid.Rows[i].Cells["Date"].Value = Convert.ToDateTime(row["Date"]).ToString("dd-MM-yyyy");
 
+
+                    }
+                    break;
                 default:
                     break;
             }
@@ -778,5 +786,35 @@ namespace PurchaseDesktop.Helpers
                 // item.AllowSizing = false;
             }
         }
+
+        public void CargarColumnasFDelivery(Perfiles perfil)
+        {
+            iGCol iGCol;
+
+            //! Cols     
+            Grid.Header.Height = 20;
+            iGCol = Grid.Cols.Add("nro", "N°", 21);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+
+            iGCol = Grid.Cols.Add("Description", "Description", 270);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+
+            iGCol = Grid.Cols.Add("Date", "Date", 66);
+            iGCol.CellStyle.ReadOnly = iGBool.True;
+
+            iGCol = Grid.Cols.Add("delete", "", 22);
+            iGCol.IncludeInSelect = false;
+            iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.HasEllipsisButton;
+            //! Header
+            foreach (iGColHdr item in Grid.Header.Cells)
+            {
+                item.TextAlign = iGContentAlignment.MiddleCenter;
+            }
+            foreach (iGCol item in Grid.Cols)
+            {
+                // item.AllowSizing = false;
+            }
+        }
+
     }
 }

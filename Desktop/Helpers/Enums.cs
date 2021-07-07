@@ -31,7 +31,10 @@
             UPDATE_HITO,
             INSERT_NOTE,
             DELETE_NOTE,
-            UPDATE_NOTE
+            UPDATE_NOTE,
+            INSERT_DELIVERY,
+            UPDATE_DELIVERY,
+            DELETE_DELIVERY
         }
 
         public enum TypeDocumentHeader

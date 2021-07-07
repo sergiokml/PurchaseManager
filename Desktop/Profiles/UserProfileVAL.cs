@@ -122,7 +122,7 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public void InsertSupplier(Suppliers item)
+        public int InsertSupplier(Suppliers item)
         {
             throw new System.NotImplementedException();
         }
@@ -165,6 +165,26 @@ namespace PurchaseDesktop.Profiles
         public int DeleteNote(int headerID, int noteID)
         {
             throw new System.NotImplementedException();
+        }
+
+        public void UpdateSupplier(Suppliers item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertDelivery(OrderDelivery item, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable VistaDelivery(TypeDocumentHeader headerTD, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteDelivery(int headerID, int deliverID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

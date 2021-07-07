@@ -176,6 +176,18 @@
     <Compile Include="Formularios\FEmail.Designer.cs">
       <DependentUpon>FEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\FMensajes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FMensajes.Designer.cs">
+      <DependentUpon>FMensajes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FDeliverys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FDeliverys.designer.cs">
+      <DependentUpon>FDeliverys.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\FNotes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,6 +251,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FEmail.resx">
       <DependentUpon>FEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FMensajes.resx">
+      <DependentUpon>FMensajes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FDeliverys.resx">
+      <DependentUpon>FDeliverys.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FNotes.resx">
       <DependentUpon>FNotes.cs</DependentUpon>

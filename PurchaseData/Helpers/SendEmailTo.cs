@@ -35,15 +35,15 @@ namespace PurchaseData.Helpers
             else if (Path.GetExtension(path) == ".html")
             {
                 bodyBuilder.HtmlBody = File.ReadAllText(path);
-            }
 
+            }
             //! From
             Message.From.Add(new MailboxAddress($"Purchase Manager", Email));
             Message.ReplyTo.Add(new MailboxAddress($"{user.FirstName} {user.LastName}", user.Email));
             Message.Subject = asunto;
             //Message.Importance = MessageImportance.High;
             //! To
-            Message.To.Add(new MailboxAddress("Sergio Ayala", "sergiokml@outlook.com"));
+            Message.To.Add(new MailboxAddress($"{user.FirstName} {user.LastName}", user.Email));
             //! Body
             Message.Body = bodyBuilder.ToMessageBody();
 
@@ -60,9 +60,40 @@ namespace PurchaseData.Helpers
             }
         }
 
-        private void SendMail()
-        {
 
+        public async Task<string> SendEmailToSupplier(string path, string asunto, Users user, Suppliers supp)
+        {
+            BodyBuilder bodyBuilder = new BodyBuilder();
+            if (Path.GetExtension(path) == ".pdf")
+            {
+                bodyBuilder.Attachments.Add(path);
+            }
+            else if (Path.GetExtension(path) == ".html")
+            {
+                bodyBuilder.HtmlBody = File.ReadAllText(path);
+
+            }
+            //! From
+            Message.From.Add(new MailboxAddress($"Purchase Manager", Email));
+            Message.ReplyTo.Add(new MailboxAddress($"{user.FirstName} {user.LastName}", user.Email));
+            Message.Subject = asunto;
+            //Message.Importance = MessageImportance.High;
+            //! To
+            Message.To.Add(new MailboxAddress($"{user.FirstName} {user.LastName}", user.Email));
+            //! Body
+            Message.Body = bodyBuilder.ToMessageBody();
+
+            using (SmtpClient client = new SmtpClient())
+            {
+                client.MessageSent += Client_MessageSent; ;
+                await client.ConnectAsync("smtp.office365.com", 587, false);
+                await client.AuthenticateAsync(Email, Password);
+                await client.SendAsync(Message);
+                await client.DisconnectAsync(true);
+                //MessageResult = $"Message sent successfully to: {Message.To[0].Name}.";
+                MessageResult = "OK";
+                return MessageResult;
+            }
         }
 
         private void Client_MessageSent(object sender, MailKit.MessageSentEventArgs e)

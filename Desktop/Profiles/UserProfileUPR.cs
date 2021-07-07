@@ -57,8 +57,9 @@ namespace PurchaseDesktop.Profiles
                         HeaderID = item.HeaderID,
                         NameBiz = item.NameBiz,
                         Status = item.Status,
-                        Type = (byte)item.Type,
-                        TypeDocumentHeader = item.TypeDocumentHeader
+                        Type = item.Type,
+                        TypeDocumentHeader = item.TypeDocumentHeader,
+                        UserPO = item.UserID
                     };
 
                     l.Add(pr);
@@ -398,7 +399,7 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public void InsertSupplier(Suppliers item)
+        public int InsertSupplier(Suppliers item)
         {
             throw new NotImplementedException();
         }
@@ -439,6 +440,26 @@ namespace PurchaseDesktop.Profiles
         }
 
         public int DeleteNote(int headerID, int noteID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateSupplier(Suppliers item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertDelivery(OrderDelivery item, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable VistaDelivery(TypeDocumentHeader headerTD, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteDelivery(int headerID, int deliverID)
         {
             throw new NotImplementedException();
         }

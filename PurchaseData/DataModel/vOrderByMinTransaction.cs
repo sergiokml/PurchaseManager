@@ -21,7 +21,7 @@ namespace PurchaseData.DataModel
         public Nullable<decimal> Exent { get; set; }
         public decimal Tax { get; set; }
         public decimal Total { get; set; }
-        public Nullable<byte> Type { get; set; }
+        public byte Type { get; set; }
         public byte StatusID { get; set; }
         public string UserID { get; set; }
         public string CostID { get; set; }
@@ -38,5 +38,6 @@ namespace PurchaseData.DataModel
         public string TypeDocumentHeader { get; set; }
         public Nullable<int> DetailsCount { get; set; }
         public Nullable<decimal> Discount { get; set; }
+        public Nullable<int> HitosCount { get; set; }
     }
 }

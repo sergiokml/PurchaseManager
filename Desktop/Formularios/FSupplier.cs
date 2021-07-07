@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
-using PurchaseData.Helpers;
 
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
@@ -159,7 +158,11 @@ namespace PurchaseDesktop.Formularios
             {
                 return false;
             }
-            else if (!new ValidadorRut().ValidaRut(TxtRut.Text))
+            //else if (!new ValidadorRut().ValidaRut(TxtRut.Text))
+            //{
+            //    return false;
+            //}
+            else if (string.IsNullOrEmpty(TxtRut.Text))
             {
                 return false;
             }
@@ -370,10 +373,10 @@ namespace PurchaseDesktop.Formularios
                             }
                         }
                     }
-
                 }
                 else
                 {
+                    rFachada.UpdateSupplier(s);
                     ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
                 }
             }

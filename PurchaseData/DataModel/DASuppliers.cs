@@ -2,7 +2,7 @@
 {
     public partial class Suppliers
     {
-        public Suppliers GetList(string id)
+        public Suppliers GetByID(string id)
         {
             using (var contextDB = new PurchaseManagerEntities())
             {

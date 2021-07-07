@@ -48,6 +48,7 @@ namespace PurchaseDesktop.Formularios
             Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
             Grid.CellEllipsisButtonClick += Grid_CellEllipsisButtonClick;
+            Grid.CellMouseDown += Grid_CellMouseDown;
         }
 
         public void Grid_CustomDrawCellEllipsisButtonForeground(object sender, iGCustomDrawEllipsisButtonEventArgs e)
@@ -120,6 +121,14 @@ namespace PurchaseDesktop.Formularios
                             Price = Convert.ToInt32(TxtPrice.Text.Replace(".", "")),
                             MedidaID = ((Medidas)CboMedidas.SelectedItem).MedidaID
                         };
+                        if (ChkExent.Checked)
+                        {
+                            od.IsExent = true;
+                        }
+                        else
+                        {
+                            od.IsExent = false;
+                        }
                         resultado = rFachada.InsertDetail(od, Current);
                         //! Update Glosa
                         rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
@@ -226,7 +235,7 @@ namespace PurchaseDesktop.Formularios
         public void SetControles()
         {
             Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-
+            int status = Convert.ToInt32(Current["StatusID"]);
             CboAccount.DataSource = new Accounts().GetList();
             CboAccount.DisplayMember = "Description";
             CboAccount.SelectedIndex = -1;
@@ -247,10 +256,11 @@ namespace PurchaseDesktop.Formularios
                     TxtExent.Visible = false;
                     TxtTotal.Visible = false;
                     TxtTax.Visible = false;
+                    ChkExent.Visible = false;
 
                     var pr = new RequisitionHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
                     TxtGlosa.Text = pr.Description;
-                    int status = Convert.ToInt32(Current["StatusID"]);
+
                     if (status >= 2)
                     {
                         BtnNewDetail.Enabled = false;
@@ -296,6 +306,18 @@ namespace PurchaseDesktop.Formularios
                     {
                         TxtTotal.Text = "$ 0";
                     }
+                    if (status >= 2)
+                    {
+                        TxtQty.ReadOnly = true;
+                        TxtDescription.ReadOnly = true;
+                        TxtName.ReadOnly = true;
+                        TxtPrice.ReadOnly = true;
+                        TxtGlosa.ReadOnly = true;
+                        ChkExent.Enabled = false;
+                        CboAccount.Enabled = false;
+                        CboMedidas.Enabled = false;
+                        BtnNewDetail.Enabled = false;
+                    }
                     break;
                 default:
                     break;
@@ -338,7 +360,22 @@ namespace PurchaseDesktop.Formularios
         {
             if (e.ColIndex > 0)
             {
-                SetControles();
+                DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                TxtDescription.Text = current["DescriptionProduct"].ToString();
+                Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+                if (td == TypeDocumentHeader.PO)
+                {
+                    if (Convert.ToBoolean(current["IsExent"]))
+                    {
+                        ChkExent.Checked = true;
+                    }
+                    else
+                    {
+                        ChkExent.Checked = false;
+                    }
+                }
+
+                // SetControles();
             }
         }
 
@@ -357,7 +394,7 @@ namespace PurchaseDesktop.Formularios
             //! Update solo si cambió el dato.
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            var resultado = rFachada.UpdateDetail(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
+            var resultado = rFachada.UpdateDetail(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key, ChkExent.Checked);
             if (resultado == "OK")
             {
                 LlenarGrid();
