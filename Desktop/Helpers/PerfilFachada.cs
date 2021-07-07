@@ -587,7 +587,7 @@ namespace PurchaseDesktop.Helpers
                             if (status >= 3) { return "The 'status' of the Purchase Order is not allowed."; }
                             po = new OrderHeader().GetById(headerID);
                             if (Convert.ToInt32(headerDR["DetailsCount"]) == 0) { return "This Purchase Order does not contain Products or Services."; }
-                            if (status == 1)
+                            if (po.StatusID == 1)
                             {
                                 var resultado = ValidarHeader(headerDR, td);
                                 if (resultado == "OK")
@@ -601,7 +601,7 @@ namespace PurchaseDesktop.Helpers
                                     return resultado;
                                 }
                             }
-                            else if (status == 2)
+                            else if (po.StatusID == 2)
                             {
                                 po.StatusID = 1;
                                 perfilPo.UpdateItemHeader<OrderHeader>(td, po, headerID);
@@ -621,7 +621,7 @@ namespace PurchaseDesktop.Helpers
                             pr = new RequisitionHeader().GetById(headerID);
                             var rd = new RequisitionDetails().GetListByID(pr.RequisitionHeaderID);
                             if (Convert.ToInt32(headerDR["DetailsCount"]) == 0) { return "This Purchase Requesition does not contain Products or Services."; }
-                            if (status == 1)
+                            if (pr.StatusID == 1)
                             {
                                 var resultado = ValidarHeader(headerDR, td);
                                 if (resultado == "OK")
@@ -635,7 +635,7 @@ namespace PurchaseDesktop.Helpers
                                     return resultado;
                                 }
                             }
-                            else if (status == 2)
+                            else if (pr.StatusID == 2)
                             {
                                 pr.StatusID = 1;
                                 perfilPr.UpdateItemHeader<RequisitionHeader>(td, pr, headerID);
@@ -665,6 +665,7 @@ namespace PurchaseDesktop.Helpers
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             RequisitionHeader pr;
             var headerID = Convert.ToInt32(headerDR["headerID"]);
+            OrderHeader po;
             if (!Directory.Exists(configApp.FolderApp + headerID))
             {
                 Directory.CreateDirectory(configApp.FolderApp + headerID);
@@ -673,53 +674,57 @@ namespace PurchaseDesktop.Helpers
             {
                 case "CONVERTREQ":
                     //! Crear una PO desde una PR
+
                     //! Cambio el estado de la PR a 3
                     pr = new RequisitionHeader().GetById(headerID);
-                    pr.StatusID = 3;
-                    perfilPo.UpdateItemHeader(td, pr, headerID);
-                    //! Insert PO
-                    var po = new OrderHeader
+                    if (pr.StatusID == 2)
                     {
-                        Description = pr.Description,
-                        Type = Convert.ToByte(headerDR["Type"]),
-                        StatusID = 1,
-                        Net = 0,
-                        Exent = 0,
-                        RequisitionHeaderID = pr.RequisitionHeaderID,
-                        CompanyID = pr.CompanyID,
-                        Discount = 0
-                    };
-                    //! Traspasar los detalles
-                    var details = new RequisitionDetails().GetListByID(headerID);
-                    foreach (var item in details)
-                    {
-                        var detail = new OrderDetails
+                        pr.StatusID = 3;
+                        perfilPo.UpdateItemHeader(td, pr, headerID);
+                        //! Insert PO
+                        po = new OrderHeader
                         {
-                            Qty = item.Qty,
-                            AccountID = item.AccountID,
-                            DescriptionProduct = item.DescriptionProduct,
-                            NameProduct = item.NameProduct,
-                            MedidaID = item.MedidaID,
-                            IsExent = false
+                            Description = pr.Description,
+                            Type = Convert.ToByte(headerDR["Type"]),
+                            StatusID = 1,
+                            Net = 0,
+                            Exent = 0,
+                            RequisitionHeaderID = pr.RequisitionHeaderID,
+                            CompanyID = pr.CompanyID,
+                            Discount = 0
                         };
-                        po.OrderDetails.Add(detail);
-                    }
-                    //! Traspasar los adjuntos públicos
-                    var att = new Attaches().GetListByID(headerID).Where(c => c.Modifier == 1);
-                    foreach (var item in att)
-                    {
-                        var tt = new Attaches
+                        //! Traspasar los detalles
+                        var details = new RequisitionDetails().GetListByID(headerID);
+                        foreach (var item in details)
                         {
-                            Description = item.Description,
-                            FileName = item.FileName,
-                            Modifier = item.Modifier
-                        };
-                        po.Attaches.Add(tt);
-                        //! Copiar los archivos a la nueva ubicación
-                        File.Copy($"{configApp.FolderApp}{item.FileName}", $"{configApp.FolderApp}{@"\"}{headerID}{@"\"}{Path.GetFileName(item.FileName)}", true);
+                            var detail = new OrderDetails
+                            {
+                                Qty = item.Qty,
+                                AccountID = item.AccountID,
+                                DescriptionProduct = item.DescriptionProduct,
+                                NameProduct = item.NameProduct,
+                                MedidaID = item.MedidaID,
+                                IsExent = false
+                            };
+                            po.OrderDetails.Add(detail);
+                        }
+                        //! Traspasar los adjuntos públicos
+                        var att = new Attaches().GetListByID(headerID).Where(c => c.Modifier == 1);
+                        foreach (var item in att)
+                        {
+                            var tt = new Attaches
+                            {
+                                Description = item.Description,
+                                FileName = item.FileName,
+                                Modifier = item.Modifier
+                            };
+                            po.Attaches.Add(tt);
+                            //! Copiar los archivos a la nueva ubicación
+                            File.Copy($"{configApp.FolderApp}{item.FileName}", $"{configApp.FolderApp}{@"\"}{headerID}{@"\"}{Path.GetFileName(item.FileName)}", true);
 
+                        }
+                        perfilPo.InsertPOHeader(po);
                     }
-                    perfilPo.InsertPOHeader(po);
                     break;
                 case "OPENREQ":
                     //! Traer el DataRow de la PR

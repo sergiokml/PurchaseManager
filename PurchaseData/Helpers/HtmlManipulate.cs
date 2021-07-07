@@ -129,7 +129,7 @@ namespace PurchaseData.Helpers
                 }
                 // HtmlDoc.GetElementbyId("DETAILS_COUNT").InnerHtml = $"{details.Count}";
             }
-            string pathcomplete = Environment.CurrentDirectory + @"\" + headerDR["HeaderID"].ToString() + ".html";
+            string pathcomplete = Path.GetTempPath() + headerDR["HeaderID"].ToString() + ".html";
             HtmlDoc.Save(pathcomplete, System.Text.Encoding.UTF8);
             return pathcomplete;
         }
@@ -184,7 +184,7 @@ namespace PurchaseData.Helpers
                     }
 
                     //! Cargar Doc
-                    pathcomplete = Environment.CurrentDirectory + @"\" + headerDR["HeaderID"].ToString() + "_" + page + ".html";
+                    pathcomplete = Path.GetTempPath() + headerDR["HeaderID"].ToString() + "_" + page + ".html";
                     CargarDocumento(headerDR, user, pathcomplete);
 
 

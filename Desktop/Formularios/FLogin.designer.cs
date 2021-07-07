@@ -273,6 +273,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar.WaitOnLoad = false;
             this.BtnCerrar.Zoom = 5;
             this.BtnCerrar.ZoomSpeed = 10;
+            this.BtnCerrar.Click += new System.EventHandler(this.BtnCerrar_Click);
             // 
             // BtnLogin
             // 
