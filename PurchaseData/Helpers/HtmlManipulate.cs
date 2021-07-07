@@ -72,6 +72,7 @@ namespace PurchaseData.Helpers
         public string ReemplazarDatos(DataRow headerDR, Users user, List<RequisitionDetails> details)
         {
             //! PR
+            var headerID = Convert.ToInt32(headerDR["headerID"]);
             string path = Environment.CurrentDirectory + @"\HtmlDocuments\RequisitionDoc.html";
             HtmlDoc.Load(path);
             string userName = $"{user.FirstName} {user.LastName}";
@@ -87,27 +88,36 @@ namespace PurchaseData.Helpers
                 InnerHtml = $"{string.Format("{0:dd MMMM yyyy}", Convert.ToDateTime(headerDR["DateLast"]))}";
             HtmlDoc.GetElementbyId("NOW").InnerHtml = $"{string.Format("{0:dd MMMM yyyy}", DateTime.Now)}";
             HtmlDoc.GetElementbyId("STATUS_DESC").InnerHtml = $"{headerDR["Status"]}";
-            HtmlDoc.GetElementbyId("Description").InnerHtml = $"{headerDR["Description"]}";
+            HtmlDoc.GetElementbyId("Description").InnerHtml = $"{headerID}";
 
+            HtmlDoc.GetElementbyId("USER_CREATION").InnerHtml = new Users()
+                .GetUserByID(headerDR["UserID"].ToString()).FirstName.Substring(0, 1) + " " + new Users()
+                .GetUserByID(headerDR["UserID"].ToString()).LastName;
 
             HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/table[1]");
             HtmlDoc.GetElementbyId("HeaderID").InnerHtml = $"{headerDR["HeaderID"]}";
 
             if (user.ProfileID == "UPO")
             {
-                HtmlDoc.GetElementbyId("vandor_name").InnerHtml = $"The following Purchase Requisition has been created by the user ID <b>{headerDR["UserID"]}</b>, " +
+                HtmlDoc.GetElementbyId("vandor_name")
+                    .InnerHtml = $"The following Purchase Requisition has been created by the user ID <b>{headerDR["UserID"]}</b>, " +
                               "the next step is to create the <b>Purchase Order</b> by You. " +
                               "The reference code for this Purchase Requisition is: ";
             }
             else if (user.ProfileID == "UPR")
             {
-                HtmlDoc.GetElementbyId("vandor_name").InnerHtml = "The following Purchase Requisition has been created by you, " +
-                           "the next step is to create the <b>Purchase Order</b> by the corresponding user so complete all the required fields. " +
-                           "The reference code for this Purchase Requisition is: ";
+                HtmlDoc.GetElementbyId("vandor_name")
+                    .InnerHtml = "The following Purchase Requisition has been created by you, " +
+                    "the next step is to create the <b>Purchase Order</b> by the corresponding " +
+                    "user so complete all the required fields. " +
+                    "The reference code for this Purchase Requisition is: ";
             }
             HtmlDoc.GetElementbyId("code").InnerHtml = $"{headerDR["Code"]}";
+            var att = new Attaches().GetListByID(headerID).Where(c => c.Modifier == 1).ToList();
+            HtmlDoc.GetElementbyId("NRO_ATTACH").InnerHtml = $"{att.Count}";
             if (details.Count > 0)
             {
+                HtmlDoc.GetElementbyId("NRO_DETAILS").InnerHtml = $"{details.Count}";
                 foreach (RequisitionDetails item in details)
                 {
                     string node = "<tr class='list-item'>";

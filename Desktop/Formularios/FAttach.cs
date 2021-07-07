@@ -59,6 +59,35 @@ namespace PurchaseDesktop.Formularios
 
         public void SetControles()
         {
+            Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+            int status = Convert.ToInt32(Current["StatusID"]);
+            switch (td)
+            {
+                case TypeDocumentHeader.PR:
+                    if (status >= 2)
+                    {
+                        BtnNewDetail.Enabled = false;
+                        TxtNameFile.ReadOnly = true;
+                        TxtPathFile.ReadOnly = true;
+                        CboTypeFile.Enabled = false;
+
+
+                    }
+                    break;
+                case TypeDocumentHeader.PO:
+                    if (status >= 2)
+                    {
+                        BtnNewDetail.Enabled = false;
+                        TxtNameFile.ReadOnly = true;
+                        TxtPathFile.ReadOnly = true;
+                        CboTypeFile.Enabled = false;
+
+
+                    }
+                    break;
+                default:
+                    break;
+            }
             //DataTable dt = new DataTable();
             //dt.Columns.Add("Id");
             //dt.Columns.Add("Name");
@@ -314,7 +343,7 @@ namespace PurchaseDesktop.Formularios
         {
             TxtPathFile.Font = new Font("Tahoma", 7, FontStyle.Regular);
             TxtPathFile.SelectionStart = 0;
-        }    
+        }
 
         private void TxtPathFile_Click(object sender, EventArgs e)
         {

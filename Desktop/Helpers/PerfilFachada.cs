@@ -4,6 +4,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -44,7 +45,7 @@ namespace PurchaseDesktop.Helpers
             val.CurrentUser = user;
         }
 
-        #region Cargar Controles
+        #region Cargar Controles y Acciones
 
         public void CargarGrid(iGrid grid, string form, DataRow headerDR)
         {
@@ -540,7 +541,7 @@ namespace PurchaseDesktop.Helpers
                     await send.SendEmail(path, "Purchase Manager: PR document ", perfilPr.CurrentUser);
                     break;
                 case TypeDocumentHeader.PO:
-                    if (status == 1) { return "The 'status' of the Purchase Order is not allowed."; }
+                    //if (status == 1) { return "The 'status' of the Purchase Order is not allowed."; }
 
                     f.Mensaje = mensaje;
                     f.ShowDialog(fPrincipal);
@@ -664,7 +665,10 @@ namespace PurchaseDesktop.Helpers
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             RequisitionHeader pr;
             var headerID = Convert.ToInt32(headerDR["headerID"]);
-
+            if (!Directory.Exists(configApp.FolderApp + headerID))
+            {
+                Directory.CreateDirectory(configApp.FolderApp + headerID);
+            }
             switch (action)
             {
                 case "CONVERTREQ":
@@ -701,19 +705,18 @@ namespace PurchaseDesktop.Helpers
                         po.OrderDetails.Add(detail);
                     }
                     //! Traspasar los adjuntos públicos
-                    var att = new Attaches().GetListByID(headerID);
+                    var att = new Attaches().GetListByID(headerID).Where(c => c.Modifier == 1);
                     foreach (var item in att)
                     {
-                        if (item.Modifier == 1)
+                        var tt = new Attaches
                         {
-                            var tt = new Attaches
-                            {
-                                Description = item.Description,
-                                FileName = item.FileName,
-                                Modifier = item.Modifier
-                            };
-                            po.Attaches.Add(tt);
-                        }
+                            Description = item.Description,
+                            FileName = item.FileName,
+                            Modifier = item.Modifier
+                        };
+                        po.Attaches.Add(tt);
+                        //! Copiar los archivos a la nueva ubicación
+                        File.Copy($"{configApp.FolderApp}{item.FileName}", $"{configApp.FolderApp}{@"\"}{headerID}{@"\"}{Path.GetFileName(item.FileName)}", true);
 
                     }
                     perfilPo.InsertPOHeader(po);
@@ -837,6 +840,7 @@ namespace PurchaseDesktop.Helpers
         {
             fSupplier.ShowInTaskbar = false;
             fSupplier.StartPosition = FormStartPosition.CenterParent;
+            Enum.TryParse(fSupplier.Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -844,9 +848,18 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    perfilPo.Grid = fSupplier.GetGrid();
-                    perfilPo.PintarGrid();
-                    fSupplier.ShowDialog(fPrincipal);
+                    switch (td)
+                    {
+                        case TypeDocumentHeader.PR:
+                            return "Your profile does not allow you to complete this action.";
+                        case TypeDocumentHeader.PO:
+                            perfilPo.Grid = fSupplier.GetGrid();
+                            perfilPo.PintarGrid();
+                            fSupplier.ShowDialog(fPrincipal);
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case Perfiles.UPR:
                     return "Your profile does not allow you to complete this action.";
@@ -862,6 +875,8 @@ namespace PurchaseDesktop.Helpers
         {
             fHitos.ShowInTaskbar = false;
             fHitos.StartPosition = FormStartPosition.CenterParent;
+            Enum.TryParse(fHitos.Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -869,9 +884,19 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    perfilPo.Grid = fHitos.GetGrid();
-                    perfilPo.PintarGrid();
-                    fHitos.ShowDialog(fPrincipal);
+                    switch (td)
+                    {
+                        case TypeDocumentHeader.PR:
+                            return "Your profile does not allow you to complete this action.";
+                        case TypeDocumentHeader.PO:
+                            perfilPo.Grid = fHitos.GetGrid();
+                            perfilPo.PintarGrid();
+                            fHitos.ShowDialog(fPrincipal);
+                            break;
+                        default:
+                            break;
+                    }
+
                     break;
                 case Perfiles.UPR:
                     return "Your profile does not allow you to complete this action.";
@@ -1194,11 +1219,13 @@ namespace PurchaseDesktop.Helpers
                                     perfilPo.UpdateItemHeader<OrderHeader>(td, po, headerID);
                                     break;
                                 case "SupplierID":
+                                    if (status >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
                                     po = new OrderHeader().GetById(headerID);
                                     po.SupplierID = newValue.ToString();
                                     perfilPo.UpdateItemHeader<OrderHeader>(td, po, headerID);
                                     break;
                                 case "CurrencyID":
+                                    if (status >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
                                     po = new OrderHeader().GetById(headerID);
                                     po.CurrencyID = newValue.ToString();
                                     perfilPo.UpdateItemHeader<OrderHeader>(td, po, headerID);

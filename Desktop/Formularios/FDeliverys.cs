@@ -12,6 +12,8 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
+using static PurchaseDesktop.Helpers.HFunctions;
+
 namespace PurchaseDesktop.Formularios
 {
     public partial class FDeliverys : Form, IControles, IGridCustom
@@ -46,6 +48,24 @@ namespace PurchaseDesktop.Formularios
 
         public void SetControles()
         {
+            Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+            int status = Convert.ToInt32(Current["StatusID"]);
+            switch (td)
+            {
+                case TypeDocumentHeader.PR:
+
+                    break;
+                case TypeDocumentHeader.PO:
+                    if (status >= 2)
+                    {
+                        BtnNewNote.Enabled = false;
+                        DatePicker.Enabled = false;
+                        TxtTitle.ReadOnly = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
             //DatePicker.Format = DateTimePickerFormat.Custom;
             //DatePicker.CustomFormat = "dd/MM/yyyy";
             //DataTable dt = new DataTable();

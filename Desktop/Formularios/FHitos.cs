@@ -14,6 +14,7 @@ using PurchaseDesktop.Interfaces;
 using TenTec.Windows.iGridLib;
 
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static PurchaseDesktop.Helpers.HFunctions;
 
 namespace PurchaseDesktop.Formularios
 {
@@ -58,7 +59,25 @@ namespace PurchaseDesktop.Formularios
 
         public void SetControles()
         {
+            Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+            int status = Convert.ToInt32(Current["StatusID"]);
+            switch (td)
+            {
+                case TypeDocumentHeader.PR:
 
+                    break;
+                case TypeDocumentHeader.PO:
+                    if (status >= 2)
+                    {
+                        BtnNewDetail.Enabled = false;
+                        CboDays.Enabled = false;
+                        TxtDescription.ReadOnly = true;
+                        TrackBar.Enabled = false;
+                    }
+                    break;
+                default:
+                    break;
+            }
 
         }
         public iGrid GetGrid()
@@ -68,6 +87,7 @@ namespace PurchaseDesktop.Formularios
         private void FAttachment_Load(object sender, EventArgs e)
         {
             Icon = Properties.Resources.icons8_survey;
+            SetControles();
             //! Combobox días
             CboDays.DataSource = new List<short>() { 0, 5, 10, 15, 30, 45, 60, 90, 120, 150, 180 };
 

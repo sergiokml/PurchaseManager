@@ -56,6 +56,25 @@ namespace PurchaseDesktop.Formularios
 
         public void SetControles()
         {
+            Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+            int status = Convert.ToInt32(Current["StatusID"]);
+            switch (td)
+            {
+                case TypeDocumentHeader.PR:
+
+                    break;
+                case TypeDocumentHeader.PO:
+                    if (status >= 2)
+                    {
+                        BtnNewNote.Enabled = false;
+                        CboTypeFile.Enabled = false;
+                        TxtComments.ReadOnly = true;
+                        TxtTitle.ReadOnly = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
             //DataTable dt = new DataTable();
             //dt.Columns.Add("Id");
             //dt.Columns.Add("Name");

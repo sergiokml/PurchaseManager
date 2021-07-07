@@ -251,7 +251,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnDelivery.ShowSizeMarkers = false;
             this.BtnDelivery.Size = new System.Drawing.Size(55, 55);
             this.BtnDelivery.TabIndex = 36;
-            this.BtnDelivery.ToolTipText = "Notes";
+            this.BtnDelivery.ToolTipText = "Delivery";
             this.BtnDelivery.WaitOnLoad = false;
             this.BtnDelivery.Zoom = 20;
             this.BtnDelivery.ZoomSpeed = 10;

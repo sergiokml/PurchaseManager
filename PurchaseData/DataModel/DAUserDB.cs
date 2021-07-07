@@ -23,6 +23,15 @@ namespace PurchaseData.DataModel
             }
         }
 
+        public Users GetUserByID(string id)
+        {
+
+            using (var contextDB = new PurchaseManagerEntities())
+            {
+                return contextDB.Users.Find(id);
+            }
+        }
+
 
     }
 }

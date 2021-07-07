@@ -93,7 +93,7 @@ namespace PurchaseDesktop.Profiles
                     using (var rContext = new PurchaseManagerEntities())
                     {
                         RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
-                        return this.ToDataTable<Attaches>(pr.Attaches.ToList());
+                        return this.ToDataTable<Attaches>(pr.Attaches.Where(c => c.Modifier == 1).ToList());
                     }
                 case TypeDocumentHeader.PO:
                     using (var rContext = new PurchaseManagerEntities())

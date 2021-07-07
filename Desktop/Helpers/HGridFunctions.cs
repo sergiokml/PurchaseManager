@@ -335,7 +335,6 @@ namespace PurchaseDesktop.Helpers
                     for (int i = 0; i < Grid.Rows.Count; i++)
                     {
                         Grid.Rows[i].Height = 40;
-
                     }
                     break;
                 case "FDelivery":
@@ -343,8 +342,6 @@ namespace PurchaseDesktop.Helpers
                     {
                         DataRow row = (DataRow)Grid.Rows[i].Tag;
                         Grid.Rows[i].Cells["Date"].Value = Convert.ToDateTime(row["Date"]).ToString("dd-MM-yyyy");
-
-
                     }
                     break;
                 default:

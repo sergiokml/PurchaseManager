@@ -264,6 +264,15 @@ namespace PurchaseDesktop.Formularios
                     if (status >= 2)
                     {
                         BtnNewDetail.Enabled = false;
+                        TxtQty.ReadOnly = true;
+                        TxtDescription.ReadOnly = true;
+                        TxtName.ReadOnly = true;
+                        TxtPrice.ReadOnly = true;
+                        TxtGlosa.ReadOnly = true;
+                        ChkExent.Enabled = false;
+                        CboAccount.Enabled = false;
+                        CboMedidas.Enabled = false;
+                        BtnNewDetail.Enabled = false;
                     }
 
                     break;
