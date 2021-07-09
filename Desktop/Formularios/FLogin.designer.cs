@@ -31,14 +31,14 @@ namespace PurchaseDesktop.Formularios
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FLogin));
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties5 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties6 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties7 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties8 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties9 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties10 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties11 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties12 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties13 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties14 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties15 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties16 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             this.TxtID = new Bunifu.UI.WinForms.BunifuTextBox();
             this.TxtPassword = new Bunifu.UI.WinForms.BunifuTextBox();
             this.PicLogo = new System.Windows.Forms.PictureBox();
@@ -81,32 +81,32 @@ namespace PurchaseDesktop.Formularios
             this.TxtID.IconRight = ((System.Drawing.Image)(resources.GetObject("TxtID.IconRight")));
             this.TxtID.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtID.Lines = new string[0];
-            this.TxtID.Location = new System.Drawing.Point(70, 149);
+            this.TxtID.Location = new System.Drawing.Point(47, 149);
             this.TxtID.MaxLength = 32767;
             this.TxtID.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtID.Modified = false;
             this.TxtID.Multiline = false;
             this.TxtID.Name = "TxtID";
-            stateProperties1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
-            stateProperties1.FillColor = System.Drawing.Color.Empty;
-            stateProperties1.ForeColor = System.Drawing.Color.Empty;
-            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtID.OnActiveState = stateProperties1;
-            stateProperties2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            stateProperties2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            stateProperties2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            stateProperties2.PlaceholderForeColor = System.Drawing.Color.DarkGray;
-            this.TxtID.OnDisabledState = stateProperties2;
-            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(215)))), ((int)(((byte)(141)))));
-            stateProperties3.FillColor = System.Drawing.Color.Empty;
-            stateProperties3.ForeColor = System.Drawing.Color.Empty;
-            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtID.OnHoverState = stateProperties3;
-            stateProperties4.BorderColor = System.Drawing.Color.Silver;
-            stateProperties4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            stateProperties4.ForeColor = System.Drawing.Color.Empty;
-            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtID.OnIdleState = stateProperties4;
+            stateProperties9.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
+            stateProperties9.FillColor = System.Drawing.Color.Empty;
+            stateProperties9.ForeColor = System.Drawing.Color.Empty;
+            stateProperties9.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtID.OnActiveState = stateProperties9;
+            stateProperties10.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            stateProperties10.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            stateProperties10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            stateProperties10.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.TxtID.OnDisabledState = stateProperties10;
+            stateProperties11.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(215)))), ((int)(((byte)(141)))));
+            stateProperties11.FillColor = System.Drawing.Color.Empty;
+            stateProperties11.ForeColor = System.Drawing.Color.Empty;
+            stateProperties11.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtID.OnHoverState = stateProperties11;
+            stateProperties12.BorderColor = System.Drawing.Color.Silver;
+            stateProperties12.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            stateProperties12.ForeColor = System.Drawing.Color.Empty;
+            stateProperties12.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtID.OnIdleState = stateProperties12;
             this.TxtID.Padding = new System.Windows.Forms.Padding(3);
             this.TxtID.PasswordChar = '\0';
             this.TxtID.PlaceholderForeColor = System.Drawing.Color.Silver;
@@ -156,32 +156,32 @@ namespace PurchaseDesktop.Formularios
             this.TxtPassword.IconRight = ((System.Drawing.Image)(resources.GetObject("TxtPassword.IconRight")));
             this.TxtPassword.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.TxtPassword.Lines = new string[0];
-            this.TxtPassword.Location = new System.Drawing.Point(70, 192);
+            this.TxtPassword.Location = new System.Drawing.Point(47, 192);
             this.TxtPassword.MaxLength = 32767;
             this.TxtPassword.MinimumSize = new System.Drawing.Size(1, 1);
             this.TxtPassword.Modified = false;
             this.TxtPassword.Multiline = false;
             this.TxtPassword.Name = "TxtPassword";
-            stateProperties5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
-            stateProperties5.FillColor = System.Drawing.Color.Empty;
-            stateProperties5.ForeColor = System.Drawing.Color.Empty;
-            stateProperties5.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtPassword.OnActiveState = stateProperties5;
-            stateProperties6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            stateProperties6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            stateProperties6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            stateProperties6.PlaceholderForeColor = System.Drawing.Color.DarkGray;
-            this.TxtPassword.OnDisabledState = stateProperties6;
-            stateProperties7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(215)))), ((int)(((byte)(141)))));
-            stateProperties7.FillColor = System.Drawing.Color.Empty;
-            stateProperties7.ForeColor = System.Drawing.Color.Empty;
-            stateProperties7.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtPassword.OnHoverState = stateProperties7;
-            stateProperties8.BorderColor = System.Drawing.Color.Silver;
-            stateProperties8.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
-            stateProperties8.ForeColor = System.Drawing.Color.Empty;
-            stateProperties8.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.TxtPassword.OnIdleState = stateProperties8;
+            stateProperties13.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
+            stateProperties13.FillColor = System.Drawing.Color.Empty;
+            stateProperties13.ForeColor = System.Drawing.Color.Empty;
+            stateProperties13.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtPassword.OnActiveState = stateProperties13;
+            stateProperties14.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            stateProperties14.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            stateProperties14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            stateProperties14.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.TxtPassword.OnDisabledState = stateProperties14;
+            stateProperties15.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(215)))), ((int)(((byte)(141)))));
+            stateProperties15.FillColor = System.Drawing.Color.Empty;
+            stateProperties15.ForeColor = System.Drawing.Color.Empty;
+            stateProperties15.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtPassword.OnHoverState = stateProperties15;
+            stateProperties16.BorderColor = System.Drawing.Color.Silver;
+            stateProperties16.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
+            stateProperties16.ForeColor = System.Drawing.Color.Empty;
+            stateProperties16.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.TxtPassword.OnIdleState = stateProperties16;
             this.TxtPassword.Padding = new System.Windows.Forms.Padding(3);
             this.TxtPassword.PasswordChar = '●';
             this.TxtPassword.PlaceholderForeColor = System.Drawing.Color.Silver;
@@ -208,7 +208,7 @@ namespace PurchaseDesktop.Formularios
             // PicLogo
             // 
             this.PicLogo.Image = global::PurchaseDesktop.Properties.Resources.logo_cve;
-            this.PicLogo.Location = new System.Drawing.Point(55, 31);
+            this.PicLogo.Location = new System.Drawing.Point(32, 31);
             this.PicLogo.Name = "PicLogo";
             this.PicLogo.Size = new System.Drawing.Size(173, 76);
             this.PicLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -219,9 +219,9 @@ namespace PurchaseDesktop.Formularios
             // 
             this.LblBienvenida.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblBienvenida.ForeColor = System.Drawing.Color.White;
-            this.LblBienvenida.Location = new System.Drawing.Point(12, 117);
+            this.LblBienvenida.Location = new System.Drawing.Point(1, 117);
             this.LblBienvenida.Name = "LblBienvenida";
-            this.LblBienvenida.Size = new System.Drawing.Size(259, 29);
+            this.LblBienvenida.Size = new System.Drawing.Size(234, 29);
             this.LblBienvenida.TabIndex = 7;
             this.LblBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -236,7 +236,7 @@ namespace PurchaseDesktop.Formularios
             this.PanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelHeader.Location = new System.Drawing.Point(0, 1);
             this.PanelHeader.Name = "PanelHeader";
-            this.PanelHeader.Size = new System.Drawing.Size(283, 25);
+            this.PanelHeader.Size = new System.Drawing.Size(237, 25);
             this.PanelHeader.TabIndex = 8;
             // 
             // BtnCerrar
@@ -259,7 +259,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar.ImageSize = new System.Drawing.Size(17, 17);
             this.BtnCerrar.ImageZoomSize = new System.Drawing.Size(22, 22);
             this.BtnCerrar.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.InitialImage")));
-            this.BtnCerrar.Location = new System.Drawing.Point(258, 1);
+            this.BtnCerrar.Location = new System.Drawing.Point(212, 1);
             this.BtnCerrar.Name = "BtnCerrar";
             this.BtnCerrar.Rotation = 0;
             this.BtnCerrar.ShowActiveImage = true;
@@ -295,7 +295,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnLogin.ImageSize = new System.Drawing.Size(50, 50);
             this.BtnLogin.ImageZoomSize = new System.Drawing.Size(70, 70);
             this.BtnLogin.InitialImage = null;
-            this.BtnLogin.Location = new System.Drawing.Point(106, 255);
+            this.BtnLogin.Location = new System.Drawing.Point(83, 255);
             this.BtnLogin.Name = "BtnLogin";
             this.BtnLogin.Rotation = 0;
             this.BtnLogin.ShowActiveImage = true;
@@ -363,7 +363,7 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator1.Location = new System.Drawing.Point(0, 348);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
-            this.bunifuSeparator1.Size = new System.Drawing.Size(283, 1);
+            this.bunifuSeparator1.Size = new System.Drawing.Size(237, 1);
             this.bunifuSeparator1.TabIndex = 10;
             // 
             // bunifuSeparator2
@@ -379,7 +379,7 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator2.Location = new System.Drawing.Point(0, 0);
             this.bunifuSeparator2.Name = "bunifuSeparator2";
             this.bunifuSeparator2.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
-            this.bunifuSeparator2.Size = new System.Drawing.Size(283, 1);
+            this.bunifuSeparator2.Size = new System.Drawing.Size(237, 1);
             this.bunifuSeparator2.TabIndex = 11;
             // 
             // FLogin
@@ -387,7 +387,7 @@ namespace PurchaseDesktop.Formularios
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.ClientSize = new System.Drawing.Size(283, 349);
+            this.ClientSize = new System.Drawing.Size(237, 349);
             this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.bunifuSeparator2);
             this.Controls.Add(this.bunifuSeparator1);

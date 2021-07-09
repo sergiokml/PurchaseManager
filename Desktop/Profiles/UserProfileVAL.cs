@@ -24,8 +24,7 @@ namespace PurchaseDesktop.Profiles
 
         public DataTable VistaFPrincipal()
         {
-            //todo INCLUIR LAS PO QUE YO VALIDÉ !!!!
-            var l = rContext.vOrderByMinTransaction.Where(c => c.StatusID == 2).OrderByDescending(c => c.DateLast).ToList();
+            var l = rContext.vOrderByMinTransaction.Where(c => c.StatusID >= 2).OrderByDescending(c => c.DateLast).ToList();
             return this.ToDataTable<vOrderByMinTransaction>(l);
         }
 

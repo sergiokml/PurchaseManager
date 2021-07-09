@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 
 using PurchaseData.DataModel;
@@ -74,6 +75,14 @@ namespace PurchaseDesktop.Helpers
                         item.BackColor = Color.FromArgb(37, 37, 38);
                         item.Name = "SEND";
                     }
+                    //else if (status == 4) // Sent to supplier
+                    //{
+                    //    item = CtxMenu.Items.Add("Accepted by Supplier"); // index 0
+                    //    item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                    //    item.Image = Properties.Resources.icons8_envelope.ToBitmap();
+                    //    item.BackColor = Color.FromArgb(37, 37, 38);
+                    //    item.Name = "ACCEPTSUPPLIER";
+                    //}
 
 
                     break;
@@ -415,7 +424,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("Type", "Type", 97);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
-                    iGCol = Grid.Cols.Add("Status", "Status", 111);
+                    iGCol = Grid.Cols.Add("Status", "Status", 62);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -432,7 +441,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol.CellStyle.Font = new Font("Tahoma", 7);
 
-                    iGCol = Grid.Cols.Add("UserID", "User ID", 58);
+                    iGCol = Grid.Cols.Add("NameUserID", "User", 110);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("CostID", "CC", 32);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -452,7 +461,7 @@ namespace PurchaseDesktop.Helpers
                     tablePr = new DataTable();
                     tablePr.Columns.Add("Id");
                     tablePr.Columns.Add("Name");
-                    foreach (var myType in new Users().GetListByPerfil("UPO"))
+                    foreach (var myType in new Users().GetList().Where(c => c.ProfileID == "UPO").ToList())
                     {
                         DataRow row = tablePr.NewRow();
                         row[0] = myType.UserID;
@@ -484,7 +493,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("Type", "Type", 97);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
-                    iGCol = Grid.Cols.Add("Status", "Status", 111);
+                    iGCol = Grid.Cols.Add("Status", "Status", 62);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
                     //! Los usuarios PO para seleccionar
@@ -532,7 +541,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("Type", "Type", 97);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
-                    iGCol = Grid.Cols.Add("Status", "Status", 111);
+                    iGCol = Grid.Cols.Add("Status", "Status", 62);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;

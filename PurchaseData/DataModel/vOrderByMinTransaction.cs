@@ -39,5 +39,6 @@ namespace PurchaseData.DataModel
         public Nullable<int> DetailsCount { get; set; }
         public Nullable<decimal> Discount { get; set; }
         public Nullable<int> HitosCount { get; set; }
+        public string NameUserID { get; set; }
     }
 }

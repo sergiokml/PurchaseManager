@@ -78,8 +78,15 @@ namespace PurchaseDesktop.Formularios
             LblUser.Text = $"User: {user.FirstName} {user.LastName} | Profile: {user.ProfileID} | Email: {user.Email}";
 
             //! Banner
-            //string s = await rFachada.CargarBanner();
-            // WBrowserBanner.Navigate(s);
+            string s = await rFachada.CargarBanner();
+            try
+            {
+                WBrowserBanner.Navigate(s);
+            }
+            catch (Exception)
+            {
+                Msg(s, MsgProceso.Error);
+            }
 
 
 
@@ -165,6 +172,10 @@ namespace PurchaseDesktop.Formularios
             {
                 e.Result = iGEditResult.Cancel;
                 Msg(resultado, MsgProceso.Warning);
+                //TODO IGUAL ACTUALIZO LA GRILLA, EN CASO DE CAMBIAR STATUS                
+                LlenarGrid();
+                ClearControles();
+                SetControles();
             }
         }
 
@@ -308,6 +319,11 @@ namespace PurchaseDesktop.Formularios
                     {
                         e.DoDefault = false;
                         Msg(resultado, FPrincipal.MsgProceso.Warning);
+                        //TODO NO SIEMPRE HAY QUE ACTUALZAR!!!!!!! EN CASOS DE QUE NO CUMPLA, NO TRAER LA GRILLA DE NUEVO
+                        //LlenarGrid();
+                        //CargarDashboard();
+                        //ClearControles();
+                        //SetControles();
                     }
                 }
             }
@@ -360,9 +376,28 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-        private void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private async void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            var resultado = rFachada.SeleccionarContextMenuStrip(Current, e.ClickedItem.Name);
+            string resultado = string.Empty;
+            if (e.ClickedItem.Name == "SEND")
+            {
+                if (!IsSending)
+                {
+                    //IsSending = true;
+                    resultado = await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name, this);
+                    IsSending = false;
+                    Msg("The message has been sent successfully.", MsgProceso.Send);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                resultado = await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name, this);
+            }
+
             if (resultado == "OK")
             {
                 LlenarGrid();
@@ -487,7 +522,7 @@ namespace PurchaseDesktop.Formularios
                 }
                 Grid = rFachada.FormatearGrid(Grid, "FPrincipal", Current);
                 Grid.Refresh();
-                Msg($"You have {vista.Rows.Count} documents issued and showing.", MsgProceso.Informacion);
+                //Msg($"You have {vista.Rows.Count} documents issued and showing.", MsgProceso.Informacion);
             }
             catch (Exception)
             {
@@ -666,9 +701,6 @@ namespace PurchaseDesktop.Formularios
             f.ShowDialog(this);
         }
 
-
-        #endregion
-
         private void BtnDelivery_Click(object sender, EventArgs e)
         {
             if (Grid.CurCell != null)
@@ -690,5 +722,8 @@ namespace PurchaseDesktop.Formularios
 
             }
         }
+
+        #endregion
+
     }
 }

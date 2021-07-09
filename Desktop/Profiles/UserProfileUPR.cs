@@ -59,7 +59,17 @@ namespace PurchaseDesktop.Profiles
                         Status = item.Status,
                         Type = item.Type,
                         TypeDocumentHeader = item.TypeDocumentHeader,
-                        UserPO = item.UserID
+                        UserPO = item.UserID,
+                        NameUserID = item.NameUserID,
+                        CurrencyID = item.CurrencyID,
+                        SupplierID = item.SupplierID,
+                        Net = item.Net,
+                        Exent = item.Exent,
+                        Total = item.Total,
+                        Tax = item.Tax,
+                        Discount = item.Discount
+
+
                     };
 
                     l.Add(pr);

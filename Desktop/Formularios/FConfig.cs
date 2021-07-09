@@ -42,6 +42,7 @@ namespace PurchaseDesktop.Formularios
         {
             using (var contextDB = new PurchaseManagerEntities())
             {
+                //todo HACER UN SP PARA UPDATE TODA LA TABLA USER!
                 contextDB.UPDATE_PASSWORD_HASH(TxtPassword.Text.Trim(), user.UserID);
             }
         }

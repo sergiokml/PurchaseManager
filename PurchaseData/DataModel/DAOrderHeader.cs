@@ -1,4 +1,7 @@
-﻿namespace PurchaseData.DataModel
+﻿using System.Data.Entity;
+using System.Linq;
+
+namespace PurchaseData.DataModel
 {
     public partial class OrderHeader
     {
@@ -6,7 +9,7 @@
         {
             using (var contextDB = new PurchaseManagerEntities())
             {
-                return contextDB.OrderHeader.Find(id);
+                return contextDB.OrderHeader.Include(c => c.OrderStatus).FirstOrDefault(x => x.OrderHeaderID == id);
             }
         }
 

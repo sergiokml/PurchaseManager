@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -12,16 +13,15 @@ namespace PurchaseData.Helpers
 {
     public class SendEmailTo
     {
-        private string Email { get; set; }
-        private string Password { get; set; }
         private MimeMessage Message { get; set; }
 
         public string MessageResult { get; set; }
 
-        public SendEmailTo(string email, string password)
+        private readonly ConfigApp configApp;
+
+        public SendEmailTo(ConfigApp configApp)
         {
-            Email = email;
-            Password = password;
+            this.configApp = configApp;
             Message = new MimeMessage();
         }
 
@@ -38,7 +38,7 @@ namespace PurchaseData.Helpers
 
             }
             //! From
-            Message.From.Add(new MailboxAddress($"Purchase Manager", Email));
+            Message.From.Add(new MailboxAddress($"Purchase Manager", configApp.Email));
             Message.ReplyTo.Add(new MailboxAddress($"{user.FirstName} {user.LastName}", user.Email));
             Message.Subject = asunto;
             //Message.Importance = MessageImportance.High;
@@ -51,7 +51,7 @@ namespace PurchaseData.Helpers
             {
                 client.MessageSent += Client_MessageSent; ;
                 await client.ConnectAsync("smtp.office365.com", 587, false);
-                await client.AuthenticateAsync(Email, Password);
+                await client.AuthenticateAsync(configApp.Email, configApp.Password);
                 await client.SendAsync(Message);
                 await client.DisconnectAsync(true);
                 //MessageResult = $"Message sent successfully to: {Message.To[0].Name}.";
@@ -61,25 +61,34 @@ namespace PurchaseData.Helpers
         }
 
 
-        public async Task<string> SendEmailToSupplier(string path, string asunto, Users user, Suppliers supp)
+        public async Task<string> SendEmailToSupplier(string path, string asunto, Users user, Suppliers supp, List<Attaches> att)
         {
             BodyBuilder bodyBuilder = new BodyBuilder();
             if (Path.GetExtension(path) == ".pdf")
             {
                 bodyBuilder.Attachments.Add(path);
+                bodyBuilder.HtmlBody = string.Format(@"<p>Estimado Proveedor,<br>
+                                        <p>Contacto: {0}<br>    
+                                        <p>Adjunto encontrará documentación relacionada con
+                                        {1}, favor recuerde contestar a este mail indicando aprovación u observaciones.<br>                                        
+                                        <p>-- {2} {3}<br>", supp.Name, asunto, user.LastName, user.LastName);
             }
             else if (Path.GetExtension(path) == ".html")
             {
                 bodyBuilder.HtmlBody = File.ReadAllText(path);
-
+            }
+            //! Adjuntos
+            foreach (var item in att)
+            {
+                bodyBuilder.Attachments.Add(configApp.FolderApp + @"\" + item.FileName);
             }
             //! From
-            Message.From.Add(new MailboxAddress($"Purchase Manager", Email));
+            Message.From.Add(new MailboxAddress($"Purchase Manager", configApp.Email));
             Message.ReplyTo.Add(new MailboxAddress($"{user.FirstName} {user.LastName}", user.Email));
             Message.Subject = asunto;
             //Message.Importance = MessageImportance.High;
             //! To
-            Message.To.Add(new MailboxAddress($"{user.FirstName} {user.LastName}", user.Email));
+            Message.To.Add(new MailboxAddress(supp.ContactName, supp.Email));
             //! Body
             Message.Body = bodyBuilder.ToMessageBody();
 
@@ -87,7 +96,7 @@ namespace PurchaseData.Helpers
             {
                 client.MessageSent += Client_MessageSent; ;
                 await client.ConnectAsync("smtp.office365.com", 587, false);
-                await client.AuthenticateAsync(Email, Password);
+                await client.AuthenticateAsync(configApp.Email, configApp.Password);
                 await client.SendAsync(Message);
                 await client.DisconnectAsync(true);
                 //MessageResult = $"Message sent successfully to: {Message.To[0].Name}.";
@@ -98,7 +107,7 @@ namespace PurchaseData.Helpers
 
         private void Client_MessageSent(object sender, MailKit.MessageSentEventArgs e)
         {
-            //MessageResult = "Message enviado.";
+            //MessageResult = $"Message enviado a ....";
         }
     }
 }

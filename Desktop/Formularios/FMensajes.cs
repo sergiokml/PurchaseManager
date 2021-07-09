@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Text;
+﻿using System.Text;
 using System.Windows.Forms;
 
 namespace PurchaseDesktop.Formularios
@@ -20,11 +19,7 @@ namespace PurchaseDesktop.Formularios
 
         private void BtnOk_Click(object sender, System.EventArgs e)
         {
-            fPrincipal.IsSending = true;
-            fPrincipal.LblMsg.Text = string.Empty;
-            fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-            fPrincipal.LblMsg.Image = Properties.Resources.loading;
-            //Resultado = DialogResult.OK;
+            Resultado = DialogResult.OK;
             Close();
         }
 

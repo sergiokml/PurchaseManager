@@ -77,7 +77,7 @@ namespace PurchaseData.Helpers
             HtmlDoc.Load(path);
             string userName = $"{user.FirstName} {user.LastName}";
             int line = 1;
-            HtmlDoc.GetElementbyId("userName").InnerHtml = userName;
+            HtmlDoc.GetElementbyId("userName").InnerHtml = userName + ",";
 
             HtmlDoc.GetElementbyId("CompanyName").InnerHtml = $"{headerDR["CompanyName"]}";
             HtmlDoc.GetElementbyId("NameBiz").InnerHtml = $"{headerDR["NameBiz"]}";
@@ -90,9 +90,12 @@ namespace PurchaseData.Helpers
             HtmlDoc.GetElementbyId("STATUS_DESC").InnerHtml = $"{headerDR["Status"]}";
             HtmlDoc.GetElementbyId("Description").InnerHtml = $"{headerID}";
 
-            HtmlDoc.GetElementbyId("USER_CREATION").InnerHtml = new Users()
-                .GetUserByID(headerDR["UserID"].ToString()).FirstName.Substring(0, 1) + " " + new Users()
-                .GetUserByID(headerDR["UserID"].ToString()).LastName;
+            //var usuarioCreation = new Users()
+            //    .GetUserByID(headerDR["UserID"].ToString()).FirstName.Substring(0, 1) + " " + new Users()
+            //    .GetUserByID(headerDR["UserID"].ToString()).LastName;
+            var usuarioCreation = $"{headerDR["NameUserID"]}";
+
+            HtmlDoc.GetElementbyId("USER_CREATION").InnerHtml = usuarioCreation;
 
             HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/table[1]");
             HtmlDoc.GetElementbyId("HeaderID").InnerHtml = $"{headerDR["HeaderID"]}";
@@ -100,9 +103,8 @@ namespace PurchaseData.Helpers
             if (user.ProfileID == "UPO")
             {
                 HtmlDoc.GetElementbyId("vandor_name")
-                    .InnerHtml = $"The following Purchase Requisition has been created by the user ID <b>{headerDR["UserID"]}</b>, " +
-                              "the next step is to create the <b>Purchase Order</b> by You. " +
-                              "The reference code for this Purchase Requisition is: ";
+                    .InnerHtml = $"The following Purchase Requisition has been created by the user ID <b>{headerDR["UserID"]}</b>." +
+                              " The reference code is: ";
             }
             else if (user.ProfileID == "UPR")
             {
@@ -112,8 +114,8 @@ namespace PurchaseData.Helpers
                     "user so complete all the required fields. " +
                     "The reference code for this Purchase Requisition is: ";
             }
-            HtmlDoc.GetElementbyId("code").InnerHtml = $"{headerDR["Code"]}";
-            var att = new Attaches().GetListByID(headerID).Where(c => c.Modifier == 1).ToList();
+            HtmlDoc.GetElementbyId("code").InnerHtml = $"{headerDR["Code"]}.";
+            var att = new Attaches().GetListByPrID(headerID).Where(c => c.Modifier == 1).ToList();
             HtmlDoc.GetElementbyId("NRO_ATTACH").InnerHtml = $"{att.Count}";
             if (details.Count > 0)
             {
@@ -200,45 +202,66 @@ namespace PurchaseData.Helpers
 
         public async Task<string> ReemplazarDatos()
         {
-            string path = Environment.CurrentDirectory + @"\HtmlBanner\Banner.html";
-            HtmlDoc.Load(path);
-            HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]");
-            DateTime semana = DateTime.Now.AddDays(-7);
+            string path = string.Empty;
             try
             {
-                //await Task.Run(() =>
-                //   {
+                path = Environment.CurrentDirectory + @"\HtmlBanner\Banner.html";
 
-                var dolar = await new IndicadorDolar(configApp).GetPosterior(semana);
-                IndicadorUf uf = await new IndicadorUf(configApp).GetPosterior(semana);
-                IndicadorEuro euro = await new IndicadorEuro(configApp).GetPosterior(semana);
-                IndicadorIpc ipc = await new IndicadorIpc(configApp).GetPosterior(semana.AddMonths(-6));
-                IndicadorUtm utm = await new IndicadorUtm(configApp).GetPosterior(semana.AddMonths(-6));
-                if (dolar != null)
-                {
-                    CrearNodo(table, dolar.Dolar, "USD");
-                }
-                if (uf != null)
-                {
-                    CrearNodo(table, uf.Uf, "UF");
-                }
-                if (euro != null)
-                {
-                    CrearNodo(table, euro.Euro, "EUR");
-                }
-                if (ipc != null)
-                {
-                    CrearNodo(table, ipc.Ipc, "IPC");
-                }
-                if (utm != null)
-                {
-                    CrearNodo(table, utm.Utm, "UTM");
-                }
 
-                // });
+                HtmlDoc.Load(path);
+                HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]");
+                DateTime semana = DateTime.Now.AddDays(-7);
+                try
+                {
+                    //await Task.Run(() =>
+                    //   {
 
-                //! Save
-                HtmlDoc.Save(path, System.Text.Encoding.UTF8);
+                    var dolar = await new IndicadorDolar(configApp).GetPosterior(semana);
+                    IndicadorUf uf = await new IndicadorUf(configApp).GetPosterior(semana);
+                    IndicadorEuro euro = await new IndicadorEuro(configApp).GetPosterior(semana);
+                    IndicadorIpc ipc = await new IndicadorIpc(configApp).GetPosterior(semana.AddMonths(-6));
+                    IndicadorUtm utm = await new IndicadorUtm(configApp).GetPosterior(semana.AddMonths(-6));
+                    if (dolar != null)
+                    {
+                        CrearNodo(table, dolar.Dolar, "USD");
+                    }
+                    if (uf != null)
+                    {
+                        CrearNodo(table, uf.Uf, "UF");
+                    }
+                    if (euro != null)
+                    {
+                        CrearNodo(table, euro.Euro, "EUR");
+                    }
+                    if (ipc != null)
+                    {
+                        CrearNodo(table, ipc.Ipc, "IPC");
+                    }
+                    if (utm != null)
+                    {
+                        CrearNodo(table, utm.Utm, "UTM");
+                    }
+
+                    // });
+
+                    //! Save
+                    //if (!Directory.Exists(Path.GetTempPath() + @"HtmlBanner"))
+                    //{
+                    //    Directory.CreateDirectory(Path.GetTempPath() + @"HtmlBanner");
+                    //}
+                    // path = Environment.CurrentDirectory + @"\HtmlBanner\BannerProd.html";
+
+                    // Copiar aux files on TEMP           
+                    CopyFilesRecursively(Environment.CurrentDirectory + @"\HtmlBanner\", Path.GetTempPath() + @"HtmlBanner\");
+
+                    path = Path.GetTempPath() + @"HtmlBanner\BannerProd.html";
+
+                    HtmlDoc.Save(path, System.Text.Encoding.UTF8);
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
                 return path;
             }
             catch (NullReferenceException)
@@ -248,7 +271,26 @@ namespace PurchaseData.Helpers
             }
 
         }
+        private static void CopyFilesRecursively(string sourcePath, string targetPath)
+        {
+            if (!Directory.Exists(Path.GetTempPath() + @"HtmlBanner"))
+            {
+                Directory.CreateDirectory(Path.GetTempPath() + @"HtmlBanner");
+            }
 
+
+            //Now Create all of the directories
+            //foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+            //{
+            //    Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+            //}
+
+            //Copy all the files & Replaces any files with the same name
+            foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
+            {
+                File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+            }
+        }
         private void CrearNodo(HtmlNode table, List<Indicador> indicadors, string money)
         {
             string ultimo = string.Empty;

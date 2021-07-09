@@ -12,12 +12,21 @@ namespace PurchaseData.DataModel
                 return contextDB.Attaches.Find(attachID);
             }
         }
-        public List<Attaches> GetListByID(int id)
+        public List<Attaches> GetListByPrID(int id)
         {
             using (var contextDB = new PurchaseManagerEntities())
             {
                 //return contextDB.Attaches.Where(c =>c.AttachID == id).ToList();
                 return contextDB.RequisitionHeader.Find(id).Attaches.ToList();
+            }
+        }
+
+        public List<Attaches> GetListByPoID(int id)
+        {
+            using (var contextDB = new PurchaseManagerEntities())
+            {
+                //return contextDB.Attaches.Where(c =>c.AttachID == id).ToList();
+                return contextDB.OrderHeader.Find(id).Attaches.ToList();
             }
         }
     }

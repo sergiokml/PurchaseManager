@@ -50,10 +50,10 @@ namespace PurchaseDesktop.Formularios
             this.LblMensaje.CursorType = System.Windows.Forms.Cursors.Default;
             this.LblMensaje.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblMensaje.ForeColor = System.Drawing.Color.LightGray;
-            this.LblMensaje.Location = new System.Drawing.Point(12, 41);
+            this.LblMensaje.Location = new System.Drawing.Point(12, 32);
             this.LblMensaje.Name = "LblMensaje";
             this.LblMensaje.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.LblMensaje.Size = new System.Drawing.Size(277, 59);
+            this.LblMensaje.Size = new System.Drawing.Size(277, 100);
             this.LblMensaje.TabIndex = 0;
             this.LblMensaje.Text = "...";
             this.LblMensaje.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -61,7 +61,7 @@ namespace PurchaseDesktop.Formularios
             // 
             // BtnOk
             // 
-            this.BtnOk.Location = new System.Drawing.Point(45, 106);
+            this.BtnOk.Location = new System.Drawing.Point(45, 138);
             this.BtnOk.Name = "BtnOk";
             this.BtnOk.Size = new System.Drawing.Size(75, 23);
             this.BtnOk.TabIndex = 1;
@@ -71,7 +71,7 @@ namespace PurchaseDesktop.Formularios
             // 
             // BtnCancel
             // 
-            this.BtnCancel.Location = new System.Drawing.Point(180, 106);
+            this.BtnCancel.Location = new System.Drawing.Point(180, 138);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(75, 23);
             this.BtnCancel.TabIndex = 2;
@@ -89,7 +89,7 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(196)))), ((int)(((byte)(85)))));
             this.bunifuSeparator1.LineStyle = Bunifu.UI.WinForms.BunifuSeparator.LineStyles.Solid;
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(0, 148);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(0, 172);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Orientation = Bunifu.UI.WinForms.BunifuSeparator.LineOrientation.Horizontal;
             this.bunifuSeparator1.Size = new System.Drawing.Size(301, 1);
@@ -202,7 +202,7 @@ namespace PurchaseDesktop.Formularios
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.ClientSize = new System.Drawing.Size(301, 149);
+            this.ClientSize = new System.Drawing.Size(301, 173);
             this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.bunifuSeparator2);
             this.Controls.Add(this.bunifuSeparator1);

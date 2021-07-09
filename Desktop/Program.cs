@@ -30,16 +30,17 @@ namespace Desktop
                 UserProfileUPO perfilPo = new UserProfileUPO(new PurchaseManagerEntities());
                 UserProfileUPR perfilPr = new UserProfileUPR(new PurchaseManagerEntities());
                 UserProfileVAL perfilVal = new UserProfileVAL(new PurchaseManagerEntities());
+                Users user;
                 using (var contextDB = new PurchaseManagerEntities())
                 {
                     //var P = "14720891"; // PR Jhoana
 
-                    //var P = "15332723"; // PO (TODAS LAS PR)
+                    var P = "15332723"; // PO (TODAS LAS PR)
                     //var P = "15960233"; // VAL DEV 
 
                     //var P = "16003040"; // FCA "VALIDADOR TODOS" 
 
-                    //user = contextDB.Users.Find(P);
+                    user = contextDB.Users.Find(P);
                     //contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
                     //CargarUPR(10);
                     //CargaUPO(4, "13779971"); // Booorador PO (Po user)

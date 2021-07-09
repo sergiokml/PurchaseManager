@@ -45,6 +45,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_0A0F78758627439D86D9FFECB70F1130"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_18313107E7410BA61E672C3FE4CEB27A"
         "OwnerKey" = "8:_64E9FADF0BA349789FE43A4902F1B963"
         "MsmSig" = "8:_UNDEFINED"
@@ -95,6 +101,12 @@
         {
         "MsmKey" = "8:_21F1FB7A68925B9FA44F8628ED2630BA"
         "OwnerKey" = "8:_64E9FADF0BA349789FE43A4902F1B963"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2277ECF197F147448DF26BD271266DCB"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -435,6 +447,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_457B501AA1F94DCABB8065EB0BBA8ACC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_48A75257A54A1BEC5665814F2BC007A5"
         "OwnerKey" = "8:_64E9FADF0BA349789FE43A4902F1B963"
         "MsmSig" = "8:_UNDEFINED"
@@ -447,8 +465,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_4CB5CAD9679A4BA4B58349E3950D71EB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_50B48B15BF971540A9ABB2D02DFF4BD8"
         "OwnerKey" = "8:_64E9FADF0BA349789FE43A4902F1B963"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_50D0F51863E041598C2D77DD1EA87E3B"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -543,6 +573,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_63CDC228149D472EAEC843E4C93524FD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_64E9FADF0BA349789FE43A4902F1B963"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -615,6 +651,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7EC196E9F28446E5ACD0FE3426F8882F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_815026C0AFE888F6E9347E68A8DF5F06"
         "OwnerKey" = "8:_64E9FADF0BA349789FE43A4902F1B963"
         "MsmSig" = "8:_UNDEFINED"
@@ -641,6 +683,12 @@
         {
         "MsmKey" = "8:_95F6780BCE331FCCF2ECE187D8E75CAF"
         "OwnerKey" = "8:_64E9FADF0BA349789FE43A4902F1B963"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_97234992543E4F74815A8CB8CAE21491"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -761,12 +809,6 @@
         {
         "MsmKey" = "8:_FE24435AE0CD8AADDF93B3A703AE23EA"
         "OwnerKey" = "8:_64E9FADF0BA349789FE43A4902F1B963"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D96C2F9DF23CCF2CAC1070AD8F49AFEB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1111,6 +1153,12 @@
         "OwnerKey" = "8:_5B8B650E2F84EDDF9C8ECBA87359702A"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D96C2F9DF23CCF2CAC1070AD8F49AFEB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -1268,6 +1316,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0A0F78758627439D86D9FFECB70F1130"
+            {
+            "SourcePath" = "8:..\\Desktop\\HtmlBanner\\sprite_crypto13.png"
+            "TargetName" = "8:sprite_crypto13.png"
+            "Tag" = "8:"
+            "Folder" = "8:_0E16B4D2FBDD4F37827AB43AEEE59B18"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_18313107E7410BA61E672C3FE4CEB27A"
             {
             "AssemblyRegister" = "3:1"
@@ -1421,6 +1489,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2277ECF197F147448DF26BD271266DCB"
+            {
+            "SourcePath" = "8:..\\Desktop\\HtmlBanner\\icons8_usa_16.png"
+            "TargetName" = "8:icons8_usa_16.png"
+            "Tag" = "8:"
+            "Folder" = "8:_0E16B4D2FBDD4F37827AB43AEEE59B18"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_22E890E7093545A8D78D6C6A7B5394BB"
@@ -1877,6 +1965,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_457B501AA1F94DCABB8065EB0BBA8ACC"
+            {
+            "SourcePath" = "8:..\\Desktop\\HtmlBanner\\Banner.css"
+            "TargetName" = "8:Banner.css"
+            "Tag" = "8:"
+            "Folder" = "8:_0E16B4D2FBDD4F37827AB43AEEE59B18"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_48A75257A54A1BEC5665814F2BC007A5"
             {
             "AssemblyRegister" = "3:1"
@@ -1939,6 +2047,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4CB5CAD9679A4BA4B58349E3950D71EB"
+            {
+            "SourcePath" = "8:..\\Desktop\\HtmlBanner\\Banner.js"
+            "TargetName" = "8:Banner.js"
+            "Tag" = "8:"
+            "Folder" = "8:_0E16B4D2FBDD4F37827AB43AEEE59B18"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_50B48B15BF971540A9ABB2D02DFF4BD8"
             {
             "AssemblyRegister" = "3:1"
@@ -1968,6 +2096,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_50D0F51863E041598C2D77DD1EA87E3B"
+            {
+            "SourcePath" = "8:..\\Desktop\\HtmlBanner\\flags.png"
+            "TargetName" = "8:flags.png"
+            "Tag" = "8:"
+            "Folder" = "8:_0E16B4D2FBDD4F37827AB43AEEE59B18"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_51F36979FAA5CBC2DB23D75B9F704944"
@@ -2269,6 +2417,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_63CDC228149D472EAEC843E4C93524FD"
+            {
+            "SourcePath" = "8:..\\Desktop\\HtmlBanner\\icons8_flag_of_europe_16.png"
+            "TargetName" = "8:icons8_flag_of_europe_16.png"
+            "Tag" = "8:"
+            "Folder" = "8:_0E16B4D2FBDD4F37827AB43AEEE59B18"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6AE86417E2F5C1AE7FE6C239F5019FE8"
             {
             "AssemblyRegister" = "3:1"
@@ -2360,6 +2528,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7EC196E9F28446E5ACD0FE3426F8882F"
+            {
+            "SourcePath" = "8:..\\Desktop\\HtmlBanner\\Banner.html"
+            "TargetName" = "8:Banner.html"
+            "Tag" = "8:"
+            "Folder" = "8:_0E16B4D2FBDD4F37827AB43AEEE59B18"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_815026C0AFE888F6E9347E68A8DF5F06"
@@ -2515,6 +2703,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_97234992543E4F74815A8CB8CAE21491"
+            {
+            "SourcePath" = "8:..\\Desktop\\HtmlBanner\\icons8_chile_16.png"
+            "TargetName" = "8:icons8_chile_16.png"
+            "Tag" = "8:"
+            "Folder" = "8:_0E16B4D2FBDD4F37827AB43AEEE59B18"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9830C85FC5C642E4A096DB198C2F8A59"
@@ -3060,6 +3268,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_0E16B4D2FBDD4F37827AB43AEEE59B18"
+                    {
+                    "Name" = "8:HtmlBanner"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_2CD6C22239E0405B8CB8683E54E8BE8D"
+                        "Folders"
+                        {
+                        }
+                    }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_B686203953834C0E93DBB66F6F6E1C72"
                     {
                     "Name" = "8:HtmlDocuments"
@@ -3112,7 +3331,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Purchase Manager"
         "ProductCode" = "8:{BB02A29F-BADD-4FB0-B2F7-15949619619C}"
-        "PackageCode" = "8:{4897D8DA-0C63-437D-A83E-DC182ABD7C98}"
+        "PackageCode" = "8:{9AB2D88F-8951-419F-B577-B4DEB8F7EA52}"
         "UpgradeCode" = "8:{711AB58F-34EC-4998-909F-A885CB21F8A1}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

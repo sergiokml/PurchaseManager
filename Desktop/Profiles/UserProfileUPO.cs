@@ -54,7 +54,8 @@ namespace PurchaseDesktop.Profiles
                         NameBiz = item.NameBiz,
                         Status = item.Status,
                         TypeDocumentHeader = item.TypeDocumentHeader,
-                        DetailsCount = item.DetailsCount
+                        DetailsCount = item.DetailsCount,
+                        NameUserID = item.NameUserID
                     };
                     l.Add(n);
                 }

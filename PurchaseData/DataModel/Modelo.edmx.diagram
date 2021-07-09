@@ -28,8 +28,6 @@
         <EntityTypeShape EntityType="PurchaseManagerContext.UserCosts" Width="1.5" PointX="3" PointY="20.875" />
         <EntityTypeShape EntityType="PurchaseManagerContext.UserProfiles" Width="1.5" PointX="3" PointY="18.75" />
         <EntityTypeShape EntityType="PurchaseManagerContext.Users" Width="1.5" PointX="5.25" PointY="19" />
-        <EntityTypeShape EntityType="PurchaseManagerContext.vOrderByMinTransaction" Width="1.5" PointX="12.75" PointY="4.75" />
-        <EntityTypeShape EntityType="PurchaseManagerContext.vRequisitionByMinTransaction" Width="1.5" PointX="12.75" PointY="10.75" />
         <AssociationConnector Association="PurchaseManagerContext.FK_OrderDetails_Accounts" />
         <AssociationConnector Association="PurchaseManagerContext.FK_RequisitionDetails_Accounts" />
         <AssociationConnector Association="PurchaseManagerContext.FK_RequisitionHeader_Companies" />
@@ -57,6 +55,8 @@
         <AssociationConnector Association="PurchaseManagerContext.FK_RequisitionHeader_Users" />
         <EntityTypeShape EntityType="PurchaseManagerContext.OrderDelivery" Width="1.5" PointX="0.875" PointY="1.375" />
         <AssociationConnector Association="PurchaseManagerContext.FK_OrderDelivery_OrderHeader" />
+        <EntityTypeShape EntityType="PurchaseManagerContext.vOrderByMinTransaction" Width="1.5" PointX="13.375" PointY="4.75" />
+        <EntityTypeShape EntityType="PurchaseManagerContext.vRequisitionByMinTransaction" Width="1.5" PointX="13.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

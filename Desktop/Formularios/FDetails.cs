@@ -246,6 +246,7 @@ namespace PurchaseDesktop.Formularios
             CboMedidas.SelectedIndex = CboMedidas.FindStringExact("Unidad");
             CboMedidas.ValueMember = "MedidaID";
 
+            ChkExent.Checked = false;
             TxtGlosa.Text = Current["Description"].ToString();
 
             switch (td)
@@ -279,6 +280,7 @@ namespace PurchaseDesktop.Formularios
                 case TypeDocumentHeader.PO:
                     TxtPrice.Enabled = true;
                     var po = new OrderHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
+                    TxtGlosa.Text = po.Description;
                     decimal neto = Convert.ToDecimal(po.Net);
                     decimal exent = Convert.ToDecimal(po.Exent);
                     decimal tax = Convert.ToDecimal(po.Tax);
@@ -327,6 +329,7 @@ namespace PurchaseDesktop.Formularios
                         CboMedidas.Enabled = false;
                         BtnNewDetail.Enabled = false;
                     }
+
                     break;
                 default:
                     break;
@@ -372,17 +375,17 @@ namespace PurchaseDesktop.Formularios
                 DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 TxtDescription.Text = current["DescriptionProduct"].ToString();
                 Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-                if (td == TypeDocumentHeader.PO)
-                {
-                    if (Convert.ToBoolean(current["IsExent"]))
-                    {
-                        ChkExent.Checked = true;
-                    }
-                    else
-                    {
-                        ChkExent.Checked = false;
-                    }
-                }
+                //if (td == TypeDocumentHeader.PO)
+                //{
+                //    if (Convert.ToBoolean(current["IsExent"]))
+                //    {
+                //        ChkExent.Checked = true;
+                //    }
+                //    else
+                //    {
+                //        ChkExent.Checked = false;
+                //    }
+                //}
 
                 // SetControles();
             }
@@ -410,6 +413,7 @@ namespace PurchaseDesktop.Formularios
                 SetControles();
                 ((FPrincipal)Owner).LlenarGrid();
                 ((FPrincipal)Owner).SetControles();
+
             }
             else
             {
