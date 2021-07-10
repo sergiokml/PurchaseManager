@@ -38,7 +38,7 @@ namespace Desktop
                     var P = "15332723"; // PO (TODAS LAS PR)
                     //var P = "15960233"; // VAL DEV 
 
-                    //var P = "16003040"; // FCA "VALIDADOR TODOS" 
+                    //var P = "16003040"; // FCA "ADM VALIDADOR TODOS" 
 
                     user = contextDB.Users.Find(P);
                     //contextDB.Entry(user).Reference(c => c.UserProfiles).Load();

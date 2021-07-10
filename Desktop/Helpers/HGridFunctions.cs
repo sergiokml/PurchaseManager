@@ -37,7 +37,7 @@ namespace PurchaseDesktop.Helpers
             return lista;
         }
 
-        public void LLenarMenuContext(DataRow headerDR, int status)
+        public void LLenarMenuContext(Perfiles perfil, DataRow headerDR, int status)
         {
 
             CtxMenu.BackColor = Color.FromArgb(37, 37, 38);
@@ -45,46 +45,96 @@ namespace PurchaseDesktop.Helpers
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             ToolStripItem item;
 
-            switch (td)
+            switch (perfil)
             {
-                case TypeDocumentHeader.PR:
-                    if (status == 2)
-                    {
-                        item = CtxMenu.Items.Add("Convert To PO");  // index 1
-                        item.Font = new Font("Tahoma", 8, FontStyle.Regular);
-                        item.Image = Properties.Resources.icons8_change.ToBitmap();
-                        item.BackColor = Color.FromArgb(37, 37, 38);
-                        item.Name = "CONVERTREQ";
-                    }
-
+                case Perfiles.ADM:
                     break;
-                case TypeDocumentHeader.PO:
-
-                    if (headerDR["RequisitionHeaderID"] != DBNull.Value)
+                case Perfiles.BAS:
+                    break;
+                case Perfiles.UPO:
+                    switch (td)
                     {
-                        item = CtxMenu.Items.Add($"Open Requisition {headerDR["RequisitionHeaderID"]}");
-                        item.Font = new Font("Tahoma", 8, FontStyle.Regular);
-                        item.Image = Properties.Resources.icons8_html_filetype.ToBitmap();
-                        item.Name = "OPENREQ";
+                        case TypeDocumentHeader.PR:
+                            if (status == 2)
+                            {
+                                item = CtxMenu.Items.Add("Convert To PO");  // index 1
+                                item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                                item.Image = Properties.Resources.icons8_change.ToBitmap();
+                                item.BackColor = Color.FromArgb(37, 37, 38);
+                                item.Name = "CONVERTREQ";
+                            }
+                            break;
+                        case TypeDocumentHeader.PO:
+                            if (headerDR["RequisitionHeaderID"] != DBNull.Value)
+                            {
+                                item = CtxMenu.Items.Add($"Open Requisition {headerDR["RequisitionHeaderID"]}");
+                                item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                                item.Image = Properties.Resources.icons8_html_filetype.ToBitmap();
+                                item.Name = "OPENREQ";
+                            }
+                            if (status == 3)
+                            {
+                                item = CtxMenu.Items.Add("Send To Supplier"); // index 0
+                                item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                                item.Image = Properties.Resources.icons8_envelope.ToBitmap();
+                                item.BackColor = Color.FromArgb(37, 37, 38);
+                                item.Name = "SEND";
+                            }
+                            else if (status == 4)
+                            {
+                                item = CtxMenu.Items.Add("Accepted By Supplier"); // index 0
+                                item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                                item.Image = Properties.Resources.icons8_envelope.ToBitmap();
+                                item.BackColor = Color.FromArgb(37, 37, 38);
+                                item.Name = "ACCEPTED";
+                            }
+                            else if (status == 5)
+                            {
+                                item = CtxMenu.Items.Add("Complete"); // index 0
+                                item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                                item.Image = Properties.Resources.icons8_envelope.ToBitmap();
+                                item.BackColor = Color.FromArgb(37, 37, 38);
+                                item.Name = "COMPLETE";
+                            }
+                            break;
+                        default:
+                            break;
                     }
-                    if (status == 3)
+                    break;
+                case Perfiles.UPR:
+                    //! No hay opciones para User PR
+                    break;
+                case Perfiles.VAL:
+                    switch (td)
                     {
-                        item = CtxMenu.Items.Add("Send To Supplier"); // index 0
-                        item.Font = new Font("Tahoma", 8, FontStyle.Regular);
-                        item.Image = Properties.Resources.icons8_envelope.ToBitmap();
-                        item.BackColor = Color.FromArgb(37, 37, 38);
-                        item.Name = "SEND";
+                        case TypeDocumentHeader.PR:
+                            break;
+                        case TypeDocumentHeader.PO:
+                            if (headerDR["RequisitionHeaderID"] != DBNull.Value)
+                            {
+                                item = CtxMenu.Items.Add($"Open Requisition {headerDR["RequisitionHeaderID"]}");
+                                item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                                item.Image = Properties.Resources.icons8_html_filetype.ToBitmap();
+                                item.Name = "OPENREQ";
+                            }
+                            if (status == 2)
+                            {
+                                item = CtxMenu.Items.Add("Validate PO");  // index 1
+                                item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                                item.Image = Properties.Resources.icons8_change.ToBitmap();
+                                item.BackColor = Color.FromArgb(37, 37, 38);
+                                item.Name = "VALIDATED"; //3
+
+                                item = CtxMenu.Items.Add("Reject PO");  // index 1
+                                item.Font = new Font("Tahoma", 8, FontStyle.Regular);
+                                item.Image = Properties.Resources.icons8_change.ToBitmap();
+                                item.BackColor = Color.FromArgb(37, 37, 38);
+                                item.Name = "REJECTED"; //7
+                            }
+                            break;
+                        default:
+                            break;
                     }
-                    //else if (status == 4) // Sent to supplier
-                    //{
-                    //    item = CtxMenu.Items.Add("Accepted by Supplier"); // index 0
-                    //    item.Font = new Font("Tahoma", 8, FontStyle.Regular);
-                    //    item.Image = Properties.Resources.icons8_envelope.ToBitmap();
-                    //    item.BackColor = Color.FromArgb(37, 37, 38);
-                    //    item.Name = "ACCEPTSUPPLIER";
-                    //}
-
-
                     break;
                 default:
                     break;
@@ -424,7 +474,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("Type", "Type", 97);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
-                    iGCol = Grid.Cols.Add("Status", "Status", 62);
+                    iGCol = Grid.Cols.Add("Status", "Status", 67);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -493,7 +543,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("Type", "Type", 97);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
-                    iGCol = Grid.Cols.Add("Status", "Status", 62);
+                    iGCol = Grid.Cols.Add("Status", "Status", 67);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
                     //! Los usuarios PO para seleccionar
@@ -541,7 +591,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("Type", "Type", 97);
                     iGCol.CellStyle.DropDownControl = cbotype;
                     iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
-                    iGCol = Grid.Cols.Add("Status", "Status", 62);
+                    iGCol = Grid.Cols.Add("Status", "Status", 67);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;

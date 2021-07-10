@@ -5,6 +5,10 @@ namespace PurchaseData.DataModel
 {
     public partial class PurchaseManagerEntities
     {
+        //public PurchaseManagerEntities(bool indicator) : base("name=PurchaseManagerEntities")
+        //{
+        //    this.Configuration.LazyLoadingEnabled = indicator;
+        //}
         public override int SaveChanges()
         {
             int res = 0;
@@ -17,14 +21,24 @@ namespace PurchaseData.DataModel
             }
             catch (DbUpdateException ex)
             {
-                var sqlException = ex.GetBaseException() as SqlException;
+                SqlException sqlException = ex.GetBaseException() as SqlException;
 
                 if (sqlException != null)
                 {
                     return sqlException.Number;
                 }
+                if (ex is DbUpdateConcurrencyException)
+                {
+                    return 999;
+                }
             }
+
             return res;
         }
     }
+
+    //public class MyClass : PurchaseManagerEntities
+    //{
+    //    Configuration.LazyLoadingEnabled = false;
+    //}
 }

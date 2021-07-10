@@ -381,7 +381,9 @@ namespace PurchaseData.Helpers
             HtmlDoc.GetElementbyId("AddressCompany").InnerHtml = configApp.AddressCompany;
             HtmlDoc.GetElementbyId("PhoneCompany").InnerHtml = configApp.PhoneCompany;
             HtmlDoc.GetElementbyId("EMAIL").InnerHtml = configApp.Email;
-            HtmlDoc.GetElementbyId("NAMECONTACT").InnerHtml = $"{user.FirstName} {user.LastName}";
+
+            var usuarioCreation = new Users().GetUserByID(headerDR["UserID"].ToString());
+            HtmlDoc.GetElementbyId("NAMECONTACT").InnerHtml = $"{usuarioCreation.FirstName} {usuarioCreation.LastName}";
 
 
             //! Supplier

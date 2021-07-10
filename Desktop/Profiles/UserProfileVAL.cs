@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -30,7 +31,22 @@ namespace PurchaseDesktop.Profiles
 
         public DataRow GetDataRow(TypeDocumentHeader headerTD, int headerID)
         {
-            throw new System.NotImplementedException();
+            switch (headerTD)
+            {
+                case TypeDocumentHeader.PR:
+                    using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
+                    {
+                        List<vRequisitionByMinTransaction> l = rContext.vRequisitionByMinTransaction
+                      .Where(c => c.HeaderID == headerID)
+                      .OrderByDescending(c => c.DateLast).ToList();
+                        return this.ToDataTable<vRequisitionByMinTransaction>(l).Rows[0];
+                    }
+                case TypeDocumentHeader.PO:
+                    break;
+                default:
+                    break;
+            };
+            return null;
         }
 
         public DataTable VistaFDetalles(TypeDocumentHeader headerTD, int headerID)
@@ -73,22 +89,22 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item, int headerID)
+        public void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item)
         {
+            OrderHeader doc = item as OrderHeader;
             Transactions transaction = new Transactions
             {
                 UserID = CurrentUser.UserID,
                 DateTran = rContext.Database
-              .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single(),
+                Event = Eventos.UPDATE_PO.ToString()
             };
-
-            transaction.Event = Eventos.UPDATE_PO.ToString();
             using (var rContext = new PurchaseManagerEntities())
             {
                 using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                 {
-                    OrderHeader doc = rContext.OrderHeader.Find(headerID);
-                    rContext.Entry(doc).CurrentValues.SetValues(item);
+                    rContext.OrderHeader.Attach(doc);
+                    rContext.Entry(doc).State = EntityState.Modified;
                     doc.Transactions.Add(transaction);
                     rContext.SaveChanges();
                     trans.Commit();

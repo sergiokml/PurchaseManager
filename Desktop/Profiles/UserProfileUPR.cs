@@ -161,8 +161,9 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item, int headerID)
+        public void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item)
         {
+            RequisitionHeader doc = item as RequisitionHeader;
             Transactions transaction = new Transactions
             {
                 UserID = CurrentUser.UserID,
@@ -177,8 +178,8 @@ namespace PurchaseDesktop.Profiles
                     {
                         using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                         {
-                            RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
-                            rContext.Entry(doc).CurrentValues.SetValues(item);
+                            rContext.RequisitionHeader.Attach(doc);
+                            rContext.Entry(doc).State = EntityState.Modified;
                             doc.Transactions.Add(transaction);
                             rContext.SaveChanges();
                             trans.Commit();

@@ -67,11 +67,11 @@ namespace PurchaseData.Helpers
             if (Path.GetExtension(path) == ".pdf")
             {
                 bodyBuilder.Attachments.Add(path);
-                bodyBuilder.HtmlBody = string.Format(@"<p>Estimado Proveedor,<br>
-                                        <p>Contacto: {0}<br>    
+                bodyBuilder.HtmlBody = string.Format(@"<p>Estimado Proveedor {0},<br>
+                                        <p>Contacto: {1}<br>    
                                         <p>Adjunto encontrará documentación relacionada con
-                                        {1}, favor recuerde contestar a este mail indicando aprovación u observaciones.<br>                                        
-                                        <p>-- {2} {3}<br>", supp.Name, asunto, user.LastName, user.LastName);
+                                        {2}, favor recuerde contestar a este mail indicando aprovación u observaciones.<br>                                        
+                                        <p>-- {3} {4}<br>", supp.Name, supp.ContactName, asunto, user.FirstName, user.LastName);
             }
             else if (Path.GetExtension(path) == ".html")
             {

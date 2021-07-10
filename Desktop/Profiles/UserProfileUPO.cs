@@ -189,7 +189,7 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item, int headerID)
+        public void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item)
         {
             Transactions transaction = new Transactions
             {
@@ -201,12 +201,13 @@ namespace PurchaseDesktop.Profiles
             {
                 case TypeDocumentHeader.PR:
                     transaction.Event = Eventos.UPDATE_PR.ToString();
+                    RequisitionHeader doc = item as RequisitionHeader;
                     using (var rContext = new PurchaseManagerEntities())
                     {
                         using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                         {
-                            RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
-                            rContext.Entry(doc).CurrentValues.SetValues(item);
+                            rContext.RequisitionHeader.Attach(doc);
+                            rContext.Entry(doc).State = EntityState.Modified;
                             doc.Transactions.Add(transaction);
                             rContext.SaveChanges();
                             trans.Commit();
@@ -215,13 +216,13 @@ namespace PurchaseDesktop.Profiles
                     break;
                 case TypeDocumentHeader.PO:
                     transaction.Event = Eventos.UPDATE_PO.ToString();
+                    OrderHeader po = item as OrderHeader;
                     using (var rContext = new PurchaseManagerEntities())
                     {
                         using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                         {
-                            OrderHeader doc = rContext.OrderHeader.Find(headerID);
-                            rContext.Entry(doc).CurrentValues.SetValues(item);
-                            doc.Transactions.Add(transaction);
+                            po.Transactions.Add(transaction);
+                            rContext.Entry(po).State = EntityState.Modified;
                             rContext.SaveChanges();
                             trans.Commit();
                         }

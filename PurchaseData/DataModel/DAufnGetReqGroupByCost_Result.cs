@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+
 namespace PurchaseData.DataModel
 {
     public partial class ufnGetReqGroupByCost_Result
