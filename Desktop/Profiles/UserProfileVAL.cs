@@ -79,7 +79,7 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public void InsertDetail<T>(T item, int headerID)
+        public void InsertDetail<T>(T item, object headerID)
         {
             throw new System.NotImplementedException();
         }
@@ -112,7 +112,7 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, object header)
+        public void UpdateDetail<T>(T item, object header)
         {
             throw new System.NotImplementedException();
         }
@@ -199,7 +199,7 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void DeleteDetail<T>(TypeDocumentHeader td, T item, int detailID)
+        public void DeleteDetail<T>(T item, int detailID)
         {
             throw new NotImplementedException();
         }

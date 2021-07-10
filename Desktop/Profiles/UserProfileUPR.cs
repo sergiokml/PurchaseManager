@@ -197,58 +197,84 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-
-        public void InsertDetail<T>(T item, int headerID)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="header"></param>
+        public void InsertDetail<T>(T item, object header)
         {
+            RequisitionHeader doc = (RequisitionHeader)header;
             using (var rContext = new PurchaseManagerEntities())
             {
                 Transactions transaction = new Transactions
                 {
                     Event = Eventos.INSERT_DETAIL.ToString(),
                     UserID = CurrentUser.UserID,
-                    DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                    DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())")
+                    .Single()
                 };
-                using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-                {
-                    RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
-                    doc.Transactions.Add(transaction);
-                    rContext.Entry(item).State = EntityState.Added;
-                    rContext.SaveChanges();
-                    trans.Commit();
-                }
+                rContext.RequisitionHeader.Attach(doc);
+                doc.RequisitionDetails.Add(item as RequisitionDetails);
+                doc.Transactions.Add(transaction);
+                rContext.SaveChanges();
             }
         }
 
-        public void DeleteDetail<T>(TypeDocumentHeader td, T item, int detailID)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="td"></param>
+        /// <param name="item"></param>
+        /// <param name="id"></param>
+        public void DeleteDetail<T>(T item, int id)
         {
-            //TODO ESTE QUEDÓ EXELENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            switch (td)
+            RequisitionHeader doc = item as RequisitionHeader;
+            using (var rContext = new PurchaseManagerEntities())
             {
-                case TypeDocumentHeader.PR:
-                    RequisitionHeader doc = item as RequisitionHeader;
-                    using (var rContext = new PurchaseManagerEntities())
-                    {
-                        rContext.RequisitionHeader.Attach(doc);
-                        doc.RequisitionDetails
-                            .Remove(doc.RequisitionDetails
-                            .FirstOrDefault(c => c.DetailID == detailID));
-                        Transactions transaction = new Transactions
-                        {
-                            Event = Eventos.DELETE_DETAIL.ToString(),
-                            UserID = CurrentUser.UserID,
-                            DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())")
-                            .Single()
-                        };
-                        rContext.RequisitionHeader.Attach(doc);
-                        doc.Transactions.Add(transaction);
-                        rContext.SaveChanges();
-                    }
-                    break;
-                case TypeDocumentHeader.PO:
-                    break;
-                default:
-                    break;
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.DELETE_DETAIL.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())")
+                    .Single()
+                };
+                rContext.RequisitionHeader.Attach(doc);
+                doc.RequisitionDetails.Remove(doc.RequisitionDetails.FirstOrDefault(c => c.DetailID == id));
+                doc.Transactions.Add(transaction);
+                rContext.SaveChanges();
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="header"></param>
+        public void UpdateDetail<T>(T item, object header)
+        {
+            var doc = (RequisitionHeader)header;
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                rContext.Entry(item).State = EntityState.Modified;
+                rContext.SaveChanges();
+            }
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                Transactions transaction = new Transactions
+                {
+                    UserID = CurrentUser.UserID,
+                    Event = Eventos.UPDATE_DETAIL.ToString(),
+                    DateTran = rContext.Database.SqlQuery<DateTime>("select convert(datetime2,GETDATE())")
+                    .Single()
+                };
+                rContext.RequisitionHeader.Attach(doc);
+                doc.Transactions.Add(transaction);
+                rContext.SaveChanges();
             }
         }
 
@@ -304,39 +330,6 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void UpdateDetail<T>(TypeDocumentHeader td, T item, object header)
-        {
-            //TODO ACA DEBO SACAR HEADERID
-            switch (td)
-            {
-                case TypeDocumentHeader.PR:
-                    var d = (RequisitionDetails)header;
-                    var pr = item as RequisitionHeader;
-                    using (var rContext = new PurchaseManagerEntities())
-                    {
-                        Transactions transaction = new Transactions
-                        {
-                            UserID = CurrentUser.UserID,
-                            DateTran = rContext.Database
-                            .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single(),
-                            Event = Eventos.UPDATE_DETAIL.ToString()
-                        };
-                        using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-                        {
-                            RequisitionDetails detail = rContext.RequisitionDetails.Find(d.DetailID, pr.RequisitionHeaderID);
-                            rContext.Entry(detail).State = EntityState.Modified;
-                            pr.Transactions.Add(transaction);
-                            rContext.SaveChanges();
-                            trans.Commit();
-                        }
-                    }
-                    break;
-                case TypeDocumentHeader.PO:
-                    break;
-                default:
-                    break;
-            }
-        }
 
         public void UpdateAttaches<T>(T item, int headerID, int attachID)
         {

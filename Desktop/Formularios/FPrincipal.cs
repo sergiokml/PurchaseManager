@@ -77,6 +77,8 @@ namespace PurchaseDesktop.Formularios
             Users user = rFachada.CurrentUser();
             LblUser.Text = $"User: {user.FirstName} {user.LastName} | Profile: {user.ProfileID} | Email: {user.Email}";
 
+            SetControles();
+
             //! Banner
             string s = await rFachada.CargarBanner();
             try
@@ -103,7 +105,6 @@ namespace PurchaseDesktop.Formularios
                 TimerMsg.Stop();
             }; TimerMsg.Start();
 
-            SetControles();
 
         }
 
