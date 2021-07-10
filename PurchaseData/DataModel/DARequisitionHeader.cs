@@ -31,8 +31,9 @@ namespace PurchaseData.DataModel
                      .Find(id);
 
 
-                //    //contextDB.Entry(po).Reference(s => s.RequisitionDetails).Load(); // EN ESTE CASO NO ES REFERENCE!
-                contextDB.Entry(po).Collection(s => s.RequisitionDetails).Load(); // ESTE CASO ES COLLECTION!
+                //contextDB.Entry(po).Reference(s => s.RequisitionDetails).Load();
+                contextDB.Entry(po).Collection(s => s.RequisitionDetails).Load();
+                contextDB.Entry(po).Collection(s => s.Transactions).Load();
                 return po;
 
             }

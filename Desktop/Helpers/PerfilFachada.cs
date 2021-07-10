@@ -1436,7 +1436,7 @@ namespace PurchaseDesktop.Helpers
 
         #region Details CRUD
 
-        public string InsertDetail(object item, DataRow headerDR)
+        public string InsertDetail<T>(T item, DataRow headerDR)
         {
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             int status = Convert.ToInt32(headerDR["StatusID"]);
@@ -1454,7 +1454,7 @@ namespace PurchaseDesktop.Helpers
                             return "Your profile does not allow you to complete this action.";
                         case TypeDocumentHeader.PO:
                             if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                            var od = (OrderDetails)item;
+                            var od = item as OrderDetails;
                             decimal total = new OrderHeader().GetById(headerID).Total;
                             if ((total + od.Total) < 99000000) // Máximo por Header
                             {
@@ -1467,8 +1467,10 @@ namespace PurchaseDesktop.Helpers
 
                     break;
                 case Perfiles.UPR:
-                    if (status >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
-                    perfilPr.InsertDetail(item, headerID);
+                    var pr = new RequisitionHeader().GetById(headerID);
+                    if (pr.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
+                    pr.RequisitionDetails.Add(item as RequisitionDetails);
+                    perfilPr.InsertDetail<RequisitionDetails>(item as RequisitionDetails, headerID);
                     break;
                 case Perfiles.VAL:
                     break;
@@ -1485,6 +1487,7 @@ namespace PurchaseDesktop.Helpers
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             int status = Convert.ToInt32(headerDR["StatusID"]);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
+            var detailID = Convert.ToInt32(detailDR["DetailID"]);
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -1492,21 +1495,23 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    if (status >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
+                    var po = new OrderHeader().GetById(headerID);
+                    if (po.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
                             return "Your profile does not allow you to complete this action.";
                         case TypeDocumentHeader.PO:
-                            perfilPo.DeleteDetail(td, headerID, Convert.ToInt32(detailDR["DetailID"]));
+                            perfilPo.DeleteDetail(td, po, detailID);
                             break;
                         default:
                             break;
                     }
                     break;
                 case Perfiles.UPR:
-                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    perfilPr.DeleteDetail(td, headerID, Convert.ToInt32(detailDR["DetailID"]));
+                    var pr = new RequisitionHeader().GetById(headerID);
+                    if (pr.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
+                    perfilPr.DeleteDetail(td, pr, detailID);
                     break;
                 case Perfiles.VAL:
                     break;
@@ -1558,11 +1563,11 @@ namespace PurchaseDesktop.Helpers
                                         }
                                     }
                                     od.Price = Convert.ToDecimal(newValue.ToString().Replace(",", "."));
-                                    perfilPo.UpdateDetail<OrderDetails>(td, od, headerID, detailID);
+                                    perfilPo.UpdateDetail<OrderDetails>(td, od, headerID);
                                     break;
                                 case "NameProduct":
                                     od.NameProduct = newValue.ToString();
-                                    perfilPo.UpdateDetail<OrderDetails>(td, od, headerID, detailID);
+                                    perfilPo.UpdateDetail<OrderDetails>(td, od, headerID);
                                     break;
                             }
                             break;
@@ -1574,12 +1579,13 @@ namespace PurchaseDesktop.Helpers
                     break;
                 case Perfiles.UPR:
                     var rd = new RequisitionDetails().GetByID(detailID);
+                    var pr = new RequisitionHeader().GetById(headerID);
                     if (status >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
                     switch (campo)
                     {
                         case "NameProduct":
-                            rd.NameProduct = UCase.ToTitleCase(newValue.ToString().ToLower());
-                            perfilPr.UpdateDetail<RequisitionDetails>(td, rd, headerID, detailID);
+                            rd.NameProduct = newValue.ToString();
+                            perfilPr.UpdateDetail<RequisitionHeader>(td, pr, rd);
                             break;
                         default:
                             break;

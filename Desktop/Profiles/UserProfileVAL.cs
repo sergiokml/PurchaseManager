@@ -112,7 +112,7 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, int headerID, int detailID)
+        public void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, object header)
         {
             throw new System.NotImplementedException();
         }
@@ -127,10 +127,7 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public void DeleteDetail(TypeDocumentHeader headerTD, int headerID, int detailID)
-        {
-            throw new System.NotImplementedException();
-        }
+
 
         public void DeleteAttach(int headerID, int attachID)
         {
@@ -198,6 +195,11 @@ namespace PurchaseDesktop.Profiles
         }
 
         public int DeleteDelivery(int headerID, int deliverID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteDetail<T>(TypeDocumentHeader td, T item, int detailID)
         {
             throw new NotImplementedException();
         }

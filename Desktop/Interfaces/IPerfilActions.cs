@@ -35,7 +35,7 @@ namespace PurchaseDesktop.Interfaces
 
         //! Update
         void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item);
-        void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, int headerID, int detailID);
+        void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, object header);
         void UpdateAttaches<T>(T item, int headerID, int attachID);
         void UpdateHito(OrderHitos item, int headerID);
         void UpdateNote(OrderNotes item, int headerID);
@@ -45,7 +45,7 @@ namespace PurchaseDesktop.Interfaces
 
         //! Delete
         void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID);
-        void DeleteDetail(TypeDocumentHeader headerTD, int headerID, int detailID); // Tabla 1:M
+        void DeleteDetail<T>(TypeDocumentHeader td, T item, int detailID); // Tabla 1:M
         void DeleteAttach(int headerID, int attachID);
         int DeleteSupplier(string headerID);
         int DeleteHito(int headerID, int hitoID);

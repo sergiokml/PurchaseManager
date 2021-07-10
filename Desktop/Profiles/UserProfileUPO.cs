@@ -138,8 +138,6 @@ namespace PurchaseDesktop.Profiles
         {
             OrderHeader doc = rContext.OrderHeader.Find(headerID);
             var i = item as OrderDetails;
-
-
             Transactions transaction = new Transactions
             {
                 Event = Eventos.INSERT_DETAIL.ToString(),
@@ -151,10 +149,7 @@ namespace PurchaseDesktop.Profiles
             {
                 try
                 {
-
                     var res = rContext.INSERT_ORDERDETAILS(headerID, i.NameProduct, i.DescriptionProduct, i.Qty, i.Price, i.AccountID, i.MedidaID, i.IsExent);
-
-
 
                     doc.Transactions.Add(transaction);
                     //rContext.Entry(item).State = EntityState.Added;
@@ -249,35 +244,24 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public void DeleteDetail(TypeDocumentHeader headerTD, int headerID, int detailID)
+        public void DeleteDetail<T>(TypeDocumentHeader headerTD, T item, int detailID)
         {
-            Transactions transaction = new Transactions
-            {
-                Event = Eventos.DELETE_DETAIL.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-                      .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
+
             switch (headerTD)
             {
                 case TypeDocumentHeader.PR:
-                    RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
-                    //using (var rContext = new PurchaseManagerEntities())
-                    //{
-                    using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-                    {
-                        RequisitionDetails detail = rContext.RequisitionDetails.Find(detailID, pr.RequisitionHeaderID);
-                        rContext.Entry(detail).State = EntityState.Deleted;
-                        pr.Transactions.Add(transaction);
-                        rContext.SaveChanges();
-                        trans.Commit();
-                    }
-                    //  }
                     break;
                 case TypeDocumentHeader.PO:
+                    OrderHeader po = item as OrderHeader;
                     using (var rContext = new PurchaseManagerEntities())
                     {
-                        OrderHeader po = rContext.OrderHeader.Find(headerID);
+                        Transactions transaction = new Transactions
+                        {
+                            Event = Eventos.DELETE_DETAIL.ToString(),
+                            UserID = CurrentUser.UserID,
+                            DateTran = rContext.Database
+                            .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                        };
                         using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                         {
                             //OrderDetails detail = rContext.OrderDetails.Find(detailID, po.OrderHeaderID);
@@ -320,7 +304,7 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, int headerID, int detailID)
+        public void UpdateDetail<T>(TypeDocumentHeader headerTD, T item, object header)
         {
             Transactions transaction = new Transactions
             {
@@ -331,31 +315,19 @@ namespace PurchaseDesktop.Profiles
             switch (headerTD)
             {
                 case TypeDocumentHeader.PR:
-                    //transaction.Event = Eventos.UPDATE_PR.ToString();
-                    //using (var rContext = new PurchaseManagerEntities())
-                    //{
-                    //    using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-                    //    {
-                    //        RequisitionHeader doc = rContext.RequisitionHeader.Find(headerID);
-                    //        doc.Transactions.Add(transaction);
-
-                    //        RequisitionDetails od = rContext.RequisitionDetails.Find(detailID, headerID);
-                    //        rContext.Entry(od).CurrentValues.SetValues(item);
-                    //        rContext.SaveChanges();
-                    //        trans.Commit();
-                    //    }
-                    //}
                     break;
                 case TypeDocumentHeader.PO:
                     var i = item as OrderDetails;
+                    var po = (OrderHeader)header;
                     transaction.Event = Eventos.UPDATE_DETAIL.ToString();
+
                     using (var rContext = new PurchaseManagerEntities())
                     {
                         using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                         {
-                            OrderHeader doc = rContext.OrderHeader.Find(headerID);
-                            doc.Transactions.Add(transaction);
-                            rContext.UPDATE_ORDERDETAILS(detailID, headerID, i.NameProduct, i.DescriptionProduct, i.Qty, i.Price, i.AccountID, i.MedidaID, i.IsExent);
+                            //OrderHeader doc = rContext.OrderHeader.Find(headerID);
+                            po.Transactions.Add(transaction);
+                            rContext.UPDATE_ORDERDETAILS(i.DetailID, po.OrderHeaderID, i.NameProduct, i.DescriptionProduct, i.Qty, i.Price, i.AccountID, i.MedidaID, i.IsExent);
                             //OrderDetails od = rContext.OrderDetails.Find(detailID, headerID);
                             //rContext.Entry(od).CurrentValues.SetValues(item);
 

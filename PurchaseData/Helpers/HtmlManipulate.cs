@@ -71,6 +71,7 @@ namespace PurchaseData.Helpers
 
         public string ReemplazarDatos(DataRow headerDR, Users user, List<RequisitionDetails> details)
         {
+            //TODO QUITAR LA LISTA DE DETALLES PORQUE DEBO JUGAR CON EL HEADER YA CON ESOS DATOS.
             //! PR
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             string path = Environment.CurrentDirectory + @"\HtmlDocuments\RequisitionDoc.html";

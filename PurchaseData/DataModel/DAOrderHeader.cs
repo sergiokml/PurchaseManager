@@ -13,8 +13,9 @@
                 var po = contextDB
                     .OrderHeader
                     .Find(id);
-                // TODO ESTE CASO ES REFERENCIS, PORQUE ES 1 OBJETO, NO VARIOS.
                 contextDB.Entry(po).Reference(c => c.OrderStatus).Load();
+                contextDB.Entry(po).Collection(s => s.OrderDetails).Load();
+                contextDB.Entry(po).Collection(s => s.Transactions).Load();
                 return po;
             }
         }
