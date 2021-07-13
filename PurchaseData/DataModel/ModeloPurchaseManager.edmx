@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PurchaseManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PurchaseManagerModelo.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -183,9 +183,9 @@
         </EntityType>
         <EntityType Name="RequisitionStatus">
           <Key>
-            <PropertyRef Name="StatuID" />
+            <PropertyRef Name="StatusID" />
           </Key>
-          <Property Name="StatuID" Type="tinyint" Nullable="false" />
+          <Property Name="StatusID" Type="tinyint" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SupplierBanks">
@@ -612,7 +612,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <End Role="RequisitionHeader" Type="Self.RequisitionHeader" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RequisitionStatus">
-              <PropertyRef Name="StatuID" />
+              <PropertyRef Name="StatusID" />
             </Principal>
             <Dependent Role="RequisitionHeader">
               <PropertyRef Name="StatusID" />
@@ -811,7 +811,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Parameter Name="Password" Type="varchar" Mode="In" />
           <Parameter Name="ID" Type="varchar" Mode="In" />
         </Function>
-        <EntityContainer Name="PurchaseManagerModelStoreContainer">
+        <EntityContainer Name="PurchaseManagerModeloStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attaches" EntityType="Self.Attaches" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AttachesOrders" EntityType="Self.AttachesOrders" Schema="dbo" store:Type="Tables" />
@@ -1011,11 +1011,10 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PurchaseManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="PurchaseManagerModelo" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <ComplexType Name="ufnGetOrderGroupByStatus_Result">
           <Property Name="Nro" Type="Int32" />
           <Property Name="StatusID" Type="Byte" Nullable="false" />
@@ -1223,9 +1222,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
         </EntityType>
         <EntityType Name="RequisitionStatus">
           <Key>
-            <PropertyRef Name="StatuID" />
+            <PropertyRef Name="StatusID" />
           </Key>
-          <Property Name="StatuID" Type="Byte" Nullable="false" />
+          <Property Name="StatusID" Type="Byte" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="RequisitionHeader" Relationship="Self.FK_RequisitionHeader_RequisitionStatus" FromRole="RequisitionStatus" ToRole="RequisitionHeader" />
         </EntityType>
@@ -1593,7 +1592,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <End Role="RequisitionHeader" Type="Self.RequisitionHeader" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RequisitionStatus">
-              <PropertyRef Name="StatuID" />
+              <PropertyRef Name="StatusID" />
             </Principal>
             <Dependent Role="RequisitionHeader">
               <PropertyRef Name="StatusID" />
@@ -1831,9 +1830,9 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <End Role="RequisitionHeader" EntitySet="RequisitionHeader" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
-          <FunctionImport Name="ufnGetOrderGroupByStatus" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetOrderGroupByStatus_Result)" />
-          <FunctionImport Name="ufnGetReqGroupByCost" IsComposable="true" ReturnType="Collection(PurchaseManagerModel.ufnGetReqGroupByCost_Result)">
-            <Parameter Name="StatusID" Mode="In" Type="Int32" />
+          <FunctionImport Name="ufnGetOrderGroupByStatus" IsComposable="true" ReturnType="Collection(PurchaseManagerModelo.ufnGetOrderGroupByStatus_Result)" />
+          <FunctionImport Name="ufnGetReqGroupByCost" IsComposable="true" ReturnType="Collection(PurchaseManagerModelo.ufnGetReqGroupByCost_Result)">
+          <Parameter Name="StatusID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DELETE_ORDERDETAILS">
             <Parameter Name="DetailID" Mode="In" Type="Int32" />
@@ -1849,6 +1848,10 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <Parameter Name="MedidaID" Mode="In" Type="String" />
             <Parameter Name="IsExent" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <FunctionImport Name="UPDATE_PASSWORD_HASH">
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="UPDATE_ORDERDETAILS">
             <Parameter Name="DetailID" Mode="In" Type="Int32" />
             <Parameter Name="HeaderID" Mode="In" Type="Int32" />
@@ -1860,19 +1863,15 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <Parameter Name="MedidaID" Mode="In" Type="String" />
             <Parameter Name="IsExent" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="UPDATE_PASSWORD_HASH">
-            <Parameter Name="Password" Mode="In" Type="String" />
-            <Parameter Name="ID" Mode="In" Type="String" />
-          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PurchaseManagerModelStoreContainer" CdmEntityContainer="PurchaseManagerEntities">
+        <EntityContainerMapping StorageEntityContainer="PurchaseManagerModeloStoreContainer" CdmEntityContainer="PurchaseManagerEntities">
           <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.Accounts">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.Accounts">
               <MappingFragment StoreEntitySet="Accounts">
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1882,7 +1881,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Attaches">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.Attaches">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.Attaches">
               <MappingFragment StoreEntitySet="Attaches">
                 <ScalarProperty Name="AttachID" ColumnName="AttachID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1893,7 +1892,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Companies">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.Companies">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.Companies">
               <MappingFragment StoreEntitySet="Companies">
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1904,7 +1903,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ConfigApp">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.ConfigApp">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.ConfigApp">
               <MappingFragment StoreEntitySet="ConfigApp">
                 <ScalarProperty Name="ConfigID" ColumnName="ConfigID" />
                 <ScalarProperty Name="ApikeySBIF" ColumnName="ApikeySBIF" />
@@ -1921,7 +1920,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Currencies">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.Currencies">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.Currencies">
               <MappingFragment StoreEntitySet="Currencies">
                 <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1929,7 +1928,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Medidas">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.Medidas">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.Medidas">
               <MappingFragment StoreEntitySet="Medidas">
                 <ScalarProperty Name="MedidaID" ColumnName="MedidaID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1937,7 +1936,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDelivery">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.OrderDelivery">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.OrderDelivery">
               <MappingFragment StoreEntitySet="OrderDelivery">
                 <ScalarProperty Name="DeliveryID" ColumnName="DeliveryID" />
                 <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
@@ -1947,7 +1946,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.OrderDetails">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.OrderDetails">
               <MappingFragment StoreEntitySet="OrderDetails">
                 <ScalarProperty Name="DetailID" ColumnName="DetailID" />
                 <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
@@ -1963,7 +1962,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderHeader">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.OrderHeader">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.OrderHeader">
               <MappingFragment StoreEntitySet="OrderHeader">
                 <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1984,7 +1983,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderHitos">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.OrderHitos">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.OrderHitos">
               <MappingFragment StoreEntitySet="OrderHitos">
                 <ScalarProperty Name="HitoID" ColumnName="HitoID" />
                 <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
@@ -1995,7 +1994,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderNotes">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.OrderNotes">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.OrderNotes">
               <MappingFragment StoreEntitySet="OrderNotes">
                 <ScalarProperty Name="OrderNoteID" ColumnName="OrderNoteID" />
                 <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
@@ -2006,7 +2005,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderStatus">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.OrderStatus">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.OrderStatus">
               <MappingFragment StoreEntitySet="OrderStatus">
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2014,7 +2013,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RequisitionDetails">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.RequisitionDetails">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.RequisitionDetails">
               <MappingFragment StoreEntitySet="RequisitionDetails">
                 <ScalarProperty Name="DetailID" ColumnName="DetailID" />
                 <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
@@ -2027,7 +2026,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RequisitionHeader">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.RequisitionHeader">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.RequisitionHeader">
               <MappingFragment StoreEntitySet="RequisitionHeader">
                 <ScalarProperty Name="RequisitionHeaderID" ColumnName="RequisitionHeaderID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2041,15 +2040,15 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RequisitionStatus">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.RequisitionStatus">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.RequisitionStatus">
               <MappingFragment StoreEntitySet="RequisitionStatus">
-                <ScalarProperty Name="StatuID" ColumnName="StatuID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SupplierBanks">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.SupplierBanks">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.SupplierBanks">
               <MappingFragment StoreEntitySet="SupplierBanks">
                 <ScalarProperty Name="BankID" ColumnName="BankID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2060,7 +2059,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SupplierCountries">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.SupplierCountries">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.SupplierCountries">
               <MappingFragment StoreEntitySet="SupplierCountries">
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2068,7 +2067,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.Suppliers">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.Suppliers">
               <MappingFragment StoreEntitySet="Suppliers">
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -2086,7 +2085,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.sysdiagrams">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -2097,7 +2096,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Transactions">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.Transactions">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.Transactions">
               <MappingFragment StoreEntitySet="Transactions">
                 <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
                 <ScalarProperty Name="Event" ColumnName="Event" />
@@ -2107,7 +2106,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TypeDocument">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.TypeDocument">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.TypeDocument">
               <MappingFragment StoreEntitySet="TypeDocument">
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2115,7 +2114,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserCosts">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.UserCosts">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.UserCosts">
               <MappingFragment StoreEntitySet="UserCosts">
                 <ScalarProperty Name="CostID" ColumnName="CostID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2123,7 +2122,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserProfiles">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.UserProfiles">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.UserProfiles">
               <MappingFragment StoreEntitySet="UserProfiles">
                 <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2131,7 +2130,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.Users">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.Users">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -2147,7 +2146,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vOrderByMinTransaction">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.vOrderByMinTransaction">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.vOrderByMinTransaction">
               <MappingFragment StoreEntitySet="vOrderByMinTransaction">
                 <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2178,7 +2177,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vRequisitionByMinTransaction">
-            <EntityTypeMapping TypeName="PurchaseManagerModel.vRequisitionByMinTransaction">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.vRequisitionByMinTransaction">
               <MappingFragment StoreEntitySet="vRequisitionByMinTransaction">
                 <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2200,7 +2199,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AttachesOrders" TypeName="PurchaseManagerModel.AttachesOrders" StoreEntitySet="AttachesOrders">
+          <AssociationSetMapping Name="AttachesOrders" TypeName="PurchaseManagerModelo.AttachesOrders" StoreEntitySet="AttachesOrders">
             <EndProperty Name="Attaches">
               <ScalarProperty Name="AttachID" ColumnName="AttachID" />
             </EndProperty>
@@ -2208,7 +2207,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="AttachesRequisitions" TypeName="PurchaseManagerModel.AttachesRequisitions" StoreEntitySet="AttachesRequisitions">
+          <AssociationSetMapping Name="AttachesRequisitions" TypeName="PurchaseManagerModelo.AttachesRequisitions" StoreEntitySet="AttachesRequisitions">
             <EndProperty Name="Attaches">
               <ScalarProperty Name="AttachID" ColumnName="AttachID" />
             </EndProperty>
@@ -2216,7 +2215,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <ScalarProperty Name="RequisitionHeaderID" ColumnName="RequisitionHeaderID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="TransactionsOrders" TypeName="PurchaseManagerModel.TransactionsOrders" StoreEntitySet="TransactionsOrders">
+          <AssociationSetMapping Name="TransactionsOrders" TypeName="PurchaseManagerModelo.TransactionsOrders" StoreEntitySet="TransactionsOrders">
             <EndProperty Name="OrderHeader">
               <ScalarProperty Name="OrderHeaderID" ColumnName="OrderHeaderID" />
             </EndProperty>
@@ -2224,7 +2223,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="TransactionsRequisitions" TypeName="PurchaseManagerModel.TransactionsRequisitions" StoreEntitySet="TransactionsRequisitions">
+          <AssociationSetMapping Name="TransactionsRequisitions" TypeName="PurchaseManagerModelo.TransactionsRequisitions" StoreEntitySet="TransactionsRequisitions">
             <EndProperty Name="RequisitionHeader">
               <ScalarProperty Name="RequisitionHeaderID" ColumnName="RequisitionHeaderID" />
             </EndProperty>
@@ -2232,28 +2231,28 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionName="PurchaseManagerModel.Store.ufnGetOrderGroupByStatus" FunctionImportName="ufnGetOrderGroupByStatus">
+          <FunctionImportMapping FunctionName="PurchaseManagerModelo.Store.ufnGetOrderGroupByStatus" FunctionImportName="ufnGetOrderGroupByStatus">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="PurchaseManagerModel.ufnGetOrderGroupByStatus_Result">
+              <ComplexTypeMapping TypeName="PurchaseManagerModelo.ufnGetOrderGroupByStatus_Result">
                 <ScalarProperty Name="Nro" ColumnName="Nro" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionName="PurchaseManagerModel.Store.ufnGetReqGroupByCost" FunctionImportName="ufnGetReqGroupByCost">
+          <FunctionImportMapping FunctionName="PurchaseManagerModelo.Store.ufnGetReqGroupByCost" FunctionImportName="ufnGetReqGroupByCost">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="PurchaseManagerModel.ufnGetReqGroupByCost_Result">
+              <ComplexTypeMapping TypeName="PurchaseManagerModelo.ufnGetReqGroupByCost_Result">
                 <ScalarProperty Name="Nro" ColumnName="Nro" />
                 <ScalarProperty Name="CostID" ColumnName="CostID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DELETE_ORDERDETAILS" FunctionName="PurchaseManagerModel.Store.DELETE_ORDERDETAILS" />
-          <FunctionImportMapping FunctionImportName="INSERT_ORDERDETAILS" FunctionName="PurchaseManagerModel.Store.INSERT_ORDERDETAILS" />
-          <FunctionImportMapping FunctionImportName="UPDATE_ORDERDETAILS" FunctionName="PurchaseManagerModel.Store.UPDATE_ORDERDETAILS" />
-          <FunctionImportMapping FunctionImportName="UPDATE_PASSWORD_HASH" FunctionName="PurchaseManagerModel.Store.UPDATE_PASSWORD_HASH" />
+          <FunctionImportMapping FunctionImportName="DELETE_ORDERDETAILS" FunctionName="PurchaseManagerModelo.Store.DELETE_ORDERDETAILS" />
+          <FunctionImportMapping FunctionImportName="INSERT_ORDERDETAILS" FunctionName="PurchaseManagerModelo.Store.INSERT_ORDERDETAILS" />
+          <FunctionImportMapping FunctionImportName="UPDATE_PASSWORD_HASH" FunctionName="PurchaseManagerModelo.Store.UPDATE_PASSWORD_HASH" />
+          <FunctionImportMapping FunctionImportName="UPDATE_ORDERDETAILS" FunctionName="PurchaseManagerModelo.Store.UPDATE_ORDERDETAILS" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

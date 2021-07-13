@@ -71,7 +71,7 @@ namespace PurchaseDesktop.Formularios
             this.TxtID.BorderThickness = 1;
             this.TxtID.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.TxtID.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TxtID.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F);
+            this.TxtID.DefaultFont = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtID.DefaultText = "";
             this.TxtID.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(106)))), ((int)(((byte)(112)))));
             this.TxtID.HideSelection = true;

@@ -134,31 +134,13 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
         public void UpdateItemHeader<T>(T item)
         {
-
-            //switch (headerTD)
-            //{
-            //    case TypeDocumentHeader.PR:
-            //RequisitionHeader doc = item as RequisitionHeader;
-            //using (var rContext = new PurchaseManagerEntities())
-            //{
-            //    Transactions transaction = new Transactions
-            //    {
-            //        UserID = CurrentUser.UserID,
-            //        Event = Eventos.UPDATE_PR.ToString(),
-            //        DateTran = rContext.Database
-            //        .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            //    };
-            //    rContext.RequisitionHeader.Attach(doc);
-            //    rContext.Entry(doc).State = EntityState.Modified;
-            //    doc.Transactions.Add(transaction);
-            //    rContext.SaveChanges();
-            //}
-            //    break;
-            //case TypeDocumentHeader.PO:
-
-            OrderHeader doc = item as OrderHeader;
             using (var rContext = new PurchaseManagerEntities())
             {
                 Transactions transaction = new Transactions
@@ -168,15 +150,23 @@ namespace PurchaseDesktop.Profiles
                     DateTran = rContext.Database
                     .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
                 };
-                rContext.OrderHeader.Attach(doc);
-                doc.Transactions.Add(transaction);
-                rContext.Entry(doc).State = EntityState.Modified;
+                Type typeParameterType = typeof(T);
+                if (typeParameterType.Name == "OrderHeader")
+                {
+                    OrderHeader doc = item as OrderHeader;
+                    rContext.OrderHeader.Attach(doc);
+                    rContext.Entry(doc).State = EntityState.Modified;
+                    doc.Transactions.Add(transaction);
+                }
+                else if (typeParameterType.Name == "RequisitionHeader")
+                {
+                    RequisitionHeader pr = item as RequisitionHeader;
+                    rContext.RequisitionHeader.Attach(pr);
+                    rContext.Entry(pr).State = EntityState.Modified;
+                    pr.Transactions.Add(transaction);
+                }
                 rContext.SaveChanges();
             }
-            //    break;
-            //default:
-            //    break;
-            //}
         }
 
         /// <summary>

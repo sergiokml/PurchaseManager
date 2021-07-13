@@ -167,7 +167,7 @@ namespace PurchaseData.Helpers
 
                     //! Paginacion
                     HtmlDoc.GetElementbyId("CODE").InnerHtml =
-                        $"N° {headerDR["Code"]} | ({po.OrderStatus.Description}) | Página { page} de { Math.Ceiling(pages)}";
+                        $"N° {headerDR["Code"]} | ({headerDR["Status"].ToString().First().ToString() + headerDR["Status"].ToString().Substring(1).ToLower()}) | Página { page} de { Math.Ceiling(pages)}";
                 }
 
                 //! Cargar Doc

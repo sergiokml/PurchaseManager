@@ -557,7 +557,6 @@ namespace PurchaseDesktop.Helpers
                             return "Your profile does not allow you to complete this action.";
 
                         case TypeDocumentHeader.PO:
-
                             po = new OrderHeader().GetById(headerID);
                             //if (po.StatusID >= 3) { return "The 'status' of the Purchase Order is not allowed."; }
                             if (po.StatusID == 1)
@@ -580,7 +579,7 @@ namespace PurchaseDesktop.Helpers
                                 {
                                     return "Net cannot be 'zero'.";
                                 }
-                                po.OrderStatus = new OrderStatus() { StatusID = 2 };
+                                po.StatusID = 2;
                                 perfilPo.UpdateItemHeader<OrderHeader>(po);
                                 break;
                             }
@@ -686,7 +685,7 @@ namespace PurchaseDesktop.Helpers
                     if (pr != null && pr.StatusID == 2)
                     {
                         pr.StatusID = 3;
-                        perfilPo.UpdateItemHeader(pr);
+                        perfilPo.UpdateItemHeader<RequisitionHeader>(pr);
                         //! Insert PO
                         po = new OrderHeader
                         {
@@ -716,7 +715,7 @@ namespace PurchaseDesktop.Helpers
                         }
                         //! Traspasar los adjuntos públicos
                         //var att = new Attaches().GetListByPrID(headerID).Where(c => c.Modifier == 1);
-                        foreach (var item in pr.Attaches.ToList())
+                        foreach (var item in pr.Attaches.Where(c => c.Modifier == 1).ToList())
                         {
                             var tt = new Attaches
                             {
@@ -741,30 +740,24 @@ namespace PurchaseDesktop.Helpers
                         case Perfiles.BAS:
                             break;
                         case Perfiles.UPO:
-                            //TODO QUITAR LA COMPROBACION DE NULL? VERIFICAR SI EXISTE EN EL INICIO DE LA LLAMADA.
-                            DataRow d = perfilPo.GetDataRow(TypeDocumentHeader.PR, Convert.ToInt32(headerDR["RequisitionHeaderID"]));
-                            if (d != null)
+                            if (headerDR["RequisitionHeaderID"] != DBNull.Value)
                             {
+                                DataRow d = perfilPo
+                                    .GetDataRow(TypeDocumentHeader.PR, Convert.ToInt32(headerDR["RequisitionHeaderID"]));
                                 VerItemHtml(d);
-                            }
-                            else
-                            {
-                                return "ERROR";
                             }
                             break;
                         case Perfiles.UPR:
                             break;
                         case Perfiles.VAL:
-                            DataRow e = perfilVal.GetDataRow(TypeDocumentHeader.PR, Convert.ToInt32(headerDR["RequisitionHeaderID"]));
-                            if (e != null)
+                            if (headerDR["RequisitionHeaderID"] != DBNull.Value)
                             {
+                                DataRow e = perfilVal
+                                    .GetDataRow(TypeDocumentHeader.PR, Convert.ToInt32(headerDR["RequisitionHeaderID"]));
                                 VerItemHtml(e);
                             }
-                            else
-                            {
-                                return "ERROR";
-                            }
                             break;
+
                         default:
                             break;
                     }
@@ -1495,7 +1488,6 @@ namespace PurchaseDesktop.Helpers
                             //Set nuevo Current en el formulario Details
                             d = perfilPr.GetDataRow(TypeDocumentHeader.PR, pr.RequisitionHeaderID);
                             fDetails.Current = d;
-                            var x = fDetails.GetGrid().CurRow;
 
                             break;
                         case TypeDocumentHeader.PO:
@@ -1713,7 +1705,7 @@ namespace PurchaseDesktop.Helpers
             try
             {
                 Process.Start($"{configApp.FolderApp}{attachDR["FileName"]}");
-                return "Opening File...";
+                return "OK";
             }
             catch (Exception)
             {

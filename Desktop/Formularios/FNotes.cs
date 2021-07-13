@@ -217,14 +217,6 @@ namespace PurchaseDesktop.Formularios
                     ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
                 }
             }
-            else if (Grid.Cols["view"].Index == e.ColIndex)
-            {
-                var resultado = rFachada.OpenAttach(current);
-                if (resultado != "OK")
-                {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
-                }
-            }
             //Grid.Focus();
             Grid.DrawAsFocused = false;
             System.Windows.Forms.Cursor.Current = Cursors.Default;

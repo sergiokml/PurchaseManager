@@ -257,6 +257,12 @@ namespace PurchaseDesktop.Formularios
             ChkExent.Checked = false;
             TxtGlosa.Text = Current["Description"].ToString();
 
+            //! Currency
+            CboCurrency.DataSource = new Currencies().GetList();
+            CboCurrency.DisplayMember = "CurrencyID";
+            CboCurrency.SelectedIndex = -1;
+            CboCurrency.ValueMember = "CurrencyID";
+
             switch (td)
             {
                 case TypeDocumentHeader.PR:
@@ -336,8 +342,9 @@ namespace PurchaseDesktop.Formularios
                         CboAccount.Enabled = false;
                         CboMedidas.Enabled = false;
                         BtnNewDetail.Enabled = false;
+                        CboCurrency.Enabled = false;
                     }
-
+                    CboCurrency.SelectedValue = po.CurrencyID;
                     break;
                 default:
                     break;
@@ -354,14 +361,16 @@ namespace PurchaseDesktop.Formularios
                 var resultado = rFachada.DeleteDetail(current, Current);
                 if (resultado == "OK")
                 {
+                    ((FPrincipal)Owner).LlenarGrid();
+                    ((FPrincipal)Owner).SetControles();
+                    ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+
                     LlenarGrid();
                     ClearControles();
                     Grid.Focus();
 
                     SetControles();
-                    ((FPrincipal)Owner).LlenarGrid();
-                    ((FPrincipal)Owner).SetControles();
-                    ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+
                 }
                 else
                 {
@@ -418,11 +427,11 @@ namespace PurchaseDesktop.Formularios
             var resultado = rFachada.UpdateDetail(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key, ChkExent.Checked);
             if (resultado == "OK")
             {
-                LlenarGrid();
-                SetControles();
                 ((FPrincipal)Owner).LlenarGrid();
                 ((FPrincipal)Owner).SetControles();
                 ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+                LlenarGrid();
+                SetControles();
             }
             else
             {
@@ -528,6 +537,28 @@ namespace PurchaseDesktop.Formularios
             //    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
             //    TxtGlosa.Text = Current["Description"].ToString();
             //}
+        }
+
+        private void CboCurrency_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (!Equals(CboCurrency.SelectedValue, Current["CurrencyID"].ToString()))
+            {
+                var resultado = rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID");
+                if (resultado == "OK")
+                {
+                    ((FPrincipal)Owner).LlenarGrid();
+                    ((FPrincipal)Owner).SetControles();
+                    ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+                    Current["CurrencyID"] = CboCurrency.SelectedValue;
+                    LlenarGrid();
+                    SetControles();
+
+                }
+                else
+                {
+                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                }
+            }
         }
     }
 }

@@ -414,7 +414,7 @@ namespace PurchaseDesktop.Helpers
         {
             iGCol iGCol;
             iGDropDownList cbotype = new iGDropDownList();
-            iGDropDownList cbocurrency = new iGDropDownList();
+            // iGDropDownList cbocurrency = new iGDropDownList();
             DataTable tablePr;
             //! Order Type  
             tablePr = new DataTable();
@@ -430,17 +430,17 @@ namespace PurchaseDesktop.Helpers
             cbotype.FillWithData(tablePr, "id", "Name");
 
             //! Currency
-            tablePr = new DataTable();
-            tablePr.Columns.Add("Id");
-            tablePr.Columns.Add("Name");
-            foreach (var myType in new Currencies().GetList())
-            {
-                DataRow row = tablePr.NewRow();
-                row[0] = myType.CurrencyID;
-                row[1] = myType.Description;
-                tablePr.Rows.Add(row);
-            }
-            cbocurrency.FillWithData(tablePr, "id", "id");
+            //tablePr = new DataTable();
+            //tablePr.Columns.Add("Id");
+            //tablePr.Columns.Add("Name");
+            //foreach (var myType in new Currencies().GetList())
+            //{
+            //    DataRow row = tablePr.NewRow();
+            //    row[0] = myType.CurrencyID;
+            //    row[1] = myType.Description;
+            //    tablePr.Rows.Add(row);
+            //}
+            //cbocurrency.FillWithData(tablePr, "id", "id");
             //Grid.DefaultCol.Width = 10;
             //Grid.Cols.Add().CellStyle.CustomDrawFlags = iGCustomDrawFlags.Foreground;
             switch (perfil)
@@ -482,8 +482,9 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
                     iGCol = Grid.Cols.Add("CurrencyID", "", 50);
-                    iGCol.CellStyle.DropDownControl = cbocurrency;
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    // iGCol.CellStyle.DropDownControl = cbocurrency;
+                    //iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol.ColHdrStyle.ImageList = ListaImagenes();
                     iGCol.ImageIndex = 5;
                     iGCol.ColHdrStyle.ImageAlign = iGContentAlignment.BottomCenter;
@@ -599,8 +600,9 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
                     iGCol = Grid.Cols.Add("CurrencyID", "", 50);
-                    iGCol.CellStyle.DropDownControl = cbocurrency;
-                    iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
+                    iGCol.CellStyle.ReadOnly = iGBool.True;
+                    //iGCol.CellStyle.DropDownControl = cbocurrency;
+                    //iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
                     iGCol.ColHdrStyle.ImageList = ListaImagenes();
                     iGCol.ImageIndex = 5;
                     iGCol.ColHdrStyle.ImageAlign = iGContentAlignment.BottomCenter;

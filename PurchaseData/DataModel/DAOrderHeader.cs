@@ -13,7 +13,7 @@
                 var po = contextDB
                     .OrderHeader
                     .Find(id);
-                contextDB.Entry(po).Reference(c => c.OrderStatus).Load();
+                //contextDB.Entry(po).Reference(c => c.OrderStatus).Load();
                 contextDB.Entry(po).Collection(s => s.OrderDetails).Load();
                 foreach (var item in po.OrderDetails)
                 {

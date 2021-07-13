@@ -317,6 +317,7 @@ namespace PurchaseDesktop.Formularios
                         CargarDashboard();
                         ClearControles();
                         SetControles();
+                        Grid.CurRow = CurRowPrincipal;
                     }
                     else
                     {
@@ -400,6 +401,11 @@ namespace PurchaseDesktop.Formularios
             else
             {
                 resultado = await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name, this);
+                if (e.ClickedItem.Name == "OPENREQ")
+                {
+                    Msg(resultado, FPrincipal.MsgProceso.Informacion);
+                    return;
+                }
             }
 
             if (resultado == "OK")
