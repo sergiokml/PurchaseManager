@@ -74,22 +74,17 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public void InsertPOHeader(OrderHeader item)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void InsertDetail<T>(T item, object headerID)
         {
             throw new System.NotImplementedException();
         }
 
-        public void InsertAttach(Attaches item, int headerID)
+        public void InsertAttach<T>(Attaches item, T header)
         {
             throw new System.NotImplementedException();
         }
 
-        public void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item)
+        public void UpdateItemHeader<T>(T item)
         {
             OrderHeader doc = item as OrderHeader;
             Transactions transaction = new Transactions
@@ -122,12 +117,10 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID)
+        public void DeleteItemHeader<T>(T item)
         {
             throw new System.NotImplementedException();
         }
-
-
 
         public void DeleteAttach(int headerID, int attachID)
         {
@@ -200,6 +193,26 @@ namespace PurchaseDesktop.Profiles
         }
 
         public void DeleteDetail<T>(T item, int detailID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertItemHeader<T>(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAttach<T>(T item, int attachID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateAttaches<T>(T item, object headerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateAttaches<T>(Attaches item, T header)
         {
             throw new NotImplementedException();
         }

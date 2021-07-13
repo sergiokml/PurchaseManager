@@ -120,9 +120,9 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="TxtID.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAI8AAAAkCAYAAACwuGm+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA1SURBVHhe7cPBCQAwCASw7r+Ut5m6Qp9CAnkAAAAAAAAA
-        AAAAAAAAAAAAAAAAnJakduvf9AAqytABeRUjhwAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAAGoAAAAkCAYAAABhc6+LAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAvSURBVGhD7cMBCQBACASw71/Ka6bGeGGDPQAAAAAAAAAA
+        AAAAAAAAzkhSu/15egBaWVfmQ10LLwAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="TxtID.IconRight" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -137,9 +137,9 @@
   </data>
   <data name="TxtPassword.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAI8AAAAkCAYAAACwuGm+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAA1SURBVHhe7cPBCQAwCASw7r+Ut5m6Qp9CAnkAAAAAAAAA
-        AAAAAAAAAAAAAAAAnJakduvf9AAqytABeRUjhwAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAAGoAAAAkCAYAAABhc6+LAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAvSURBVGhD7cMBCQBACASw71/Ka6bGeGGDPQAAAAAAAAAA
+        AAAAAAAAzkhSu/15egBaWVfmQ10LLwAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="TxtPassword.IconRight" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

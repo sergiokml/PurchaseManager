@@ -30,10 +30,13 @@ namespace PurchaseData.DataModel
                      .RequisitionHeader
                      .Find(id);
 
-
-                //contextDB.Entry(po).Reference(s => s.RequisitionDetails).Load();
                 contextDB.Entry(po).Collection(s => s.RequisitionDetails).Load();
                 contextDB.Entry(po).Collection(s => s.Transactions).Load();
+                foreach (var item in po.RequisitionDetails)
+                {
+                    contextDB.Entry(item).Reference(s => s.Accounts).Load();
+                }
+                contextDB.Entry(po).Collection(s => s.Attaches).Load();
                 return po;
 
             }

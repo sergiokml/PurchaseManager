@@ -69,9 +69,8 @@ namespace PurchaseData.Helpers
             //return null;
         }
 
-        public string ReemplazarDatos(DataRow headerDR, Users user, List<RequisitionDetails> details)
+        public string ReemplazarDatos(DataRow headerDR, Users user, RequisitionHeader pr)
         {
-            //TODO QUITAR LA LISTA DE DETALLES PORQUE DEBO JUGAR CON EL HEADER YA CON ESOS DATOS.
             //! PR
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             string path = Environment.CurrentDirectory + @"\HtmlDocuments\RequisitionDoc.html";
@@ -91,12 +90,7 @@ namespace PurchaseData.Helpers
             HtmlDoc.GetElementbyId("STATUS_DESC").InnerHtml = $"{headerDR["Status"]}";
             HtmlDoc.GetElementbyId("Description").InnerHtml = $"{headerID}";
 
-            //var usuarioCreation = new Users()
-            //    .GetUserByID(headerDR["UserID"].ToString()).FirstName.Substring(0, 1) + " " + new Users()
-            //    .GetUserByID(headerDR["UserID"].ToString()).LastName;
-            var usuarioCreation = $"{headerDR["NameUserID"]}";
-
-            HtmlDoc.GetElementbyId("USER_CREATION").InnerHtml = usuarioCreation;
+            HtmlDoc.GetElementbyId("USER_CREATION").InnerHtml = $"{headerDR["NameUserID"]}";
 
             HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/table[1]");
             HtmlDoc.GetElementbyId("HeaderID").InnerHtml = $"{headerDR["HeaderID"]}";
@@ -116,22 +110,23 @@ namespace PurchaseData.Helpers
                     "The reference code for this Purchase Requisition is: ";
             }
             HtmlDoc.GetElementbyId("code").InnerHtml = $"{headerDR["Code"]}.";
-            var att = new Attaches().GetListByPrID(headerID).Where(c => c.Modifier == 1).ToList();
-            HtmlDoc.GetElementbyId("NRO_ATTACH").InnerHtml = $"{att.Count}";
-            if (details.Count > 0)
+
+
+            HtmlDoc.GetElementbyId("NRO_ATTACH")
+                .InnerHtml = $"{pr.Attaches.Where(c => c.Modifier == 1).ToList().Count()}";
+
+            HtmlDoc.GetElementbyId("NRO_DETAILS").InnerHtml = $"{pr.RequisitionDetails.Count()}";
+            foreach (RequisitionDetails item in pr.RequisitionDetails)
             {
-                HtmlDoc.GetElementbyId("NRO_DETAILS").InnerHtml = $"{details.Count}";
-                foreach (RequisitionDetails item in details)
-                {
-                    string node = "<tr class='list-item'>";
-                    node += $"<td data-label='Line' class='tableitem' id='line_num'>{line++}</td>";
-                    node += $"<td data-label='Description' class='tableitem' id='item_description'>{item.NameProduct} - {item.DescriptionProduct}</br>{item.Accounts.Description}</td>";
-                    node += $"<td data-label='Quantity' class='tableitem' id='quantity'>{item.Qty}</td>";
-                    node += $"<td data-label='Account' class='tableitem' id='Account'>{item.AccountID}</td>";
-                    table.AppendChild(HtmlNode.CreateNode(node));
-                }
-                // HtmlDoc.GetElementbyId("DETAILS_COUNT").InnerHtml = $"{details.Count}";
+                string node = "<tr class='list-item'>";
+                node += $"<td data-label='Line' class='tableitem' id='line_num'>{line++}</td>";
+                node += $"<td data-label='Description' class='tableitem' id='item_description'>{item.NameProduct} - {item.DescriptionProduct}</br>{item.Accounts.Description}</td>";
+                node += $"<td data-label='Quantity' class='tableitem' id='quantity'>{item.Qty}</td>";
+                node += $"<td data-label='Account' class='tableitem' id='Account'>{item.AccountID}</td>";
+                table.AppendChild(HtmlNode.CreateNode(node));
             }
+
+
             string pathcomplete = Path.GetTempPath() + headerDR["HeaderID"].ToString() + ".html";
             HtmlDoc.Save(pathcomplete, System.Text.Encoding.UTF8);
             return pathcomplete;

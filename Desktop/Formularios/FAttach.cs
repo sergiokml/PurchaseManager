@@ -22,9 +22,10 @@ namespace PurchaseDesktop.Formularios
         private readonly PerfilFachada rFachada;
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
-        public Users CurrentUser { get; set; }
-
+        //public Users CurrentUser { get; set; }
         private string FilePath { get; set; }
+        public iGRow CurRowPrincipal { get; set; }
+
 
         public FAttach(PerfilFachada rFachada, DataRow dr)
         {

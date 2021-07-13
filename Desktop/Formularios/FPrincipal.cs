@@ -19,10 +19,9 @@ namespace PurchaseDesktop.Formularios
         private readonly PerfilFachada rFachada;
 
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
-
         public bool IsSending { get; set; }
-
         public DataRow Current { get; set; }
+        public iGRow CurRowPrincipal { get; set; }
 
         #region Constructor
 

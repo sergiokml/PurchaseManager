@@ -22,6 +22,7 @@ namespace PurchaseDesktop.Formularios
 
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
+        public iGRow CurRowPrincipal { get; set; }
 
         public FSupplier(PerfilFachada rFachada, DataRow headerDR)
         {
@@ -324,6 +325,7 @@ namespace PurchaseDesktop.Formularios
                         SetControles();
                         ((FPrincipal)Owner).LlenarGrid();
                         ((FPrincipal)Owner).SetControles();
+                        ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
                         Close(); //todo Cerrar el formulario al seleccionar el cliente?
                     }
                     else

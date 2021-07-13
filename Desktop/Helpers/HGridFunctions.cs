@@ -37,14 +37,13 @@ namespace PurchaseDesktop.Helpers
             return lista;
         }
 
-        public void LLenarMenuContext(Perfiles perfil, DataRow headerDR, int status)
+        public void LLenarMenuContext(Perfiles perfil, DataRow headerDR)
         {
-
             CtxMenu.BackColor = Color.FromArgb(37, 37, 38);
             CtxMenu.ForeColor = Color.White;
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
+            var headerID = Convert.ToInt32(headerDR["headerID"]);
             ToolStripItem item;
-
             switch (perfil)
             {
                 case Perfiles.ADM:
@@ -55,7 +54,8 @@ namespace PurchaseDesktop.Helpers
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            if (status == 2)
+                            var pr = new RequisitionHeader().GetById(headerID);
+                            if (pr.StatusID == 2)
                             {
                                 item = CtxMenu.Items.Add("Convert To PO");  // index 1
                                 item.Font = new Font("Tahoma", 8, FontStyle.Regular);
@@ -65,14 +65,15 @@ namespace PurchaseDesktop.Helpers
                             }
                             break;
                         case TypeDocumentHeader.PO:
-                            if (headerDR["RequisitionHeaderID"] != DBNull.Value)
+                            var po = new OrderHeader().GetById(headerID);
+                            if (po.RequisitionHeaderID > 0)
                             {
                                 item = CtxMenu.Items.Add($"Open Requisition {headerDR["RequisitionHeaderID"]}");
                                 item.Font = new Font("Tahoma", 8, FontStyle.Regular);
                                 item.Image = Properties.Resources.icons8_html_filetype.ToBitmap();
                                 item.Name = "OPENREQ";
                             }
-                            if (status == 3)
+                            if (po.StatusID == 3)
                             {
                                 item = CtxMenu.Items.Add("Send To Supplier"); // index 0
                                 item.Font = new Font("Tahoma", 8, FontStyle.Regular);
@@ -80,7 +81,7 @@ namespace PurchaseDesktop.Helpers
                                 item.BackColor = Color.FromArgb(37, 37, 38);
                                 item.Name = "SEND";
                             }
-                            else if (status == 4)
+                            else if (po.StatusID == 4)
                             {
                                 item = CtxMenu.Items.Add("Accepted By Supplier"); // index 0
                                 item.Font = new Font("Tahoma", 8, FontStyle.Regular);
@@ -88,7 +89,7 @@ namespace PurchaseDesktop.Helpers
                                 item.BackColor = Color.FromArgb(37, 37, 38);
                                 item.Name = "ACCEPTED";
                             }
-                            else if (status == 5)
+                            else if (po.StatusID == 5)
                             {
                                 item = CtxMenu.Items.Add("Complete"); // index 0
                                 item.Font = new Font("Tahoma", 8, FontStyle.Regular);
@@ -110,14 +111,15 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PR:
                             break;
                         case TypeDocumentHeader.PO:
-                            if (headerDR["RequisitionHeaderID"] != DBNull.Value)
+                            var po = new OrderHeader().GetById(headerID);
+                            if (po.RequisitionHeaderID > 0)
                             {
                                 item = CtxMenu.Items.Add($"Open Requisition {headerDR["RequisitionHeaderID"]}");
                                 item.Font = new Font("Tahoma", 8, FontStyle.Regular);
                                 item.Image = Properties.Resources.icons8_html_filetype.ToBitmap();
                                 item.Name = "OPENREQ";
                             }
-                            if (status == 2)
+                            if (po.StatusID == 2)
                             {
                                 item = CtxMenu.Items.Add("Validate PO");  // index 1
                                 item.Font = new Font("Tahoma", 8, FontStyle.Regular);

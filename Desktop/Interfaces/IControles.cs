@@ -1,7 +1,5 @@
 ﻿using System.Globalization;
 
-using TenTec.Windows.iGridLib;
-
 namespace PurchaseDesktop.Interfaces
 {
     internal interface IControles
@@ -11,7 +9,6 @@ namespace PurchaseDesktop.Interfaces
         bool ValidarControles();
         void ClearControles();
         void SetControles();
-        iGrid GetGrid();
         void LlenarGrid();
     }
 }

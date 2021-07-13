@@ -18,12 +18,21 @@ namespace PurchaseDesktop.Helpers
             }
             foreach (T item in items)
             {
-                var values = new object[Props.Length];
-                for (int i = 0; i < Props.Length; i++)
+                try
                 {
-                    values[i] = Props[i].GetValue(item, null);
+                    var values = new object[Props.Length];
+                    for (int i = 0; i < Props.Length; i++)
+                    {
+                        values[i] = Props[i].GetValue(item, null);
+                    }
+                    dataTable.Rows.Add(values);
+
                 }
-                dataTable.Rows.Add(values);
+                catch (System.Exception)
+                {
+
+                    throw;
+                }
             }
             return dataTable;
         }

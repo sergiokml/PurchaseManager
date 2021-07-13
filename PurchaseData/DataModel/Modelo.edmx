@@ -317,6 +317,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTransaction' 
           <Property Name="Net" Type="decimal" Precision="11" Scale="2" />
           <Property Name="Exent" Type="decimal" Precision="11" Scale="2" />
           <Property Name="Tax" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="Discount" Type="decimal" Precision="11" Scale="2" />
           <Property Name="Total" Type="numeric" Precision="17" Scale="4" Nullable="false" />
           <Property Name="Type" Type="tinyint" Nullable="false" />
           <Property Name="StatusID" Type="tinyint" Nullable="false" />
@@ -333,8 +334,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTransaction' 
           <Property Name="CompanyCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="TypeDocumentHeader" Type="nvarchar" MaxLength="2" Nullable="false" />
-          <Property Name="DetailsCount" Type="int" />
-          <Property Name="Discount" Type="decimal" Precision="11" Scale="2" />
           <Property Name="HitosCount" Type="int" />
           <Property Name="NameUserID" Type="varchar" MaxLength="52" />
         </EntityType>
@@ -370,7 +369,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="CompanyCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="TypeDocumentHeader" Type="nvarchar" MaxLength="2" Nullable="false" />
-          <Property Name="DetailsCount" Type="int" />
           <Property Name="UserPO" Type="varchar" MaxLength="8" />
           <Property Name="NameUserID" Type="varchar" MaxLength="52" />
         </EntityType>
@@ -849,6 +847,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     [vOrderByMinTransaction].[Net] AS [Net], 
     [vOrderByMinTransaction].[Exent] AS [Exent], 
     [vOrderByMinTransaction].[Tax] AS [Tax], 
+    [vOrderByMinTransaction].[Discount] AS [Discount], 
     [vOrderByMinTransaction].[Total] AS [Total], 
     [vOrderByMinTransaction].[Type] AS [Type], 
     [vOrderByMinTransaction].[StatusID] AS [StatusID], 
@@ -865,8 +864,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     [vOrderByMinTransaction].[CompanyCode] AS [CompanyCode], 
     [vOrderByMinTransaction].[Status] AS [Status], 
     [vOrderByMinTransaction].[TypeDocumentHeader] AS [TypeDocumentHeader], 
-    [vOrderByMinTransaction].[DetailsCount] AS [DetailsCount], 
-    [vOrderByMinTransaction].[Discount] AS [Discount], 
     [vOrderByMinTransaction].[HitosCount] AS [HitosCount], 
     [vOrderByMinTransaction].[NameUserID] AS [NameUserID]
     FROM [dbo].[vOrderByMinTransaction] AS [vOrderByMinTransaction]</DefiningQuery>
@@ -888,7 +885,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     [vRequisitionByMinTransaction].[CompanyCode] AS [CompanyCode], 
     [vRequisitionByMinTransaction].[Status] AS [Status], 
     [vRequisitionByMinTransaction].[TypeDocumentHeader] AS [TypeDocumentHeader], 
-    [vRequisitionByMinTransaction].[DetailsCount] AS [DetailsCount], 
     [vRequisitionByMinTransaction].[UserPO] AS [UserPO], 
     [vRequisitionByMinTransaction].[NameUserID] AS [NameUserID]
     FROM [dbo].[vRequisitionByMinTransaction] AS [vRequisitionByMinTransaction]</DefiningQuery>
@@ -1813,6 +1809,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="Net" Type="Decimal" Precision="11" Scale="2" />
           <Property Name="Exent" Type="Decimal" Precision="11" Scale="2" />
           <Property Name="Tax" Type="Decimal" Nullable="false" Precision="14" Scale="4" />
+          <Property Name="Discount" Type="Decimal" Precision="11" Scale="2" />
           <Property Name="Total" Type="Decimal" Nullable="false" Precision="17" Scale="4" />
           <Property Name="Type" Type="Byte" Nullable="false" />
           <Property Name="StatusID" Type="Byte" Nullable="false" />
@@ -1829,8 +1826,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TypeDocumentHeader" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="DetailsCount" Type="Int32" />
-          <Property Name="Discount" Type="Decimal" Precision="11" Scale="2" />
           <Property Name="HitosCount" Type="Int32" />
           <Property Name="NameUserID" Type="String" MaxLength="52" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -1864,7 +1859,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TypeDocumentHeader" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="DetailsCount" Type="Int32" />
           <Property Name="UserPO" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="NameUserID" Type="String" MaxLength="52" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -2208,8 +2202,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <MappingFragment StoreEntitySet="vOrderByMinTransaction">
                 <ScalarProperty Name="NameUserID" ColumnName="NameUserID" />
                 <ScalarProperty Name="HitosCount" ColumnName="HitosCount" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="DetailsCount" ColumnName="DetailsCount" />
                 <ScalarProperty Name="TypeDocumentHeader" ColumnName="TypeDocumentHeader" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
@@ -2226,6 +2218,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Tax" ColumnName="Tax" />
                 <ScalarProperty Name="Exent" ColumnName="Exent" />
                 <ScalarProperty Name="Net" ColumnName="Net" />
@@ -2240,7 +2233,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               <MappingFragment StoreEntitySet="vRequisitionByMinTransaction">
                 <ScalarProperty Name="NameUserID" ColumnName="NameUserID" />
                 <ScalarProperty Name="UserPO" ColumnName="UserPO" />
-                <ScalarProperty Name="DetailsCount" ColumnName="DetailsCount" />
                 <ScalarProperty Name="TypeDocumentHeader" ColumnName="TypeDocumentHeader" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />

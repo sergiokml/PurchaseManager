@@ -22,10 +22,12 @@ namespace PurchaseDesktop.Interfaces
         DataTable VistaDelivery(TypeDocumentHeader headerTD, int headerID);
 
         //! Insert
-        void InsertPRHeader(RequisitionHeader item);
-        void InsertPOHeader(OrderHeader item);
+        //void InsertPRHeader(RequisitionHeader item);
+        //void InsertPOHeader(OrderHeader item);
+
+        void InsertItemHeader<T>(T item);
         void InsertDetail<T>(T item, object headerID); // Tabla 1:M => para PR y PO
-        void InsertAttach(Attaches item, int headerID); // Tabla M:M => para PR y PO
+        void InsertAttach<T>(Attaches item, T header); // Tabla M:M => para PR y PO
         int InsertSupplier(Suppliers item);
         void InsertHito(OrderHitos item, int headerID); // Tabla 1:M pero solo para PO
         void InsertNote(OrderNotes item, int headerID);
@@ -34,9 +36,9 @@ namespace PurchaseDesktop.Interfaces
 
 
         //! Update
-        void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item);
-        void UpdateDetail<T>(T item, object header);
-        void UpdateAttaches<T>(T item, int headerID, int attachID);
+        void UpdateItemHeader<T>(T item);
+        void UpdateDetail<T>(T item, object header); //Tabla 1:M
+        void UpdateAttaches<T>(Attaches item, T header); //Tabla M:M
         void UpdateHito(OrderHitos item, int headerID);
         void UpdateNote(OrderNotes item, int headerID);
         void UpdateSupplier(Suppliers item);
@@ -44,9 +46,9 @@ namespace PurchaseDesktop.Interfaces
 
 
         //! Delete
-        void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID);
+        void DeleteItemHeader<T>(T item);
         void DeleteDetail<T>(T item, int detailID); // Tabla 1:M
-        void DeleteAttach(int headerID, int attachID);
+        void DeleteAttach<T>(T item, int attachID); // Tabla 1:M
         int DeleteSupplier(string headerID);
         int DeleteHito(int headerID, int hitoID);
         int DeleteNote(int headerID, int noteID);

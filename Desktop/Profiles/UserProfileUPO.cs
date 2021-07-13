@@ -14,14 +14,9 @@ namespace PurchaseDesktop.Profiles
 {
     public class UserProfileUPO : HFunctions, IPerfilActions
     {
-        private readonly PurchaseManagerEntities rContext;
         public Users CurrentUser { get; set; }
 
-        public UserProfileUPO(PurchaseManagerEntities rContext)
-        {
-            this.rContext = rContext;
-        }
-
+        #region Vistas
         public DataTable VistaFPrincipal()
         {
             using (var rContext = new PurchaseManagerEntities())
@@ -54,7 +49,6 @@ namespace PurchaseDesktop.Profiles
                         NameBiz = item.NameBiz,
                         Status = item.Status,
                         TypeDocumentHeader = item.TypeDocumentHeader,
-                        DetailsCount = item.DetailsCount,
                         NameUserID = item.NameUserID
                     };
                     l.Add(n);
@@ -93,7 +87,7 @@ namespace PurchaseDesktop.Profiles
                 case TypeDocumentHeader.PR:
                     using (var rContext = new PurchaseManagerEntities())
                     {
-                        RequisitionHeader pr = rContext.RequisitionHeader.Find(headerID);
+                        var pr = rContext.RequisitionHeader.Find(headerID);
                         return this.ToDataTable<Attaches>(pr.Attaches.Where(c => c.Modifier == 1).ToList());
                     }
                 case TypeDocumentHeader.PO:
@@ -115,138 +109,144 @@ namespace PurchaseDesktop.Profiles
                 return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
             }
         }
+        #endregion
 
-        public void InsertPOHeader(OrderHeader item)
+        #region ItemHeader CRUD
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        public void InsertItemHeader<T>(T item)
         {
-            Transactions transaction = new Transactions
-            {
-                Event = Eventos.CREATE_PO.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
-                item.Transactions.Add(transaction);
-                rContext.OrderHeader.Add(item);
-                rContext.SaveChanges();
-                trans.Commit();
-            }
-        }
-
-        public void InsertDetail<T>(T item, object headerID)
-        {
-            OrderHeader doc = rContext.OrderHeader.Find(headerID);
-            var i = item as OrderDetails;
-            Transactions transaction = new Transactions
-            {
-                Event = Eventos.INSERT_DETAIL.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
-                try
-                {
-                    var res = rContext.INSERT_ORDERDETAILS(doc.OrderHeaderID, i.NameProduct, i.DescriptionProduct, i.Qty, i.Price, i.AccountID, i.MedidaID, i.IsExent);
-
-                    doc.Transactions.Add(transaction);
-                    //rContext.Entry(item).State = EntityState.Added;
-                    rContext.SaveChanges();
-                    trans.Commit();
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
-
-            }
-        }
-
-        public void InsertAttach(Attaches item, int headerID)
-        {
-            OrderHeader pr = rContext.OrderHeader.Find(headerID);
-            Transactions transaction = new Transactions
-            {
-                Event = Eventos.INSERT_ATTACH.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
-                pr.Transactions.Add(transaction);
-                pr.Attaches.Add(item);
-                rContext.SaveChanges();
-                trans.Commit();
-            }
-        }
-
-        public void UpdateItemHeader<T>(TypeDocumentHeader headerTD, T item)
-        {
-            Transactions transaction = new Transactions
-            {
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-              .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            switch (headerTD)
-            {
-                case TypeDocumentHeader.PR:
-                    transaction.Event = Eventos.UPDATE_PR.ToString();
-                    RequisitionHeader doc = item as RequisitionHeader;
-                    using (var rContext = new PurchaseManagerEntities())
-                    {
-                        using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-                        {
-                            rContext.RequisitionHeader.Attach(doc);
-                            rContext.Entry(doc).State = EntityState.Modified;
-                            doc.Transactions.Add(transaction);
-                            rContext.SaveChanges();
-                            trans.Commit();
-                        }
-                    }
-                    break;
-                case TypeDocumentHeader.PO:
-                    transaction.Event = Eventos.UPDATE_PO.ToString();
-                    OrderHeader po = item as OrderHeader;
-                    using (var rContext = new PurchaseManagerEntities())
-                    {
-                        using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-                        {
-                            po.Transactions.Add(transaction);
-                            rContext.Entry(po).State = EntityState.Modified;
-                            rContext.SaveChanges();
-                            trans.Commit();
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void DeleteItemHeader(TypeDocumentHeader headerTD, int headerID)
-        {
+            var doc = item as OrderHeader;
             using (var rContext = new PurchaseManagerEntities())
             {
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.CREATE_PO.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+               .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
+                doc.Transactions.Add(transaction);
+                rContext.OrderHeader.Add(doc);
+                rContext.SaveChanges();
+            }
+        }
+        public void UpdateItemHeader<T>(T item)
+        {
+
+            //switch (headerTD)
+            //{
+            //    case TypeDocumentHeader.PR:
+            //RequisitionHeader doc = item as RequisitionHeader;
+            //using (var rContext = new PurchaseManagerEntities())
+            //{
+            //    Transactions transaction = new Transactions
+            //    {
+            //        UserID = CurrentUser.UserID,
+            //        Event = Eventos.UPDATE_PR.ToString(),
+            //        DateTran = rContext.Database
+            //        .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+            //    };
+            //    rContext.RequisitionHeader.Attach(doc);
+            //    rContext.Entry(doc).State = EntityState.Modified;
+            //    doc.Transactions.Add(transaction);
+            //    rContext.SaveChanges();
+            //}
+            //    break;
+            //case TypeDocumentHeader.PO:
+
+            OrderHeader doc = item as OrderHeader;
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                Transactions transaction = new Transactions
+                {
+                    UserID = CurrentUser.UserID,
+                    Event = Eventos.UPDATE_PO.ToString(),
+                    DateTran = rContext.Database
+                    .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
+                rContext.OrderHeader.Attach(doc);
+                doc.Transactions.Add(transaction);
+                rContext.Entry(doc).State = EntityState.Modified;
+                rContext.SaveChanges();
+            }
+            //    break;
+            //default:
+            //    break;
+            //}
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        public void DeleteItemHeader<T>(T item)
+        {
+            var doc = item as OrderHeader;
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                rContext.OrderHeader.Attach(doc);
+                rContext.OrderHeader.Remove(doc);
+                rContext.SaveChanges();
+            }
+        }
+
+        #endregion
+
+        #region Details CRUD
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="header"></param>
+        public void InsertDetail<T>(T item, object header)
+        {
+            var i = item as OrderDetails;
+            OrderHeader doc = (OrderHeader)header;
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.INSERT_DETAIL.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
                 using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                 {
-                    OrderHeader doc = rContext.OrderHeader.Find(headerID);
-                    rContext.Transactions.RemoveRange(doc.Transactions);
-                    rContext.OrderHeader.Remove(doc);
-                    rContext.Attaches.RemoveRange(doc.Attaches);
-                    rContext.SaveChanges();
-                    trans.Commit();
+                    try
+                    {
+                        var res = rContext.INSERT_ORDERDETAILS(doc.OrderHeaderID, i.NameProduct, i.DescriptionProduct, i.Qty, i.Price, i.AccountID, i.MedidaID, i.IsExent);
+                        rContext.OrderHeader.Attach(doc);
+                        doc.Transactions.Add(transaction);
+                        rContext.SaveChanges();
+                        trans.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        trans.Rollback();
+                        throw;
+                    }
                 }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="detailID"></param>
         public void DeleteDetail<T>(T item, int detailID)
         {
-            OrderHeader po = item as OrderHeader;
+            OrderHeader doc = item as OrderHeader;
             using (var rContext = new PurchaseManagerEntities())
             {
                 Transactions transaction = new Transactions
@@ -258,11 +258,9 @@ namespace PurchaseDesktop.Profiles
                 };
                 using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                 {
-                    //OrderDetails detail = rContext.OrderDetails.Find(detailID, po.OrderHeaderID);
-                    //rContext.Entry(detail).State = EntityState.Deleted;
-                    rContext.DELETE_ORDERDETAILS(detailID, po.OrderHeaderID);
-                    po.Transactions.Add(transaction);
-
+                    rContext.DELETE_ORDERDETAILS(detailID, doc.OrderHeaderID);
+                    rContext.OrderHeader.Attach(doc);
+                    doc.Transactions.Add(transaction);
                     rContext.SaveChanges();
                     trans.Commit();
                 }
@@ -270,55 +268,30 @@ namespace PurchaseDesktop.Profiles
 
         }
 
-        public void DeleteAttach(int headerID, int attachID)
-        {
-            Transactions transaction = new Transactions
-            {
-                Event = Eventos.DELETE_ATTACH.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-               .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
-                OrderHeader po = rContext.OrderHeader.Find(headerID);
-                Attaches att = rContext.Attaches.Find(attachID);
-                rContext.Attaches.Remove(att);
-                po.Transactions.Add(transaction);
-                rContext.SaveChanges();
-                trans.Commit();
-            }
-        }
-
-        public void InsertPRHeader(RequisitionHeader item)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="header"></param>
         public void UpdateDetail<T>(T item, object header)
         {
-            Transactions transaction = new Transactions
-            {
-                UserID = CurrentUser.UserID,
-                Event = Eventos.UPDATE_DETAIL.ToString(),
-                DateTran = rContext.Database.
-                SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-
             var i = item as OrderDetails;
-            var po = (OrderHeader)header;
-
-
+            var doc = (OrderHeader)header;
             using (var rContext = new PurchaseManagerEntities())
             {
+                Transactions transaction = new Transactions
+                {
+                    UserID = CurrentUser.UserID,
+                    Event = Eventos.UPDATE_DETAIL.ToString(),
+                    DateTran = rContext.Database.
+                SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
                 using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                 {
-                    //OrderHeader doc = rContext.OrderHeader.Find(headerID);
-                    po.Transactions.Add(transaction);
-                    rContext.UPDATE_ORDERDETAILS(i.DetailID, po.OrderHeaderID, i.NameProduct, i.DescriptionProduct, i.Qty, i.Price, i.AccountID, i.MedidaID, i.IsExent);
-                    //OrderDetails od = rContext.OrderDetails.Find(detailID, headerID);
-                    //rContext.Entry(od).CurrentValues.SetValues(item);
-
+                    rContext.UPDATE_ORDERDETAILS(i.DetailID, doc.OrderHeaderID, i.NameProduct, i.DescriptionProduct, i.Qty, i.Price, i.AccountID, i.MedidaID, i.IsExent);
+                    rContext.OrderHeader.Attach(doc);
+                    doc.Transactions.Add(transaction);
                     rContext.SaveChanges();
                     trans.Commit();
                 }
@@ -327,26 +300,79 @@ namespace PurchaseDesktop.Profiles
 
         }
 
-        public void UpdateAttaches<T>(T item, int headerID, int attachID)
+        #endregion
+
+        #region Attach CRUD
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="header"></param>
+        public void InsertAttach<T>(Attaches item, T header)
         {
-            Transactions transaction = new Transactions
-            {
-                Event = Eventos.UPDATE_ATTACH.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-             .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
+            var doc = header as OrderHeader;
             using (var rContext = new PurchaseManagerEntities())
             {
-                using (DbContextTransaction trans = rContext.Database.BeginTransaction())
+                Transactions transaction = new Transactions
                 {
-                    OrderHeader doc = rContext.OrderHeader.Find(headerID);
-                    doc.Transactions.Add(transaction);
-                    Attaches od = rContext.Attaches.Find(attachID);
-                    rContext.Entry(od).CurrentValues.SetValues(item);
-                    rContext.SaveChanges();
-                    trans.Commit();
-                }
+                    Event = Eventos.INSERT_ATTACH.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+                    .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
+                rContext.OrderHeader.Attach(doc);
+                doc.Transactions.Add(transaction);
+                doc.Attaches.Add(item);
+                rContext.SaveChanges();
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="attachID"></param>
+        public void DeleteAttach<T>(T item, int attachID)
+        {
+            OrderHeader doc = item as OrderHeader;
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.DELETE_ATTACH.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+                    .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
+                rContext.OrderHeader.Attach(doc);
+                doc.Attaches.Remove(doc.Attaches.FirstOrDefault(c => c.AttachID == attachID));
+                doc.Transactions.Add(transaction);
+                rContext.SaveChanges();
+            }
+        }
+
+        #endregion
+
+        public void UpdateAttaches<T>(Attaches item, T header)
+        {
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.UPDATE_ATTACH.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+             .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
+                //OrderHeader doc = rContext.OrderHeader.Find(headerID);
+                //doc.Transactions.Add(transaction);
+                // Attaches od = rContext.Attaches.Find(attachID);
+                //rContext.Entry(od).CurrentValues.SetValues(item);
+                rContext.SaveChanges();
             }
         }
 
@@ -363,7 +389,13 @@ namespace PurchaseDesktop.Profiles
                         return this.ToDataTable<vRequisitionByMinTransaction>(l).Rows[0];
                     }
                 case TypeDocumentHeader.PO:
-                    break;
+                    using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
+                    {
+                        List<vOrderByMinTransaction> l = rContext.vOrderByMinTransaction
+                      .Where(c => c.HeaderID == headerID)
+                      .OrderByDescending(c => c.DateLast).ToList();
+                        return this.ToDataTable<vOrderByMinTransaction>(l).Rows[0];
+                    }
                 default:
                     break;
             };
@@ -382,90 +414,94 @@ namespace PurchaseDesktop.Profiles
 
         public int InsertSupplier(Suppliers item)
         {
-            Suppliers s = rContext.Suppliers.Find(item.SupplierID);
-            if (s == null)
+            using (var rContext = new PurchaseManagerEntities())
             {
-                rContext.Suppliers.Add(item);
-                return rContext.SaveChanges();
+                Suppliers s = rContext.Suppliers.Find(item.SupplierID);
+                if (s == null)
+                {
+                    rContext.Suppliers.Add(item);
+                    return rContext.SaveChanges();
+                }
+                return 0;
             }
-            return 0;
         }
 
         public int DeleteSupplier(string headerID)
         {
-            Suppliers s = rContext.Suppliers.Find(headerID);
-            rContext.Suppliers.Remove(s);
-            return rContext.SaveChanges();
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                Suppliers s = rContext.Suppliers.Find(headerID);
+                rContext.Suppliers.Remove(s);
+                return rContext.SaveChanges();
+            }
         }
 
         public void UpdateSupplier(Suppliers item)
         {
-            Suppliers s = rContext.Suppliers.Find(item.SupplierID);
-            item.ModifiedDate = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single();
-            rContext.Entry(s).CurrentValues.SetValues(item);
-            rContext.SaveChanges();
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                Suppliers s = rContext.Suppliers.Find(item.SupplierID);
+                item.ModifiedDate = rContext.Database
+                    .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single();
+                rContext.Entry(s).CurrentValues.SetValues(item);
+                rContext.SaveChanges();
+            }
         }
 
         public void InsertHito(OrderHitos item, int headerID)
         {
-            Transactions transaction = new Transactions
+            using (var rContext = new PurchaseManagerEntities())
             {
-                Event = Eventos.INSERT_HITO.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.INSERT_HITO.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+                    .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
                 OrderHeader pr = rContext.OrderHeader.Find(headerID);
                 pr.Transactions.Add(transaction);
                 pr.OrderHitos.Add(item);
                 rContext.SaveChanges();
-                trans.Commit();
             }
         }
 
         public void UpdateHito(OrderHitos item, int headerID)
         {
-            Transactions transaction = new Transactions
+            using (var rContext = new PurchaseManagerEntities())
             {
-                Event = Eventos.UPDATE_HITO.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-            .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.UPDATE_HITO.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+                    .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
                 OrderHeader pr = rContext.OrderHeader.Find(headerID);
                 pr.Transactions.Add(transaction);
                 OrderHitos h = rContext.OrderHitos.Find(item.HitoID, headerID);
                 rContext.Entry(h).CurrentValues.SetValues(item);
                 rContext.SaveChanges();
-                trans.Commit();
             }
         }
 
         public int DeleteHito(int headerID, int hitoID)
         {
-            var res = 0;
-            Transactions transaction = new Transactions
+            using (var rContext = new PurchaseManagerEntities())
             {
-                Event = Eventos.DELETE_HITO.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.DELETE_HITO.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+              .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
                 OrderHeader po = rContext.OrderHeader.Find(headerID);
                 OrderHitos h = rContext.OrderHitos.Find(hitoID, headerID);
                 rContext.OrderHitos.Remove(h);
                 po.Transactions.Add(transaction);
-                res = rContext.SaveChanges();
-                trans.Commit();
+                return rContext.SaveChanges();
             }
-            return res; // 3 porque son 3 tablas
         }
 
         public DataTable VistaFNotes(TypeDocumentHeader headerTD, int headerID)
@@ -480,81 +516,75 @@ namespace PurchaseDesktop.Profiles
 
         public void InsertNote(OrderNotes item, int headerID)
         {
-            Transactions transaction = new Transactions
+            using (var rContext = new PurchaseManagerEntities())
             {
-                Event = Eventos.INSERT_NOTE.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.INSERT_NOTE.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
                 .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
+                };
                 OrderHeader pr = rContext.OrderHeader.Find(headerID);
                 pr.Transactions.Add(transaction);
                 pr.OrderNotes.Add(item);
                 rContext.SaveChanges();
-                trans.Commit();
             }
         }
 
         public void UpdateNote(OrderNotes item, int headerID)
         {
-            Transactions transaction = new Transactions
+            using (var rContext = new PurchaseManagerEntities())
             {
-                Event = Eventos.UPDATE_NOTE.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.UPDATE_NOTE.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
             .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
+                };
                 OrderHeader pr = rContext.OrderHeader.Find(headerID);
                 pr.Transactions.Add(transaction);
                 OrderNotes n = rContext.OrderNotes.Find(item.OrderNoteID, headerID);
                 rContext.Entry(n).CurrentValues.SetValues(item);
                 rContext.SaveChanges();
-                trans.Commit();
             }
         }
 
         public int DeleteNote(int headerID, int noteID)
         {
-            var res = 0;
-            Transactions transaction = new Transactions
+            using (var rContext = new PurchaseManagerEntities())
             {
-                Event = Eventos.DELETE_NOTE.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.DELETE_NOTE.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
                 .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
+                };
                 OrderHeader po = rContext.OrderHeader.Find(headerID);
                 OrderNotes n = rContext.OrderNotes.Find(noteID, headerID);
                 rContext.OrderNotes.Remove(n);
                 po.Transactions.Add(transaction);
-                res = rContext.SaveChanges();
-                trans.Commit();
+                return rContext.SaveChanges();
             }
-            return res; // 3 porque son 3 tablas
         }
 
         public void InsertDelivery(OrderDelivery item, int headerID)
         {
-            Transactions transaction = new Transactions
+            using (var rContext = new PurchaseManagerEntities())
             {
-                Event = Eventos.INSERT_DELIVERY.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.INSERT_DELIVERY.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+                    .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
                 OrderHeader pr = rContext.OrderHeader.Find(headerID);
                 pr.Transactions.Add(transaction);
                 pr.OrderDelivery.Add(item);
                 rContext.SaveChanges();
-                trans.Commit();
             }
         }
 
@@ -570,24 +600,24 @@ namespace PurchaseDesktop.Profiles
 
         public int DeleteDelivery(int headerID, int deliverID)
         {
-            var res = 0;
-            Transactions transaction = new Transactions
+            using (var rContext = new PurchaseManagerEntities())
             {
-                Event = Eventos.DELETE_DELIVERY.ToString(),
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
-            };
-            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-            {
+                Transactions transaction = new Transactions
+                {
+                    Event = Eventos.DELETE_DELIVERY.ToString(),
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+               .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                };
                 OrderHeader po = rContext.OrderHeader.Find(headerID);
                 OrderDelivery h = rContext.OrderDelivery.Find(deliverID, headerID);
                 rContext.OrderDelivery.Remove(h);
                 po.Transactions.Add(transaction);
-                res = rContext.SaveChanges();
-                trans.Commit();
+                return rContext.SaveChanges();
             }
-            return res; // 3 porque son 3 tablas
         }
+
+
+
     }
 }

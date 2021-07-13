@@ -21,6 +21,7 @@ namespace PurchaseDesktop.Formularios
         private readonly PerfilFachada rFachada;
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
+        public iGRow CurRowPrincipal { get; set; }
 
         public FDetails(PerfilFachada rFachada, DataRow dr)
         {
@@ -106,9 +107,12 @@ namespace PurchaseDesktop.Formularios
                             MedidaID = ((Medidas)CboMedidas.SelectedItem).MedidaID
 
                         };
-                        resultado = rFachada.InsertDetail(rd, Current);
+                        resultado = rFachada.InsertDetail(rd, Current, this);
                         //! Update Glosa
-                        rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                        if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
+                        {
+                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                        }
                         break;
                     case TypeDocumentHeader.PO:
                         var od = new OrderDetails
@@ -129,9 +133,12 @@ namespace PurchaseDesktop.Formularios
                         {
                             od.IsExent = false;
                         }
-                        resultado = rFachada.InsertDetail(od, Current);
+                        resultado = rFachada.InsertDetail(od, Current, this);
                         //! Update Glosa
-                        rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                        if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
+                        {
+                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                        }
                         break;
                     default:
                         break;
@@ -143,6 +150,7 @@ namespace PurchaseDesktop.Formularios
                     SetControles();
                     ((FPrincipal)Owner).LlenarGrid();
                     ((FPrincipal)Owner).SetControles();
+                    ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
                 }
                 else
                 {
@@ -353,6 +361,7 @@ namespace PurchaseDesktop.Formularios
                     SetControles();
                     ((FPrincipal)Owner).LlenarGrid();
                     ((FPrincipal)Owner).SetControles();
+                    ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
                 }
                 else
                 {

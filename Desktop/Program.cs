@@ -27,8 +27,8 @@ namespace Desktop
             if (CheckForInternetConnection())
             {
                 //! Los Perfiles: 
-                UserProfileUPO perfilPo = new UserProfileUPO(new PurchaseManagerEntities());
-                UserProfileUPR perfilPr = new UserProfileUPR(new PurchaseManagerEntities());
+                UserProfileUPO perfilPo = new UserProfileUPO();
+                UserProfileUPR perfilPr = new UserProfileUPR();
                 UserProfileVAL perfilVal = new UserProfileVAL(new PurchaseManagerEntities());
                 Users user;
                 using (var contextDB = new PurchaseManagerEntities())
