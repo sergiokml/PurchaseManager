@@ -26,12 +26,12 @@ namespace PurchaseData.DataModel
         public byte TypeAccount { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string BankID { get; set; }
         public string CountryID { get; set; }
         public string Giro { get; set; }
         public string Phone { get; set; }
         public string ContactName { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderHeader> OrderHeader { get; set; }

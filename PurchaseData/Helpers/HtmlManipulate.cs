@@ -132,67 +132,53 @@ namespace PurchaseData.Helpers
             return pathcomplete;
         }
 
-        public List<string> ReemplazarDatos(DataRow headerDR, Users user, List<OrderDetails> details)
+        public List<string> ReemplazarDatos(DataRow headerDR, Users user, OrderHeader po)
         {
             //! PO
             List<string> lista = new List<string>();
             string path = Environment.CurrentDirectory + @"\HtmlDocuments\OrderDoc.html";
-
-
-            var currency = headerDR["CurrencyID"].ToString();
+            var details = po.OrderDetails.ToList();
 
             //! Details
             string pathcomplete;
-
             int line = 0;
+            int count = 0;
+            float pages = (po.OrderDetails.Count / 5.0f);
+            int page = 1;
 
-            if (details.Count > 0)
+            for (int i = 0; i < Math.Ceiling(pages); i++)
             {
-                int count = 0;
-                float pages = (details.Count / 5.0f);
-                int page = 1;
-
-                for (int i = 0; i < Math.Ceiling(pages); i++)
+                HtmlDoc.Load(path);
+                HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[2]/div[3]/div/table");
+                while (count < 5 && line <= details.Count - 1)
                 {
-                    //for (int c = 0; c < 5; c++)
-                    //{
-                    HtmlDoc.Load(path);
-                    HtmlNode table = HtmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[2]/div[3]/div/table");
-                    //string node = string.Empty;
-                    while (count < 5 && line <= details.Count - 1)
-                    {
+                    string node = "<tr><td class='text-right' style='width: 50px;'>";
+                    node += $"<span class='mono'>{line + 1}</span><br><small class='text-muted'></small></td>";
+                    node += $"<td>{details[line].NameProduct}<br>";
+                    node += $"<small class='text-muted'>{details[line].DescriptionProduct}</small></td>";
+                    node += $"<td class='text-right'><span class='mono'>{details[line].Qty.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"))}</span><br>";
+                    node += $"<small class='text-muted'>{details[line].Medidas.Description}</small></td>";
+                    node += $"<td class='text-right'><span class='mono'>${details[line].Price.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"))}</span><br>";
+                    node += "<small class='text-muted'>Definitivo</small></td><td class='text-right'>";
+                    node += $"<strong class='mono'>${details[line].Total.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"))}</strong><br><small class='text-muted mono'>{headerDR["CurrencyID"]}</small>";
+                    table.AppendChild(HtmlNode.CreateNode(node));
+                    count++;
+                    line++;
 
-                        string node = "<tr><td class='text-right' style='width: 50px;'>";
-                        node += $"<span class='mono'>{line + 1}</span><br><small class='text-muted'></small></td>";
-                        node += $"<td>{details[line].NameProduct}<br>";
-                        node += $"<small class='text-muted'>{details[line].DescriptionProduct}</small></td>";
-                        node += $"<td class='text-right'><span class='mono'>{details[line].Qty.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"))}</span><br>";
-                        node += $"<small class='text-muted'>{details[line].Medidas.Description}</small></td>";
-                        node += $"<td class='text-right'><span class='mono'>${details[line].Price.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"))}</span><br>";
-                        node += "<small class='text-muted'>Definitivo</small></td><td class='text-right'>";
-                        node += $"<strong class='mono'>${details[line].Total.ToString("#,0.", CultureInfo.GetCultureInfo("es-CL"))}</strong><br><small class='text-muted mono'>{currency}</small>";
-
-                        table.AppendChild(HtmlNode.CreateNode(node));
-                        count++;
-                        line++;
-
-                        //! Paginacion
-                        HtmlDoc.GetElementbyId("CODE").InnerHtml =
-                            $"N° {headerDR["Code"]} | ({headerDR["Status"]}) | Página { page} de { Math.Ceiling(pages)}";
-                    }
-
-                    //! Cargar Doc
-                    pathcomplete = Path.GetTempPath() + headerDR["HeaderID"].ToString() + "_" + page + ".html";
-                    CargarDocumento(headerDR, user, pathcomplete);
-
-
-                    //}
-                    page++;
-                    count = 0;
-
-                    lista.Add(pathcomplete);
+                    //! Paginacion
+                    HtmlDoc.GetElementbyId("CODE").InnerHtml =
+                        $"N° {headerDR["Code"]} | ({po.OrderStatus.Description}) | Página { page} de { Math.Ceiling(pages)}";
                 }
+
+                //! Cargar Doc
+                pathcomplete = Path.GetTempPath() + headerDR["HeaderID"].ToString() + "_" + page + ".html";
+                CargarDocumento(headerDR, user, pathcomplete);
+
+                page++;
+                count = 0;
+                lista.Add(pathcomplete);
             }
+
             return lista;
         }
 

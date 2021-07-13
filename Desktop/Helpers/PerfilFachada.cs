@@ -368,9 +368,6 @@ namespace PurchaseDesktop.Helpers
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
-            int status = Convert.ToInt32(headerDR["StatusID"]);
-            List<OrderDetails> od;
-
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -386,25 +383,24 @@ namespace PurchaseDesktop.Helpers
                             {
                                 return "This Purchase Order does not contain Products or Services.";
                             }
-                            //rd = new RequisitionDetails().GetListByID(headerID);
                             Process.Start(new HtmlManipulate(configApp)
                                 .ReemplazarDatos(headerDR, perfilPo.CurrentUser, pr));
                             break;
                         case TypeDocumentHeader.PO:
                             var po = new OrderHeader().GetById(headerID);
-                            if (Convert.ToInt32(headerDR["HitosCount"]) == 0)
+                            if (po.OrderHitos.Count == 0)
                             {
                                 return "This Purchase Order does not contain a 'Hito'.";
                             }
-                            if (headerDR["SupplierID"] == DBNull.Value)
+                            if (po.SupplierID == null)
                             {
                                 return "The Purchase Order does not contain a 'Supplier'.";
                             }
-                            if (Convert.ToInt32(headerDR["DetailsCount"]) == 0)
+                            if (po.OrderDetails.Count <= 0)
                             {
                                 return "This Purchase Order does not contain Products or Services.";
                             }
-                            if (headerDR["CurrencyID"] == DBNull.Value)
+                            if (po.CurrencyID == null)
                             {
                                 return "This Purchase Order does not contain a 'Currency'.";
                             }
@@ -412,9 +408,8 @@ namespace PurchaseDesktop.Helpers
                             {
                                 return "This Purchase Order does not contain a 'Net'.";
                             }
-                            //TODO USAR EL REFERENCE DE DETAILS!
-                            od = new OrderDetails().GetListByID(headerID);
-                            var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, od);
+
+                            var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po);
                             foreach (var item in listaPath)
                             {
                                 Process.Start(item);
@@ -438,9 +433,9 @@ namespace PurchaseDesktop.Helpers
                             break;
                         case TypeDocumentHeader.PO:
                             //! User PR abre las PO que se hicieron desde sus PR
-                            if (status <= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                            od = new OrderDetails().GetListByID(headerID);
-                            foreach (var item in new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, od))
+                            var po = new OrderHeader().GetById(headerID);
+                            if (po.StatusID <= 2) { return "The 'status' of the Purchase Order is not allowed."; }
+                            foreach (var item in new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po))
                             {
                                 Process.Start(item);
                             }
@@ -458,13 +453,13 @@ namespace PurchaseDesktop.Helpers
                             {
                                 return "This Purchase Order does not contain Products or Services.";
                             }
-                            //rd = new RequisitionDetails().GetListByID(headerID);
                             Process.Start(new HtmlManipulate(configApp)
                                 .ReemplazarDatos(headerDR, perfilVal.CurrentUser, pr));
                             break;
                         case TypeDocumentHeader.PO:
-                            od = new OrderDetails().GetListByID(headerID);
-                            foreach (var item in new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilVal.CurrentUser, od))
+                            var po = new OrderHeader().GetById(headerID);
+                            foreach (var item in new HtmlManipulate(configApp)
+                                .ReemplazarDatos(headerDR, perfilVal.CurrentUser, po))
                             {
                                 Process.Start(item);
                             }
@@ -492,7 +487,6 @@ namespace PurchaseDesktop.Helpers
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             string path;
             SendEmailTo send = null;
-            int status = Convert.ToInt32(headerDR["StatusID"]);
 
             switch (td)
             {
@@ -513,15 +507,14 @@ namespace PurchaseDesktop.Helpers
                     fPrincipal.LblMsg.Image = Properties.Resources.loading;
 
 
-                    //var details = new RequisitionDetails().GetListByID(headerID);
                     path = new HtmlManipulate(configApp)
                         .ReemplazarDatos(headerDR, perfilPr.CurrentUser, pr);
                     send = new SendEmailTo(configApp);
                     await send.SendEmail(path, "Purchase Manager: PR document ", perfilPr.CurrentUser);
                     break;
                 case TypeDocumentHeader.PO:
+                    var po = new OrderHeader().GetById(headerID);
                     //if (status == 1) { return "The 'status' of the Purchase Order is not allowed."; }
-
                     f.Mensaje = mensaje;
                     f.ShowDialog(fPrincipal);
                     if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
@@ -531,9 +524,7 @@ namespace PurchaseDesktop.Helpers
                     fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
                     fPrincipal.LblMsg.Image = Properties.Resources.loading;
 
-
-                    var od = new OrderDetails().GetListByID(headerID);
-                    var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, od);
+                    var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po);
                     var a = await new HtmlManipulate(configApp).ConvertHtmlToPdf(listaPath, headerID.ToString());
                     send = new SendEmailTo(configApp);
                     await send.SendEmail(a, $"Purchase Manager:  PO document", perfilPr.CurrentUser);
@@ -548,7 +539,6 @@ namespace PurchaseDesktop.Helpers
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
-            int status = Convert.ToInt32(headerDR["StatusID"]);
             RequisitionHeader pr;
             OrderHeader po;
 
@@ -570,27 +560,27 @@ namespace PurchaseDesktop.Helpers
 
                             po = new OrderHeader().GetById(headerID);
                             //if (po.StatusID >= 3) { return "The 'status' of the Purchase Order is not allowed."; }
-                            if (Convert.ToInt32(headerDR["HitosCount"]) == 0) { return "This Purchase Order does not contain a 'Hito'."; }
-                            if (Convert.ToInt32(headerDR["DetailsCount"]) == 0) { return "This Purchase Order does not contain Products or Services."; }
                             if (po.StatusID == 1)
                             {
-                                if (headerDR["Description"] == DBNull.Value)
+                                if (Convert.ToInt32(headerDR["HitosCount"]) == 0) { return "This Purchase Order does not contain a 'Hito'."; }
+                                if (po.OrderDetails.Count == 0) { return "This Purchase Order does not contain Products or Services."; }
+                                if (po.Description == null)
                                 {
                                     return "Please enter 'Description'.";
                                 }
-                                if (string.IsNullOrEmpty(headerDR["SupplierID"].ToString()))
+                                if (po.SupplierID == null)
                                 {
                                     return "Please enter 'Supplier'.";
                                 }
-                                else if (string.IsNullOrEmpty(headerDR["CurrencyID"].ToString()))
+                                else if (po.CurrencyID == null)
                                 {
                                     return "Please enter 'Currency'.";
                                 }
-                                else if (Convert.ToDecimal(headerDR["Net"]) == 0)
+                                else if (po.Net <= 0)
                                 {
                                     return "Net cannot be 'zero'.";
                                 }
-                                po.StatusID = 2;
+                                po.OrderStatus = new OrderStatus() { StatusID = 2 };
                                 perfilPo.UpdateItemHeader<OrderHeader>(po);
                                 break;
                             }
@@ -780,7 +770,6 @@ namespace PurchaseDesktop.Helpers
                     }
                     break;
                 case "SEND":
-                    //todo PROVISORIAMENTE ESTO CAMBIARÁ EL ESTADO A ENVIADO A SUPPLIER
                     po = new OrderHeader().GetById(headerID);
                     if (po.StatusID == 3)
                     {
@@ -803,23 +792,16 @@ namespace PurchaseDesktop.Helpers
                         fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
                         fPrincipal.LblMsg.Image = Properties.Resources.loading;
 
-
-
-                        //!PDF de la PO
-                        var od = new OrderDetails().GetListByID(headerID);
-                        var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, od);
+                        //!PDF de la PO        
+                        var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po);
                         var a = await new HtmlManipulate(configApp).ConvertHtmlToPdf(listaPath, headerID.ToString());
                         //! Adjuntos
                         List<Attaches> att = new Attaches().GetListByPoID(headerID).Where(c => c.Modifier == 1).ToList();
-
-
                         //! Email To Supplier
                         var send = new SendEmailTo(configApp);
                         var asunto = $"Orden de Compra {po.Code} ({po.CompanyID})";
                         await send.SendEmailToSupplier(a, asunto, perfilPr.CurrentUser, supp, att);
-
-
-
+                        //! Update the PO
                         po.StatusID = 4;
                         perfilVal.UpdateItemHeader<OrderHeader>(po);
 
@@ -1295,7 +1277,6 @@ namespace PurchaseDesktop.Helpers
 
         public string UpdateItem(object newValue, DataRow headerDR, string campo)
         {
-            int status = Convert.ToInt32(headerDR["StatusID"]);
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             RequisitionHeader pr;
@@ -1745,6 +1726,7 @@ namespace PurchaseDesktop.Helpers
             var headerID = Convert.ToInt32(headerDR["HeaderID"]);
             var attachID = Convert.ToInt32(attachDR["AttachID"]);
             var att = new Attaches().GetByID(attachID);
+
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -1764,7 +1746,6 @@ namespace PurchaseDesktop.Helpers
                             att.Modifier = Convert.ToByte(newValue);
                             perfilPo.UpdateAttaches<OrderHeader>(att, po);
                             break;
-
                         default:
                             break;
                     }
@@ -1772,16 +1753,16 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.UPR:
                     var pr = new RequisitionHeader().GetById(headerID);
                     if (pr.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    var attt = pr.Attaches.FirstOrDefault(c => c.AttachID == attachID);
+                    //var attt = pr.Attaches.FirstOrDefault(c => c.AttachID == attachID);
                     switch (campo)
                     {
                         case "Description":
-                            attt.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
-                            perfilPr.UpdateAttaches<RequisitionHeader>(attt, pr);
+                            att.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
+                            perfilPr.UpdateAttaches<RequisitionHeader>(att, pr);
                             break;
                         case "Modifier":
                             att.Modifier = Convert.ToByte(newValue);
-                            perfilPr.UpdateAttaches<RequisitionHeader>(attt, pr);
+                            perfilPr.UpdateAttaches<RequisitionHeader>(att, pr);
                             break;
 
                         default:

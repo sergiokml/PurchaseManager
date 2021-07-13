@@ -27,9 +27,9 @@ namespace PurchaseData.DataModel
         public string CompanyName { get; set; }
         public string NameBiz { get; set; }
         public string CompanyCode { get; set; }
-        public string Status { get; set; }
         public string TypeDocumentHeader { get; set; }
         public string UserPO { get; set; }
         public string NameUserID { get; set; }
+        public string Status { get; set; }
     }
 }

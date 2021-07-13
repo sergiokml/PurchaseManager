@@ -17,12 +17,12 @@ namespace PurchaseData.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OrderHeader()
         {
+            this.OrderDelivery = new HashSet<OrderDelivery>();
             this.OrderDetails = new HashSet<OrderDetails>();
             this.OrderHitos = new HashSet<OrderHitos>();
             this.OrderNotes = new HashSet<OrderNotes>();
             this.Attaches = new HashSet<Attaches>();
             this.Transactions = new HashSet<Transactions>();
-            this.OrderDelivery = new HashSet<OrderDelivery>();
         }
     
         public int OrderHeaderID { get; set; }
@@ -43,6 +43,8 @@ namespace PurchaseData.DataModel
     
         public virtual Currencies Currencies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDelivery> OrderDelivery { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
         public virtual Suppliers Suppliers { get; set; }
@@ -55,7 +57,5 @@ namespace PurchaseData.DataModel
         public virtual ICollection<Attaches> Attaches { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transactions> Transactions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDelivery> OrderDelivery { get; set; }
     }
 }

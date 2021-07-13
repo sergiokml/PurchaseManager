@@ -49,7 +49,6 @@ namespace PurchaseDesktop.Profiles
                         Event = item.Event,
                         HeaderID = item.HeaderID,
                         NameBiz = item.NameBiz,
-                        Status = item.Status,
                         Type = item.Type,
                         TypeDocumentHeader = item.TypeDocumentHeader,
                         UserPO = item.UserID,
@@ -330,7 +329,12 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="header"></param>
         public void UpdateAttaches<T>(Attaches item, T header)
         {
             var doc = header as RequisitionHeader;
@@ -344,18 +348,13 @@ namespace PurchaseDesktop.Profiles
                     .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
                 };
                 rContext.RequisitionHeader.Attach(doc);
-                //rContext.Entry(doc.Attaches.FirstOrDefault(c => c.AttachID == item.AttachID)).CurrentValues.SetValues(item);
+                rContext.Entry(doc.Attaches.FirstOrDefault(c => c.AttachID == item.AttachID)).CurrentValues.SetValues(item);
                 doc.Transactions.Add(transaction);
-                rContext.Entry(item).State = EntityState.Modified;
-                //Attaches od = rContext.Attaches.Find(attachID);
-                //rContext.Entry(od).CurrentValues.SetValues(item);
                 rContext.SaveChanges();
             }
-
         }
 
         #endregion
-
 
         public DataRow GetDataRow(TypeDocumentHeader td, int headerID)
         {
@@ -376,7 +375,24 @@ namespace PurchaseDesktop.Profiles
             };
             return null;
         }
+        #region Supplier CRUD
+        public int InsertSupplier(Suppliers item)
+        {
+            throw new NotImplementedException();
+        }
+        public int DeleteSupplier(string headerID)
+        {
+            throw new NotImplementedException();
+        }
+        public void UpdateSupplier(Suppliers item)
+        {
+            throw new NotImplementedException();
+        }
 
+
+        #endregion
+
+        #region Hitos CRUD
         public DataTable VistaFHitos(TypeDocumentHeader td, int headerID)
         {
             using (var rContext = new PurchaseManagerEntities())
@@ -385,16 +401,6 @@ namespace PurchaseDesktop.Profiles
                 .ToDataTable<OrderHitos>(rContext.OrderHitos
                 .Where(c => c.OrderHeaderID == headerID).ToList());
             }
-        }
-
-        public int InsertSupplier(Suppliers item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int DeleteSupplier(string headerID)
-        {
-            throw new NotImplementedException();
         }
 
         public void InsertHito(OrderHitos item, int headerID)
@@ -412,6 +418,9 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
+        #endregion
+
+        #region Notes CRUD
         public DataTable VistaFNotes(TypeDocumentHeader td, int headerID)
         {
             throw new NotImplementedException();
@@ -432,11 +441,9 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void UpdateSupplier(Suppliers item)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
 
+        #region Delivery CRUD
         public void InsertDelivery(OrderDelivery item, int headerID)
         {
             throw new NotImplementedException();
@@ -452,5 +459,6 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
+        #endregion
     }
 }

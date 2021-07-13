@@ -17,8 +17,8 @@ namespace PurchaseData.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
-            this.Transactions = new HashSet<Transactions>();
             this.RequisitionHeader = new HashSet<RequisitionHeader>();
+            this.Transactions = new HashSet<Transactions>();
         }
     
         public string UserID { get; set; }
@@ -27,16 +27,16 @@ namespace PurchaseData.DataModel
         public string Position { get; set; }
         public byte[] Password { get; set; }
         public string Email { get; set; }
-        public Nullable<System.DateTime> LastVisit { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string ProfileID { get; set; }
         public string CostID { get; set; }
+        public Nullable<System.DateTime> LastVisit { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionHeader> RequisitionHeader { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transactions> Transactions { get; set; }
         public virtual UserCosts UserCosts { get; set; }
         public virtual UserProfiles UserProfiles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequisitionHeader> RequisitionHeader { get; set; }
     }
 }

@@ -143,6 +143,7 @@
     <Compile Include="DataModel\DAufnGetOrderGroupByStatus_Result.cs" />
     <Compile Include="DataModel\DAufnGetReqGroupByCost_Result.cs" />
     <Compile Include="DataModel\DAUserDB.cs" />
+    <Compile Include="DataModel\DAvOrderByMinTransaction.cs" />
     <Compile Include="DataModel\DAvRequisitionByMinTransaction.cs" />
     <Compile Include="DataModel\Medidas.cs">
       <DependentUpon>Modelo.tt</DependentUpon>

@@ -156,6 +156,7 @@ namespace PurchaseDesktop.Formularios
                 return;
             }
             //! Update solo si cambió el dato.
+            CurRowPrincipal = Grid.Rows[e.RowIndex];
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             var resultado = rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key);
@@ -167,6 +168,7 @@ namespace PurchaseDesktop.Formularios
                     CargarDashboard();
                 }
                 SetControles();
+                Grid.CurRow = CurRowPrincipal;
             }
             else
             {
@@ -176,6 +178,7 @@ namespace PurchaseDesktop.Formularios
                 LlenarGrid();
                 ClearControles();
                 SetControles();
+                Grid.CurRow = CurRowPrincipal;
             }
         }
 
@@ -368,6 +371,7 @@ namespace PurchaseDesktop.Formularios
             if (e.ColIndex > 0)
             {
                 Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                CurRowPrincipal = Grid.CurRow;
                 if (e.Button == MouseButtons.Right)
                 {
                     Grid.SetCurCell(e.RowIndex, e.ColIndex);

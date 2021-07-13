@@ -23,7 +23,6 @@ namespace PurchaseDesktop.Profiles
             {
                 var l = rContext.vOrderByMinTransaction.Where(c => c.UserID == CurrentUser.UserID)
               .OrderByDescending(c => c.DateLast).ToList();
-
                 var r = rContext.vRequisitionByMinTransaction.Where(c => c.StatusID == 2).Where(c => c.UserPO == CurrentUser.UserID).ToList();
                 foreach (var item in r)
                 {
@@ -47,9 +46,8 @@ namespace PurchaseDesktop.Profiles
                         CompanyCode = item.CompanyCode,
                         CompanyName = item.CompanyName,
                         NameBiz = item.NameBiz,
-                        Status = item.Status,
                         TypeDocumentHeader = item.TypeDocumentHeader,
-                        NameUserID = item.NameUserID
+                        Status = item.Status
                     };
                     l.Add(n);
                 }
@@ -135,6 +133,7 @@ namespace PurchaseDesktop.Profiles
                 rContext.SaveChanges();
             }
         }
+
         public void UpdateItemHeader<T>(T item)
         {
 
@@ -355,10 +354,16 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <param name="header"></param>
         public void UpdateAttaches<T>(Attaches item, T header)
         {
+            var doc = header as OrderHeader;
             using (var rContext = new PurchaseManagerEntities())
             {
                 Transactions transaction = new Transactions
@@ -368,13 +373,14 @@ namespace PurchaseDesktop.Profiles
                     DateTran = rContext.Database
              .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
                 };
-                //OrderHeader doc = rContext.OrderHeader.Find(headerID);
-                //doc.Transactions.Add(transaction);
-                // Attaches od = rContext.Attaches.Find(attachID);
-                //rContext.Entry(od).CurrentValues.SetValues(item);
+                rContext.OrderHeader.Attach(doc);
+                rContext.Entry(doc.Attaches.FirstOrDefault(c => c.AttachID == item.AttachID)).CurrentValues.SetValues(item);
+                doc.Transactions.Add(transaction);
                 rContext.SaveChanges();
             }
         }
+
+        #endregion
 
         public DataRow GetDataRow(TypeDocumentHeader headerTD, int headerID)
         {
@@ -402,15 +408,8 @@ namespace PurchaseDesktop.Profiles
             return null;
         }
 
-        public DataTable VistaFHitos(TypeDocumentHeader headerTD, int headerID)
-        {
-            using (var rContext = new PurchaseManagerEntities())
-            {
-                return this
-                .ToDataTable<OrderHitos>(rContext.OrderHitos
-                .Where(c => c.OrderHeaderID == headerID).ToList());
-            }
-        }
+
+        #region Supplier CRUD
 
         public int InsertSupplier(Suppliers item)
         {
@@ -445,6 +444,19 @@ namespace PurchaseDesktop.Profiles
                     .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single();
                 rContext.Entry(s).CurrentValues.SetValues(item);
                 rContext.SaveChanges();
+            }
+        }
+
+        #endregion
+
+        #region Hitos CRUD
+        public DataTable VistaFHitos(TypeDocumentHeader headerTD, int headerID)
+        {
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                return this
+                .ToDataTable<OrderHitos>(rContext.OrderHitos
+                .Where(c => c.OrderHeaderID == headerID).ToList());
             }
         }
 
@@ -504,6 +516,9 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
+        #endregion
+
+        #region Notes CRUD
         public DataTable VistaFNotes(TypeDocumentHeader headerTD, int headerID)
         {
             using (var rContext = new PurchaseManagerEntities())
@@ -570,6 +585,19 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
+        #endregion
+
+        #region Delivery CRUD
+        public DataTable VistaDelivery(TypeDocumentHeader headerTD, int headerID)
+        {
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                return this
+                .ToDataTable<OrderDelivery>(rContext.OrderDelivery
+                .Where(c => c.OrderHeaderID == headerID).ToList());
+            }
+        }
+
         public void InsertDelivery(OrderDelivery item, int headerID)
         {
             using (var rContext = new PurchaseManagerEntities())
@@ -588,15 +616,6 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public DataTable VistaDelivery(TypeDocumentHeader headerTD, int headerID)
-        {
-            using (var rContext = new PurchaseManagerEntities())
-            {
-                return this
-                .ToDataTable<OrderDelivery>(rContext.OrderDelivery
-                .Where(c => c.OrderHeaderID == headerID).ToList());
-            }
-        }
 
         public int DeleteDelivery(int headerID, int deliverID)
         {
@@ -617,7 +636,7 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-
+        #endregion
 
     }
 }

@@ -33,6 +33,7 @@ namespace PurchaseData.DataModel
         public virtual DbSet<ConfigApp> ConfigApp { get; set; }
         public virtual DbSet<Currencies> Currencies { get; set; }
         public virtual DbSet<Medidas> Medidas { get; set; }
+        public virtual DbSet<OrderDelivery> OrderDelivery { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<OrderHeader> OrderHeader { get; set; }
         public virtual DbSet<OrderHitos> OrderHitos { get; set; }
@@ -50,7 +51,6 @@ namespace PurchaseData.DataModel
         public virtual DbSet<UserCosts> UserCosts { get; set; }
         public virtual DbSet<UserProfiles> UserProfiles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<OrderDelivery> OrderDelivery { get; set; }
         public virtual DbSet<vOrderByMinTransaction> vOrderByMinTransaction { get; set; }
         public virtual DbSet<vRequisitionByMinTransaction> vRequisitionByMinTransaction { get; set; }
     
@@ -70,17 +70,17 @@ namespace PurchaseData.DataModel
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufnGetReqGroupByCost_Result>("[PurchaseManagerEntities].[ufnGetReqGroupByCost](@StatusID)", statusIDParameter);
         }
     
-        public virtual int UPDATE_PASSWORD_HASH(string password, string iD)
+        public virtual int DELETE_ORDERDETAILS(Nullable<int> detailID, Nullable<int> headerID)
         {
-            var passwordParameter = password != null ?
-                new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", typeof(string));
+            var detailIDParameter = detailID.HasValue ?
+                new ObjectParameter("DetailID", detailID) :
+                new ObjectParameter("DetailID", typeof(int));
     
-            var iDParameter = iD != null ?
-                new ObjectParameter("ID", iD) :
-                new ObjectParameter("ID", typeof(string));
+            var headerIDParameter = headerID.HasValue ?
+                new ObjectParameter("HeaderID", headerID) :
+                new ObjectParameter("HeaderID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UPDATE_PASSWORD_HASH", passwordParameter, iDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DELETE_ORDERDETAILS", detailIDParameter, headerIDParameter);
         }
     
         public virtual int INSERT_ORDERDETAILS(Nullable<int> headerID, string nameProduct, string descriptionProduct, Nullable<int> qty, Nullable<decimal> price, string accountID, string medidaID, Nullable<bool> isExent)
@@ -161,17 +161,17 @@ namespace PurchaseData.DataModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UPDATE_ORDERDETAILS", detailIDParameter, headerIDParameter, nameProductParameter, descriptionProductParameter, qtyParameter, priceParameter, accountIDParameter, medidaIDParameter, isExentParameter);
         }
     
-        public virtual int DELETE_ORDERDETAILS(Nullable<int> detailID, Nullable<int> headerID)
+        public virtual int UPDATE_PASSWORD_HASH(string password, string iD)
         {
-            var detailIDParameter = detailID.HasValue ?
-                new ObjectParameter("DetailID", detailID) :
-                new ObjectParameter("DetailID", typeof(int));
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
     
-            var headerIDParameter = headerID.HasValue ?
-                new ObjectParameter("HeaderID", headerID) :
-                new ObjectParameter("HeaderID", typeof(int));
+            var iDParameter = iD != null ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DELETE_ORDERDETAILS", detailIDParameter, headerIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UPDATE_PASSWORD_HASH", passwordParameter, iDParameter);
         }
     }
 }

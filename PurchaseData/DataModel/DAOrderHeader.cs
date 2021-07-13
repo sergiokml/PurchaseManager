@@ -15,8 +15,14 @@
                     .Find(id);
                 contextDB.Entry(po).Reference(c => c.OrderStatus).Load();
                 contextDB.Entry(po).Collection(s => s.OrderDetails).Load();
+                foreach (var item in po.OrderDetails)
+                {
+                    contextDB.Entry(item).Reference(s => s.Medidas).Load();
+                }
                 contextDB.Entry(po).Collection(s => s.Transactions).Load();
                 //contextDB.Entry(po).Collection(s => s.Attaches).Load();
+                contextDB.Entry(po).Collection(s => s.OrderHitos).Load();
+
                 return po;
             }
         }

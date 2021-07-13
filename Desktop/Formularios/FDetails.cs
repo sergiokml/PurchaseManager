@@ -422,7 +422,7 @@ namespace PurchaseDesktop.Formularios
                 SetControles();
                 ((FPrincipal)Owner).LlenarGrid();
                 ((FPrincipal)Owner).SetControles();
-
+                ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
             }
             else
             {
