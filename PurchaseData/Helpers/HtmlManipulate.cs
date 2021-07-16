@@ -172,7 +172,7 @@ namespace PurchaseData.Helpers
 
                 //! Cargar Doc
                 pathcomplete = Path.GetTempPath() + headerDR["HeaderID"].ToString() + "_" + page + ".html";
-                CargarDocumento(headerDR, user, pathcomplete);
+                CargarDocumento(headerDR, user, pathcomplete, po);
 
                 page++;
                 count = 0;
@@ -345,7 +345,7 @@ namespace PurchaseData.Helpers
             table.AppendChild(HtmlNode.CreateNode(node));
         }
 
-        private void CargarDocumento(DataRow headerDR, Users user, string pathcomplete)
+        private void CargarDocumento(DataRow headerDR, Users user, string pathcomplete, OrderHeader po)
         {
             string path = Environment.CurrentDirectory + @"\HtmlDocuments\OrderDoc.html";
             // HtmlDoc.Load(path);

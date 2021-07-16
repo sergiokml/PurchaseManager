@@ -25,7 +25,7 @@ namespace PurchaseData.Helpers
             Message = new MimeMessage();
         }
 
-        public async Task<string> SendEmail(string path, string asunto, Users user)
+        public async Task SendEmail(string path, string asunto, Users user)
         {
             BodyBuilder bodyBuilder = new BodyBuilder();
             if (Path.GetExtension(path) == ".pdf")
@@ -55,13 +55,13 @@ namespace PurchaseData.Helpers
                 await client.SendAsync(Message);
                 await client.DisconnectAsync(true);
                 //MessageResult = $"Message sent successfully to: {Message.To[0].Name}.";
-                MessageResult = "OK";
-                return MessageResult;
+                //MessageResult = "OK";
+                //return MessageResult;
             }
         }
 
 
-        public async Task<string> SendEmailToSupplier(string path, string asunto, Users user, Suppliers supp, List<Attaches> att)
+        public async Task SendEmailToSupplier(string path, string asunto, Users user, Suppliers supp, List<Attaches> att)
         {
             BodyBuilder bodyBuilder = new BodyBuilder();
             if (Path.GetExtension(path) == ".pdf")
@@ -100,14 +100,14 @@ namespace PurchaseData.Helpers
                 await client.SendAsync(Message);
                 await client.DisconnectAsync(true);
                 //MessageResult = $"Message sent successfully to: {Message.To[0].Name}.";
-                MessageResult = "OK";
-                return MessageResult;
+                //MessageResult = "OK";
+                //return MessageResult;
             }
         }
 
         private void Client_MessageSent(object sender, MailKit.MessageSentEventArgs e)
         {
-            //MessageResult = $"Message enviado a ....";
+            MessageResult = $"Message sent successfully to: {Message.To[0].Name}.";
         }
     }
 }

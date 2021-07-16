@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -304,6 +305,7 @@ namespace PurchaseDesktop.Helpers
                     break;
                 case Perfiles.UPO:
                     perfilPo.CtxMenu = context;
+                    perfilPo.CtxMenu.Items.Clear();
                     perfilPo.LLenarMenuContext(Perfiles.UPO, headerDR);
                     break;
                 case Perfiles.UPR:
@@ -311,6 +313,7 @@ namespace PurchaseDesktop.Helpers
                     break;
                 case Perfiles.VAL:
                     perfilPo.CtxMenu = context;
+                    perfilPo.CtxMenu.Items.Clear();
                     perfilPo.LLenarMenuContext(Perfiles.VAL, headerDR);
 
                     break;
@@ -434,7 +437,8 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PO:
                             //! User PR abre las PO que se hicieron desde sus PR
                             var po = new OrderHeader().GetById(headerID);
-                            if (po.StatusID <= 2) { return "The 'status' of the Purchase Order is not allowed."; }
+                            //TODO El estado evita que se abra PO en estado DRAFT, o sea sin SUPPLIER (Error en Html).
+                            if (po.StatusID < 2) { return "The 'status' of the Purchase Order is not allowed."; }
                             foreach (var item in new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po))
                             {
                                 Process.Start(item);
@@ -475,7 +479,7 @@ namespace PurchaseDesktop.Helpers
             return "OK";
         }
 
-        public async Task<string> SendItem(DataRow headerDR, FPrincipal fPrincipal)
+        public async Task SendItem(DataRow headerDR, FPrincipal fPrincipal)
         {
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             StringBuilder mensaje = new StringBuilder();
@@ -494,31 +498,42 @@ namespace PurchaseDesktop.Helpers
                     var pr = new RequisitionHeader().GetById(headerID);
                     if (pr.RequisitionDetails.Count == 0)
                     {
-                        return "This Purchase Order does not contain Products or Services.";
+                        fPrincipal.Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning);
                     }
 
                     f.Mensaje = mensaje;
                     f.ShowDialog();
-                    if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
-
+                    //if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
+                    if (f.Resultado == DialogResult.Cancel)
+                    {
+                        fPrincipal.Msg("", MsgProceso.Empty);
+                        fPrincipal.IsSending = false;
+                    }
                     fPrincipal.IsSending = true;
                     fPrincipal.LblMsg.Text = string.Empty;
                     fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
                     fPrincipal.LblMsg.Image = Properties.Resources.loading;
 
-
                     path = new HtmlManipulate(configApp)
                         .ReemplazarDatos(headerDR, perfilPr.CurrentUser, pr);
                     send = new SendEmailTo(configApp);
                     await send.SendEmail(path, "Purchase Manager: PR document ", perfilPr.CurrentUser);
+                    fPrincipal.Msg(send.MessageResult, MsgProceso.Send);
+                    fPrincipal.IsSending = false;
                     break;
                 case TypeDocumentHeader.PO:
                     var po = new OrderHeader().GetById(headerID);
-                    //if (status == 1) { return "The 'status' of the Purchase Order is not allowed."; }
+                    //TODO El estado evita que se abra PO en estado DRAFT, o sea sin SUPPLIER (Error en Html).
+                    //TODO NO sirve ni para PO aunque esten en estado borrador y bien emitidas.
+                    if (po.StatusID < 2) { fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); }
                     f.Mensaje = mensaje;
                     f.ShowDialog(fPrincipal);
-                    if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
-
+                    // if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
+                    if (f.Resultado == DialogResult.Cancel)
+                    {
+                        fPrincipal.Msg("", MsgProceso.Empty);
+                        fPrincipal.IsSending = false;
+                    }
                     fPrincipal.IsSending = true;
                     fPrincipal.LblMsg.Text = string.Empty;
                     fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
@@ -528,21 +543,23 @@ namespace PurchaseDesktop.Helpers
                     var a = await new HtmlManipulate(configApp).ConvertHtmlToPdf(listaPath, headerID.ToString());
                     send = new SendEmailTo(configApp);
                     await send.SendEmail(a, $"Purchase Manager:  PO document", perfilPr.CurrentUser);
+                    fPrincipal.Msg(send.MessageResult, MsgProceso.Send);
+                    fPrincipal.IsSending = false;
+
                     break;
                 default:
                     break;
             }
-            return send.MessageResult;
+            // return send.MessageResult;
         }
 
-        public string GridDobleClick(DataRow headerDR)
+        public void GridDobleClick(DataRow headerDR, FPrincipal fPrincipal)
         {
+            //TODO USAR BREAK PARA QUE UPDATE EL FPRINCIPAL / USAR RETURN PARA VOLVER SIN NADA.
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             RequisitionHeader pr;
             OrderHeader po;
-
-
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -550,50 +567,53 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    //! Update Status
+                    //! Update Status 1 o 2
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            return "Your profile does not allow you to complete this action.";
-
+                            fPrincipal.Msg("Your profile does not allow you to complete this action.", Proceso.Warning); break;
                         case TypeDocumentHeader.PO:
                             po = new OrderHeader().GetById(headerID);
                             //if (po.StatusID >= 3) { return "The 'status' of the Purchase Order is not allowed."; }
                             if (po.StatusID == 1)
                             {
-                                if (Convert.ToInt32(headerDR["HitosCount"]) == 0) { return "This Purchase Order does not contain a 'Hito'."; }
-                                if (po.OrderDetails.Count == 0) { return "This Purchase Order does not contain Products or Services."; }
+                                if (po.OrderDetails.Count == 0)
+                                {
+                                    fPrincipal.Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning); break;
+                                }
+                                if (po.Net <= 0)
+                                {
+                                    fPrincipal.Msg("Net cannot be 'zero'.", MsgProceso.Warning); break;
+                                }
+                                if (Convert.ToInt32(headerDR["HitosCount"]) == 0)
+                                {
+                                    fPrincipal.Msg("This Purchase Order does not contain a 'Hito'.", MsgProceso.Warning); break;
+                                }
                                 if (po.Description == null)
                                 {
-                                    return "Please enter 'Description'.";
+                                    fPrincipal.Msg("Please enter 'Description'.", MsgProceso.Warning); break;
                                 }
                                 if (po.SupplierID == null)
                                 {
-                                    return "Please enter 'Supplier'.";
+                                    fPrincipal.Msg("Please enter 'Supplier'.", MsgProceso.Warning); break;
                                 }
-                                else if (po.CurrencyID == null)
+                                if (po.CurrencyID == null)
                                 {
-                                    return "Please enter 'Currency'.";
-                                }
-                                else if (po.Net <= 0)
-                                {
-                                    return "Net cannot be 'zero'.";
+                                    fPrincipal.Msg("Please enter 'Currency'.", MsgProceso.Warning); break;
                                 }
                                 po.StatusID = 2;
-                                perfilPo.UpdateItemHeader<OrderHeader>(po);
-                                break;
+                                if (perfilPo.UpdateItemHeader<OrderHeader>(po) > 0)
+                                {
+                                    fPrincipal.Msg("Update OK.", MsgProceso.Warning); break;
+                                }
                             }
                             else if (po.StatusID == 2)
                             {
                                 po.StatusID = 1;
-                                perfilPo.UpdateItemHeader<OrderHeader>(po);
-                                break;
+                                perfilPo.UpdateItemHeader<OrderHeader>(po); break;
                             }
                             break;
-                        default:
-                            break;
                     }
-
                     break;
                 case Perfiles.UPR:
                     //! Update Status
@@ -602,37 +622,43 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PR:
 
                             pr = new RequisitionHeader().GetById(headerID);
-                            //if (Convert.ToInt32(headerDR["DetailsCount"]) == 0) { return "This Purchase Requesition does not contain Products or Services."; }
-
                             if (pr.RequisitionDetails.Count == 0)
                             {
-                                return "This Purchase Requesition does not contain Products or Services.";
+                                fPrincipal
+                                    .Msg("This Purchase Requesition does not contain Products or Services.", MsgProceso.Warning); break;
                             }
                             if (pr.StatusID == 1)
                             {
                                 if (headerDR["Description"] == DBNull.Value)
                                 {
-                                    return "Please enter 'Description'.";
+                                    fPrincipal.Msg("Please enter 'Description'.", MsgProceso.Warning); break;
                                 }
                                 if (headerDR["UserPO"] == DBNull.Value)
                                 {
-                                    return "Please enter 'UserPO'.";
+                                    fPrincipal.Msg("Please enter 'UserPO'.", MsgProceso.Warning); break;
                                 }
                                 pr.StatusID = 2;
-                                perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
-                                break;
+                                if (perfilPr.UpdateItemHeader<RequisitionHeader>(pr) > 0)
+                                {
+                                    fPrincipal.Msg("Update OK.", MsgProceso.Informacion); break;
+                                }
                             }
                             else if (pr.StatusID == 2)
                             {
                                 pr.StatusID = 1;
-                                perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
-                                break;
+                                var res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
+                                if (res == 3) // Return 3
+                                {
+                                    fPrincipal.Msg("Update OK.", MsgProceso.Informacion);
+                                }
+                                else
+                                {
+                                    fPrincipal.Msg("ERROR_UPDATE", MsgProceso.Informacion); return;
+                                }
                             }
                             break;
                         case TypeDocumentHeader.PO:
-                            return "Your profile does not allow you to complete this action.";
-                        default:
-                            break;
+                            fPrincipal.Msg("Your profile does not allow you to complete this action..", MsgProceso.Warning); break;
                     }
                     break;
                 case Perfiles.VAL:
@@ -650,85 +676,64 @@ namespace PurchaseDesktop.Helpers
                             }
                             else if (po.StatusID >= 3)
                             {
-                                return "Your profile does not allow you to complete this action.";
+                                fPrincipal.Msg("Your profile does not allow you to complete this action..", MsgProceso.Warning);
                             }
 
                             break;
                         default:
                             break;
                     }
-
                     break;
                 default:
                     break;
             }
-
-            return "OK";
+            fPrincipal.LlenarGrid();
+            fPrincipal.ClearControles();
+            fPrincipal.SetControles();
         }
 
-        public async Task<string> SeleccionarContextMenuStripAsync(DataRow headerDR, string action, FPrincipal fPrincipal)
+        public async Task SeleccionarContextMenuStripAsync(DataRow headerDR, string action, FPrincipal fPrincipal)
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             RequisitionHeader pr;
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             OrderHeader po;
-            if (!Directory.Exists(configApp.FolderApp + headerID))
-            {
-                Directory.CreateDirectory(configApp.FolderApp + headerID);
-            }
+
             switch (action)
             {
                 case "CONVERTREQ":
+                    if (!Directory.Exists(configApp.FolderApp + headerID))
+                    {
+                        Directory.CreateDirectory(configApp.FolderApp + headerID);
+                    }
                     //! Crear una PO desde una PR
-                    //! Cambio el estado de la PR a 3
                     pr = new RequisitionHeader().GetById(headerID);
                     if (pr != null && pr.StatusID == 2)
                     {
-                        pr.StatusID = 3;
-                        perfilPo.UpdateItemHeader<RequisitionHeader>(pr);
-                        //! Insert PO
-                        po = new OrderHeader
+                        //TODO  NO SE DONDE PONER ESTA ACCION, POR EL MOMENTO FUNCIONA OK!
+                        using (var rContext = new PurchaseManagerEntities())
                         {
-                            Description = pr.Description,
-                            Type = Convert.ToByte(headerDR["Type"]),
-                            StatusID = 1,
-                            Net = 0,
-                            Exent = 0,
-                            RequisitionHeaderID = pr.RequisitionHeaderID,
-                            CompanyID = pr.CompanyID,
-                            Discount = 0
-                        };
-                        //! Traspasar los detalles
-                        var details = new RequisitionDetails().GetListByID(headerID);
-                        foreach (var item in details)
-                        {
-                            var detail = new OrderDetails
+                            using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                             {
-                                Qty = item.Qty,
-                                AccountID = item.AccountID,
-                                DescriptionProduct = item.DescriptionProduct,
-                                NameProduct = item.NameProduct,
-                                MedidaID = item.MedidaID,
-                                IsExent = false
-                            };
-                            po.OrderDetails.Add(detail);
+                                var respuesta = rContext
+                                 .CONVERT_PR(pr.Description, pr.Type, 0, 0, 1, pr.RequisitionHeaderID, pr.CompanyID, 0);
+                                po = rContext.OrderHeader.Where(c => c.RequisitionHeaderID == pr.RequisitionHeaderID).Single();
+                                Transactions transaction = new Transactions
+                                {
+                                    Event = Eventos.CREATE_PO.ToString(),
+                                    UserID = CurrentUser().UserID,
+                                    DateTran = rContext.Database
+                                    .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
+                                };
+                                po.Transactions.Add(transaction);
+                                rContext.SaveChanges();
+                                trans.Commit();
+                            }
                         }
-                        //! Traspasar los adjuntos públicos
-                        //var att = new Attaches().GetListByPrID(headerID).Where(c => c.Modifier == 1);
-                        foreach (var item in pr.Attaches.Where(c => c.Modifier == 1).ToList())
-                        {
-                            var tt = new Attaches
-                            {
-                                Description = item.Description,
-                                FileName = item.FileName,
-                                Modifier = item.Modifier
-                            };
-                            po.Attaches.Add(tt);
-                            //! Copiar los archivos a la nueva ubicación
-                            File.Copy($"{configApp.FolderApp}{item.FileName}", $"{configApp.FolderApp}{@"\"}{headerID}{@"\"}{Path.GetFileName(item.FileName)}", true);
-
-                        }
-                        perfilPo.InsertItemHeader(po);
+                        //fPrincipal.Msg("", MsgProceso.Empty);
+                        fPrincipal.LlenarGrid();
+                        fPrincipal.ClearControles();
+                        fPrincipal.SetControles();
                     }
                     break;
                 case "OPENREQ":
@@ -763,41 +768,47 @@ namespace PurchaseDesktop.Helpers
                     }
                     break;
                 case "SEND":
-                    po = new OrderHeader().GetById(headerID);
-                    if (po.StatusID == 3)
+                    if (!fPrincipal.IsSending)
                     {
-                        StringBuilder mensaje = new StringBuilder();
-                        var supp = new Suppliers().GetByID(headerDR["SupplierID"].ToString());
-                        mensaje.AppendLine($"Email To: {supp.Name} ({supp.Email})");
-                        mensaje.AppendLine($"Purchase Order Code N° {po.Code} (Status: {po.OrderStatus.Description})");
-                        mensaje.AppendLine();
-                        mensaje.AppendLine("Are You Sure?");
-                        var f = new FMensajes(fPrincipal)
+                        po = new OrderHeader().GetById(headerID);
+                        if (po.StatusID == 3)
                         {
-                            Mensaje = mensaje
-                        };
-                        f.ShowDialog(fPrincipal);
-                        if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
+                            StringBuilder mensaje = new StringBuilder();
+                            var supp = new Suppliers().GetByID(headerDR["SupplierID"].ToString());
+                            mensaje.AppendLine($"Email To: {supp.Name} ({supp.Email})");
+                            mensaje.AppendLine($"Purchase Order Code N° {po.Code} (Status: {po.OrderStatus.Description})");
+                            mensaje.AppendLine();
+                            mensaje.AppendLine("Are You Sure?");
+                            var f = new FMensajes(fPrincipal)
+                            {
+                                Mensaje = mensaje
+                            };
+                            f.ShowDialog(fPrincipal);
+                            if (f.Resultado == DialogResult.OK)
+                            {
+                                fPrincipal.IsSending = true;
+                                fPrincipal.LblMsg.Text = string.Empty;
+                                fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
+                                fPrincipal.LblMsg.Image = Properties.Resources.loading;
 
+                                //!PDF de la PO        
+                                var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po);
+                                var a = await new HtmlManipulate(configApp).ConvertHtmlToPdf(listaPath, headerID.ToString());
+                                //! Adjuntos
+                                //TODO  QUITAR ESTO Y USAR LA REFERENCIA?
+                                List<Attaches> att = new Attaches().GetListByPoID(headerID).Where(c => c.Modifier == 1).ToList();
+                                //! Email To Supplier
+                                var send = new SendEmailTo(configApp);
+                                var asunto = $"Orden de Compra {po.Code} ({po.CompanyID})";
+                                await send.SendEmailToSupplier(a, asunto, perfilPr.CurrentUser, supp, att);
+                                //! Update the PO
+                                po.StatusID = 4;
+                                perfilVal.UpdateItemHeader<OrderHeader>(po);
 
-                        fPrincipal.IsSending = true;
-                        fPrincipal.LblMsg.Text = string.Empty;
-                        fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                        fPrincipal.LblMsg.Image = Properties.Resources.loading;
-
-                        //!PDF de la PO        
-                        var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po);
-                        var a = await new HtmlManipulate(configApp).ConvertHtmlToPdf(listaPath, headerID.ToString());
-                        //! Adjuntos
-                        List<Attaches> att = new Attaches().GetListByPoID(headerID).Where(c => c.Modifier == 1).ToList();
-                        //! Email To Supplier
-                        var send = new SendEmailTo(configApp);
-                        var asunto = $"Orden de Compra {po.Code} ({po.CompanyID})";
-                        await send.SendEmailToSupplier(a, asunto, perfilPr.CurrentUser, supp, att);
-                        //! Update the PO
-                        po.StatusID = 4;
-                        perfilVal.UpdateItemHeader<OrderHeader>(po);
-
+                                fPrincipal.Msg(send.MessageResult, MsgProceso.Send);
+                                fPrincipal.IsSending = false;
+                            }
+                        }
                     }
                     break;
                 case "VALIDATED":
@@ -835,7 +846,7 @@ namespace PurchaseDesktop.Helpers
                 default:
                     break;
             }
-            return "OK";
+            //return "OK";
         }
 
         public async Task<string> CargarBanner()
@@ -1370,7 +1381,7 @@ namespace PurchaseDesktop.Helpers
             return "OK";
         }
 
-        public string DeleteItem(DataRow headerDR, FPrincipal fPrincipal)
+        public void DeleteItem(DataRow headerDR, FPrincipal fPrincipal)
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
@@ -1378,7 +1389,6 @@ namespace PurchaseDesktop.Helpers
             StringBuilder mensaje = new StringBuilder();
             mensaje.AppendLine($"You are going to delete document N° {headerID}.");
             mensaje.AppendLine();
-            mensaje.AppendLine("Are You Sure?");
             var f = new FMensajes(fPrincipal);
             switch (currentPerfil)
             {
@@ -1390,19 +1400,35 @@ namespace PurchaseDesktop.Helpers
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
+                            fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Informacion);
                             break;
                         case TypeDocumentHeader.PO:
-                            if (perfilPo.CurrentUser.UserID != headerDR["UserID"].ToString())
-                            {
-                                return "Your profile does not allow you to complete this action.";
-                            }
                             var po = new OrderHeader().GetById(headerID);
-                            if (po.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-
+                            if (perfilPo.CurrentUser.UserID != headerDR["UserID"].ToString()) // User ID viene de la vista.
+                            {
+                                fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Informacion); break;
+                            }
+                            if (po.StatusID >= 2)
+                            {
+                                fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Informacion); break;
+                            }
+                            if (po.RequisitionHeaderID != null)
+                            {
+                                mensaje.AppendLine($"The PR N°{po.RequisitionHeaderID} will be 'Active' again.");
+                                mensaje.AppendLine();
+                                mensaje.AppendLine("Are You Sure?");
+                            }
+                            else
+                            {
+                                mensaje.AppendLine();
+                                mensaje.AppendLine("Are You Sure?");
+                            }
                             f.Mensaje = mensaje;
                             f.ShowDialog();
-                            if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
-
+                            if (f.Resultado == DialogResult.Cancel)
+                            {
+                                return;
+                            }
                             perfilPo.DeleteItemHeader<OrderHeader>(po);
                             break;
                         default:
@@ -1416,19 +1442,23 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PR:
                             if (perfilPr.CurrentUser.UserID != headerDR["UserID"].ToString())
                             {
-                                return "Your profile does not allow you to complete this action.";
+                                fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Informacion);
                             }
                             var pr = new RequisitionHeader().GetById(headerID);
-                            if (pr.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
-
+                            if (pr.StatusID >= 2)
+                            {
+                                fPrincipal.Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Informacion);
+                            }
+                            mensaje.AppendLine("Are You Sure?");
                             f.Mensaje = mensaje;
                             f.ShowDialog(fPrincipal);
-                            if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
-
-                            perfilPr.DeleteItemHeader<RequisitionHeader>(pr);
+                            if (f.Resultado == DialogResult.OK)
+                            {
+                                perfilPr.DeleteItemHeader<RequisitionHeader>(pr);
+                            }
                             break;
                         case TypeDocumentHeader.PO:
-                            break;
+                            return "Your profile does not allow you to complete this action.";
                         default:
                             break;
                     }
@@ -1439,7 +1469,11 @@ namespace PurchaseDesktop.Helpers
                 default:
                     break;
             }
-            return "OK";
+            fPrincipal.LlenarGrid();
+            fPrincipal.ClearControles();
+            fPrincipal.SetControles();
+            fPrincipal.CargarDashboard();
+
         }
 
         #endregion
@@ -1561,8 +1595,8 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PR:
                             return "Your profile does not allow you to complete this action.";
                         case TypeDocumentHeader.PO:
-                            var details = new OrderDetails().GetByID(detailID);
                             var po = new OrderHeader().GetById(headerID);
+                            var details = po.OrderDetails.SingleOrDefault(c => c.DetailID == detailID);
                             if (po.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
                             if (isExent)
                             {
@@ -1592,7 +1626,10 @@ namespace PurchaseDesktop.Helpers
                                     details.NameProduct = newValue.ToString();
                                     perfilPo.UpdateDetail<OrderDetails>(details, po);
                                     break;
+
+
                             }
+
                             break;
                         default:
                             break;
@@ -1601,8 +1638,8 @@ namespace PurchaseDesktop.Helpers
 
                     break;
                 case Perfiles.UPR:
-                    var detail = new RequisitionDetails().GetByID(detailID);
                     var pr = new RequisitionHeader().GetById(headerID);
+                    var detail = pr.RequisitionDetails.SingleOrDefault(c => c.DetailID == detailID);
                     if (pr.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
                     switch (campo)
                     {
@@ -1799,7 +1836,7 @@ namespace PurchaseDesktop.Helpers
             return "OK";
         }
 
-        public string DeleteSupplier(string headerID)
+        public void DeleteSupplier(string headerID, FPrincipal fPrincipal)
         {
             switch (currentPerfil)
             {
@@ -1811,7 +1848,7 @@ namespace PurchaseDesktop.Helpers
                     var res = perfilPo.DeleteSupplier(headerID);
                     if (res == 547)
                     {
-                        return "It has associated data, it cannot be deleted.";
+                        fPrincipal.Msg("It has associated data, it cannot be deleted.", MsgProceso.Empty);
                     }
                     break;
                 case Perfiles.UPR:
@@ -1822,7 +1859,9 @@ namespace PurchaseDesktop.Helpers
                 default:
                     break;
             }
-            return "OK";
+            fPrincipal.LlenarGrid();
+            fPrincipal.ClearControles();
+            fPrincipal.SetControles();
         }
 
         public string UpdateSupplier(Suppliers item)

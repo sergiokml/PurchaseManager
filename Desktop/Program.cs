@@ -204,7 +204,7 @@ namespace Desktop
         {
             try
             {
-                url = "http://www.gstatic.com/generate_204";
+                url = "http://www.google.cl/";
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 request.KeepAlive = false;
                 request.Timeout = timeoutMs;

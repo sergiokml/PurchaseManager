@@ -481,7 +481,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
-                    iGCol = Grid.Cols.Add("CurrencyID", "", 50);
+                    iGCol = Grid.Cols.Add("CurrencyID", "", 52);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     // iGCol.CellStyle.DropDownControl = cbocurrency;
                     //iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;
@@ -494,7 +494,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol.CellStyle.Font = new Font("Tahoma", 7);
 
-                    iGCol = Grid.Cols.Add("NameUserID", "User", 110);
+                    iGCol = Grid.Cols.Add("NameUserID", "User", 105);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("CostID", "CC", 32);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
@@ -599,7 +599,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol = Grid.Cols.Add("SupplierID", "Supplier", 58);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
 
-                    iGCol = Grid.Cols.Add("CurrencyID", "", 50);
+                    iGCol = Grid.Cols.Add("CurrencyID", "", 52);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     //iGCol.CellStyle.DropDownControl = cbocurrency;
                     //iGCol.CellStyle.TypeFlags |= iGCellTypeFlags.NoTextEdit;

@@ -47,7 +47,8 @@ namespace PurchaseDesktop.Profiles
                         CompanyName = item.CompanyName,
                         NameBiz = item.NameBiz,
                         TypeDocumentHeader = item.TypeDocumentHeader,
-                        Status = item.Status
+                        Status = item.Status,
+                        NameUserID = item.NameUserID
                     };
                     l.Add(n);
                 }
@@ -139,7 +140,7 @@ namespace PurchaseDesktop.Profiles
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
-        public void UpdateItemHeader<T>(T item)
+        public int UpdateItemHeader<T>(T item)
         {
             using (var rContext = new PurchaseManagerEntities())
             {
@@ -165,7 +166,7 @@ namespace PurchaseDesktop.Profiles
                     rContext.Entry(pr).State = EntityState.Modified;
                     pr.Transactions.Add(transaction);
                 }
-                rContext.SaveChanges();
+                return rContext.SaveChanges();
             }
         }
 

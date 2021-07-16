@@ -59,7 +59,8 @@ namespace PurchaseDesktop.Profiles
                         Exent = item.Exent,
                         Total = item.Total,
                         Tax = item.Tax,
-                        Discount = item.Discount
+                        Discount = item.Discount,
+                        Status = item.Status
                     };
                     l.Add(pr);
                 }
@@ -153,7 +154,7 @@ namespace PurchaseDesktop.Profiles
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
         /// 
-        public void UpdateItemHeader<T>(T item)
+        public int UpdateItemHeader<T>(T item)
         {
             //!https://stackoverflow.com/questions/7106211/entity-framework-why-explicitly-set-entity-state-to-modified
             RequisitionHeader doc = item as RequisitionHeader;
@@ -169,7 +170,7 @@ namespace PurchaseDesktop.Profiles
                 rContext.RequisitionHeader.Attach(doc);
                 rContext.Entry(doc).State = EntityState.Modified; // No es lo optimo, debo usar CurrentValues.SetValues
                 doc.Transactions.Add(transaction);
-                rContext.SaveChanges();
+                return rContext.SaveChanges();
             }
         }
 

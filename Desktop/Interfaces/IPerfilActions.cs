@@ -36,7 +36,7 @@ namespace PurchaseDesktop.Interfaces
 
 
         //! Update
-        void UpdateItemHeader<T>(T item);
+        int UpdateItemHeader<T>(T item);
         void UpdateDetail<T>(T item, object header); //Tabla 1:M
         void UpdateAttaches<T>(Attaches item, T header); //Tabla M:M
         void UpdateHito(OrderHitos item, int headerID);

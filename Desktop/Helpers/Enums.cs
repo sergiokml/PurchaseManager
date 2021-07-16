@@ -55,5 +55,13 @@
             Vista = 2,
             Ahorros = 3
         }
+        public enum MsgProceso
+        {
+            Informacion = 1,
+            Warning = 2,
+            Send = 3,
+            Error = 4,
+            Empty = 5
+        }
     }
 }

@@ -154,7 +154,7 @@ namespace PurchaseDesktop.Formularios
                 }
                 else
                 {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
                 }
             }
         }
@@ -272,6 +272,7 @@ namespace PurchaseDesktop.Formularios
                     TxtTotal.Visible = false;
                     TxtTax.Visible = false;
                     ChkExent.Visible = false;
+                    CboCurrency.Visible = false;
 
                     var pr = new RequisitionHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
                     TxtGlosa.Text = pr.Description;
@@ -344,7 +345,10 @@ namespace PurchaseDesktop.Formularios
                         BtnNewDetail.Enabled = false;
                         CboCurrency.Enabled = false;
                     }
-                    CboCurrency.SelectedValue = po.CurrencyID;
+                    if (po.CurrencyID != null)
+                    {
+                        CboCurrency.SelectedValue = po.CurrencyID;
+                    }
                     break;
                 default:
                     break;
@@ -364,7 +368,6 @@ namespace PurchaseDesktop.Formularios
                     ((FPrincipal)Owner).LlenarGrid();
                     ((FPrincipal)Owner).SetControles();
                     ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
-
                     LlenarGrid();
                     ClearControles();
                     Grid.Focus();
@@ -374,7 +377,7 @@ namespace PurchaseDesktop.Formularios
                 }
                 else
                 {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
                 }
                 Grid.DrawAsFocused = false;
                 System.Windows.Forms.Cursor.Current = Cursors.Default;
@@ -383,7 +386,7 @@ namespace PurchaseDesktop.Formularios
 
         private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
         {
-            Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
+            // Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
         }
 
         public void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e)
@@ -425,6 +428,11 @@ namespace PurchaseDesktop.Formularios
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             var resultado = rFachada.UpdateDetail(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key, ChkExent.Checked);
+            //! Update Glosa
+            if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
+            {
+                rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+            }
             if (resultado == "OK")
             {
                 ((FPrincipal)Owner).LlenarGrid();
@@ -436,7 +444,7 @@ namespace PurchaseDesktop.Formularios
             else
             {
                 e.Result = iGEditResult.Cancel;
-                ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
             }
         }
 
@@ -534,7 +542,7 @@ namespace PurchaseDesktop.Formularios
             //}
             //else
             //{
-            //    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+            //    ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
             //    TxtGlosa.Text = Current["Description"].ToString();
             //}
         }
@@ -544,6 +552,11 @@ namespace PurchaseDesktop.Formularios
             if (!Equals(CboCurrency.SelectedValue, Current["CurrencyID"].ToString()))
             {
                 var resultado = rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID");
+                //! Update Glosa
+                if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
+                {
+                    rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                }
                 if (resultado == "OK")
                 {
                     ((FPrincipal)Owner).LlenarGrid();
@@ -556,7 +569,7 @@ namespace PurchaseDesktop.Formularios
                 }
                 else
                 {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
                 }
             }
         }

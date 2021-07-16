@@ -84,7 +84,7 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public void UpdateItemHeader<T>(T item)
+        public int UpdateItemHeader<T>(T item)
         {
             OrderHeader doc = item as OrderHeader;
             Transactions transaction = new Transactions
@@ -101,8 +101,9 @@ namespace PurchaseDesktop.Profiles
                     rContext.OrderHeader.Attach(doc);
                     rContext.Entry(doc).State = EntityState.Modified;
                     doc.Transactions.Add(transaction);
-                    rContext.SaveChanges();
+                    var res = rContext.SaveChanges();
                     trans.Commit();
+                    return res;
                 }
             }
         }

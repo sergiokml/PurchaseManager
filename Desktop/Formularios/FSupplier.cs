@@ -88,21 +88,12 @@ namespace PurchaseDesktop.Formularios
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                var resultado = rFachada.DeleteSupplier(current["SupplierID"].ToString());
-                if (resultado == "OK")
-                {
-                    LlenarGrid();
-                    ClearControles();
-                    Grid.Focus();
-                    SetControles();
-                }
-                else
-                {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Error);
-                }
-                Grid.DrawAsFocused = false;
+                rFachada.DeleteSupplier(current["SupplierID"].ToString(), (FPrincipal)Owner);
+                Grid.Focus();
+
                 System.Windows.Forms.Cursor.Current = Cursors.Default;
             }
+            Grid.DrawAsFocused = false;
         }
 
         public void LlenarGrid()
@@ -330,7 +321,7 @@ namespace PurchaseDesktop.Formularios
                     }
                     else
                     {
-                        ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                        ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
 
                     }
                 }
@@ -379,7 +370,7 @@ namespace PurchaseDesktop.Formularios
                 else
                 {
                     rFachada.UpdateSupplier(s);
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
                 }
             }
         }

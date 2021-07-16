@@ -1,31 +1,28 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace PurchaseData.DataModel
+﻿namespace PurchaseData.DataModel
 {
     public partial class OrderDetails
     {
-        public List<OrderDetails> GetListByID(int HeaderID)
-        {
-            using (var contextDB = new PurchaseManagerEntities())
-            {
-                var lista = contextDB.OrderDetails.Where(c => c.HeaderID == HeaderID).ToList();
-                foreach (var item in lista)
-                {
-                    contextDB.Entry(item).Reference(c => c.Accounts).Load();
-                    contextDB.Entry(item).Reference(c => c.Medidas).Load();
-                }
-                return lista;
-            }
-        }
+        //public List<OrderDetails> GetListByID(int HeaderID)
+        //{
+        //    using (var contextDB = new PurchaseManagerEntities())
+        //    {
+        //        var lista = contextDB.OrderDetails.Where(c => c.HeaderID == HeaderID).ToList();
+        //        foreach (var item in lista)
+        //        {
+        //            contextDB.Entry(item).Reference(c => c.Accounts).Load();
+        //            contextDB.Entry(item).Reference(c => c.Medidas).Load();
+        //        }
+        //        return lista;
+        //    }
+        //}
 
-        public OrderDetails GetByID(int DetailID)
-        {
-            using (var contextDB = new PurchaseManagerEntities())
-            {
-                return contextDB.OrderDetails.Where(c => c.DetailID == DetailID).Single();
-            }
-        }
+        //public OrderDetails GetByID(int DetailID)
+        //{
+        //    using (var contextDB = new PurchaseManagerEntities())
+        //    {
+        //        return contextDB.OrderDetails.Where(c => c.DetailID == DetailID).Single();
+        //    }
+        //}
 
         //public void AddDetail(OrderDetails orderDetails, OrderHeader orderHeader)
         //{

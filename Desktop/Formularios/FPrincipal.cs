@@ -12,6 +12,8 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
+using static PurchaseDesktop.Helpers.HFunctions;
+
 namespace PurchaseDesktop.Formularios
 {
     public partial class FPrincipal : Form, IControles, IGridCustom
@@ -37,7 +39,7 @@ namespace PurchaseDesktop.Formularios
         #endregion
 
         #region Métodos Privados
-        private void CargarDashboard()
+        public void CargarDashboard()
         {
             rFachada.CargarDashBoard(Grid, PieChart1, PieChart2, PanelDash);
         }
@@ -246,30 +248,18 @@ namespace PurchaseDesktop.Formularios
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                var resultado = rFachada.DeleteItem(current, this);
-                if (resultado == "OK")
-                {
-                    System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                    LlenarGrid();
-                    CargarDashboard();
-                    ClearControles();
-                    SetControles();
-                    Grid.Focus();
-                }
-                else
-                {
-                    Msg(resultado, MsgProceso.Warning);
-                }
-                System.Windows.Forms.Cursor.Current = Cursors.Default;
+                System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+                rFachada.DeleteItem(current, this);
+                Grid.Focus();
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
+                System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
                 var resultado = rFachada.VerItemHtml(current);
                 if (resultado == "OK")
                 {
-                    Msg("Opening File...", MsgProceso.Informacion);
+                    //Msg("Opening File...", MsgProceso.Informacion);
                     Grid.Focus();
-                    System.Windows.Forms.Cursor.Current = Cursors.Default;
                 }
                 else
                 {
@@ -281,21 +271,12 @@ namespace PurchaseDesktop.Formularios
             {
                 if (!IsSending)
                 {
-                    string resultado = await rFachada.SendItem(current, this);
-                    if (resultado == "OK")
-                    {
-                        Msg("The message has been sent successfully.", MsgProceso.Send);
-                        IsSending = false;
-                    }
-                    else
-                    {
-                        Msg(resultado, MsgProceso.Warning);
-                        IsSending = false;
-                    }
-
+                    System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+                    await rFachada.SendItem(current, this);
                 }
             }
             Grid.DrawAsFocused = false;
+            System.Windows.Forms.Cursor.Current = Cursors.Default;
         }
 
         private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
@@ -303,34 +284,25 @@ namespace PurchaseDesktop.Formularios
             Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Grid_CellDoubleClick(object sender, iGCellDoubleClickEventArgs e)
         {
+            Grid.DrawAsFocused = true;
             if (Grid.CurCell != null && Grid.CurCell.ColIndex > -1 && Grid.Cols[e.ColIndex].Key != "delete")
             {
                 var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 if (current != null)
                 {
-                    var resultado = rFachada.GridDobleClick(Current);
-                    if (resultado == "OK")
-                    {
-                        LlenarGrid();
-                        CargarDashboard();
-                        ClearControles();
-                        SetControles();
-                        Grid.CurRow = CurRowPrincipal;
-                    }
-                    else
-                    {
-                        e.DoDefault = false;
-                        Msg(resultado, FPrincipal.MsgProceso.Warning);
-                        //TODO NO SIEMPRE HAY QUE ACTUALZAR!!!!!!! EN CASOS DE QUE NO CUMPLA, NO TRAER LA GRILLA DE NUEVO
-                        //LlenarGrid();
-                        //CargarDashboard();
-                        //ClearControles();
-                        //SetControles();
-                    }
+                    rFachada.GridDobleClick(Current, this);
+                    Grid.CurRow = CurRowPrincipal;
                 }
             }
+            Grid.Focus();
+            Grid.DrawAsFocused = false;
         }
 
         private void Grid_AfterAutoGroupRowCreated(object sender, iGAfterAutoGroupRowCreatedEventArgs e)
@@ -360,7 +332,6 @@ namespace PurchaseDesktop.Formularios
                 if (e.Button == MouseButtons.Right)
                 {
                     Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-                    CtxMenu.Items.Clear();
                     rFachada.CargarContextMenuStrip(CtxMenu, Current);
                     CtxMenu.Show(Grid, e.MousePos);
                 }
@@ -383,42 +354,9 @@ namespace PurchaseDesktop.Formularios
 
         private async void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            string resultado = string.Empty;
-            if (e.ClickedItem.Name == "SEND")
-            {
-                if (!IsSending)
-                {
-                    //IsSending = true;
-                    resultado = await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name, this);
-                    IsSending = false;
-                    Msg("The message has been sent successfully.", MsgProceso.Send);
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else
-            {
-                resultado = await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name, this);
-                if (e.ClickedItem.Name == "OPENREQ")
-                {
-                    Msg(resultado, FPrincipal.MsgProceso.Informacion);
-                    return;
-                }
-            }
-
-            if (resultado == "OK")
-            {
-                LlenarGrid();
-                CargarDashboard();
-                ClearControles();
-                SetControles();
-            }
-            else
-            {
-                Msg(resultado, FPrincipal.MsgProceso.Warning);
-            }
+            Grid.DrawAsFocused = true;
+            await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name, this);
+            Grid.DrawAsFocused = false;
         }
 
 
@@ -551,7 +489,7 @@ namespace PurchaseDesktop.Formularios
         {
             Timer TimerMsg = new Timer
             {
-                Interval = 5000 // 5 seconds
+                Interval = 3000 // 5 seconds
             };
 
             TimerMsg.Tick += (object sender, EventArgs e) =>
@@ -586,14 +524,7 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-        public enum MsgProceso
-        {
-            Informacion = 1,
-            Warning = 2,
-            Send = 3,
-            Error = 4,
-            Empty = 5
-        }
+
 
         #endregion
 
@@ -628,7 +559,7 @@ namespace PurchaseDesktop.Formularios
                     }
                     else
                     {
-                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                        Msg(resultado, MsgProceso.Warning);
                     }
                 }
 
@@ -650,7 +581,7 @@ namespace PurchaseDesktop.Formularios
                     }
                     else
                     {
-                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                        Msg(resultado, MsgProceso.Warning);
                     }
                 }
 
@@ -672,7 +603,7 @@ namespace PurchaseDesktop.Formularios
                     }
                     else
                     {
-                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                        Msg(resultado, MsgProceso.Warning);
                     }
                 }
 
@@ -694,7 +625,7 @@ namespace PurchaseDesktop.Formularios
                     }
                     else
                     {
-                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                        Msg(resultado, MsgProceso.Warning);
                     }
                 }
 
@@ -726,7 +657,7 @@ namespace PurchaseDesktop.Formularios
                     }
                     else
                     {
-                        Msg(resultado, FPrincipal.MsgProceso.Warning);
+                        Msg(resultado, MsgProceso.Warning);
                     }
                 }
 

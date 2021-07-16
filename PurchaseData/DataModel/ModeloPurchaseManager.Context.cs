@@ -54,20 +54,41 @@ namespace PurchaseData.DataModel
         public virtual DbSet<vOrderByMinTransaction> vOrderByMinTransaction { get; set; }
         public virtual DbSet<vRequisitionByMinTransaction> vRequisitionByMinTransaction { get; set; }
     
-        [DbFunction("PurchaseManagerEntities", "ufnGetOrderGroupByStatus")]
-        public virtual IQueryable<ufnGetOrderGroupByStatus_Result> ufnGetOrderGroupByStatus()
+        public virtual int CONVERT_PR(string description, Nullable<byte> type, Nullable<decimal> net, Nullable<decimal> exent, Nullable<byte> statusID, Nullable<int> requisitionHeaderID, string companyID, Nullable<decimal> discount)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufnGetOrderGroupByStatus_Result>("[PurchaseManagerEntities].[ufnGetOrderGroupByStatus]()");
-        }
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
     
-        [DbFunction("PurchaseManagerEntities", "ufnGetReqGroupByCost")]
-        public virtual IQueryable<ufnGetReqGroupByCost_Result> ufnGetReqGroupByCost(Nullable<int> statusID)
-        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(byte));
+    
+            var netParameter = net.HasValue ?
+                new ObjectParameter("Net", net) :
+                new ObjectParameter("Net", typeof(decimal));
+    
+            var exentParameter = exent.HasValue ?
+                new ObjectParameter("Exent", exent) :
+                new ObjectParameter("Exent", typeof(decimal));
+    
             var statusIDParameter = statusID.HasValue ?
                 new ObjectParameter("StatusID", statusID) :
-                new ObjectParameter("StatusID", typeof(int));
+                new ObjectParameter("StatusID", typeof(byte));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufnGetReqGroupByCost_Result>("[PurchaseManagerEntities].[ufnGetReqGroupByCost](@StatusID)", statusIDParameter);
+            var requisitionHeaderIDParameter = requisitionHeaderID.HasValue ?
+                new ObjectParameter("RequisitionHeaderID", requisitionHeaderID) :
+                new ObjectParameter("RequisitionHeaderID", typeof(int));
+    
+            var companyIDParameter = companyID != null ?
+                new ObjectParameter("CompanyID", companyID) :
+                new ObjectParameter("CompanyID", typeof(string));
+    
+            var discountParameter = discount.HasValue ?
+                new ObjectParameter("Discount", discount) :
+                new ObjectParameter("Discount", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CONVERT_PR", descriptionParameter, typeParameter, netParameter, exentParameter, statusIDParameter, requisitionHeaderIDParameter, companyIDParameter, discountParameter);
         }
     
         public virtual int DELETE_ORDERDETAILS(Nullable<int> detailID, Nullable<int> headerID)
@@ -120,17 +141,20 @@ namespace PurchaseData.DataModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERT_ORDERDETAILS", headerIDParameter, nameProductParameter, descriptionProductParameter, qtyParameter, priceParameter, accountIDParameter, medidaIDParameter, isExentParameter);
         }
     
-        public virtual int UPDATE_PASSWORD_HASH(string password, string iD)
+        [DbFunction("PurchaseManagerEntities", "ufnGetOrderGroupByStatus")]
+        public virtual IQueryable<ufnGetOrderGroupByStatus_Result> ufnGetOrderGroupByStatus()
         {
-            var passwordParameter = password != null ?
-                new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufnGetOrderGroupByStatus_Result>("[PurchaseManagerEntities].[ufnGetOrderGroupByStatus]()");
+        }
     
-            var iDParameter = iD != null ?
-                new ObjectParameter("ID", iD) :
-                new ObjectParameter("ID", typeof(string));
+        [DbFunction("PurchaseManagerEntities", "ufnGetReqGroupByCost")]
+        public virtual IQueryable<ufnGetReqGroupByCost_Result> ufnGetReqGroupByCost(Nullable<int> statusID)
+        {
+            var statusIDParameter = statusID.HasValue ?
+                new ObjectParameter("StatusID", statusID) :
+                new ObjectParameter("StatusID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UPDATE_PASSWORD_HASH", passwordParameter, iDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufnGetReqGroupByCost_Result>("[PurchaseManagerEntities].[ufnGetReqGroupByCost](@StatusID)", statusIDParameter);
         }
     
         public virtual int UPDATE_ORDERDETAILS(Nullable<int> detailID, Nullable<int> headerID, string nameProduct, string descriptionProduct, Nullable<int> qty, Nullable<decimal> price, string accountID, string medidaID, Nullable<bool> isExent)
@@ -172,6 +196,19 @@ namespace PurchaseData.DataModel
                 new ObjectParameter("IsExent", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UPDATE_ORDERDETAILS", detailIDParameter, headerIDParameter, nameProductParameter, descriptionProductParameter, qtyParameter, priceParameter, accountIDParameter, medidaIDParameter, isExentParameter);
+        }
+    
+        public virtual int UPDATE_PASSWORD_HASH(string password, string iD)
+        {
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var iDParameter = iD != null ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UPDATE_PASSWORD_HASH", passwordParameter, iDParameter);
         }
     }
 }
