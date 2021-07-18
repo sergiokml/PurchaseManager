@@ -25,7 +25,7 @@ namespace PurchaseDesktop.Interfaces
         //void InsertPRHeader(RequisitionHeader item);
         //void InsertPOHeader(OrderHeader item);
 
-        void InsertItemHeader<T>(T item);
+        int InsertItemHeader<T>(T item);
         void InsertDetail<T>(T item, object headerID); // Tabla 1:M => para PR y PO
         void InsertAttach<T>(Attaches item, T header); // Tabla M:M => para PR y PO
         int InsertSupplier(Suppliers item);
@@ -46,13 +46,14 @@ namespace PurchaseDesktop.Interfaces
 
 
         //! Delete
-        void DeleteItemHeader<T>(T item);
+        int DeleteItemHeader<T>(T item);
         void DeleteDetail<T>(T item, int detailID); // Tabla 1:M
         void DeleteAttach<T>(T item, int attachID); // Tabla 1:M
         int DeleteSupplier(string headerID);
         int DeleteHito(int headerID, int hitoID);
         int DeleteNote(int headerID, int noteID);
         int DeleteDelivery(int headerID, int deliverID);
+        int DeleteFolder(int path);
 
     }
 }

@@ -172,7 +172,7 @@ namespace PurchaseDesktop.Formularios
             //else
             //{
             //    e.Result = iGEditResult.Cancel;
-            //    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+            //    ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
             //}
 
         }
@@ -205,7 +205,7 @@ namespace PurchaseDesktop.Formularios
                 }
                 else
                 {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
                 }
             }
             //Grid.Focus();
@@ -274,7 +274,7 @@ namespace PurchaseDesktop.Formularios
                 }
                 else
                 {
-                    ((FPrincipal)Owner).Msg(resultado, FPrincipal.MsgProceso.Warning);
+                    ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
                 }
             }
         }

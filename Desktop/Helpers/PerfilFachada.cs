@@ -33,6 +33,7 @@ namespace PurchaseDesktop.Helpers
         private readonly Perfiles currentPerfil;
         private readonly TextInfo UCase = CultureInfo.InvariantCulture.TextInfo;
         private readonly ConfigApp configApp;
+        public FPrincipal fPrincipal1 { get; set; }
 
         public PerfilFachada(UserProfileUPR upr, UserProfileUPO upo, UserProfileVAL val, Users user)
         {
@@ -498,24 +499,21 @@ namespace PurchaseDesktop.Helpers
                     var pr = new RequisitionHeader().GetById(headerID);
                     if (pr.RequisitionDetails.Count == 0)
                     {
-                        fPrincipal.Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning);
+                        fPrincipal.Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning); return;
                     }
-
                     f.Mensaje = mensaje;
                     f.ShowDialog();
-                    //if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
                     if (f.Resultado == DialogResult.Cancel)
                     {
                         fPrincipal.Msg("", MsgProceso.Empty);
-                        fPrincipal.IsSending = false;
+                        fPrincipal.IsSending = false; return;
                     }
                     fPrincipal.IsSending = true;
                     fPrincipal.LblMsg.Text = string.Empty;
                     fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
                     fPrincipal.LblMsg.Image = Properties.Resources.loading;
 
-                    path = new HtmlManipulate(configApp)
-                        .ReemplazarDatos(headerDR, perfilPr.CurrentUser, pr);
+                    path = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPr.CurrentUser, pr);
                     send = new SendEmailTo(configApp);
                     await send.SendEmail(path, "Purchase Manager: PR document ", perfilPr.CurrentUser);
                     fPrincipal.Msg(send.MessageResult, MsgProceso.Send);
@@ -525,14 +523,17 @@ namespace PurchaseDesktop.Helpers
                     var po = new OrderHeader().GetById(headerID);
                     //TODO El estado evita que se abra PO en estado DRAFT, o sea sin SUPPLIER (Error en Html).
                     //TODO NO sirve ni para PO aunque esten en estado borrador y bien emitidas.
-                    if (po.StatusID < 2) { fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); }
+                    if (po.StatusID < 2)
+                    {
+                        fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
+                    }
                     f.Mensaje = mensaje;
                     f.ShowDialog(fPrincipal);
                     // if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
                     if (f.Resultado == DialogResult.Cancel)
                     {
                         fPrincipal.Msg("", MsgProceso.Empty);
-                        fPrincipal.IsSending = false;
+                        fPrincipal.IsSending = false; return;
                     }
                     fPrincipal.IsSending = true;
                     fPrincipal.LblMsg.Text = string.Empty;
@@ -550,16 +551,21 @@ namespace PurchaseDesktop.Helpers
                 default:
                     break;
             }
-            // return send.MessageResult;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="headerDR"></param>
+        /// <param name="fPrincipal"></param>
         public void GridDobleClick(DataRow headerDR, FPrincipal fPrincipal)
         {
-            //TODO USAR BREAK PARA QUE UPDATE EL FPRINCIPAL / USAR RETURN PARA VOLVER SIN NADA.
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             RequisitionHeader pr;
             OrderHeader po;
+            int res = 0;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -571,48 +577,59 @@ namespace PurchaseDesktop.Helpers
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            fPrincipal.Msg("Your profile does not allow you to complete this action.", Proceso.Warning); break;
+                            fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         case TypeDocumentHeader.PO:
                             po = new OrderHeader().GetById(headerID);
-                            //if (po.StatusID >= 3) { return "The 'status' of the Purchase Order is not allowed."; }
                             if (po.StatusID == 1)
                             {
                                 if (po.OrderDetails.Count == 0)
                                 {
-                                    fPrincipal.Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning); break;
+                                    fPrincipal
+                                        .Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning); return;
                                 }
                                 if (po.Net <= 0)
                                 {
-                                    fPrincipal.Msg("Net cannot be 'zero'.", MsgProceso.Warning); break;
+                                    fPrincipal
+                                        .Msg("Net cannot be 'zero'.", MsgProceso.Warning); return;
                                 }
                                 if (Convert.ToInt32(headerDR["HitosCount"]) == 0)
                                 {
-                                    fPrincipal.Msg("This Purchase Order does not contain a 'Hito'.", MsgProceso.Warning); break;
+                                    fPrincipal
+                                        .Msg("This Purchase Order does not contain a 'Hito'.", MsgProceso.Warning); return;
                                 }
                                 if (po.Description == null)
                                 {
-                                    fPrincipal.Msg("Please enter 'Description'.", MsgProceso.Warning); break;
+                                    fPrincipal
+                                        .Msg("Please enter 'Description'.", MsgProceso.Warning); return;
                                 }
                                 if (po.SupplierID == null)
                                 {
-                                    fPrincipal.Msg("Please enter 'Supplier'.", MsgProceso.Warning); break;
+                                    fPrincipal
+                                        .Msg("Please enter 'Supplier'.", MsgProceso.Warning); return;
                                 }
                                 if (po.CurrencyID == null)
                                 {
-                                    fPrincipal.Msg("Please enter 'Currency'.", MsgProceso.Warning); break;
+                                    fPrincipal
+                                        .Msg("Please enter 'Currency'.", MsgProceso.Warning); return;
                                 }
                                 po.StatusID = 2;
-                                if (perfilPo.UpdateItemHeader<OrderHeader>(po) > 0)
-                                {
-                                    fPrincipal.Msg("Update OK.", MsgProceso.Warning); break;
-                                }
+                                res = perfilPo.UpdateItemHeader<OrderHeader>(po);
                             }
                             else if (po.StatusID == 2)
                             {
                                 po.StatusID = 1;
-                                perfilPo.UpdateItemHeader<OrderHeader>(po); break;
+                                res = perfilPo.UpdateItemHeader<OrderHeader>(po);
                             }
-                            break;
+                            if (res == 3) // Return 3
+                            {
+                                fPrincipal
+                                    .Msg("Update OK.", MsgProceso.Informacion); break;
+                            }
+                            else
+                            {
+                                fPrincipal
+                                    .Msg("ERROR_UPDATE", MsgProceso.Warning); return;
+                            }
                     }
                     break;
                 case Perfiles.UPR:
@@ -620,45 +637,45 @@ namespace PurchaseDesktop.Helpers
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-
                             pr = new RequisitionHeader().GetById(headerID);
                             if (pr.RequisitionDetails.Count == 0)
                             {
                                 fPrincipal
-                                    .Msg("This Purchase Requesition does not contain Products or Services.", MsgProceso.Warning); break;
+                                    .Msg("This Purchase Requesition does not contain Products or Services.", MsgProceso.Warning); return;
                             }
                             if (pr.StatusID == 1)
                             {
                                 if (headerDR["Description"] == DBNull.Value)
                                 {
-                                    fPrincipal.Msg("Please enter 'Description'.", MsgProceso.Warning); break;
+                                    fPrincipal
+                                        .Msg("Please enter 'Description'.", MsgProceso.Warning); return;
                                 }
                                 if (headerDR["UserPO"] == DBNull.Value)
                                 {
-                                    fPrincipal.Msg("Please enter 'UserPO'.", MsgProceso.Warning); break;
+                                    fPrincipal
+                                        .Msg("Please enter 'UserPO'.", MsgProceso.Warning); return;
                                 }
                                 pr.StatusID = 2;
-                                if (perfilPr.UpdateItemHeader<RequisitionHeader>(pr) > 0)
-                                {
-                                    fPrincipal.Msg("Update OK.", MsgProceso.Informacion); break;
-                                }
+                                res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
                             }
                             else if (pr.StatusID == 2)
                             {
                                 pr.StatusID = 1;
-                                var res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
-                                if (res == 3) // Return 3
-                                {
-                                    fPrincipal.Msg("Update OK.", MsgProceso.Informacion);
-                                }
-                                else
-                                {
-                                    fPrincipal.Msg("ERROR_UPDATE", MsgProceso.Informacion); return;
-                                }
+                                res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
                             }
-                            break;
+                            if (res == 3) // Return 3
+                            {
+                                fPrincipal
+                                    .Msg("Update OK.", MsgProceso.Informacion); break;
+                            }
+                            else
+                            {
+                                fPrincipal
+                                    .Msg("ERROR_UPDATE", MsgProceso.Warning); return;
+                            }
                         case TypeDocumentHeader.PO:
-                            fPrincipal.Msg("Your profile does not allow you to complete this action..", MsgProceso.Warning); break;
+                            fPrincipal
+                                .Msg("Your profile does not allow you to complete this action..", MsgProceso.Warning); return;
                     }
                     break;
                 case Perfiles.VAL:
@@ -690,6 +707,7 @@ namespace PurchaseDesktop.Helpers
             fPrincipal.LlenarGrid();
             fPrincipal.ClearControles();
             fPrincipal.SetControles();
+            fPrincipal.CargarDashboard();
         }
 
         public async Task SeleccionarContextMenuStripAsync(DataRow headerDR, string action, FPrincipal fPrincipal)
@@ -734,6 +752,7 @@ namespace PurchaseDesktop.Helpers
                         fPrincipal.LlenarGrid();
                         fPrincipal.ClearControles();
                         fPrincipal.SetControles();
+                        fPrincipal.CargarDashboard();
                     }
                     break;
                 case "OPENREQ":
@@ -1242,8 +1261,15 @@ namespace PurchaseDesktop.Helpers
 
         #region Header CRUD
 
-        public bool InsertItem(Companies company, TypeDocument type)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="company"></param>
+        /// <param name="type"></param>
+        /// <param name="fPrincipal"></param>
+        public void InsertItem(Companies company, TypeDocument type, FPrincipal fPrincipal)
         {
+            int res = 0;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -1260,8 +1286,8 @@ namespace PurchaseDesktop.Helpers
                         CompanyID = company.CompanyID,
                         Discount = 0
                     };
-                    perfilPo.InsertItemHeader(po);
-                    return true;
+                    res = perfilPo.InsertItemHeader(po);
+                    break;
                 case Perfiles.UPR:
                     var pr = new RequisitionHeader
                     {
@@ -1269,22 +1295,42 @@ namespace PurchaseDesktop.Helpers
                         CompanyID = company.CompanyID,
                         StatusID = 1
                     };
-                    perfilPr.InsertItemHeader(pr);
-                    return true;
+                    res = perfilPr.InsertItemHeader(pr);
+                    break;
                 case Perfiles.VAL:
                     break;
-                default:
-                    break;
+
             }
-            return false;
+            if (res == 3) // Return 3
+            {
+                fPrincipal
+                    .Msg("Insert OK.", MsgProceso.Informacion);
+            }
+            else
+            {
+                fPrincipal
+                    .Msg("ERROR_INSERT", MsgProceso.Warning); return;
+            }
+            fPrincipal.LlenarGrid();
+            fPrincipal.ClearControles();
+            fPrincipal.SetControles();
+            fPrincipal.CargarDashboard();
         }
 
-        public string UpdateItem(object newValue, DataRow headerDR, string campo)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newValue"></param>
+        /// <param name="headerDR"></param>
+        /// <param name="campo"></param>
+        /// <param name="fPrincipal"></param>
+        public void UpdateItem(object newValue, DataRow headerDR, string campo, FPrincipal fPrincipal)
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             RequisitionHeader pr;
             OrderHeader po;
+            int res = 0;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -1295,45 +1341,61 @@ namespace PurchaseDesktop.Helpers
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            return "Your profile does not allow you to complete this action.";
+                            fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         case TypeDocumentHeader.PO:
 
                             switch (campo)
                             {
                                 case "Description":
                                     po = new OrderHeader().GetById(headerID);
-                                    if (po.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
+                                    if (po.StatusID >= 2)
+                                    {
+                                        fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
+                                    }
                                     po.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
-                                    perfilPo.UpdateItemHeader<OrderHeader>(po);
+                                    res = perfilPo.UpdateItemHeader<OrderHeader>(po);
                                     break;
                                 case "Type":
                                     po = new OrderHeader().GetById(headerID);
-                                    if (po.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
+                                    if (po.StatusID >= 2)
+                                    {
+                                        //fPrincipal.GetGrid().BeforeCommitEdit
+                                        fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning);
+                                        fPrincipal.IsSending = true;
+                                        return;
+                                    }
                                     po.Type = Convert.ToByte(newValue);
-                                    perfilPo.UpdateItemHeader<OrderHeader>(po);
+                                    res = perfilPo.UpdateItemHeader<OrderHeader>(po);
                                     break;
                                 case "Net":
-                                    //po = new OrderHeader().GetById(headerID);
-                                    //po.Net = Convert.ToInt32(newValue);
-                                    //perfilPo.UpdateItemHeader<OrderHeader>(td, po, headerID);
-                                    break;
+                                    fPrincipal.Msg("ERROR_UPDATE", MsgProceso.Warning); return;
                                 case "SupplierID":
                                     po = new OrderHeader().GetById(headerID);
-                                    if (po.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
+                                    if (po.StatusID >= 2)
+                                    {
+                                        fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
+                                    }
                                     po.SupplierID = newValue.ToString();
-                                    perfilPo.UpdateItemHeader<OrderHeader>(po);
+                                    res = perfilPo.UpdateItemHeader<OrderHeader>(po);
                                     break;
                                 case "CurrencyID":
                                     po = new OrderHeader().GetById(headerID);
-                                    if (po.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
+                                    if (po.StatusID >= 2)
+                                    {
+                                        fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
+                                    }
                                     po.CurrencyID = newValue.ToString();
-                                    perfilPo.UpdateItemHeader<OrderHeader>(po);
+                                    res = perfilPo.UpdateItemHeader<OrderHeader>(po);
                                     break;
                             }
-
-                            break;
-                        default:
-                            break;
+                            if (res == 3) // Return 3
+                            {
+                                fPrincipal.Msg("Update OK.", MsgProceso.Informacion); break;
+                            }
+                            else
+                            {
+                                fPrincipal.Msg("ERROR_UPDATE", MsgProceso.Warning); return;
+                            }
                     }
                     break;
                 case Perfiles.UPR:
@@ -1344,43 +1406,66 @@ namespace PurchaseDesktop.Helpers
                             {
                                 case "Description":
                                     pr = new RequisitionHeader().GetById(headerID);
-                                    if (pr.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
+                                    if (pr.StatusID >= 2)
+                                    {
+                                        fPrincipal
+                                            .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
+                                    }
                                     pr.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
-                                    perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
+                                    res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
                                     break;
                                 case "Type":
                                     pr = new RequisitionHeader().GetById(headerID);
-                                    if (pr.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
+                                    if (pr.StatusID >= 2)
+                                    {
+                                        fPrincipal
+                                            .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
+                                    }
                                     pr.Type = Convert.ToByte(newValue);
-                                    perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
+                                    res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
                                     break;
                                 case "CurrencyID":
-                                    return "Your profile does not allow you to complete this action.";
+                                    fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                                 case "UserPO":
                                     pr = new RequisitionHeader().GetById(headerID);
-                                    if (pr.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
+                                    if (pr.StatusID >= 2)
+                                    {
+                                        fPrincipal
+                                            .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
+                                    }
                                     pr.UserPO = newValue.ToString();
-                                    perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
-                                    break;
-                                default:
+                                    res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
                                     break;
                             }
                             break;
                         case TypeDocumentHeader.PO:
-                            return "Your profile does not allow you to complete this action.";
-                        default:
-                            break;
+                            fPrincipal
+                                .Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                     }
-
-                    break;
+                    if (res == 3) // Return 3
+                    {
+                        fPrincipal
+                            .Msg("Update OK.", MsgProceso.Informacion); break;
+                    }
+                    else
+                    {
+                        fPrincipal
+                            .Msg("ERROR_UPDATE", MsgProceso.Warning); return;
+                    }
                 case Perfiles.VAL:
                     break;
-                default:
-                    break;
             }
-            return "OK";
+            fPrincipal.LlenarGrid();
+            fPrincipal.ClearControles();
+            fPrincipal.SetControles();
+            fPrincipal.CargarDashboard();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="headerDR"></param>
+        /// <param name="fPrincipal"></param>
         public void DeleteItem(DataRow headerDR, FPrincipal fPrincipal)
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
@@ -1390,6 +1475,7 @@ namespace PurchaseDesktop.Helpers
             mensaje.AppendLine($"You are going to delete document N° {headerID}.");
             mensaje.AppendLine();
             var f = new FMensajes(fPrincipal);
+            int res = 0;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -1400,17 +1486,18 @@ namespace PurchaseDesktop.Helpers
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Informacion);
-                            break;
+                            fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         case TypeDocumentHeader.PO:
                             var po = new OrderHeader().GetById(headerID);
-                            if (perfilPo.CurrentUser.UserID != headerDR["UserID"].ToString()) // User ID viene de la vista.
+                            if (perfilPo.CurrentUser.UserID != headerDR["UserID"].ToString()) //! User ID viene de la vista.
                             {
-                                fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Informacion); break;
+                                fPrincipal
+                                    .Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                             }
                             if (po.StatusID >= 2)
                             {
-                                fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Informacion); break;
+                                fPrincipal
+                                    .Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
                             }
                             if (po.RequisitionHeaderID != null)
                             {
@@ -1429,8 +1516,20 @@ namespace PurchaseDesktop.Helpers
                             {
                                 return;
                             }
-                            perfilPo.DeleteItemHeader<OrderHeader>(po);
-                            break;
+                            res = perfilPo.DeleteItemHeader<OrderHeader>(po);
+                            if (res > 0) //! Return Indeterminado
+                            {
+                                //! Eliminar Files in Folder
+                                perfilPo.DeleteFolder(headerID);
+
+                                fPrincipal
+                                    .Msg("Delete OK.", MsgProceso.Informacion); break;
+                            }
+                            else
+                            {
+                                fPrincipal
+                                    .Msg("ERROR_DELETE", MsgProceso.Warning); return;
+                            }
                         default:
                             break;
                     }
@@ -1442,38 +1541,46 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PR:
                             if (perfilPr.CurrentUser.UserID != headerDR["UserID"].ToString())
                             {
-                                fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Informacion);
+                                fPrincipal
+                                    .Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                             }
                             var pr = new RequisitionHeader().GetById(headerID);
                             if (pr.StatusID >= 2)
                             {
-                                fPrincipal.Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Informacion);
+                                fPrincipal
+                                    .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
                             }
                             mensaje.AppendLine("Are You Sure?");
                             f.Mensaje = mensaje;
                             f.ShowDialog(fPrincipal);
-                            if (f.Resultado == DialogResult.OK)
+                            if (f.Resultado == DialogResult.Cancel)
                             {
-                                perfilPr.DeleteItemHeader<RequisitionHeader>(pr);
+                                return;
                             }
-                            break;
+                            res = perfilPr.DeleteItemHeader<RequisitionHeader>(pr);
+                            if (res > 0) // Return Indeterminado
+                            {
+                                fPrincipal
+                                    .Msg("Delete OK.", MsgProceso.Informacion); break;
+                            }
+                            else
+                            {
+                                fPrincipal
+                                    .Msg("ERROR_DELETE", MsgProceso.Warning); return;
+                            }
                         case TypeDocumentHeader.PO:
-                            return "Your profile does not allow you to complete this action.";
+                            fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         default:
                             break;
                     }
-
                     break;
                 case Perfiles.VAL:
-                    break;
-                default:
                     break;
             }
             fPrincipal.LlenarGrid();
             fPrincipal.ClearControles();
             fPrincipal.SetControles();
             fPrincipal.CargarDashboard();
-
         }
 
         #endregion
@@ -1729,11 +1836,7 @@ namespace PurchaseDesktop.Helpers
                     break;
                 case Perfiles.VAL:
                     break;
-                default:
-                    break;
             }
-
-
             return "OK";
         }
 

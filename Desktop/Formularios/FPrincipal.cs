@@ -30,6 +30,7 @@ namespace PurchaseDesktop.Formularios
         public FPrincipal(PerfilFachada rFachada)
         {
             this.rFachada = rFachada;
+            rFachada.fPrincipal1 = this;
             InitializeComponent();
         }
         public FPrincipal()
@@ -121,18 +122,18 @@ namespace PurchaseDesktop.Formularios
 
         #region Botones Form
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnInsert_Click(object sender, EventArgs e)
         {
-            //! Validar Controles
             if (ValidarControles())
             {
                 rFachada.InsertItem((Companies)CboCompany.SelectedItem
-                    , (TypeDocument)CboType.SelectedItem);
-                LlenarGrid();
-                CargarDashboard();
-                //Grid.Rows[0].EnsureVisible();
-                ClearControles();
-                SetControles();
+                    , (TypeDocument)CboType.SelectedItem, this);
+                Grid.CurRow = Grid.Rows[1];
             }
         }
 
@@ -149,38 +150,23 @@ namespace PurchaseDesktop.Formularios
         {
             if (e.NewValue == null || string.IsNullOrEmpty(e.NewValue.ToString()))
             {
-                e.Result = iGEditResult.Cancel;
-                return;
+                e.Result = iGEditResult.Cancel; return;
             }
             if (Equals(e.NewValue, Grid.Cells[e.RowIndex, e.ColIndex].Value))
             {
-                e.Result = iGEditResult.Cancel;
-                return;
+                e.Result = iGEditResult.Cancel; return;
             }
-            //! Update solo si cambió el dato.
-            CurRowPrincipal = Grid.Rows[e.RowIndex];
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+            //! En caso de hacer update desde otra fila, no posicionándose en ella.
+            CurRowPrincipal = Grid.Rows[e.RowIndex];
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            var resultado = rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key);
-            if (resultado == "OK")
-            {
-                LlenarGrid();
-                if (!Grid.Cols[e.ColIndex].Key.Equals("Description") && !Grid.Cols[e.ColIndex].Key.Equals("Type") && !Grid.Cols[e.ColIndex].Key.Equals("UserPO"))
-                {
-                    CargarDashboard();
-                }
-                SetControles();
-                Grid.CurRow = CurRowPrincipal;
-            }
-            else
+            rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key, this);
+            //! Al hacer update se pierde el foco:
+            Grid.CurRow = CurRowPrincipal;
+            if (IsSending)
             {
                 e.Result = iGEditResult.Cancel;
-                Msg(resultado, MsgProceso.Warning);
-                //TODO IGUAL ACTUALIZO LA GRILLA, EN CASO DE CAMBIAR STATUS                
-                LlenarGrid();
-                ClearControles();
-                SetControles();
-                Grid.CurRow = CurRowPrincipal;
+                IsSending = false;
             }
         }
 
@@ -356,6 +342,8 @@ namespace PurchaseDesktop.Formularios
         {
             Grid.DrawAsFocused = true;
             await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name, this);
+            // Grid.CurRow = CurRowPrincipal;
+            Grid.Focus();
             Grid.DrawAsFocused = false;
         }
 

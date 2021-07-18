@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 using PurchaseData.DataModel;
@@ -117,7 +118,7 @@ namespace PurchaseDesktop.Profiles
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
-        public void InsertItemHeader<T>(T item)
+        public int InsertItemHeader<T>(T item)
         {
             var doc = item as OrderHeader;
             using (var rContext = new PurchaseManagerEntities())
@@ -131,7 +132,7 @@ namespace PurchaseDesktop.Profiles
                 };
                 doc.Transactions.Add(transaction);
                 rContext.OrderHeader.Add(doc);
-                rContext.SaveChanges();
+                return rContext.SaveChanges();
             }
         }
 
@@ -175,14 +176,14 @@ namespace PurchaseDesktop.Profiles
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
-        public void DeleteItemHeader<T>(T item)
+        public int DeleteItemHeader<T>(T item)
         {
             var doc = item as OrderHeader;
             using (var rContext = new PurchaseManagerEntities())
             {
                 rContext.OrderHeader.Attach(doc);
                 rContext.OrderHeader.Remove(doc);
-                rContext.SaveChanges();
+                return rContext.SaveChanges();
             }
         }
 
@@ -627,6 +628,19 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
+        public int DeleteFolder(int headerID)
+        {
+            using (var rContext = new PurchaseManagerEntities())
+            {
+
+                ObjectParameter param = new ObjectParameter("RESULT", typeof(int));
+                var res = rContext.DELETE_FOLDER(headerID, param);
+                //res = rContext.SaveChanges();
+                return 0;
+            }
+
+
+        }
         #endregion
 
     }

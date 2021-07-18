@@ -494,7 +494,7 @@ namespace PurchaseDesktop.Helpers
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol.CellStyle.Font = new Font("Tahoma", 7);
 
-                    iGCol = Grid.Cols.Add("NameUserID", "User", 105);
+                    iGCol = Grid.Cols.Add("NameUserID", "User", 103);
                     iGCol.CellStyle.ReadOnly = iGBool.True;
                     iGCol = Grid.Cols.Add("CostID", "CC", 32);
                     iGCol.CellStyle.ReadOnly = iGBool.True;

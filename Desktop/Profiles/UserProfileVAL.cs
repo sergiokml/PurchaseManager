@@ -118,7 +118,7 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public void DeleteItemHeader<T>(T item)
+        public int DeleteItemHeader<T>(T item)
         {
             throw new System.NotImplementedException();
         }
@@ -198,7 +198,7 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public void InsertItemHeader<T>(T item)
+        public int InsertItemHeader<T>(T item)
         {
             throw new NotImplementedException();
         }
@@ -214,6 +214,16 @@ namespace PurchaseDesktop.Profiles
         }
 
         public void UpdateAttaches<T>(Attaches item, T header)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteFolder(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteFolder(int path)
         {
             throw new NotImplementedException();
         }

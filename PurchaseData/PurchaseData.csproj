@@ -105,21 +105,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataModel\Accounts.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Attaches.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Companies.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\ConfigApp.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Currencies.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\DAAttaches.cs" />
     <Compile Include="DataModel\DAConfigApp.cs" />
     <Compile Include="DataModel\DACurrencies.cs" />
@@ -145,9 +130,6 @@
     <Compile Include="DataModel\DAUserDB.cs" />
     <Compile Include="DataModel\DAvOrderByMinTransaction.cs" />
     <Compile Include="DataModel\DAvRequisitionByMinTransaction.cs" />
-    <Compile Include="DataModel\Medidas.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\ModeloPurchaseManager.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,72 +144,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModeloPurchaseManager.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\OrderDelivery.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\OrderDetails.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\OrderHeader.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\OrderHitos.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\OrderNotes.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\OrderStatus.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\RequisitionDetails.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\RequisitionHeader.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\RequisitionStatus.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\SupplierBanks.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\SupplierCountries.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Suppliers.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sysdiagrams.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Transactions.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\TypeDocument.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\ufnGetOrderGroupByStatus_Result.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\ufnGetReqGroupByCost_Result.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\UserCosts.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\UserProfiles.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\Users.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\vOrderByMinTransaction.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\vRequisitionByMinTransaction.cs">
-      <DependentUpon>ModeloPurchaseManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlManipulate.cs" />
     <Compile Include="Helpers\LIst.cs" />

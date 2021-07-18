@@ -111,7 +111,7 @@ namespace PurchaseDesktop.Formularios
                         //! Update Glosa
                         if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
                         {
-                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description", ((FPrincipal)Owner));
                         }
                         break;
                     case TypeDocumentHeader.PO:
@@ -137,7 +137,7 @@ namespace PurchaseDesktop.Formularios
                         //! Update Glosa
                         if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
                         {
-                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description", ((FPrincipal)Owner));
                         }
                         break;
                     default:
@@ -431,7 +431,7 @@ namespace PurchaseDesktop.Formularios
             //! Update Glosa
             if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
             {
-                rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description", ((FPrincipal)Owner));
             }
             if (resultado == "OK")
             {
@@ -551,26 +551,16 @@ namespace PurchaseDesktop.Formularios
         {
             if (!Equals(CboCurrency.SelectedValue, Current["CurrencyID"].ToString()))
             {
-                var resultado = rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID");
-                //! Update Glosa
-                if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
-                {
-                    rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
-                }
-                if (resultado == "OK")
-                {
-                    ((FPrincipal)Owner).LlenarGrid();
-                    ((FPrincipal)Owner).SetControles();
-                    ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
-                    Current["CurrencyID"] = CboCurrency.SelectedValue;
-                    LlenarGrid();
-                    SetControles();
-
-                }
-                else
-                {
-                    ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
-                }
+                rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID", ((FPrincipal)Owner));
+                ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+                Current["CurrencyID"] = CboCurrency.SelectedValue;
+                LlenarGrid();
+                SetControles();
+            }
+            //! Update Glosa
+            else if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
+            {
+                rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description", ((FPrincipal)Owner));
             }
         }
     }

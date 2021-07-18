@@ -130,7 +130,7 @@ namespace PurchaseDesktop.Profiles
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
-        public void InsertItemHeader<T>(T item)
+        public int InsertItemHeader<T>(T item)
         {
             var doc = item as RequisitionHeader;
             using (var rContext = new PurchaseManagerEntities())
@@ -144,7 +144,7 @@ namespace PurchaseDesktop.Profiles
                 };
                 doc.Transactions.Add(transaction);
                 rContext.RequisitionHeader.Add(doc);
-                rContext.SaveChanges();
+                return rContext.SaveChanges();
             }
         }
 
@@ -180,14 +180,14 @@ namespace PurchaseDesktop.Profiles
         /// <typeparam name="T"></typeparam>
         /// <param name="td"></param>
         /// <param name="item"></param>
-        public void DeleteItemHeader<T>(T item)
+        public int DeleteItemHeader<T>(T item)
         {
             var doc = item as RequisitionHeader;
             using (var rContext = new PurchaseManagerEntities())
             {
                 rContext.RequisitionHeader.Attach(doc);
                 rContext.RequisitionHeader.Remove(doc);
-                rContext.SaveChanges();
+                return rContext.SaveChanges();
             }
         }
 
@@ -456,6 +456,16 @@ namespace PurchaseDesktop.Profiles
         }
 
         public int DeleteDelivery(int headerID, int deliverID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteFolder(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeleteFolder(int path)
         {
             throw new NotImplementedException();
         }

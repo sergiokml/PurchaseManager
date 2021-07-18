@@ -308,22 +308,12 @@ namespace PurchaseDesktop.Formularios
                 var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 if (current != null)
                 {
-                    var resultado = rFachada.UpdateItem(current["SupplierID"], Current, "SupplierID");
-                    if (resultado == "OK")
-                    {
-                        LlenarGrid();
-                        ClearControles();
-                        SetControles();
-                        ((FPrincipal)Owner).LlenarGrid();
-                        ((FPrincipal)Owner).SetControles();
-                        ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
-                        Close(); //todo Cerrar el formulario al seleccionar el cliente?
-                    }
-                    else
-                    {
-                        ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
-
-                    }
+                    rFachada.UpdateItem(current["SupplierID"], Current, "SupplierID", (FPrincipal)Owner);
+                    LlenarGrid();
+                    ClearControles();
+                    SetControles();
+                    //((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+                    Close(); // Cerrar al seleccionar.
                 }
             }
         }

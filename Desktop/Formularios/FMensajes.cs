@@ -25,7 +25,7 @@ namespace PurchaseDesktop.Formularios
 
         private void BtnCancel_Click(object sender, System.EventArgs e)
         {
-            //((FPrincipal)Owner).Msg("Operation Cancelled.", FPrincipal.MsgProceso.Warning);
+            //((FPrincipal)Owner).Msg("Operation Cancelled.", MsgProceso.Warning);
             Resultado = DialogResult.Cancel;
             Close();
         }
