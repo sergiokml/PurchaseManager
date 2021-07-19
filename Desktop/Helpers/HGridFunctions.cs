@@ -31,9 +31,9 @@ namespace PurchaseDesktop.Helpers
             lista.Images.Add(Properties.Resources.icons8_envelope);                 //2 Send
             lista.Images.Add(Properties.Resources.icons8_pdf);                      //3 Pdf
             lista.Images.Add(Properties.Resources.icons8_left_arrow);               //4 draft icon
-            lista.Images.Add(Properties.Resources.icons8_us_dollar);                 //5 currency icon
+            lista.Images.Add(Properties.Resources.icons8_us_dollar);                //5 currency icon
             lista.Images.Add(Properties.Resources.icons8_doc);                      //6 word
-            lista.Images.Add(Properties.Resources.icons8_xls);                       //7 Excel
+            lista.Images.Add(Properties.Resources.icons8_xls);                      //7 Excel
             return lista;
         }
 

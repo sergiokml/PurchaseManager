@@ -47,7 +47,6 @@ namespace PurchaseDesktop.Formularios
 
         private async void FPrincipal_Load(object sender, EventArgs e)
         {
-
             Icon = Properties.Resources.icons8_survey;
             //! Company
             CboCompany.DataSource = new Companies().GetList();
@@ -69,8 +68,6 @@ namespace PurchaseDesktop.Formularios
             Grid.CellMouseUp += Grid_CellMouseUp;
             Grid.CellEllipsisButtonClick += Grid_CellEllipsisButtonClick;
 
-
-
             //! Grid Principal
             rFachada.CargarGrid(Grid, "FPrincipal", Current); // Pintar y cargar columnas
             LlenarGrid();
@@ -91,9 +88,6 @@ namespace PurchaseDesktop.Formularios
             {
                 Msg(s, MsgProceso.Error);
             }
-
-
-
             Timer TimerMsg = new Timer
             {
                 Interval = 10 // No eliminar!
@@ -106,8 +100,6 @@ namespace PurchaseDesktop.Formularios
                 PanelHechizoBanner.Visible = false;
                 TimerMsg.Stop();
             }; TimerMsg.Start();
-
-
         }
 
         private void FPrincipal_Shown(object sender, EventArgs e)
@@ -115,7 +107,6 @@ namespace PurchaseDesktop.Formularios
             LabelPanel.Text = "Purchase Manager V1.0";
             LabelPanel.TextAlign = ContentAlignment.MiddleLeft;
             LabelPanel.Visible = true;
-
         }
 
         #endregion
@@ -133,7 +124,14 @@ namespace PurchaseDesktop.Formularios
             {
                 rFachada.InsertItem((Companies)CboCompany.SelectedItem
                     , (TypeDocument)CboType.SelectedItem, this);
-                Grid.CurRow = Grid.Rows[1];
+                if (Grid.GroupObject.Count > 0)
+                {
+                    Grid.CurRow = Grid.Rows[1];
+                }
+                else
+                {
+                    Grid.CurRow = Grid.Rows[0];
+                }
             }
         }
 
@@ -251,7 +249,6 @@ namespace PurchaseDesktop.Formularios
                 {
                     Msg(resultado, MsgProceso.Warning);
                 }
-
             }
             else if (Grid.Cols["send"].Index == e.ColIndex)
             {

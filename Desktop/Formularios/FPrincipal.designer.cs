@@ -755,11 +755,11 @@ namespace PurchaseDesktop.Formularios
             // LblMsg
             // 
             this.LblMsg.Dock = System.Windows.Forms.DockStyle.Left;
-            this.LblMsg.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblMsg.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblMsg.ForeColor = System.Drawing.Color.White;
             this.LblMsg.Location = new System.Drawing.Point(0, 0);
             this.LblMsg.Name = "LblMsg";
-            this.LblMsg.Size = new System.Drawing.Size(520, 24);
+            this.LblMsg.Size = new System.Drawing.Size(577, 24);
             this.LblMsg.TabIndex = 3;
             this.LblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 

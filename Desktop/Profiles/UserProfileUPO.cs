@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 using PurchaseData.DataModel;
@@ -152,21 +151,10 @@ namespace PurchaseDesktop.Profiles
                     DateTran = rContext.Database
                     .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
                 };
-                Type typeParameterType = typeof(T);
-                if (typeParameterType.Name == "OrderHeader")
-                {
-                    OrderHeader doc = item as OrderHeader;
-                    rContext.OrderHeader.Attach(doc);
-                    rContext.Entry(doc).State = EntityState.Modified;
-                    doc.Transactions.Add(transaction);
-                }
-                else if (typeParameterType.Name == "RequisitionHeader")
-                {
-                    RequisitionHeader pr = item as RequisitionHeader;
-                    rContext.RequisitionHeader.Attach(pr);
-                    rContext.Entry(pr).State = EntityState.Modified;
-                    pr.Transactions.Add(transaction);
-                }
+                OrderHeader doc = item as OrderHeader;
+                rContext.OrderHeader.Attach(doc);
+                rContext.Entry(doc).State = EntityState.Modified;
+                doc.Transactions.Add(transaction);
                 return rContext.SaveChanges();
             }
         }
@@ -214,6 +202,7 @@ namespace PurchaseDesktop.Profiles
                 {
                     try
                     {
+                        //! SP Especial 
                         var res = rContext.INSERT_ORDERDETAILS(doc.OrderHeaderID, i.NameProduct, i.DescriptionProduct, i.Qty, i.Price, i.AccountID, i.MedidaID, i.IsExent);
                         rContext.OrderHeader.Attach(doc);
                         doc.Transactions.Add(transaction);
@@ -249,16 +238,23 @@ namespace PurchaseDesktop.Profiles
                 };
                 using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                 {
-                    rContext.DELETE_ORDERDETAILS(detailID, doc.OrderHeaderID);
-                    rContext.OrderHeader.Attach(doc);
-                    doc.Transactions.Add(transaction);
-                    rContext.SaveChanges();
-                    trans.Commit();
+                    try
+                    {
+                        //! SP Especial 
+                        rContext.DELETE_ORDERDETAILS(detailID, doc.OrderHeaderID);
+                        rContext.OrderHeader.Attach(doc);
+                        doc.Transactions.Add(transaction);
+                        rContext.SaveChanges();
+                        trans.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        trans.Rollback();
+                        throw;
+                    }
                 }
             }
-
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -280,15 +276,23 @@ namespace PurchaseDesktop.Profiles
                 };
                 using (DbContextTransaction trans = rContext.Database.BeginTransaction())
                 {
-                    rContext.UPDATE_ORDERDETAILS(i.DetailID, doc.OrderHeaderID, i.NameProduct, i.DescriptionProduct, i.Qty, i.Price, i.AccountID, i.MedidaID, i.IsExent);
-                    rContext.OrderHeader.Attach(doc);
-                    doc.Transactions.Add(transaction);
-                    rContext.SaveChanges();
-                    trans.Commit();
+                    try
+                    {
+                        //! SP Especial 
+                        rContext.UPDATE_ORDERDETAILS(i.DetailID, doc.OrderHeaderID, i.NameProduct, i.DescriptionProduct, i.Qty, i.Price, i.AccountID, i.MedidaID, i.IsExent);
+                        rContext.OrderHeader.Attach(doc);
+                        doc.Transactions.Add(transaction);
+                        rContext.SaveChanges();
+                        trans.Commit();
+                        trans.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        trans.Rollback();
+                        throw;
+                    }
                 }
             }
-
-
         }
 
         #endregion
@@ -580,6 +584,7 @@ namespace PurchaseDesktop.Profiles
         #endregion
 
         #region Delivery CRUD
+
         public DataTable VistaDelivery(TypeDocumentHeader headerTD, int headerID)
         {
             using (var rContext = new PurchaseManagerEntities())
@@ -608,7 +613,6 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-
         public int DeleteDelivery(int headerID, int deliverID)
         {
             using (var rContext = new PurchaseManagerEntities())
@@ -628,19 +632,7 @@ namespace PurchaseDesktop.Profiles
             }
         }
 
-        public int DeleteFolder(int headerID)
-        {
-            using (var rContext = new PurchaseManagerEntities())
-            {
 
-                ObjectParameter param = new ObjectParameter("RESULT", typeof(int));
-                var res = rContext.DELETE_FOLDER(headerID, param);
-                //res = rContext.SaveChanges();
-                return 0;
-            }
-
-
-        }
         #endregion
 
     }

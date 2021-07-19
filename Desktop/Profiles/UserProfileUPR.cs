@@ -156,7 +156,6 @@ namespace PurchaseDesktop.Profiles
         /// 
         public int UpdateItemHeader<T>(T item)
         {
-            //!https://stackoverflow.com/questions/7106211/entity-framework-why-explicitly-set-entity-state-to-modified
             RequisitionHeader doc = item as RequisitionHeader;
             using (var rContext = new PurchaseManagerEntities())
             {
@@ -245,7 +244,6 @@ namespace PurchaseDesktop.Profiles
                 doc.Transactions.Add(transaction);
                 rContext.SaveChanges();
             }
-
         }
 
         /// <summary>
@@ -460,15 +458,7 @@ namespace PurchaseDesktop.Profiles
             throw new NotImplementedException();
         }
 
-        public int DeleteFolder(string path)
-        {
-            throw new NotImplementedException();
-        }
 
-        public int DeleteFolder(int path)
-        {
-            throw new NotImplementedException();
-        }
 
         #endregion
     }

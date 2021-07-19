@@ -53,7 +53,7 @@ namespace PurchaseDesktop.Interfaces
         int DeleteHito(int headerID, int hitoID);
         int DeleteNote(int headerID, int noteID);
         int DeleteDelivery(int headerID, int deliverID);
-        int DeleteFolder(int path);
+
 
     }
 }

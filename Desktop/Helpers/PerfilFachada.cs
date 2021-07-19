@@ -748,7 +748,24 @@ namespace PurchaseDesktop.Helpers
                                 trans.Commit();
                             }
                         }
-                        //fPrincipal.Msg("", MsgProceso.Empty);
+                        //! Copiar los adjuntos a la nuev acarpeta de la PO
+                        if (!Directory.Exists($"{configApp.FolderApp}{po.OrderHeaderID}"))
+                        {
+                            Directory.CreateDirectory($"{configApp.FolderApp}{po.OrderHeaderID}");
+                        }
+                        pr.Attaches.ToList().RemoveAll(c => c.Modifier == 0);
+                        foreach (var item in pr.Attaches.ToList())
+                        {
+                            var sub = item.FileName.Substring(item.FileName.IndexOf('\\'));
+                            if (!File.Exists($"{configApp.FolderApp}{po.OrderHeaderID}{sub}"))
+                            {
+                                File.Copy($"{configApp.FolderApp}{item.FileName}", $"{configApp.FolderApp}{po.OrderHeaderID}{sub}", true);
+                                //perfilPo.InsertAttach<OrderHeader>(item, po);
+
+                            }
+                        }
+
+                        //TODO ESTO DEBE IR AL FINAL DE ESTE MÉTODO
                         fPrincipal.LlenarGrid();
                         fPrincipal.ClearControles();
                         fPrincipal.SetControles();
@@ -1343,14 +1360,14 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PR:
                             fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         case TypeDocumentHeader.PO:
-
                             switch (campo)
                             {
                                 case "Description":
                                     po = new OrderHeader().GetById(headerID);
                                     if (po.StatusID >= 2)
                                     {
-                                        fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
+                                        fPrincipal
+                                            .Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
                                     }
                                     po.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
                                     res = perfilPo.UpdateItemHeader<OrderHeader>(po);
@@ -1359,7 +1376,6 @@ namespace PurchaseDesktop.Helpers
                                     po = new OrderHeader().GetById(headerID);
                                     if (po.StatusID >= 2)
                                     {
-                                        //fPrincipal.GetGrid().BeforeCommitEdit
                                         fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning);
                                         fPrincipal.IsSending = true;
                                         return;
@@ -1470,12 +1486,11 @@ namespace PurchaseDesktop.Helpers
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
-
             StringBuilder mensaje = new StringBuilder();
             mensaje.AppendLine($"You are going to delete document N° {headerID}.");
             mensaje.AppendLine();
             var f = new FMensajes(fPrincipal);
-            int res = 0;
+            int res;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -1520,20 +1535,28 @@ namespace PurchaseDesktop.Helpers
                             if (res > 0) //! Return Indeterminado
                             {
                                 //! Eliminar Files in Folder
-                                perfilPo.DeleteFolder(headerID);
-
+                                try
+                                {
+                                    DirectoryInfo dir = new DirectoryInfo($"{configApp.FolderApp}{headerID}");
+                                    if (dir.Exists)
+                                    {
+                                        foreach (var file in dir.GetFiles())
+                                        {
+                                            file.Attributes = FileAttributes.Normal;
+                                        }
+                                        dir.Delete(true);
+                                    }
+                                }
+                                catch (Exception) { return; }
                                 fPrincipal
-                                    .Msg("Delete OK.", MsgProceso.Informacion); break;
+                               .Msg("Delete OK.", MsgProceso.Informacion); break;
                             }
                             else
                             {
                                 fPrincipal
-                                    .Msg("ERROR_DELETE", MsgProceso.Warning); return;
+                                    .Msg("ERROR_DELETE", MsgProceso.Warning); break; // En caso de error tiene que volver a cargarse la Grilla!
                             }
-                        default:
-                            break;
                     }
-
                     break;
                 case Perfiles.UPR:
                     switch (td)
@@ -1560,18 +1583,30 @@ namespace PurchaseDesktop.Helpers
                             res = perfilPr.DeleteItemHeader<RequisitionHeader>(pr);
                             if (res > 0) // Return Indeterminado
                             {
+                                //! Eliminar Files in Folder
+                                try
+                                {
+                                    DirectoryInfo dir = new DirectoryInfo($"{configApp.FolderApp}{headerID}");
+                                    if (dir.Exists)
+                                    {
+                                        foreach (var file in dir.GetFiles())
+                                        {
+                                            file.Attributes = FileAttributes.Normal;
+                                        }
+                                        dir.Delete(true);
+                                    }
+                                }
+                                catch (Exception) { return; }
                                 fPrincipal
-                                    .Msg("Delete OK.", MsgProceso.Informacion); break;
+                               .Msg("Delete OK.", MsgProceso.Informacion); break;
                             }
                             else
                             {
                                 fPrincipal
-                                    .Msg("ERROR_DELETE", MsgProceso.Warning); return;
+                                    .Msg("ERROR_DELETE", MsgProceso.Warning); break;
                             }
                         case TypeDocumentHeader.PO:
                             fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
-                        default:
-                            break;
                     }
                     break;
                 case Perfiles.VAL:
@@ -1591,7 +1626,6 @@ namespace PurchaseDesktop.Helpers
         {
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            DataRow d;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -1606,16 +1640,16 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PO:
                             var po = new OrderHeader().GetById(headerID);
                             if (po.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                            var od = item as OrderDetails;
-                            if ((po.Total + od.Total) < 99000000) // Máximo por Header
+                            if (po.CurrencyID == null)
                             {
-                                perfilPo.InsertDetail<OrderDetails>(od, po);
+                                return "Please select 'Currency' for this Purchase Order.";
                             }
-                            //Set nuevo Current en el formulario Details
-                            d = perfilPo.GetDataRow(TypeDocumentHeader.PO, po.OrderHeaderID);
-                            fDetails.Current = d;
-                            break;
-                        default:
+                            var od = item as OrderDetails;
+                            var limite = new Currencies().GetList().Single(c => c.CurrencyID == po.CurrencyID).MaxInput;
+                            if ((po.Total + (od.Qty * od.Price)) > limite) { return "You exceed the established limit."; }
+                            perfilPo.InsertDetail<OrderDetails>(od, po);
+                            //! Set nuevo Current en el formulario Details
+                            fDetails.Current = perfilPo.GetDataRow(TypeDocumentHeader.PO, po.OrderHeaderID); ;
                             break;
                     }
                     break;
@@ -1626,24 +1660,17 @@ namespace PurchaseDesktop.Helpers
                             var pr = new RequisitionHeader().GetById(headerID);
                             if (pr.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
                             perfilPr.InsertDetail<RequisitionDetails>(item as RequisitionDetails, pr);
-                            //Set nuevo Current en el formulario Details
-                            d = perfilPr.GetDataRow(TypeDocumentHeader.PR, pr.RequisitionHeaderID);
-                            fDetails.Current = d;
-
+                            //! Set nuevo Current en el formulario Details
+                            fDetails.Current = perfilPr.GetDataRow(TypeDocumentHeader.PR, pr.RequisitionHeaderID);
                             break;
                         case TypeDocumentHeader.PO:
                             return "Your profile does not allow you to complete this action.";
-                        default:
-                            break;
                     }
                     break;
                 case Perfiles.VAL:
                     break;
-                default:
-                    break;
             }
             return "OK";
-
         }
 
         public string DeleteDetail(DataRow detailDR, DataRow headerDR)
@@ -1668,8 +1695,6 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PO:
                             perfilPo.DeleteDetail(po, detailID);
                             break;
-                        default:
-                            break;
                     }
                     break;
                 case Perfiles.UPR:
@@ -1678,8 +1703,6 @@ namespace PurchaseDesktop.Helpers
                     perfilPr.DeleteDetail(pr, detailID);
                     break;
                 case Perfiles.VAL:
-                    break;
-                default:
                     break;
             }
             return "OK";
@@ -1733,16 +1756,9 @@ namespace PurchaseDesktop.Helpers
                                     details.NameProduct = newValue.ToString();
                                     perfilPo.UpdateDetail<OrderDetails>(details, po);
                                     break;
-
-
                             }
-
-                            break;
-                        default:
                             break;
                     }
-
-
                     break;
                 case Perfiles.UPR:
                     var pr = new RequisitionHeader().GetById(headerID);
@@ -1759,8 +1775,6 @@ namespace PurchaseDesktop.Helpers
                     }
                     break;
                 case Perfiles.VAL:
-                    break;
-                default:
                     break;
             }
             return "OK";
@@ -1814,6 +1828,7 @@ namespace PurchaseDesktop.Helpers
         {
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             var attachID = Convert.ToInt32(attachDR["attachID"]);
+            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -1821,18 +1836,32 @@ namespace PurchaseDesktop.Helpers
                 case Perfiles.BAS:
                     break;
                 case Perfiles.UPO:
-                    var po = new OrderHeader().GetById(headerID);
-                    if (po.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    File.Delete($"{configApp.FolderApp}{attachDR["FileName"]}");
-                    perfilPo.DeleteAttach(po, attachID);
+                    switch (td)
+                    {
+                        case TypeDocumentHeader.PR:
+                            return "Your profile does not allow you to complete this action.";
+                        case TypeDocumentHeader.PO:
+                            var po = new OrderHeader().GetById(headerID);
+                            if (po.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
+                            File.Delete($"{configApp.FolderApp}{attachDR["FileName"]}");
+                            perfilPo.DeleteAttach(po, attachID);
+                            break;
+                    }
                     break;
                 case Perfiles.UPR:
-                    //todo Saber si tiene acceso a la carpeta en el server: ds
-                    // DirectorySecurity ds = Directory.GetAccessControl(configApp.FolderApp);
-                    var pr = new RequisitionHeader().GetById(headerID);
-                    if (pr.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    File.Delete($"{configApp.FolderApp}{attachDR["FileName"]}");
-                    perfilPr.DeleteAttach<RequisitionHeader>(pr, attachID);
+                    switch (td)
+                    {
+                        case TypeDocumentHeader.PR:
+                            //todo Saber si tiene acceso a la carpeta en el server: ds
+                            // DirectorySecurity ds = Directory.GetAccessControl(configApp.FolderApp);
+                            var pr = new RequisitionHeader().GetById(headerID);
+                            if (pr.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
+                            File.Delete($"{configApp.FolderApp}{attachDR["FileName"]}");
+                            perfilPr.DeleteAttach<RequisitionHeader>(pr, attachID);
+                            break;
+                        case TypeDocumentHeader.PO:
+                            return "Your profile does not allow you to complete this action.";
+                    }
                     break;
                 case Perfiles.VAL:
                     break;

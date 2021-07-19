@@ -5,7 +5,59 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cbbf2263646d49aaa58d9a5dcce4af18" Name="Diagram1">
-        </Diagram>
+        <EntityTypeShape EntityType="PurchaseManagerModelo.Accounts" Width="1.5" PointX="5.25" PointY="3.125" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.Attaches" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.Companies" Width="1.5" PointX="6" PointY="27.625" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.ConfigApp" Width="1.5" PointX="7.75" PointY="1.5" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.Currencies" Width="1.5" PointX="3" PointY="17.25" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.Medidas" Width="1.5" PointX="5.25" PointY="12.875" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.OrderDelivery" Width="1.5" PointX="7.5" PointY="15.125" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.OrderDetails" Width="1.5" PointX="7.5" PointY="5.75" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.OrderHeader" Width="1.5" PointX="5.25" PointY="6.75" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.OrderHitos" Width="1.5" PointX="7.5" PointY="17.625" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.OrderNotes" Width="1.5" PointX="7.5" PointY="9.625" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.OrderStatus" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.RequisitionDetails" Width="1.5" PointX="10.5" PointY="14.875" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.RequisitionHeader" Width="1.5" PointX="8.25" PointY="25.75" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.RequisitionStatus" Width="1.5" PointX="6" PointY="25.375" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.SupplierBanks" Width="1.5" PointX="3" PointY="11.625" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.SupplierCountries" Width="1.5" PointX="0.75" PointY="9.875" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.Suppliers" Width="1.5" PointX="3" PointY="7.75" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.sysdiagrams" Width="1.5" PointX="9.75" PointY="1.5" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.Transactions" Width="1.5" PointX="10.5" PointY="8.25" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.TypeDocument" Width="1.5" PointX="3" PointY="14.875" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.UserCosts" Width="1.5" PointX="6" PointY="23.25" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.UserProfiles" Width="1.5" PointX="6" PointY="21.125" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.Users" Width="1.5" PointX="8.25" PointY="21.25" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.vOrderByMinTransaction" Width="1.5" PointX="11.75" PointY="1.5" />
+        <EntityTypeShape EntityType="PurchaseManagerModelo.vRequisitionByMinTransaction" Width="1.5" PointX="12.75" PointY="7.5" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_OrderDetails_Accounts" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_RequisitionDetails_Accounts" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_RequisitionHeader_Companies" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_OrderHeader_Currencies" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_OrderDetails_Medidas" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_RequisitionDetails_Medidas" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_OrderDelivery_OrderHeader" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_OrderDetails_OrderHeader" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_OrderHeader_OrderStatus" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_OrderHeader_Suppliers" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_OrderHeader_TypeDocument" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_OrderHitos_OrderHeader" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_OrderNotes_OrderHeader" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_RequisitionDetails_RequisitionHeader" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_RequisitionHeader_RequisitionStatus" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_RequisitionHeader_TypeDocument" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_RequisitionHeader_Users" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_SupplierBanks_SupplierCountries" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_Suppliers_SupplierCountries" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_Transactions_Users" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_Users_UserCosts" />
+        <AssociationConnector Association="PurchaseManagerModelo.FK_Users_UserProfiles" />
+        <AssociationConnector Association="PurchaseManagerModelo.AttachesOrders" />
+        <AssociationConnector Association="PurchaseManagerModelo.AttachesRequisitions" />
+        <AssociationConnector Association="PurchaseManagerModelo.TransactionsOrders" />
+        <AssociationConnector Association="PurchaseManagerModelo.TransactionsRequisitions" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
