@@ -159,7 +159,7 @@ namespace PurchaseDesktop.Helpers
             ComboBox.FillWithData(table, "StatuID", "Description");
         }
 
-        public void PintarGrid()
+        private void PintarGrid()
         {
             //! General
             Grid.BackColor = Color.FromArgb(37, 37, 38); // Negro de fondo
@@ -412,6 +412,7 @@ namespace PurchaseDesktop.Helpers
 
         public void CargarColumnasFPrincipal(Perfiles perfil)
         {
+            PintarGrid();
             iGCol iGCol;
             iGDropDownList cbotype = new iGDropDownList();
             // iGDropDownList cbocurrency = new iGDropDownList();
@@ -642,6 +643,7 @@ namespace PurchaseDesktop.Helpers
 
         public void CargarColumnasFDetail(Perfiles perfil, TypeDocumentHeader td)
         {
+            PintarGrid();
             iGCol iGCol;
             //! Cols     
             Grid.Header.Height = 20;
@@ -699,6 +701,7 @@ namespace PurchaseDesktop.Helpers
 
         public void CargarColumnasFAttach(Perfiles perfil)
         {
+            PintarGrid();
             iGCol iGCol;
             iGDropDownList cbotype = new iGDropDownList();
             DataTable tablePr;
@@ -749,6 +752,7 @@ namespace PurchaseDesktop.Helpers
 
         public void CargarColumnasFSupplier(Perfiles perfil)
         {
+            PintarGrid();
             iGCol iGCol;
             //! Cols     
             Grid.Header.Height = 20;
@@ -775,6 +779,7 @@ namespace PurchaseDesktop.Helpers
 
         public void CargarColumnasFHitos(Perfiles perfil)
         {
+            PintarGrid();
             iGCol iGCol;
             //! Cols     
             Grid.Header.Height = 20;
@@ -801,6 +806,7 @@ namespace PurchaseDesktop.Helpers
 
         public void CargarColumnasFNotes(Perfiles perfil)
         {
+            PintarGrid();
             iGCol iGCol;
             iGDropDownList cbotype = new iGDropDownList();
             DataTable tablePr;
@@ -849,6 +855,7 @@ namespace PurchaseDesktop.Helpers
 
         public void CargarColumnasFDelivery(Perfiles perfil)
         {
+            PintarGrid();
             iGCol iGCol;
 
             //! Cols     

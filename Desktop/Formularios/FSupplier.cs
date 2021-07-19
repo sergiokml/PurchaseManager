@@ -22,7 +22,7 @@ namespace PurchaseDesktop.Formularios
 
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
-        public iGRow CurRowPrincipal { get; set; }
+        public iGRow GuardarElPrevioCurrent { get; set; }
 
         public FSupplier(PerfilFachada rFachada, DataRow headerDR)
         {
@@ -75,7 +75,7 @@ namespace PurchaseDesktop.Formularios
             Grid.CustomDrawCellEllipsisButtonBackground += Grid_CustomDrawCellEllipsisButtonBackground;
             Grid.CustomDrawCellEllipsisButtonForeground += Grid_CustomDrawCellEllipsisButtonForeground;
             Grid.CellMouseDown += Grid_CellMouseDown;
-            Grid.CellMouseUp += Grid_CellMouseUp;
+            //Grid.CellMouseUp += Grid_CellMouseUp;
             Grid.CellEllipsisButtonClick += Grid_CellEllipsisButtonClick;
 
 
@@ -88,7 +88,7 @@ namespace PurchaseDesktop.Formularios
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                rFachada.DeleteSupplier(current["SupplierID"].ToString(), (FPrincipal)Owner);
+                rFachada.DeleteSupplier(current["SupplierID"].ToString());
                 Grid.Focus();
 
                 System.Windows.Forms.Cursor.Current = Cursors.Default;
@@ -110,7 +110,7 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
                     Grid.Rows[myRowIndex].Cells["nro"].Value = myRowIndex + 1;
-                    var s = Grid.Rows[myRowIndex].Cells["SupplierID"].Value;
+                    //! 
                     if (Current["SupplierID"] != DBNull.Value && Current["SupplierID"].ToString() == Grid.Rows[myRowIndex].Cells["SupplierID"].Value.ToString())
                     {
                         Grid.Rows[myRowIndex].EnsureVisible();
@@ -135,7 +135,7 @@ namespace PurchaseDesktop.Formularios
         private void Grid_ColDividerDoubleClick(object sender, TenTec.Windows.iGridLib.iGColDividerDoubleClickEventArgs e)
         {
 
-            Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
+            //Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
         }
 
         private void BtnCerrar_Click(object sender, EventArgs e)
@@ -218,9 +218,18 @@ namespace PurchaseDesktop.Formularios
 
         public void SetControles()
         {
-
-
-
+            //! Set Supplier 
+            if (Current["SupplierID"] != DBNull.Value)
+            {
+                for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
+                {
+                    if (TxtRut.Text.Trim() == Grid.Rows[myRowIndex].Cells["SupplierID"].Value.ToString())
+                    {
+                        Grid.SetCurRow(myRowIndex);
+                        Grid.Rows[myRowIndex].EnsureVisible();
+                    }
+                }
+            }
         }
 
         public iGrid GetGrid()
@@ -247,13 +256,12 @@ namespace PurchaseDesktop.Formularios
                 TxtEmail.Text = current["Email"].ToString();
                 TxtPhone.Text = current["Phone"].ToString();
                 TxtContact.Text = current["ContactName"].ToString();
-
             }
         }
 
         public void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e)
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e)
@@ -308,12 +316,13 @@ namespace PurchaseDesktop.Formularios
                 var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 if (current != null)
                 {
-                    rFachada.UpdateItem(current["SupplierID"], Current, "SupplierID", (FPrincipal)Owner);
+                    rFachada.UpdateItem(current["SupplierID"], Current, "SupplierID");
                     LlenarGrid();
                     ClearControles();
                     SetControles();
-                    //((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
-                    Close(); // Cerrar al seleccionar.
+                    ((FPrincipal)Owner).GetGrid().CurRow = GuardarElPrevioCurrent;
+                    //! Cerrar el Form al seleccionar el Cliente.
+                    Close();
                 }
             }
         }
@@ -336,32 +345,7 @@ namespace PurchaseDesktop.Formularios
                     ContactName = UCase.ToTitleCase(TxtContact.Text.Trim().ToLower()),
                     SupplierID = TxtRut.Text.Split('-')[0]
                 };
-
-                var resultado = rFachada.InsertSupplier(s);
-                if (resultado == "OK")
-                {
-                    LlenarGrid();
-                    ClearControles();
-                    SetControles();
-                    //! Set Supplier 
-                    if (Current["SupplierID"] != DBNull.Value)
-                    {
-                        var rut = Current["SupplierID"].ToString();
-                        for (int myRowIndex = 0; myRowIndex < Grid.Rows.Count; myRowIndex++)
-                        {
-                            if (s.SupplierID == Grid.Rows[myRowIndex].Cells["SupplierID"].Value.ToString())
-                            {
-                                Grid.SetCurRow(myRowIndex);
-                                Grid.Rows[myRowIndex].EnsureVisible();
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    rFachada.UpdateSupplier(s);
-                    ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);
-                }
+                rFachada.InsertSupplier(s, this);
             }
         }
     }

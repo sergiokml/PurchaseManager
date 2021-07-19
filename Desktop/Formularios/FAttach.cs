@@ -24,7 +24,7 @@ namespace PurchaseDesktop.Formularios
         public DataRow Current { get; set; }
         //public Users CurrentUser { get; set; }
         private string FilePath { get; set; }
-        public iGRow CurRowPrincipal { get; set; }
+        public iGRow GuardarElPrevioCurrent { get; set; }
 
 
         public FAttach(PerfilFachada rFachada, DataRow dr)
@@ -211,7 +211,7 @@ namespace PurchaseDesktop.Formularios
                 Attaches att = new Attaches
                 {
                     Description = UCase.ToTitleCase(TxtNameFile.Text.Trim().ToLower()),
-                    FileName = $"{Current["HeaderID"]}{@"\"}{Path.GetFileName(TxtPathFile.Text)}",
+                    FileName = $"{@"\"}{Path.GetFileName(TxtPathFile.Text)}",
                     Modifier = (byte)status
                 };
                 var resultado = rFachada.InsertAttach(att, Current, FilePath);
@@ -220,7 +220,6 @@ namespace PurchaseDesktop.Formularios
                     LlenarGrid();
                     ClearControles();
                     SetControles();
-
                 }
                 else
                 {
@@ -256,7 +255,7 @@ namespace PurchaseDesktop.Formularios
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
-                var resultado = rFachada.OpenAttach(current);
+                var resultado = rFachada.OpenAttach(current, Current);
                 if (resultado != "OK")
                 {
                     ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);

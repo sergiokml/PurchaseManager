@@ -108,6 +108,7 @@ namespace PurchaseDesktop.Profiles
                 return this.ToDataTable<Suppliers>(rContext.Suppliers.ToList());
             }
         }
+
         #endregion
 
         #region ItemHeader CRUD
@@ -284,7 +285,6 @@ namespace PurchaseDesktop.Profiles
                         doc.Transactions.Add(transaction);
                         rContext.SaveChanges();
                         trans.Commit();
-                        trans.Commit();
                     }
                     catch (Exception)
                     {
@@ -344,12 +344,11 @@ namespace PurchaseDesktop.Profiles
                     .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
                 };
                 rContext.OrderHeader.Attach(doc);
-                doc.Attaches.Remove(doc.Attaches.FirstOrDefault(c => c.AttachID == attachID));
+                rContext.Attaches.Remove(doc.Attaches.FirstOrDefault(c => c.AttachID == attachID));
                 doc.Transactions.Add(transaction);
                 rContext.SaveChanges();
             }
         }
-
 
         /// <summary>
         /// 
@@ -370,7 +369,8 @@ namespace PurchaseDesktop.Profiles
              .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
                 };
                 rContext.OrderHeader.Attach(doc);
-                rContext.Entry(doc.Attaches.FirstOrDefault(c => c.AttachID == item.AttachID)).CurrentValues.SetValues(item);
+                rContext.Entry(doc.Attaches
+                    .FirstOrDefault(c => c.AttachID == item.AttachID)).CurrentValues.SetValues(item);
                 doc.Transactions.Add(transaction);
                 rContext.SaveChanges();
             }
@@ -403,7 +403,6 @@ namespace PurchaseDesktop.Profiles
             };
             return null;
         }
-
 
         #region Supplier CRUD
 

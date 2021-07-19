@@ -21,7 +21,7 @@ namespace PurchaseDesktop.Formularios
         private readonly PerfilFachada rFachada;
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
-        public iGRow CurRowPrincipal { get; set; }
+        public iGRow GuardarElPrevioCurrent { get; set; }
 
         public FDetails(PerfilFachada rFachada, DataRow dr)
         {
@@ -111,7 +111,7 @@ namespace PurchaseDesktop.Formularios
                         //! Update Glosa
                         if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
                         {
-                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description", ((FPrincipal)Owner));
+                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
                         }
                         break;
                     case TypeDocumentHeader.PO:
@@ -137,7 +137,7 @@ namespace PurchaseDesktop.Formularios
                         //! Update Glosa
                         if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
                         {
-                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description", ((FPrincipal)Owner));
+                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
                         }
                         break;
                     default:
@@ -150,7 +150,7 @@ namespace PurchaseDesktop.Formularios
                     SetControles();
                     ((FPrincipal)Owner).LlenarGrid();
                     ((FPrincipal)Owner).SetControles();
-                    ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+                    ((FPrincipal)Owner).GetGrid().CurRow = GuardarElPrevioCurrent;
                 }
                 else
                 {
@@ -367,7 +367,7 @@ namespace PurchaseDesktop.Formularios
                 {
                     ((FPrincipal)Owner).LlenarGrid();
                     ((FPrincipal)Owner).SetControles();
-                    ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+                    ((FPrincipal)Owner).GetGrid().CurRow = GuardarElPrevioCurrent;
                     LlenarGrid();
                     ClearControles();
                     Grid.Focus();
@@ -431,13 +431,13 @@ namespace PurchaseDesktop.Formularios
             //! Update Glosa
             if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
             {
-                rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description", ((FPrincipal)Owner));
+                rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
             }
             if (resultado == "OK")
             {
                 ((FPrincipal)Owner).LlenarGrid();
                 ((FPrincipal)Owner).SetControles();
-                ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+                ((FPrincipal)Owner).GetGrid().CurRow = GuardarElPrevioCurrent;
                 LlenarGrid();
                 SetControles();
             }
@@ -551,8 +551,8 @@ namespace PurchaseDesktop.Formularios
         {
             if (!Equals(CboCurrency.SelectedValue, Current["CurrencyID"].ToString()))
             {
-                rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID", ((FPrincipal)Owner));
-                ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+                rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID");
+                ((FPrincipal)Owner).GetGrid().CurRow = GuardarElPrevioCurrent;
                 Current["CurrencyID"] = CboCurrency.SelectedValue;
                 LlenarGrid();
                 SetControles();
@@ -560,7 +560,7 @@ namespace PurchaseDesktop.Formularios
             //! Update Glosa
             else if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
             {
-                rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description", ((FPrincipal)Owner));
+                rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
             }
         }
     }

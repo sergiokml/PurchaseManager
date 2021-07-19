@@ -23,14 +23,14 @@ namespace PurchaseDesktop.Formularios
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public bool IsSending { get; set; }
         public DataRow Current { get; set; }
-        public iGRow CurRowPrincipal { get; set; }
+        public iGRow GuardarElPrevioCurrent { get; set; }
 
         #region Constructor
 
         public FPrincipal(PerfilFachada rFachada)
         {
             this.rFachada = rFachada;
-            rFachada.fPrincipal1 = this;
+            rFachada.Fprpal = this;
             InitializeComponent();
         }
         public FPrincipal()
@@ -123,7 +123,11 @@ namespace PurchaseDesktop.Formularios
             if (ValidarControles())
             {
                 rFachada.InsertItem((Companies)CboCompany.SelectedItem
-                    , (TypeDocument)CboType.SelectedItem, this);
+                    , (TypeDocument)CboType.SelectedItem);
+                if (Grid.Rows.Count < 1)
+                {
+                    return;
+                }
                 if (Grid.GroupObject.Count > 0)
                 {
                     Grid.CurRow = Grid.Rows[1];
@@ -156,11 +160,11 @@ namespace PurchaseDesktop.Formularios
             }
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             //! En caso de hacer update desde otra fila, no posicionándose en ella.
-            CurRowPrincipal = Grid.Rows[e.RowIndex];
+            GuardarElPrevioCurrent = Grid.Rows[e.RowIndex];
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key, this);
+            rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key);
             //! Al hacer update se pierde el foco:
-            Grid.CurRow = CurRowPrincipal;
+            Grid.CurRow = GuardarElPrevioCurrent;
             if (IsSending)
             {
                 e.Result = iGEditResult.Cancel;
@@ -233,29 +237,22 @@ namespace PurchaseDesktop.Formularios
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                rFachada.DeleteItem(current, this);
+                rFachada.DeleteItem(current);
                 Grid.Focus();
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                var resultado = rFachada.VerItemHtml(current);
-                if (resultado == "OK")
-                {
-                    //Msg("Opening File...", MsgProceso.Informacion);
-                    Grid.Focus();
-                }
-                else
-                {
-                    Msg(resultado, MsgProceso.Warning);
-                }
+                rFachada.VerItemHtml(current);
+                Grid.Focus();
             }
             else if (Grid.Cols["send"].Index == e.ColIndex)
             {
                 if (!IsSending)
                 {
                     System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                    await rFachada.SendItem(current, this);
+                    await rFachada.SendItem(current);
+                    Grid.Focus();
                 }
             }
             Grid.DrawAsFocused = false;
@@ -280,8 +277,8 @@ namespace PurchaseDesktop.Formularios
                 var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 if (current != null)
                 {
-                    rFachada.GridDobleClick(Current, this);
-                    Grid.CurRow = CurRowPrincipal;
+                    rFachada.GridDobleClick(Current);
+                    Grid.CurRow = GuardarElPrevioCurrent;
                 }
             }
             Grid.Focus();
@@ -326,7 +323,7 @@ namespace PurchaseDesktop.Formularios
             if (e.ColIndex > 0)
             {
                 Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-                CurRowPrincipal = Grid.CurRow;
+                GuardarElPrevioCurrent = Grid.CurRow;
                 if (e.Button == MouseButtons.Right)
                 {
                     Grid.SetCurCell(e.RowIndex, e.ColIndex);
@@ -338,8 +335,7 @@ namespace PurchaseDesktop.Formularios
         private async void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             Grid.DrawAsFocused = true;
-            await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name, this);
-            // Grid.CurRow = CurRowPrincipal;
+            await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name);
             Grid.Focus();
             Grid.DrawAsFocused = false;
         }
@@ -483,10 +479,7 @@ namespace PurchaseDesktop.Formularios
                 LblMsg.Image = null;
                 TimerMsg.Stop();
             }; TimerMsg.Start();
-
-
-            string Espaciosimage = "     ";
-            LblMsg.Text = $"{Espaciosimage}{msg}";
+            LblMsg.Text = $"{new string(' ', 10)}{msg}";
             LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
 
             switch (proceso)
@@ -515,6 +508,11 @@ namespace PurchaseDesktop.Formularios
 
         #region Open Formularios
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnDetails_Click(object sender, EventArgs e)
         {
             if (Grid.CurCell != null)
@@ -523,12 +521,16 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FDetails f = new FDetails(rFachada, current);
-                    rFachada.OPenDetailForm(f, this);
-
+                    rFachada.OPenDetailForm(f);
                 }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAttach_Click(object sender, EventArgs e)
         {
             if (Grid.CurCell != null)
@@ -537,20 +539,16 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FAttach f = new FAttach(rFachada, current);
-                    var resultado = rFachada.OpenAttachForm(f, this);
-                    if (resultado == "OK")
-                    {
-
-                    }
-                    else
-                    {
-                        Msg(resultado, MsgProceso.Warning);
-                    }
+                    rFachada.OpenAttachForm(f);
                 }
-
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSupplier_Click(object sender, EventArgs e)
         {
             if (Grid.CurCell != null)
@@ -559,20 +557,16 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FSupplier f = new FSupplier(rFachada, current);
-                    var resultado = rFachada.OpenSupplierForm(f, this);
-                    if (resultado == "OK")
-                    {
-
-                    }
-                    else
-                    {
-                        Msg(resultado, MsgProceso.Warning);
-                    }
+                    rFachada.OpenSupplierForm(f);
                 }
-
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnHitos_Click(object sender, EventArgs e)
         {
             if (Grid.CurCell != null)
@@ -581,20 +575,16 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FHitos f = new FHitos(rFachada, current);
-                    var resultado = rFachada.OpenHitosForm(f, this);
-                    if (resultado == "OK")
-                    {
-
-                    }
-                    else
-                    {
-                        Msg(resultado, MsgProceso.Warning);
-                    }
+                    rFachada.OpenHitosForm(f);
                 }
-
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnNotes_Click(object sender, EventArgs e)
         {
             if (Grid.CurCell != null)
@@ -603,17 +593,8 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FNotes f = new FNotes(rFachada, current);
-                    var resultado = rFachada.OpenNotesForm(f, this);
-                    if (resultado == "OK")
-                    {
-
-                    }
-                    else
-                    {
-                        Msg(resultado, MsgProceso.Warning);
-                    }
+                    rFachada.OpenNotesForm(f);
                 }
-
             }
         }
 
@@ -627,6 +608,12 @@ namespace PurchaseDesktop.Formularios
             f.ShowDialog(this);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnDelivery_Click(object sender, EventArgs e)
         {
             if (Grid.CurCell != null)
@@ -635,17 +622,8 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FDeliverys f = new FDeliverys(rFachada, current);
-                    var resultado = rFachada.OpenDeliveryForm(f, this);
-                    if (resultado == "OK")
-                    {
-
-                    }
-                    else
-                    {
-                        Msg(resultado, MsgProceso.Warning);
-                    }
+                    rFachada.OpenDeliveryForm(f);
                 }
-
             }
         }
 

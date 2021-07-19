@@ -30,54 +30,60 @@ namespace PurchaseDesktop.Helpers
         protected UserProfileUPR perfilPr;
         protected UserProfileUPO perfilPo;
         protected UserProfileVAL perfilVal;
+        protected UserProfilerADM perfilAdm;
+        protected UserProfileBAS perfilBas;
         private readonly Perfiles currentPerfil;
         private readonly TextInfo UCase = CultureInfo.InvariantCulture.TextInfo;
         private readonly ConfigApp configApp;
-        public FPrincipal fPrincipal1 { get; set; }
 
-        public PerfilFachada(UserProfileUPR upr, UserProfileUPO upo, UserProfileVAL val, Users user)
+        //! Objeto para no enviar el FPrincipal en cada Función
+        public FPrincipal Fprpal { get; set; }
+
+        public PerfilFachada(UserProfileUPR upr, UserProfileUPO upo, UserProfileVAL val, UserProfilerADM adm, UserProfileBAS bas, Users user)
         {
             configApp = new ConfigApp().GetConfigApp();
             perfilPr = upr;
             perfilPo = upo;
             perfilVal = val;
+            perfilAdm = adm;
+            perfilBas = bas;
             Enum.TryParse(user.ProfileID, out Perfiles p);
             currentPerfil = p;
             upr.CurrentUser = user;
             upo.CurrentUser = user;
             val.CurrentUser = user;
+            adm.CurrentUser = user;
+            bas.CurrentUser = user;
         }
 
         #region Cargar Controles y Acciones
 
         public void CargarGrid(iGrid grid, string form, DataRow headerDR)
         {
-
             switch (form)
             {
                 case "FPrincipal":
                     switch (currentPerfil)
                     {
                         case Perfiles.ADM:
+                            perfilAdm.Grid = grid;
+                            perfilAdm.CargarColumnasFPrincipal(Perfiles.UPO);
                             break;
                         case Perfiles.BAS:
+                            perfilPo.Grid = grid;
+                            perfilPo.CargarColumnasFPrincipal(Perfiles.UPO);
                             break;
                         case Perfiles.UPO:
                             perfilPo.Grid = grid;
-                            perfilPo.PintarGrid();
                             perfilPo.CargarColumnasFPrincipal(Perfiles.UPO);
                             break;
                         case Perfiles.UPR:
                             perfilPr.Grid = grid;
-                            perfilPr.PintarGrid();
                             perfilPr.CargarColumnasFPrincipal(Perfiles.UPR);
                             break;
                         case Perfiles.VAL:
                             perfilVal.Grid = grid;
-                            perfilVal.PintarGrid();
                             perfilVal.CargarColumnasFPrincipal(Perfiles.VAL);
-                            break;
-                        default:
                             break;
                     }
                     break;
@@ -86,8 +92,10 @@ namespace PurchaseDesktop.Helpers
                     switch (currentPerfil)
                     {
                         case Perfiles.ADM:
+                            perfilAdm.CargarColumnasFDetail(Perfiles.ADM, td);
                             break;
                         case Perfiles.BAS:
+                            perfilBas.CargarColumnasFDetail(Perfiles.BAS, td);
                             break;
                         case Perfiles.UPO:
                             perfilPo.CargarColumnasFDetail(Perfiles.UPO, td);
@@ -98,16 +106,16 @@ namespace PurchaseDesktop.Helpers
                         case Perfiles.VAL:
                             perfilVal.CargarColumnasFDetail(Perfiles.VAL, td);
                             break;
-                        default:
-                            break;
                     }
                     break;
                 case "FAttach":
                     switch (currentPerfil)
                     {
                         case Perfiles.ADM:
+                            perfilAdm.CargarColumnasFAttach(Perfiles.ADM);
                             break;
                         case Perfiles.BAS:
+                            perfilBas.CargarColumnasFAttach(Perfiles.BAS);
                             break;
                         case Perfiles.UPO:
                             perfilPo.CargarColumnasFAttach(Perfiles.UPO);
@@ -118,16 +126,16 @@ namespace PurchaseDesktop.Helpers
                         case Perfiles.VAL:
                             perfilVal.CargarColumnasFAttach(Perfiles.VAL);
                             break;
-                        default:
-                            break;
                     }
                     break;
                 case "FSupplier":
                     switch (currentPerfil)
                     {
                         case Perfiles.ADM:
+                            perfilAdm.CargarColumnasFSupplier(Perfiles.ADM);
                             break;
                         case Perfiles.BAS:
+                            perfilBas.CargarColumnasFSupplier(Perfiles.BAS);
                             break;
                         case Perfiles.UPO:
                             perfilPo.CargarColumnasFSupplier(Perfiles.UPO);
@@ -138,16 +146,16 @@ namespace PurchaseDesktop.Helpers
                         case Perfiles.VAL:
                             perfilVal.CargarColumnasFSupplier(Perfiles.VAL);
                             break;
-                        default:
-                            break;
                     }
                     break;
                 case "FHitos":
                     switch (currentPerfil)
                     {
                         case Perfiles.ADM:
+                            perfilAdm.CargarColumnasFHitos(Perfiles.ADM);
                             break;
                         case Perfiles.BAS:
+                            perfilBas.CargarColumnasFHitos(Perfiles.BAS);
                             break;
                         case Perfiles.UPO:
                             perfilPo.CargarColumnasFHitos(Perfiles.UPO);
@@ -158,16 +166,16 @@ namespace PurchaseDesktop.Helpers
                         case Perfiles.VAL:
                             perfilVal.CargarColumnasFHitos(Perfiles.VAL);
                             break;
-                        default:
-                            break;
                     }
                     break;
                 case "FNotes":
                     switch (currentPerfil)
                     {
                         case Perfiles.ADM:
+                            perfilAdm.CargarColumnasFNotes(Perfiles.ADM);
                             break;
                         case Perfiles.BAS:
+                            perfilBas.CargarColumnasFNotes(Perfiles.BAS);
                             break;
                         case Perfiles.UPO:
                             perfilPo.CargarColumnasFNotes(Perfiles.UPO);
@@ -178,16 +186,16 @@ namespace PurchaseDesktop.Helpers
                         case Perfiles.VAL:
                             perfilVal.CargarColumnasFNotes(Perfiles.VAL);
                             break;
-                        default:
-                            break;
                     }
                     break;
                 case "FDelivery":
                     switch (currentPerfil)
                     {
                         case Perfiles.ADM:
+                            perfilAdm.CargarColumnasFDelivery(Perfiles.ADM);
                             break;
                         case Perfiles.BAS:
+                            perfilBas.CargarColumnasFDelivery(Perfiles.BAS);
                             break;
                         case Perfiles.UPO:
                             perfilPo.CargarColumnasFDelivery(Perfiles.UPO);
@@ -198,102 +206,9 @@ namespace PurchaseDesktop.Helpers
                         case Perfiles.VAL:
                             perfilVal.CargarColumnasFDelivery(Perfiles.VAL);
                             break;
-                        default:
-                            break;
                     }
                     break;
             }
-
-
-
-
-            //switch (currentPerfil)
-            //{
-            //    case Perfiles.ADM:
-            //        break;
-            //    case Perfiles.BAS:
-            //        break;
-            //    case Perfiles.UPO:
-            //        perfilPo.Grid = grid;
-            //        perfilPo.PintarGrid();
-            //        switch (form)
-            //        {
-            //            case "FPrincipal":
-            //                perfilPo.CargarColumnasFPrincipal(Perfiles.UPO);
-            //                break;
-            //            case "FDetails":
-            //                Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            //                perfilPo.CargarColumnasFDetail(Perfiles.UPO, td);
-            //                break;
-            //            case "FAttach":
-            //                perfilPo.CargarColumnasFAttach(Perfiles.UPO);
-            //                break;
-            //            case "FSupplier":
-            //                perfilPo.CargarColumnasFSupplier(Perfiles.UPO);
-            //                break;
-            //            case "FHitos":
-            //                perfilPo.CargarColumnasFHitos(Perfiles.UPO);
-            //                break;
-            //            case "FNotes":
-            //                perfilPo.CargarColumnasFNotes(Perfiles.UPO);
-            //                break;
-            //        }
-            //        break;
-            //    case Perfiles.UPR:
-            //        perfilPr.Grid = grid;
-            //        perfilPr.PintarGrid();
-            //        switch (form)
-            //        {
-            //            case "FPrincipal":
-            //                perfilPr.CargarColumnasFPrincipal(Perfiles.UPR);
-            //                break;
-            //            case "FDetails":
-            //                Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            //                perfilPr.CargarColumnasFDetail(Perfiles.UPR, td);
-            //                break;
-            //            case "FAttach":
-            //                perfilPr.CargarColumnasFAttach(Perfiles.UPR);
-            //                break;
-            //            case "FSupplier":
-            //                perfilPr.CargarColumnasFSupplier(Perfiles.UPR);
-            //                break;
-            //            case "FHitos":
-            //                perfilPr.CargarColumnasFHitos(Perfiles.UPR);
-            //                break;
-            //            case "FNotes":
-            //                perfilPr.CargarColumnasFNotes(Perfiles.UPO);
-            //                break;
-            //        }
-            //        break;
-            //    case Perfiles.VAL:
-            //        perfilPr.Grid = grid;
-            //        perfilPr.PintarGrid();
-            //        switch (form)
-            //        {
-            //            case "FPrincipal":
-            //                perfilPr.CargarColumnasFPrincipal(Perfiles.VAL);
-            //                break;
-            //            case "FDetails":
-            //                Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            //                perfilPr.CargarColumnasFDetail(Perfiles.VAL, td);
-            //                break;
-            //            case "FAttach":
-            //                perfilPr.CargarColumnasFAttach(Perfiles.VAL);
-            //                break;
-            //            case "FSupplier":
-            //                perfilPr.CargarColumnasFSupplier(Perfiles.VAL);
-            //                break;
-            //            case "FHitos":
-            //                perfilPr.CargarColumnasFHitos(Perfiles.VAL);
-            //                break;
-            //            case "FNotes":
-            //                perfilPr.CargarColumnasFNotes(Perfiles.VAL);
-            //                break;
-            //        }
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
 
         public void CargarContextMenuStrip(ContextMenuStrip context, DataRow headerDR)
@@ -316,9 +231,6 @@ namespace PurchaseDesktop.Helpers
                     perfilPo.CtxMenu = context;
                     perfilPo.CtxMenu.Items.Clear();
                     perfilPo.LLenarMenuContext(Perfiles.VAL, headerDR);
-
-                    break;
-                default:
                     break;
             }
         }
@@ -328,8 +240,12 @@ namespace PurchaseDesktop.Helpers
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
+                    perfilAdm.Grid = grid;
+                    perfilAdm.CargarDatos(perfilAdm.CurrentUser, c1, c2, panelDash);
                     break;
                 case Perfiles.BAS:
+                    perfilBas.Grid = grid;
+                    perfilBas.CargarDatos(perfilBas.CurrentUser, c1, c2, panelDash);
                     break;
                 case Perfiles.UPO:
                     perfilPo.Grid = grid;
@@ -343,8 +259,6 @@ namespace PurchaseDesktop.Helpers
                     perfilVal.Grid = grid;
                     perfilVal.CargarDatos(perfilVal.CurrentUser, c1, c2, panelDash);
                     break;
-                default:
-                    break;
             }
         }
 
@@ -353,31 +267,29 @@ namespace PurchaseDesktop.Helpers
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
-                    break;
+                    return perfilAdm.CurrentUser;
                 case Perfiles.BAS:
-                    break;
+                    return perfilBas.CurrentUser;
                 case Perfiles.UPO:
                     return perfilPo.CurrentUser;
                 case Perfiles.UPR:
                     return perfilPr.CurrentUser;
                 case Perfiles.VAL:
                     return perfilVal.CurrentUser;
-                default:
-                    break;
             }
             return null;
         }
 
-        public string VerItemHtml(DataRow headerDR)
+        public void VerItemHtml(DataRow headerDR)
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.BAS:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.UPO:
                     switch (td)
                     {
@@ -385,7 +297,7 @@ namespace PurchaseDesktop.Helpers
                             var pr = new RequisitionHeader().GetById(headerID);
                             if (pr.RequisitionDetails.Count < 1)
                             {
-                                return "This Purchase Order does not contain Products or Services.";
+                                Fprpal.Msg("This Purchase Requisition does not contain Products or Services.", MsgProceso.Warning); return;
                             }
                             Process.Start(new HtmlManipulate(configApp)
                                 .ReemplazarDatos(headerDR, perfilPo.CurrentUser, pr));
@@ -394,23 +306,23 @@ namespace PurchaseDesktop.Helpers
                             var po = new OrderHeader().GetById(headerID);
                             if (po.OrderHitos.Count == 0)
                             {
-                                return "This Purchase Order does not contain a 'Hito'.";
+                                Fprpal.Msg("This Purchase Order does not contain a 'Hito'.", MsgProceso.Warning); return;
                             }
                             if (po.SupplierID == null)
                             {
-                                return "The Purchase Order does not contain a 'Supplier'.";
+                                Fprpal.Msg("The Purchase Order does not contain a 'Supplier'.", MsgProceso.Warning); return;
                             }
                             if (po.OrderDetails.Count <= 0)
                             {
-                                return "This Purchase Order does not contain Products or Services.";
+                                Fprpal.Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning); return;
                             }
                             if (po.CurrencyID == null)
                             {
-                                return "This Purchase Order does not contain a 'Currency'.";
+                                Fprpal.Msg("This Purchase Order does not contain a 'Currency'.", MsgProceso.Warning); return;
                             }
                             if (po.Net <= 0)
                             {
-                                return "This Purchase Order does not contain a 'Net'.";
+                                Fprpal.Msg("This Purchase Order does not contain a 'Net'.", MsgProceso.Warning); return;
                             }
 
                             var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po);
@@ -430,7 +342,7 @@ namespace PurchaseDesktop.Helpers
                             var pr = new RequisitionHeader().GetById(headerID);
                             if (pr.RequisitionDetails.Count < 1)
                             {
-                                return "This Purchase Order does not contain Products or Services.";
+                                Fprpal.Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning); return;
                             }
                             Process.Start(new HtmlManipulate(configApp)
                                 .ReemplazarDatos(headerDR, perfilPr.CurrentUser, pr));
@@ -439,7 +351,7 @@ namespace PurchaseDesktop.Helpers
                             //! User PR abre las PO que se hicieron desde sus PR
                             var po = new OrderHeader().GetById(headerID);
                             //TODO El estado evita que se abra PO en estado DRAFT, o sea sin SUPPLIER (Error en Html).
-                            if (po.StatusID < 2) { return "The 'status' of the Purchase Order is not allowed."; }
+                            if (po.StatusID < 2) { Fprpal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return; }
                             foreach (var item in new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po))
                             {
                                 Process.Start(item);
@@ -456,7 +368,7 @@ namespace PurchaseDesktop.Helpers
                             var pr = new RequisitionHeader().GetById(headerID);
                             if (pr.RequisitionDetails.Count < 1)
                             {
-                                return "This Purchase Order does not contain Products or Services.";
+                                Fprpal.Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning); return;
                             }
                             Process.Start(new HtmlManipulate(configApp)
                                 .ReemplazarDatos(headerDR, perfilVal.CurrentUser, pr));
@@ -469,25 +381,19 @@ namespace PurchaseDesktop.Helpers
                                 Process.Start(item);
                             }
                             break;
-                        default:
-                            break;
                     }
-
-                    break;
-                default:
                     break;
             }
-            return "OK";
         }
 
-        public async Task SendItem(DataRow headerDR, FPrincipal fPrincipal)
+        public async Task SendItem(DataRow headerDR)
         {
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             StringBuilder mensaje = new StringBuilder();
             mensaje.AppendLine($"The {headerDR["TypeDocumentHeader"]} N° {headerID} will be sent to your own inbox.");
             mensaje.AppendLine();
             mensaje.AppendLine("Are You Sure?");
-            var f = new FMensajes(fPrincipal);
+            var f = new FMensajes(Fprpal);
 
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             string path;
@@ -499,25 +405,25 @@ namespace PurchaseDesktop.Helpers
                     var pr = new RequisitionHeader().GetById(headerID);
                     if (pr.RequisitionDetails.Count == 0)
                     {
-                        fPrincipal.Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning); return;
+                        Fprpal.Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning); return;
                     }
                     f.Mensaje = mensaje;
                     f.ShowDialog();
                     if (f.Resultado == DialogResult.Cancel)
                     {
-                        fPrincipal.Msg("", MsgProceso.Empty);
-                        fPrincipal.IsSending = false; return;
+                        Fprpal.Msg("", MsgProceso.Empty);
+                        Fprpal.IsSending = false; return;
                     }
-                    fPrincipal.IsSending = true;
-                    fPrincipal.LblMsg.Text = string.Empty;
-                    fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                    fPrincipal.LblMsg.Image = Properties.Resources.loading;
+                    Fprpal.IsSending = true;
+                    Fprpal.LblMsg.Text = string.Empty;
+                    Fprpal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
+                    Fprpal.LblMsg.Image = Properties.Resources.loading;
 
                     path = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPr.CurrentUser, pr);
                     send = new SendEmailTo(configApp);
                     await send.SendEmail(path, "Purchase Manager: PR document ", perfilPr.CurrentUser);
-                    fPrincipal.Msg(send.MessageResult, MsgProceso.Send);
-                    fPrincipal.IsSending = false;
+                    Fprpal.Msg(send.MessageResult, MsgProceso.Send);
+                    Fprpal.IsSending = false;
                     break;
                 case TypeDocumentHeader.PO:
                     var po = new OrderHeader().GetById(headerID);
@@ -525,27 +431,27 @@ namespace PurchaseDesktop.Helpers
                     //TODO NO sirve ni para PO aunque esten en estado borrador y bien emitidas.
                     if (po.StatusID < 2)
                     {
-                        fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
+                        Fprpal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
                     }
                     f.Mensaje = mensaje;
-                    f.ShowDialog(fPrincipal);
+                    f.ShowDialog(Fprpal);
                     // if (f.Resultado == DialogResult.Cancel) { return "Operation Cancelled."; }
                     if (f.Resultado == DialogResult.Cancel)
                     {
-                        fPrincipal.Msg("", MsgProceso.Empty);
-                        fPrincipal.IsSending = false; return;
+                        Fprpal.Msg("", MsgProceso.Empty);
+                        Fprpal.IsSending = false; return;
                     }
-                    fPrincipal.IsSending = true;
-                    fPrincipal.LblMsg.Text = string.Empty;
-                    fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                    fPrincipal.LblMsg.Image = Properties.Resources.loading;
+                    Fprpal.IsSending = true;
+                    Fprpal.LblMsg.Text = string.Empty;
+                    Fprpal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
+                    Fprpal.LblMsg.Image = Properties.Resources.loading;
 
                     var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po);
                     var a = await new HtmlManipulate(configApp).ConvertHtmlToPdf(listaPath, headerID.ToString());
                     send = new SendEmailTo(configApp);
                     await send.SendEmail(a, $"Purchase Manager:  PO document", perfilPr.CurrentUser);
-                    fPrincipal.Msg(send.MessageResult, MsgProceso.Send);
-                    fPrincipal.IsSending = false;
+                    Fprpal.Msg(send.MessageResult, MsgProceso.Send);
+                    Fprpal.IsSending = false;
 
                     break;
                 default:
@@ -559,7 +465,7 @@ namespace PurchaseDesktop.Helpers
         /// </summary>
         /// <param name="headerDR"></param>
         /// <param name="fPrincipal"></param>
-        public void GridDobleClick(DataRow headerDR, FPrincipal fPrincipal)
+        public void GridDobleClick(DataRow headerDR)
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
@@ -569,47 +475,47 @@ namespace PurchaseDesktop.Helpers
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.BAS:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.UPO:
                     //! Update Status 1 o 2
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
+                            Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         case TypeDocumentHeader.PO:
                             po = new OrderHeader().GetById(headerID);
                             if (po.StatusID == 1)
                             {
                                 if (po.OrderDetails.Count == 0)
                                 {
-                                    fPrincipal
+                                    Fprpal
                                         .Msg("This Purchase Order does not contain Products or Services.", MsgProceso.Warning); return;
                                 }
                                 if (po.Net <= 0)
                                 {
-                                    fPrincipal
+                                    Fprpal
                                         .Msg("Net cannot be 'zero'.", MsgProceso.Warning); return;
                                 }
                                 if (Convert.ToInt32(headerDR["HitosCount"]) == 0)
                                 {
-                                    fPrincipal
+                                    Fprpal
                                         .Msg("This Purchase Order does not contain a 'Hito'.", MsgProceso.Warning); return;
                                 }
                                 if (po.Description == null)
                                 {
-                                    fPrincipal
+                                    Fprpal
                                         .Msg("Please enter 'Description'.", MsgProceso.Warning); return;
                                 }
                                 if (po.SupplierID == null)
                                 {
-                                    fPrincipal
+                                    Fprpal
                                         .Msg("Please enter 'Supplier'.", MsgProceso.Warning); return;
                                 }
                                 if (po.CurrencyID == null)
                                 {
-                                    fPrincipal
+                                    Fprpal
                                         .Msg("Please enter 'Currency'.", MsgProceso.Warning); return;
                                 }
                                 po.StatusID = 2;
@@ -622,12 +528,12 @@ namespace PurchaseDesktop.Helpers
                             }
                             if (res == 3) // Return 3
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("Update OK.", MsgProceso.Informacion); break;
                             }
                             else
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("ERROR_UPDATE", MsgProceso.Warning); return;
                             }
                     }
@@ -640,19 +546,19 @@ namespace PurchaseDesktop.Helpers
                             pr = new RequisitionHeader().GetById(headerID);
                             if (pr.RequisitionDetails.Count == 0)
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("This Purchase Requesition does not contain Products or Services.", MsgProceso.Warning); return;
                             }
                             if (pr.StatusID == 1)
                             {
                                 if (headerDR["Description"] == DBNull.Value)
                                 {
-                                    fPrincipal
+                                    Fprpal
                                         .Msg("Please enter 'Description'.", MsgProceso.Warning); return;
                                 }
                                 if (headerDR["UserPO"] == DBNull.Value)
                                 {
-                                    fPrincipal
+                                    Fprpal
                                         .Msg("Please enter 'UserPO'.", MsgProceso.Warning); return;
                                 }
                                 pr.StatusID = 2;
@@ -665,16 +571,16 @@ namespace PurchaseDesktop.Helpers
                             }
                             if (res == 3) // Return 3
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("Update OK.", MsgProceso.Informacion); break;
                             }
                             else
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("ERROR_UPDATE", MsgProceso.Warning); return;
                             }
                         case TypeDocumentHeader.PO:
-                            fPrincipal
+                            Fprpal
                                 .Msg("Your profile does not allow you to complete this action..", MsgProceso.Warning); return;
                     }
                     break;
@@ -693,7 +599,7 @@ namespace PurchaseDesktop.Helpers
                             }
                             else if (po.StatusID >= 3)
                             {
-                                fPrincipal.Msg("Your profile does not allow you to complete this action..", MsgProceso.Warning);
+                                Fprpal.Msg("Your profile does not allow you to complete this action..", MsgProceso.Warning);
                             }
 
                             break;
@@ -704,13 +610,13 @@ namespace PurchaseDesktop.Helpers
                 default:
                     break;
             }
-            fPrincipal.LlenarGrid();
-            fPrincipal.ClearControles();
-            fPrincipal.SetControles();
-            fPrincipal.CargarDashboard();
+            Fprpal.LlenarGrid();
+            Fprpal.ClearControles();
+            Fprpal.SetControles();
+            Fprpal.CargarDashboard();
         }
 
-        public async Task SeleccionarContextMenuStripAsync(DataRow headerDR, string action, FPrincipal fPrincipal)
+        public async Task SeleccionarContextMenuStripAsync(DataRow headerDR, string action)
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             RequisitionHeader pr;
@@ -720,10 +626,6 @@ namespace PurchaseDesktop.Helpers
             switch (action)
             {
                 case "CONVERTREQ":
-                    if (!Directory.Exists(configApp.FolderApp + headerID))
-                    {
-                        Directory.CreateDirectory(configApp.FolderApp + headerID);
-                    }
                     //! Crear una PO desde una PR
                     pr = new RequisitionHeader().GetById(headerID);
                     if (pr != null && pr.StatusID == 2)
@@ -756,20 +658,20 @@ namespace PurchaseDesktop.Helpers
                         pr.Attaches.ToList().RemoveAll(c => c.Modifier == 0);
                         foreach (var item in pr.Attaches.ToList())
                         {
-                            var sub = item.FileName.Substring(item.FileName.IndexOf('\\'));
+                            var sub = item.FileName;
                             if (!File.Exists($"{configApp.FolderApp}{po.OrderHeaderID}{sub}"))
                             {
-                                File.Copy($"{configApp.FolderApp}{item.FileName}", $"{configApp.FolderApp}{po.OrderHeaderID}{sub}", true);
+                                CopyFile($"{configApp.FolderApp}{pr.RequisitionHeaderID}{item.FileName}", $"{configApp.FolderApp}{po.OrderHeaderID}{sub}");
                                 //perfilPo.InsertAttach<OrderHeader>(item, po);
 
                             }
                         }
 
                         //TODO ESTO DEBE IR AL FINAL DE ESTE MÉTODO
-                        fPrincipal.LlenarGrid();
-                        fPrincipal.ClearControles();
-                        fPrincipal.SetControles();
-                        fPrincipal.CargarDashboard();
+                        Fprpal.LlenarGrid();
+                        Fprpal.ClearControles();
+                        Fprpal.SetControles();
+                        Fprpal.CargarDashboard();
                     }
                     break;
                 case "OPENREQ":
@@ -804,7 +706,7 @@ namespace PurchaseDesktop.Helpers
                     }
                     break;
                 case "SEND":
-                    if (!fPrincipal.IsSending)
+                    if (!Fprpal.IsSending)
                     {
                         po = new OrderHeader().GetById(headerID);
                         if (po.StatusID == 3)
@@ -815,17 +717,17 @@ namespace PurchaseDesktop.Helpers
                             mensaje.AppendLine($"Purchase Order Code N° {po.Code} (Status: {po.OrderStatus.Description})");
                             mensaje.AppendLine();
                             mensaje.AppendLine("Are You Sure?");
-                            var f = new FMensajes(fPrincipal)
+                            var f = new FMensajes(Fprpal)
                             {
                                 Mensaje = mensaje
                             };
-                            f.ShowDialog(fPrincipal);
+                            f.ShowDialog(Fprpal);
                             if (f.Resultado == DialogResult.OK)
                             {
-                                fPrincipal.IsSending = true;
-                                fPrincipal.LblMsg.Text = string.Empty;
-                                fPrincipal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
-                                fPrincipal.LblMsg.Image = Properties.Resources.loading;
+                                Fprpal.IsSending = true;
+                                Fprpal.LblMsg.Text = string.Empty;
+                                Fprpal.LblMsg.ImageAlign = ContentAlignment.MiddleLeft;
+                                Fprpal.LblMsg.Image = Properties.Resources.loading;
 
                                 //!PDF de la PO        
                                 var listaPath = new HtmlManipulate(configApp).ReemplazarDatos(headerDR, perfilPo.CurrentUser, po);
@@ -841,8 +743,8 @@ namespace PurchaseDesktop.Helpers
                                 po.StatusID = 4;
                                 perfilVal.UpdateItemHeader<OrderHeader>(po);
 
-                                fPrincipal.Msg(send.MessageResult, MsgProceso.Send);
-                                fPrincipal.IsSending = false;
+                                Fprpal.Msg(send.MessageResult, MsgProceso.Send);
+                                Fprpal.IsSending = false;
                             }
                         }
                     }
@@ -909,66 +811,76 @@ namespace PurchaseDesktop.Helpers
 
         #region Abrir Formularios
 
-        public void OPenDetailForm(FDetails fDetails, FPrincipal fPrincipal)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fDetails"></param>
+        public void OPenDetailForm(FDetails fDetails)
         {
             fDetails.ShowInTaskbar = false;
             fDetails.StartPosition = FormStartPosition.CenterParent;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.BAS:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.UPO:
                     perfilPo.Grid = fDetails.GetGrid();
-                    fDetails.CurRowPrincipal = fPrincipal.GetGrid().CurRow;
-                    perfilPo.PintarGrid();
-                    fDetails.ShowDialog(fPrincipal);
+                    fDetails.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fDetails.ShowDialog(Fprpal);
                     break;
                 case Perfiles.UPR:
                     perfilPr.Grid = fDetails.GetGrid();
-                    fDetails.CurRowPrincipal = fPrincipal.GetGrid().CurRow;
-                    perfilPr.PintarGrid();
-                    fDetails.ShowDialog(fPrincipal);
+                    fDetails.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fDetails.ShowDialog(Fprpal);
                     break;
                 case Perfiles.VAL:
-                    break;
-                default:
+                    perfilVal.Grid = fDetails.GetGrid();
+                    fDetails.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fDetails.ShowDialog(Fprpal);
                     break;
             }
         }
 
-        public string OpenAttachForm(FAttach fAttach, FPrincipal fPrincipal)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fAttach"></param>
+        public void OpenAttachForm(FAttach fAttach)
         {
             fAttach.ShowInTaskbar = false;
             fAttach.StartPosition = FormStartPosition.CenterParent;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.BAS:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.UPO:
                     perfilPo.Grid = fAttach.GetGrid();
-                    fAttach.CurRowPrincipal = fPrincipal.GetGrid().CurRow;
-                    perfilPo.PintarGrid();
-                    fAttach.ShowDialog(fPrincipal);
+                    fAttach.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fAttach.ShowDialog(Fprpal);
                     break;
                 case Perfiles.UPR:
                     perfilPr.Grid = fAttach.GetGrid();
-                    fAttach.CurRowPrincipal = fPrincipal.GetGrid().CurRow;
-                    perfilPr.PintarGrid();
-                    fAttach.ShowDialog(fPrincipal);
+                    fAttach.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fAttach.ShowDialog(Fprpal);
                     break;
                 case Perfiles.VAL:
-                    break;
-                default:
+                    perfilVal.Grid = fAttach.GetGrid();
+                    fAttach.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fAttach.ShowDialog(Fprpal);
                     break;
             }
-            return "OK";
         }
 
-        public string OpenSupplierForm(FSupplier fSupplier, FPrincipal fPrincipal)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fSupplier"></param>
+        public void OpenSupplierForm(FSupplier fSupplier)
         {
             fSupplier.ShowInTaskbar = false;
             fSupplier.StartPosition = FormStartPosition.CenterParent;
@@ -976,104 +888,106 @@ namespace PurchaseDesktop.Helpers
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.BAS:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.UPO:
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            return "Your profile does not allow you to complete this action.";
+                            Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         case TypeDocumentHeader.PO:
                             perfilPo.Grid = fSupplier.GetGrid();
-                            fSupplier.CurRowPrincipal = fPrincipal.GetGrid().CurRow;
-                            perfilPo.PintarGrid();
-                            fSupplier.ShowDialog(fPrincipal);
-                            break;
-                        default:
+                            fSupplier.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                            fSupplier.ShowDialog(Fprpal);
                             break;
                     }
                     break;
                 case Perfiles.UPR:
-                    return "Your profile does not allow you to complete this action.";
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.VAL:
-                    break;
-                default:
+                    perfilVal.Grid = fSupplier.GetGrid();
+                    fSupplier.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fSupplier.ShowDialog(Fprpal);
                     break;
             }
-            return "OK";
         }
 
-        public string OpenHitosForm(FHitos fHitos, FPrincipal fPrincipal)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fHitos"></param>
+        public void OpenHitosForm(FHitos fHitos)
         {
             fHitos.ShowInTaskbar = false;
             fHitos.StartPosition = FormStartPosition.CenterParent;
             Enum.TryParse(fHitos.Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.BAS:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.UPO:
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            return "Your profile does not allow you to complete this action.";
+                            Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         case TypeDocumentHeader.PO:
                             perfilPo.Grid = fHitos.GetGrid();
-                            fHitos.CurRowPrincipal = fPrincipal.GetGrid().CurRow;
-                            perfilPo.PintarGrid();
-                            fHitos.ShowDialog(fPrincipal);
-                            break;
-                        default:
+                            fHitos.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                            fHitos.ShowDialog(Fprpal);
                             break;
                     }
-
                     break;
                 case Perfiles.UPR:
-                    return "Your profile does not allow you to complete this action.";
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.VAL:
-                    break;
-                default:
+                    perfilVal.Grid = fHitos.GetGrid();
+                    fHitos.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fHitos.ShowDialog(Fprpal);
                     break;
             }
-            return "OK";
         }
 
-        public string OpenNotesForm(FNotes fNotes, FPrincipal fPrincipal)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fNotes"></param>
+        public void OpenNotesForm(FNotes fNotes)
         {
             fNotes.ShowInTaskbar = false;
             fNotes.StartPosition = FormStartPosition.CenterParent;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.BAS:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.UPO:
                     perfilPo.Grid = fNotes.GetGrid();
-                    fNotes.CurRowPrincipal = fPrincipal.GetGrid().CurRow;
-                    perfilPo.PintarGrid();
-                    fNotes.ShowDialog(fPrincipal);
+                    fNotes.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fNotes.ShowDialog(Fprpal);
                     break;
                 case Perfiles.UPR:
-                    return "Your profile does not allow you to complete this action.";
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.VAL:
-                    break;
-                default:
+                    perfilVal.Grid = fNotes.GetGrid();
+                    fNotes.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fNotes.ShowDialog(Fprpal);
                     break;
             }
-            return "OK";
         }
 
-        public string OpenDeliveryForm(FDeliverys fDelivery, FPrincipal fPrincipal)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fDelivery"></param>
+        public void OpenDeliveryForm(FDeliverys fDelivery)
         {
             fDelivery.ShowInTaskbar = false;
             fDelivery.StartPosition = FormStartPosition.CenterParent;
             Enum.TryParse(fDelivery.Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -1084,26 +998,22 @@ namespace PurchaseDesktop.Helpers
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            return "Your profile does not allow you to complete this action.";
+                            Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         case TypeDocumentHeader.PO:
                             perfilPo.Grid = fDelivery.GetGrid();
-                            fDelivery.CurRowPrincipal = fPrincipal.GetGrid().CurRow;
-                            perfilPo.PintarGrid();
-                            fDelivery.ShowDialog(fPrincipal);
-                            break;
-                        default:
+                            fDelivery.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                            fDelivery.ShowDialog(Fprpal);
                             break;
                     }
-
                     break;
                 case Perfiles.UPR:
-                    return "Your profile does not allow you to complete this action.";
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.VAL:
-                    break;
-                default:
+                    perfilVal.Grid = fDelivery.GetGrid();
+                    fDelivery.GuardarElPrevioCurrent = Fprpal.GetGrid().CurRow;
+                    fDelivery.ShowDialog(Fprpal);
                     break;
             }
-            return "OK";
         }
 
         #endregion
@@ -1278,21 +1188,21 @@ namespace PurchaseDesktop.Helpers
 
         #region Header CRUD
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="company"></param>
         /// <param name="type"></param>
-        /// <param name="fPrincipal"></param>
-        public void InsertItem(Companies company, TypeDocument type, FPrincipal fPrincipal)
+        public void InsertItem(Companies company, TypeDocument type)
         {
             int res = 0;
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.BAS:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.UPO:
                     var po = new OrderHeader
                     {
@@ -1315,23 +1225,23 @@ namespace PurchaseDesktop.Helpers
                     res = perfilPr.InsertItemHeader(pr);
                     break;
                 case Perfiles.VAL:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
 
             }
             if (res == 3) // Return 3
             {
-                fPrincipal
+                Fprpal
                     .Msg("Insert OK.", MsgProceso.Informacion);
             }
             else
             {
-                fPrincipal
+                Fprpal
                     .Msg("ERROR_INSERT", MsgProceso.Warning); return;
             }
-            fPrincipal.LlenarGrid();
-            fPrincipal.ClearControles();
-            fPrincipal.SetControles();
-            fPrincipal.CargarDashboard();
+            Fprpal.LlenarGrid();
+            Fprpal.ClearControles();
+            Fprpal.SetControles();
+            Fprpal.CargarDashboard();
         }
 
         /// <summary>
@@ -1340,8 +1250,7 @@ namespace PurchaseDesktop.Helpers
         /// <param name="newValue"></param>
         /// <param name="headerDR"></param>
         /// <param name="campo"></param>
-        /// <param name="fPrincipal"></param>
-        public void UpdateItem(object newValue, DataRow headerDR, string campo, FPrincipal fPrincipal)
+        public void UpdateItem(object newValue, DataRow headerDR, string campo)
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
@@ -1358,7 +1267,7 @@ namespace PurchaseDesktop.Helpers
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
+                            Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         case TypeDocumentHeader.PO:
                             switch (campo)
                             {
@@ -1366,7 +1275,7 @@ namespace PurchaseDesktop.Helpers
                                     po = new OrderHeader().GetById(headerID);
                                     if (po.StatusID >= 2)
                                     {
-                                        fPrincipal
+                                        Fprpal
                                             .Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
                                     }
                                     po.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
@@ -1376,20 +1285,20 @@ namespace PurchaseDesktop.Helpers
                                     po = new OrderHeader().GetById(headerID);
                                     if (po.StatusID >= 2)
                                     {
-                                        fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning);
-                                        fPrincipal.IsSending = true;
+                                        Fprpal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning);
+                                        Fprpal.IsSending = true;
                                         return;
                                     }
                                     po.Type = Convert.ToByte(newValue);
                                     res = perfilPo.UpdateItemHeader<OrderHeader>(po);
                                     break;
                                 case "Net":
-                                    fPrincipal.Msg("ERROR_UPDATE", MsgProceso.Warning); return;
+                                    Fprpal.Msg("ERROR_UPDATE", MsgProceso.Warning); return;
                                 case "SupplierID":
                                     po = new OrderHeader().GetById(headerID);
                                     if (po.StatusID >= 2)
                                     {
-                                        fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
+                                        Fprpal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
                                     }
                                     po.SupplierID = newValue.ToString();
                                     res = perfilPo.UpdateItemHeader<OrderHeader>(po);
@@ -1398,7 +1307,7 @@ namespace PurchaseDesktop.Helpers
                                     po = new OrderHeader().GetById(headerID);
                                     if (po.StatusID >= 2)
                                     {
-                                        fPrincipal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
+                                        Fprpal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
                                     }
                                     po.CurrencyID = newValue.ToString();
                                     res = perfilPo.UpdateItemHeader<OrderHeader>(po);
@@ -1406,11 +1315,11 @@ namespace PurchaseDesktop.Helpers
                             }
                             if (res == 3) // Return 3
                             {
-                                fPrincipal.Msg("Update OK.", MsgProceso.Informacion); break;
+                                Fprpal.Msg("Update OK.", MsgProceso.Informacion); break;
                             }
                             else
                             {
-                                fPrincipal.Msg("ERROR_UPDATE", MsgProceso.Warning); return;
+                                Fprpal.Msg("ERROR_UPDATE", MsgProceso.Warning); return;
                             }
                     }
                     break;
@@ -1424,7 +1333,7 @@ namespace PurchaseDesktop.Helpers
                                     pr = new RequisitionHeader().GetById(headerID);
                                     if (pr.StatusID >= 2)
                                     {
-                                        fPrincipal
+                                        Fprpal
                                             .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
                                     }
                                     pr.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
@@ -1434,19 +1343,19 @@ namespace PurchaseDesktop.Helpers
                                     pr = new RequisitionHeader().GetById(headerID);
                                     if (pr.StatusID >= 2)
                                     {
-                                        fPrincipal
+                                        Fprpal
                                             .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
                                     }
                                     pr.Type = Convert.ToByte(newValue);
                                     res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
                                     break;
                                 case "CurrencyID":
-                                    fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
+                                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                                 case "UserPO":
                                     pr = new RequisitionHeader().GetById(headerID);
                                     if (pr.StatusID >= 2)
                                     {
-                                        fPrincipal
+                                        Fprpal
                                             .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
                                     }
                                     pr.UserPO = newValue.ToString();
@@ -1455,26 +1364,26 @@ namespace PurchaseDesktop.Helpers
                             }
                             break;
                         case TypeDocumentHeader.PO:
-                            fPrincipal
+                            Fprpal
                                 .Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                     }
                     if (res == 3) // Return 3
                     {
-                        fPrincipal
+                        Fprpal
                             .Msg("Update OK.", MsgProceso.Informacion); break;
                     }
                     else
                     {
-                        fPrincipal
+                        Fprpal
                             .Msg("ERROR_UPDATE", MsgProceso.Warning); return;
                     }
                 case Perfiles.VAL:
                     break;
             }
-            fPrincipal.LlenarGrid();
-            fPrincipal.ClearControles();
-            fPrincipal.SetControles();
-            fPrincipal.CargarDashboard();
+            Fprpal.LlenarGrid();
+            Fprpal.ClearControles();
+            Fprpal.SetControles();
+            Fprpal.CargarDashboard();
         }
 
         /// <summary>
@@ -1482,14 +1391,14 @@ namespace PurchaseDesktop.Helpers
         /// </summary>
         /// <param name="headerDR"></param>
         /// <param name="fPrincipal"></param>
-        public void DeleteItem(DataRow headerDR, FPrincipal fPrincipal)
+        public void DeleteItem(DataRow headerDR)
         {
             Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
             StringBuilder mensaje = new StringBuilder();
             mensaje.AppendLine($"You are going to delete document N° {headerID}.");
             mensaje.AppendLine();
-            var f = new FMensajes(fPrincipal);
+            var f = new FMensajes(Fprpal);
             int res;
             switch (currentPerfil)
             {
@@ -1501,17 +1410,17 @@ namespace PurchaseDesktop.Helpers
                     switch (td)
                     {
                         case TypeDocumentHeader.PR:
-                            fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
+                            Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                         case TypeDocumentHeader.PO:
                             var po = new OrderHeader().GetById(headerID);
                             if (perfilPo.CurrentUser.UserID != headerDR["UserID"].ToString()) //! User ID viene de la vista.
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                             }
                             if (po.StatusID >= 2)
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
                             }
                             if (po.RequisitionHeaderID != null)
@@ -1548,12 +1457,12 @@ namespace PurchaseDesktop.Helpers
                                     }
                                 }
                                 catch (Exception) { return; }
-                                fPrincipal
+                                Fprpal
                                .Msg("Delete OK.", MsgProceso.Informacion); break;
                             }
                             else
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("ERROR_DELETE", MsgProceso.Warning); break; // En caso de error tiene que volver a cargarse la Grilla!
                             }
                     }
@@ -1564,18 +1473,18 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PR:
                             if (perfilPr.CurrentUser.UserID != headerDR["UserID"].ToString())
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                             }
                             var pr = new RequisitionHeader().GetById(headerID);
                             if (pr.StatusID >= 2)
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
                             }
                             mensaje.AppendLine("Are You Sure?");
                             f.Mensaje = mensaje;
-                            f.ShowDialog(fPrincipal);
+                            f.ShowDialog(Fprpal);
                             if (f.Resultado == DialogResult.Cancel)
                             {
                                 return;
@@ -1597,25 +1506,25 @@ namespace PurchaseDesktop.Helpers
                                     }
                                 }
                                 catch (Exception) { return; }
-                                fPrincipal
+                                Fprpal
                                .Msg("Delete OK.", MsgProceso.Informacion); break;
                             }
                             else
                             {
-                                fPrincipal
+                                Fprpal
                                     .Msg("ERROR_DELETE", MsgProceso.Warning); break;
                             }
                         case TypeDocumentHeader.PO:
-                            fPrincipal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
+                            Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                     }
                     break;
                 case Perfiles.VAL:
                     break;
             }
-            fPrincipal.LlenarGrid();
-            fPrincipal.ClearControles();
-            fPrincipal.SetControles();
-            fPrincipal.CargarDashboard();
+            Fprpal.LlenarGrid();
+            Fprpal.ClearControles();
+            Fprpal.SetControles();
+            Fprpal.CargarDashboard();
         }
 
         #endregion
@@ -1804,17 +1713,19 @@ namespace PurchaseDesktop.Helpers
                         return "The file you are trying to copy already exists on the server.";
                     }
                     perfilPo.InsertAttach<OrderHeader>(item, po);
-                    File.Copy(path, $"{configApp.FolderApp}{item.FileName}", true);
+                    //! Copiar el archivo en la carpeta
+                    CopyFile(path, $"{configApp.FolderApp}{headerID}{item.FileName}");
                     break;
                 case Perfiles.UPR:
                     var pr = new RequisitionHeader().GetById(headerID);
                     if (pr.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
-                    if (File.Exists($"{configApp.FolderApp}{item.FileName}"))
+                    if (File.Exists($"{configApp.FolderApp}{headerID}{item.FileName}"))
                     {
                         return "The file you are trying to copy already exists on the server.";
                     }
                     perfilPr.InsertAttach<RequisitionHeader>(item, pr);
-                    File.Copy(path, $"{configApp.FolderApp}{item.FileName}", false);
+                    //! Copiar el archivo en la carpeta
+                    CopyFile(path, $"{configApp.FolderApp}{headerID}{item.FileName}");
                     break;
                 case Perfiles.VAL:
                     break;
@@ -1822,6 +1733,31 @@ namespace PurchaseDesktop.Helpers
                     break;
             }
             return "OK";
+        }
+
+        private void DeleteFile(string path)
+        {
+            try
+            {
+                File.Delete(path);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        private void CopyFile(string source, string target)
+        {
+            try
+            {
+                File.Copy(source, target, true); //! True: sobre escribir el file
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public string DeleteAttach(DataRow attachDR, DataRow headerDR)
@@ -1843,7 +1779,8 @@ namespace PurchaseDesktop.Helpers
                         case TypeDocumentHeader.PO:
                             var po = new OrderHeader().GetById(headerID);
                             if (po.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                            File.Delete($"{configApp.FolderApp}{attachDR["FileName"]}");
+                            //! Borrar el archivo de la carpeta
+                            DeleteFile($"{configApp.FolderApp}{headerID}{attachDR["FileName"]}");
                             perfilPo.DeleteAttach(po, attachID);
                             break;
                     }
@@ -1856,7 +1793,8 @@ namespace PurchaseDesktop.Helpers
                             // DirectorySecurity ds = Directory.GetAccessControl(configApp.FolderApp);
                             var pr = new RequisitionHeader().GetById(headerID);
                             if (pr.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                            File.Delete($"{configApp.FolderApp}{attachDR["FileName"]}");
+                            //! Borrar el archivo de la carpeta
+                            DeleteFile($"{configApp.FolderApp}{headerID}{attachDR["FileName"]}");
                             perfilPr.DeleteAttach<RequisitionHeader>(pr, attachID);
                             break;
                         case TypeDocumentHeader.PO:
@@ -1869,11 +1807,12 @@ namespace PurchaseDesktop.Helpers
             return "OK";
         }
 
-        public string OpenAttach(DataRow attachDR)
+        public string OpenAttach(DataRow attachDR, DataRow headerDR)
         {
             try
             {
-                Process.Start($"{configApp.FolderApp}{attachDR["FileName"]}");
+                var headerID = Convert.ToInt32(headerDR["headerID"]);
+                Process.Start($"{configApp.FolderApp}{headerID}{attachDR["FileName"]}");
                 return "OK";
             }
             catch (Exception)
@@ -1887,7 +1826,6 @@ namespace PurchaseDesktop.Helpers
             var headerID = Convert.ToInt32(headerDR["HeaderID"]);
             var attachID = Convert.ToInt32(attachDR["AttachID"]);
             var att = new Attaches().GetByID(attachID);
-
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
@@ -1907,8 +1845,6 @@ namespace PurchaseDesktop.Helpers
                             att.Modifier = Convert.ToByte(newValue);
                             perfilPo.UpdateAttaches<OrderHeader>(att, po);
                             break;
-                        default:
-                            break;
                     }
                     break;
                 case Perfiles.UPR:
@@ -1925,14 +1861,9 @@ namespace PurchaseDesktop.Helpers
                             att.Modifier = Convert.ToByte(newValue);
                             perfilPr.UpdateAttaches<RequisitionHeader>(att, pr);
                             break;
-
-                        default:
-                            break;
                     }
                     break;
                 case Perfiles.VAL:
-                    break;
-                default:
                     break;
             }
             return "OK";
@@ -1942,33 +1873,38 @@ namespace PurchaseDesktop.Helpers
 
         #region Supplier CRUD
 
-        public string InsertSupplier(Suppliers item)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="fPrincipal"></param>
+        public void InsertSupplier(Suppliers item, FSupplier fSupplier)
         {
             switch (currentPerfil)
             {
                 case Perfiles.ADM:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.BAS:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.UPO:
-                    var res = perfilPo.InsertSupplier(item);
-                    if (res == 0)
+                    if (perfilPo.InsertSupplier(item) == 0)
                     {
-                        return "The record being inserted already exists in the table.";
+                        perfilPo.UpdateSupplier(item);
+                        Fprpal.Msg("The record being inserted already exists in the table.", MsgProceso.Warning); return;
                     }
                     break;
                 case Perfiles.UPR:
-
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
                 case Perfiles.VAL:
-                    break;
-                default:
-                    break;
+                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
             }
-            return "OK";
+            fSupplier.LlenarGrid();
+            fSupplier.SetControles();
+            fSupplier.ClearControles();
+            Fprpal.GetGrid().CurRow = fSupplier.GuardarElPrevioCurrent;
         }
 
-        public void DeleteSupplier(string headerID, FPrincipal fPrincipal)
+        public void DeleteSupplier(string headerID)
         {
             switch (currentPerfil)
             {
@@ -1980,7 +1916,7 @@ namespace PurchaseDesktop.Helpers
                     var res = perfilPo.DeleteSupplier(headerID);
                     if (res == 547)
                     {
-                        fPrincipal.Msg("It has associated data, it cannot be deleted.", MsgProceso.Empty);
+                        Fprpal.Msg("It has associated data, it cannot be deleted.", MsgProceso.Empty);
                     }
                     break;
                 case Perfiles.UPR:
@@ -1991,9 +1927,9 @@ namespace PurchaseDesktop.Helpers
                 default:
                     break;
             }
-            fPrincipal.LlenarGrid();
-            fPrincipal.ClearControles();
-            fPrincipal.SetControles();
+            Fprpal.LlenarGrid();
+            Fprpal.ClearControles();
+            Fprpal.SetControles();
         }
 
         public string UpdateSupplier(Suppliers item)

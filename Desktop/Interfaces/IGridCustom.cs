@@ -9,7 +9,7 @@ namespace PurchaseDesktop.Interfaces
     {
         DataRow Current { get; set; }
         iGrid GetGrid();
-        iGRow CurRowPrincipal { get; set; }
+        iGRow GuardarElPrevioCurrent { get; set; }
         void Grid_CellMouseDown(object sender, iGCellMouseDownEventArgs e);
         void Grid_CellMouseUp(object sender, iGCellMouseUpEventArgs e);
         void Grid_BeforeCommitEdit(object sender, iGBeforeCommitEditEventArgs e);

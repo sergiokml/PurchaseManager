@@ -29,7 +29,9 @@ namespace Desktop
                 //! Los Perfiles: 
                 UserProfileUPO perfilPo = new UserProfileUPO();
                 UserProfileUPR perfilPr = new UserProfileUPR();
-                UserProfileVAL perfilVal = new UserProfileVAL(new PurchaseManagerEntities());
+                UserProfileVAL perfilVal = new UserProfileVAL();
+                UserProfilerADM perfilAdm = new UserProfilerADM();
+                UserProfileBAS perfilBas = new UserProfileBAS();
                 Users user;
                 using (var contextDB = new PurchaseManagerEntities())
                 {
@@ -51,7 +53,7 @@ namespace Desktop
 
                 if (loginForm.UserSuccessfullyAuthenticated)
                 {
-                    PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, loginForm.UserDB);
+                    PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, perfilAdm, perfilBas, loginForm.UserDB);
                     FPrincipal f = new FPrincipal(facade);
                     Application.Run(f);
                 }

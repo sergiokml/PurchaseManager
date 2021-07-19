@@ -22,7 +22,7 @@ namespace PurchaseDesktop.Formularios
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
         public Users CurrentUser { get; set; }
-        public iGRow CurRowPrincipal { get; set; }
+        public iGRow GuardarElPrevioCurrent { get; set; }
 
         public FDeliverys(PerfilFachada rFachada, DataRow dr)
         {
@@ -270,7 +270,7 @@ namespace PurchaseDesktop.Formularios
                     SetControles();
                     ((FPrincipal)Owner).LlenarGrid();
                     ((FPrincipal)Owner).SetControles();
-                    ((FPrincipal)Owner).GetGrid().CurRow = CurRowPrincipal;
+                    ((FPrincipal)Owner).GetGrid().CurRow = GuardarElPrevioCurrent;
                 }
                 else
                 {

@@ -241,6 +241,8 @@
     <Compile Include="Profiles\PerfilUPO_.cs" />
     <Compile Include="Profiles\PerfilUPR_.cs" />
     <Compile Include="Profiles\PerfilVAL_.cs" />
+    <Compile Include="Profiles\UserProfileBAS.cs" />
+    <Compile Include="Profiles\UserProfilerADM.cs" />
     <Compile Include="Profiles\UserProfileUPO.cs" />
     <Compile Include="Profiles\UserProfileUPR.cs" />
     <Compile Include="Profiles\UserProfileVAL.cs" />

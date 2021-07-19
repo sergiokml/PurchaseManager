@@ -12,41 +12,18 @@ using PurchaseDesktop.Interfaces;
 
 namespace PurchaseDesktop.Profiles
 {
-
     public class UserProfileVAL : HFunctions, IPerfilActions
     {
-        private readonly PurchaseManagerEntities rContext;
         public Users CurrentUser { get; set; }
 
-        public UserProfileVAL(PurchaseManagerEntities rContext)
-        {
-            this.rContext = rContext;
-        }
-
+        #region Vistas
         public DataTable VistaFPrincipal()
         {
-            var l = rContext.vOrderByMinTransaction.Where(c => c.StatusID >= 2).OrderByDescending(c => c.DateLast).ToList();
-            return this.ToDataTable<vOrderByMinTransaction>(l);
-        }
-
-        public DataRow GetDataRow(TypeDocumentHeader headerTD, int headerID)
-        {
-            switch (headerTD)
+            using (var rContext = new PurchaseManagerEntities())
             {
-                case TypeDocumentHeader.PR:
-                    using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
-                    {
-                        List<vRequisitionByMinTransaction> l = rContext.vRequisitionByMinTransaction
-                      .Where(c => c.HeaderID == headerID)
-                      .OrderByDescending(c => c.DateLast).ToList();
-                        return this.ToDataTable<vRequisitionByMinTransaction>(l).Rows[0];
-                    }
-                case TypeDocumentHeader.PO:
-                    break;
-                default:
-                    break;
-            };
-            return null;
+                var l = rContext.vOrderByMinTransaction.Where(c => c.StatusID >= 2).OrderByDescending(c => c.DateLast).ToList();
+                return this.ToDataTable<vOrderByMinTransaction>(l);
+            }
         }
 
         public DataTable VistaFDetalles(TypeDocumentHeader headerTD, int headerID)
@@ -69,146 +46,83 @@ namespace PurchaseDesktop.Profiles
             throw new System.NotImplementedException();
         }
 
-        public void InsertPRHeader(RequisitionHeader item)
-        {
-            throw new System.NotImplementedException();
-        }
+        #endregion
 
-        public void InsertDetail<T>(T item, object headerID)
+        public DataRow GetDataRow(TypeDocumentHeader headerTD, int headerID)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void InsertAttach<T>(Attaches item, T header)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int UpdateItemHeader<T>(T item)
-        {
-            OrderHeader doc = item as OrderHeader;
-            Transactions transaction = new Transactions
+            switch (headerTD)
             {
-                UserID = CurrentUser.UserID,
-                DateTran = rContext.Database
-                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single(),
-                Event = Eventos.UPDATE_PO.ToString()
+                case TypeDocumentHeader.PR:
+                    using (PurchaseManagerEntities rContext = new PurchaseManagerEntities())
+                    {
+                        List<vRequisitionByMinTransaction> l = rContext.vRequisitionByMinTransaction
+                      .Where(c => c.HeaderID == headerID)
+                      .OrderByDescending(c => c.DateLast).ToList();
+                        return this.ToDataTable<vRequisitionByMinTransaction>(l).Rows[0];
+                    }
+                case TypeDocumentHeader.PO:
+                    break;
+                default:
+                    break;
             };
-            using (var rContext = new PurchaseManagerEntities())
-            {
-                using (DbContextTransaction trans = rContext.Database.BeginTransaction())
-                {
-                    rContext.OrderHeader.Attach(doc);
-                    rContext.Entry(doc).State = EntityState.Modified;
-                    doc.Transactions.Add(transaction);
-                    var res = rContext.SaveChanges();
-                    trans.Commit();
-                    return res;
-                }
-            }
+            return null;
         }
 
-        public void UpdateDetail<T>(T item, object header)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateAttaches<T>(T item, int headerID, int attachID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int DeleteItemHeader<T>(T item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void DeleteAttach(int headerID, int attachID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int InsertSupplier(Suppliers item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int DeleteSupplier(string headerID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void InsertHito(OrderHitos item, int headerID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateHito(OrderHitos item, int headerID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int DeleteHito(int headerID, int hitoID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public DataTable VistaFNotes(TypeDocumentHeader headerTD, int headerID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void InsertNote(OrderNotes item, int headerID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateNote(OrderNotes item, int headerID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int DeleteNote(int headerID, int noteID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateSupplier(Suppliers item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertDelivery(OrderDelivery item, int headerID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataTable VistaDelivery(TypeDocumentHeader headerTD, int headerID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int DeleteDelivery(int headerID, int deliverID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteDetail<T>(T item, int detailID)
-        {
-            throw new NotImplementedException();
-        }
+        #region ItemHeader CRUD
 
         public int InsertItemHeader<T>(T item)
         {
             throw new NotImplementedException();
         }
+        public int UpdateItemHeader<T>(T item)
+        {
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                Transactions transaction = new Transactions
+                {
+                    UserID = CurrentUser.UserID,
+                    DateTran = rContext.Database
+                    .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single(),
+                    Event = Eventos.UPDATE_PO.ToString()
+                };
+                OrderHeader doc = item as OrderHeader;
+                rContext.OrderHeader.Attach(doc);
+                rContext.Entry(doc).State = EntityState.Modified;
+                doc.Transactions.Add(transaction);
+                return rContext.SaveChanges();
+            }
+        }
+        public int DeleteItemHeader<T>(T item)
+        {
+            throw new System.NotImplementedException();
+        }
 
-        public void DeleteAttach<T>(T item, int attachID)
+        #endregion
+
+        #region Details CRUD
+        public void InsertDetail<T>(T item, object headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void UpdateDetail<T>(T item, object header)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void DeleteDetail<T>(T item, int detailID)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateAttaches<T>(T item, object headerID)
+
+        #endregion
+
+        #region Attach CRUD
+        public void InsertAttach<T>(Attaches item, T header)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteAttach<T>(T item, int attachID)
         {
             throw new NotImplementedException();
         }
@@ -217,15 +131,76 @@ namespace PurchaseDesktop.Profiles
         {
             throw new NotImplementedException();
         }
+        #endregion
 
-        public int DeleteFolder(string path)
+        #region Supplier CRUD
+        public int InsertSupplier(Suppliers item)
+        {
+            throw new System.NotImplementedException();
+        }
+        public int DeleteSupplier(string headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void UpdateSupplier(Suppliers item)
         {
             throw new NotImplementedException();
         }
 
-        public int DeleteFolder(int path)
+        #endregion
+
+        #region Hitos CRUD
+        public void InsertHito(OrderHitos item, int headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void UpdateHito(OrderHitos item, int headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+        public int DeleteHito(int headerID, int hitoID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        #endregion
+
+        #region Notes CRUD
+        public DataTable VistaFNotes(TypeDocumentHeader headerTD, int headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void InsertNote(OrderNotes item, int headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void UpdateNote(OrderNotes item, int headerID)
+        {
+            throw new System.NotImplementedException();
+        }
+        public int DeleteNote(int headerID, int noteID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion
+
+        #region Delivery CRUD
+        public void InsertDelivery(OrderDelivery item, int headerID)
         {
             throw new NotImplementedException();
         }
+        public DataTable VistaDelivery(TypeDocumentHeader headerTD, int headerID)
+        {
+            throw new NotImplementedException();
+        }
+        public int DeleteDelivery(int headerID, int deliverID)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
     }
 }

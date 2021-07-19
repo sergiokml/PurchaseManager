@@ -322,9 +322,9 @@ namespace PurchaseDesktop.Profiles
                .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
                 };
                 rContext.RequisitionHeader.Attach(doc);
-                doc.Attaches.Remove(doc.Attaches.FirstOrDefault(c => c.AttachID == attachID));
+                rContext.Attaches.Remove(doc.Attaches.FirstOrDefault(c => c.AttachID == attachID));
                 doc.Transactions.Add(transaction);
-                rContext.SaveChanges();
+                rContext.SaveChanges(); // Return 3
             }
         }
 
@@ -347,7 +347,8 @@ namespace PurchaseDesktop.Profiles
                     .SqlQuery<DateTime>("select convert(datetime2,GETDATE())").Single()
                 };
                 rContext.RequisitionHeader.Attach(doc);
-                rContext.Entry(doc.Attaches.FirstOrDefault(c => c.AttachID == item.AttachID)).CurrentValues.SetValues(item);
+                rContext.Entry(doc.Attaches
+                    .FirstOrDefault(c => c.AttachID == item.AttachID)).CurrentValues.SetValues(item);
                 doc.Transactions.Add(transaction);
                 rContext.SaveChanges();
             }
@@ -374,7 +375,11 @@ namespace PurchaseDesktop.Profiles
             };
             return null;
         }
+
+
         #region Supplier CRUD
+
+
         public int InsertSupplier(Suppliers item)
         {
             throw new NotImplementedException();
