@@ -85,7 +85,7 @@ namespace PurchaseDesktop.Formularios
             SetControles();
 
             //! Banner
-            // string s = await rFachada.CargarBanner();
+            // string s = await rFachada.FachadaBanner.CargarBanner();
             //try
             //{
             //    WBrowserBanner.Navigate(s);
@@ -342,7 +342,7 @@ namespace PurchaseDesktop.Formularios
         private async void CtxMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             Grid.DrawAsFocused = true;
-            await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name);
+            await rFachada.FachadaActions.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name);
             Grid.CurRow = GuardarElPrevioCurrent;
             Grid.Focus();
             Grid.DrawAsFocused = false;

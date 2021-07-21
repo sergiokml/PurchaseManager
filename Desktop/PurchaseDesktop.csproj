@@ -164,6 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fachadas\FachadaActions.cs" />
     <Compile Include="Fachadas\FachadaAttach.cs" />
     <Compile Include="Fachadas\FachadaBanner.cs" />
     <Compile Include="Fachadas\FachadaGraficos.cs" />

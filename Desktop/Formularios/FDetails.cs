@@ -39,7 +39,7 @@ namespace PurchaseDesktop.Formularios
         {
             Icon = Properties.Resources.icons8_survey;
             //! Grid Principal
-            rFachada.CargarGrid(Grid);
+            rFachada.FachadaGrid.CargarGrid(Grid);
             LlenarGrid();
             SetControles();
 
@@ -177,7 +177,7 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[i].Cells["nro"].Value = i + 1;
                 }
-                rFachada.FormatearGrid();
+                rFachada.FachadaGrid.FormatearGrid();
                 Grid.Refresh();
             }
             catch (Exception)

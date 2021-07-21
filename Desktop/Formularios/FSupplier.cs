@@ -50,7 +50,7 @@ namespace PurchaseDesktop.Formularios
             //CboCountries.ValueMember = "TypeAccount";
 
             //! Grid Principal
-            rFachada.CargarGrid(Grid);
+            rFachada.FachadaGrid.CargarGrid(Grid);
             LlenarGrid();
 
 

@@ -117,7 +117,7 @@ namespace PurchaseDesktop.Formularios
             Icon = Properties.Resources.icons8_survey;
             SetControles();
             //! Grid Principal
-            rFachada.CargarGrid(Grid);
+            rFachada.FachadaGrid.CargarGrid(Grid);
             LlenarGrid();
 
             //! Eventos
