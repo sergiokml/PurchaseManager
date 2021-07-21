@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Data;
 
-using PurchaseData.DataModel;
-
 using PurchaseDesktop.Interfaces;
 
-namespace PurchaseDesktop.Helpers
+using static PurchaseDesktop.Helpers.HFunctions;
+
+namespace PurchaseDesktop.Fachadas
 {
     //! Estos métodos no se invocan si no se abren los respectivos Form.
-    public class FachadaViewForm : HFunctions
+    public class FachadaViewForm
     {
-        public EPerfiles CurrentPerfil { get; set; }
-
         public IPerfilActions PerfilActions { get; set; }
 
-        public FachadaViewForm(Users user, IPerfilActions perfilActions)
+        public FachadaViewForm(IPerfilActions perfilActions)
         {
-            Enum.TryParse(user.ProfileID, out EPerfiles p);
-            CurrentPerfil = p;
             PerfilActions = perfilActions;
         }
 

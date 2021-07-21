@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 using PurchaseData.DataModel;
 
-using PurchaseDesktop.Helpers;
+using PurchaseDesktop.Fachadas;
 using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 using PurchaseData.DataModel;
 
-using PurchaseDesktop.Helpers;
+using PurchaseDesktop.Fachadas;
 using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
@@ -31,7 +31,8 @@ namespace PurchaseDesktop.Formularios
         public FPrincipal(PerfilFachada rFachada)
         {
             this.rFachada = rFachada;
-            //rFachada.Fprpal = this;
+            rFachada.FachadaHeader.Fprpal = this;
+            rFachada.FachadaOpenForm.Fprpal = this;
             InitializeComponent();
         }
         //public FPrincipal(PerfilFachada rFachada)
@@ -46,7 +47,7 @@ namespace PurchaseDesktop.Formularios
         #region Métodos Privados
         public void CargarDashboard()
         {
-            rFachada.CargarDashBoard(Grid, PieChart1, PieChart2, PanelDash);
+            rFachada.FachadaControls.CargarDashBoard(Grid, PieChart1, PieChart2, PanelDash);
         }
 
         private async void FPrincipal_Load(object sender, EventArgs e)
@@ -83,15 +84,15 @@ namespace PurchaseDesktop.Formularios
             SetControles();
 
             //! Banner
-            string s = await rFachada.CargarBanner();
-            try
-            {
-                WBrowserBanner.Navigate(s);
-            }
-            catch (Exception)
-            {
-                Msg(s, MsgProceso.Error);
-            }
+            // string s = await rFachada.CargarBanner();
+            //try
+            //{
+            //    WBrowserBanner.Navigate(s);
+            //}
+            //catch (Exception)
+            //{
+            //    Msg(s, MsgProceso.Error);
+            //}
             Timer TimerMsg = new Timer
             {
                 Interval = 10 // No eliminar!
@@ -126,7 +127,7 @@ namespace PurchaseDesktop.Formularios
         {
             if (ValidarControles())
             {
-                rFachada.InsertItem((Companies)CboCompany.SelectedItem
+                rFachada.FachadaHeader.InsertItem((Companies)CboCompany.SelectedItem
                     , (TypeDocument)CboType.SelectedItem);
                 if (Grid.Rows.Count < 1)
                 {

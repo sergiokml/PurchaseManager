@@ -164,6 +164,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fachadas\FachadaControls.cs" />
+    <Compile Include="Fachadas\FachadaHeader.cs" />
     <Compile Include="Formularios\FConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,12 +233,12 @@
       <DependentUpon>FSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Enums.cs" />
-    <Compile Include="Helpers\FachadaOpenForm.cs" />
-    <Compile Include="Helpers\FachadaViewForm.cs" />
+    <Compile Include="Fachadas\FachadaOpenForm.cs" />
+    <Compile Include="Fachadas\FachadaViewForm.cs" />
     <Compile Include="Helpers\HDashBoardFunctions.cs" />
     <Compile Include="Interfaces\ExtendsPerfilActions.cs" />
     <Compile Include="Helpers\HGridFunctions.cs" />
-    <Compile Include="Helpers\PerfilFachada.cs" />
+    <Compile Include="Fachadas\PerfilFachada.cs" />
     <Compile Include="Interfaces\IControles.cs" />
     <Compile Include="Interfaces\IGridCustom.cs" />
     <Compile Include="Interfaces\IPerfilActions.cs" />

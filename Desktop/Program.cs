@@ -6,8 +6,8 @@ using System.Windows.Forms;
 
 using PurchaseData.DataModel;
 
+using PurchaseDesktop.Fachadas;
 using PurchaseDesktop.Formularios;
-using PurchaseDesktop.Helpers;
 
 namespace Desktop
 {
@@ -47,8 +47,7 @@ namespace Desktop
                     if (config != null)
                     {
                         PerfilFachada facade = new PerfilFachada(loginForm.UserDB, config);
-                        var f = facade.FachadaOpenForm.OpenPrincipalForm(facade);
-                        facade.Fprpal = f;
+                        FPrincipal f = facade.FachadaOpenForm.OpenPrincipalForm(facade);
                         Application.Run(f);
                     }
                 }
@@ -197,7 +196,7 @@ namespace Desktop
 
         //}
 
-        public static bool CheckForInternetConnection(int timeoutMs = 10000, string url = null)
+        private static bool CheckForInternetConnection(int timeoutMs = 10000, string url = null)
         {
             try
             {

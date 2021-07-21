@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Windows.Forms;
 
-using PurchaseData.DataModel;
-
 using PurchaseDesktop.Formularios;
+using PurchaseDesktop.Interfaces;
 
 using static PurchaseDesktop.Helpers.HFunctions;
 
-namespace PurchaseDesktop.Helpers
+namespace PurchaseDesktop.Fachadas
 {
     public class FachadaOpenForm
     {
-        public FachadaOpenForm(Users user)
-        {
-            Enum.TryParse(user.ProfileID, out EPerfiles p);
-            CurrentPerfil = p;
-        }
-
         public FPrincipal Fprpal { get; set; }
         public EPerfiles CurrentPerfil { get; set; }
+        public IPerfilActions PerfilActions { get; set; }
+
+        public FachadaOpenForm(IPerfilActions perfilActions)
+        {
+            PerfilActions = perfilActions;
+            Enum.TryParse(perfilActions.CurrentUser.ProfileID, out EPerfiles p);
+            CurrentPerfil = p;
+        }
 
         public FPrincipal OpenPrincipalForm(PerfilFachada facade)
         {
@@ -26,6 +27,8 @@ namespace PurchaseDesktop.Helpers
             {
                 StartPosition = FormStartPosition.CenterScreen
             };
+            //facade.FachadaHeader.Fprpal = Fprpal;
+            //facade.FachadaOpenForm.Fprpal = Fprpal;
             return Fprpal;
         }
 

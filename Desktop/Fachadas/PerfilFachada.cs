@@ -10,23 +10,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Bunifu.Charts.WinForms.ChartTypes;
-
 using PurchaseData.DataModel;
 using PurchaseData.Helpers;
 
 using PurchaseDesktop.Formularios;
+using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Perfiles;
 
 using TenTec.Windows.iGridLib;
 
-namespace PurchaseDesktop.Helpers
+namespace PurchaseDesktop.Fachadas
 {
     public class PerfilFachada : HFunctions
     {
         public FachadaOpenForm FachadaOpenForm { get; set; }
         public FachadaViewForm FachadaViewForm { get; set; }
-
+        public FachadaHeader FachadaHeader { get; set; }
+        public FachadaControls FachadaControls { get; set; }
 
 
         protected UserProfileUPR perfilPr;
@@ -39,7 +39,6 @@ namespace PurchaseDesktop.Helpers
         public EPerfiles CurrentPerfil { get; set; }
         // public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
 
-        //public IFunctions MyProperty { get; set; }
 
         //! Objeto para no enviar el FPrincipal en cada Función, se inicia en el ctor de FPrincipal
         public FPrincipal Fprpal { get; set; }
@@ -47,31 +46,46 @@ namespace PurchaseDesktop.Helpers
         public PerfilFachada(Users user, ConfigApp configApp)
         {
             ConfigApp = configApp;
-            perfilPr = new UserProfileUPR(user);
-            perfilPo = new UserProfileUPO(user);
-            perfilVal = new UserProfileVAL(user);
-            perfilAdm = new UserProfilerADM(user);
-            perfilBas = new UserProfileBAS(user);
             Enum.TryParse(user.ProfileID, out EPerfiles p);
             CurrentPerfil = p;
-            //MyProperty  = new FunctionsGrid();
 
-            // TODO ACÁ DEBO HACER UNA "FACTORÍA" QUE CREA CLASES:
+            // TODO ACÁ DEBO HACER UNA "FACTORÍA" QUE CREA CLASES:            
             switch (CurrentPerfil)
             {
                 case EPerfiles.ADM:
+                    perfilAdm = new UserProfilerADM(user); // Usar tambien lo mismo!!!!!!
+                    FachadaOpenForm = new FachadaOpenForm(perfilAdm);
+                    FachadaViewForm = new FachadaViewForm(perfilAdm);
+                    FachadaHeader = new FachadaHeader(perfilAdm);
+                    FachadaControls = new FachadaControls(perfilAdm);
                     break;
                 case EPerfiles.BAS:
+                    perfilBas = new UserProfileBAS(user);
+                    FachadaOpenForm = new FachadaOpenForm(perfilBas);
+                    FachadaViewForm = new FachadaViewForm(perfilBas);
+                    FachadaHeader = new FachadaHeader(perfilBas);
+                    FachadaControls = new FachadaControls(perfilBas);
                     break;
                 case EPerfiles.UPO:
-                    FachadaOpenForm = new FachadaOpenForm(user);
-                    FachadaViewForm = new FachadaViewForm(user, perfilPo);
+                    perfilPo = new UserProfileUPO(user);
+                    FachadaOpenForm = new FachadaOpenForm(perfilPo);
+                    FachadaViewForm = new FachadaViewForm(perfilPo);
+                    FachadaHeader = new FachadaHeader(perfilPo);
+                    FachadaControls = new FachadaControls(perfilPo);
                     break;
                 case EPerfiles.UPR:
-                    FachadaOpenForm = new FachadaOpenForm(user);
-                    FachadaViewForm = new FachadaViewForm(user, perfilPr);
+                    perfilPr = new UserProfileUPR(user);
+                    FachadaOpenForm = new FachadaOpenForm(perfilPr);
+                    FachadaViewForm = new FachadaViewForm(perfilPr);
+                    FachadaHeader = new FachadaHeader(perfilPr);
+                    FachadaControls = new FachadaControls(perfilPr);
                     break;
                 case EPerfiles.VAL:
+                    perfilVal = new UserProfileVAL(user);
+                    FachadaOpenForm = new FachadaOpenForm(perfilVal);
+                    FachadaViewForm = new FachadaViewForm(perfilVal);
+                    FachadaHeader = new FachadaHeader(perfilVal);
+                    FachadaControls = new FachadaControls(perfilVal);
                     break;
                 default:
                     break;
@@ -117,10 +131,7 @@ namespace PurchaseDesktop.Helpers
 
         #endregion
 
-        public void CargarDashBoard(iGrid grid, BunifuPieChart c1, BunifuPieChart c2, Panel panelDash)
-        {
-            CargarDatos(perfilAdm.CurrentUser, c1, c2, panelDash);
-        }
+
 
         #region Cargar Controles y Acciones
 
@@ -719,81 +730,10 @@ namespace PurchaseDesktop.Helpers
 
         #endregion
 
-
-
-        #region Vistas Formularios
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #endregion
-
         #region Header CRUD
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="company"></param>
-        /// <param name="type"></param>
-        public void InsertItem(Companies company, TypeDocument type)
-        {
-            int res = 0;
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
-                case EPerfiles.BAS:
-                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
-                case EPerfiles.UPO:
-                    var po = new OrderHeader
-                    {
-                        Type = type.TypeID,
-                        StatusID = 1,
-                        Net = 0,
-                        Exent = 0,
-                        CompanyID = company.CompanyID,
-                        Discount = 0
-                    };
-                    res = perfilPo.InsertItemHeader(po);
-                    break;
-                case EPerfiles.UPR:
-                    var pr = new RequisitionHeader
-                    {
-                        Type = type.TypeID,
-                        CompanyID = company.CompanyID,
-                        StatusID = 1
-                    };
-                    res = perfilPr.InsertItemHeader(pr);
-                    break;
-                case EPerfiles.VAL:
-                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
 
-            }
-            if (res == 3) // Return 3
-            {
-                Fprpal
-                    .Msg("Insert OK.", MsgProceso.Informacion);
-            }
-            else
-            {
-                Fprpal
-                    .Msg("ERROR_INSERT", MsgProceso.Warning); return;
-            }
-            Fprpal.LlenarGrid();
-            Fprpal.ClearControles();
-            Fprpal.SetControles();
-            Fprpal.CargarDashboard();
-        }
 
         /// <summary>
         /// 
