@@ -107,7 +107,7 @@ namespace PurchaseDesktop.Formularios
                             MedidaID = ((Medidas)CboMedidas.SelectedItem).MedidaID
 
                         };
-                        resultado = rFachada.InsertDetail(rd, Current, this);
+                        resultado = rFachada.FachadaDetails.InsertDetail(rd, Current, this);
                         //! Update Glosa
                         if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
                         {
@@ -133,7 +133,7 @@ namespace PurchaseDesktop.Formularios
                         {
                             od.IsExent = false;
                         }
-                        resultado = rFachada.InsertDetail(od, Current, this);
+                        resultado = rFachada.FachadaDetails.InsertDetail(od, Current, this);
                         //! Update Glosa
                         if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
                         {
@@ -369,7 +369,7 @@ namespace PurchaseDesktop.Formularios
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                var resultado = rFachada.DeleteDetail(current, Current);
+                var resultado = rFachada.FachadaDetails.DeleteDetail(current, Current);
                 if (resultado == "OK")
                 {
                     ((FPrincipal)Owner).LlenarGrid();
@@ -434,7 +434,7 @@ namespace PurchaseDesktop.Formularios
             //! Update solo si cambió el dato.
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            var resultado = rFachada.UpdateDetail(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key, ChkExent.Checked);
+            var resultado = rFachada.FachadaDetails.UpdateDetail(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key, ChkExent.Checked);
             //! Update Glosa
             if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
             {

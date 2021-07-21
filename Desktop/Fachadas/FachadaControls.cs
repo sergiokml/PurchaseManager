@@ -8,9 +8,11 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
+using static PurchaseDesktop.Helpers.HFunctions;
+
 namespace PurchaseDesktop.Fachadas
 {
-    public class FachadaControls : HFunctions
+    public class FachadaControls : HDashBoardFunctions
     {
         public EPerfiles CurrentPerfil { get; set; }
         public IPerfilActions PerfilActions { get; set; }

@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fachadas\FachadaControls.cs" />
+    <Compile Include="Fachadas\FachadaDetails.cs" />
     <Compile Include="Fachadas\FachadaHeader.cs" />
     <Compile Include="Formularios\FConfig.cs">
       <SubType>Form</SubType>
