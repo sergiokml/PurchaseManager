@@ -11,7 +11,7 @@ using PurchaseData.DataModel;
 using PurchaseDesktop.Formularios;
 using PurchaseDesktop.Interfaces;
 
-using static PurchaseDesktop.Helpers.HFunctions;
+using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Fachadas
 {

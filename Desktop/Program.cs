@@ -46,7 +46,7 @@ namespace Desktop
                     var config = new ConfigApp().GetConfigApp();
                     if (config != null)
                     {
-                        PerfilFachada facade = new PerfilFachada(loginForm.UserDB, config);
+                        Fachada facade = new Fachada(loginForm.UserDB, config);
                         FPrincipal f = facade.FachadaOpenForm.OpenPrincipalForm(facade);
                         Application.Run(f);
                     }

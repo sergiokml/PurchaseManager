@@ -12,7 +12,7 @@ using PurchaseDesktop.Interfaces;
 
 namespace PurchaseDesktop.Perfiles
 {
-    public class UserProfileUPO : HFunctions, IPerfilActions
+    public class UserProfileUPO : Enums, IPerfilActions
     {
         public UserProfileUPO(Users user)
         {

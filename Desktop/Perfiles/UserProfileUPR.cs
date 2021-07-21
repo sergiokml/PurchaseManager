@@ -11,7 +11,7 @@ using PurchaseDesktop.Interfaces;
 
 namespace PurchaseDesktop.Perfiles
 {
-    public class UserProfileUPR : HFunctions, IPerfilActions
+    public class UserProfileUPR : Enums, IPerfilActions
     {
         public Users CurrentUser { get; set; }
 

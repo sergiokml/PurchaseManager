@@ -12,19 +12,19 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-using static PurchaseDesktop.Helpers.HFunctions;
+using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Formularios
 {
     public partial class FNotes : Form, IControles, IGridCustom
     {
-        private readonly PerfilFachada rFachada;
+        private readonly Fachada rFachada;
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
         public Users CurrentUser { get; set; }
         public iGRow GuardarElPrevioCurrent { get; set; }
 
-        public FNotes(PerfilFachada rFachada, DataRow dr)
+        public FNotes(Fachada rFachada, DataRow dr)
         {
             this.rFachada = rFachada;
             Current = dr;
@@ -172,7 +172,7 @@ namespace PurchaseDesktop.Formularios
             //! Update solo si cambió el dato.
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            var resultado = rFachada.UpdateNote(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
+            var resultado = rFachada.FachadaNotes.UpdateNote(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
             if (resultado == "OK")
             {
                 LlenarGrid();
@@ -205,7 +205,7 @@ namespace PurchaseDesktop.Formularios
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                var resultado = rFachada.DeleteNote(current, Current);
+                var resultado = rFachada.FachadaNotes.DeleteNote(current, Current);
                 if (resultado == "OK")
                 {
                     LlenarGrid();
@@ -274,7 +274,7 @@ namespace PurchaseDesktop.Formularios
                     Title = UCase.ToTitleCase(TxtTitle.Text.Trim().ToLower()),
                     Modifier = (byte)status
                 };
-                var resultado = rFachada.InsertNote(att, Current);
+                var resultado = rFachada.FachadaNotes.InsertNote(att, Current);
                 if (resultado == "OK")
                 {
                     LlenarGrid();

@@ -8,7 +8,7 @@ using PurchaseDesktop.Interfaces;
 
 namespace PurchaseDesktop.Perfiles
 {
-    public class UserProfileBAS : HFunctions, IPerfilActions
+    public class UserProfileBAS : Enums, IPerfilActions
     {
         public UserProfileBAS(Users user)
         {

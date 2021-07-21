@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using PurchaseDesktop.Formularios;
 using PurchaseDesktop.Interfaces;
 
-using static PurchaseDesktop.Helpers.HFunctions;
+using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Fachadas
 {
@@ -21,7 +21,7 @@ namespace PurchaseDesktop.Fachadas
             CurrentPerfil = p;
         }
 
-        public FPrincipal OpenPrincipalForm(PerfilFachada facade)
+        public FPrincipal OpenPrincipalForm(Fachada facade)
         {
             Fprpal = new FPrincipal(facade)
             {

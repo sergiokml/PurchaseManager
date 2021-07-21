@@ -12,14 +12,14 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-using static PurchaseDesktop.Helpers.HFunctions;
+using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Formularios
 {
     public partial class FPrincipal : Form, IControles, IGridCustom
     {
         //private readonly PerfilFachada rFachada;
-        public PerfilFachada rFachada { get; set; }
+        public Fachada rFachada { get; set; }
 
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public bool IsSending { get; set; }
@@ -28,7 +28,7 @@ namespace PurchaseDesktop.Formularios
 
         #region Constructor
 
-        public FPrincipal(PerfilFachada rFachada)
+        public FPrincipal(Fachada rFachada)
         {
             this.rFachada = rFachada;
             rFachada.FachadaHeader.Fprpal = this;
@@ -75,7 +75,7 @@ namespace PurchaseDesktop.Formularios
             Grid.CellEllipsisButtonClick += Grid_CellEllipsisButtonClick;
 
             //! Grid Principal
-            rFachada.CargarGrid(Grid); // Pintar y cargar columnas
+            rFachada.FachadaGrid.CargarGrid(Grid); // Pintar y cargar columnas
             LlenarGrid();
 
             //! Otros
@@ -440,7 +440,7 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
                 }
-                rFachada.FormatearGrid();
+                rFachada.FachadaGrid.FormatearGrid();
                 Grid.Refresh();
                 //Msg($"You have {vista.Rows.Count} documents issued and showing.", MsgProceso.Informacion);
             }

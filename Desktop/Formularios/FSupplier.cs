@@ -12,19 +12,19 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-using static PurchaseDesktop.Helpers.HFunctions;
+using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Formularios
 {
     public partial class FSupplier : Form, IControles, IGridCustom
     {
-        private readonly PerfilFachada rFachada;
+        private readonly Fachada rFachada;
 
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
         public iGRow GuardarElPrevioCurrent { get; set; }
 
-        public FSupplier(PerfilFachada rFachada, DataRow headerDR)
+        public FSupplier(Fachada rFachada, DataRow headerDR)
         {
             this.rFachada = rFachada;
             Current = headerDR;

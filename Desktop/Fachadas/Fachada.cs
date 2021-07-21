@@ -17,19 +17,23 @@ using PurchaseDesktop.Formularios;
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Perfiles;
 
-using TenTec.Windows.iGridLib;
+using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Fachadas
 {
-    public class PerfilFachada : HFunctions
+    public class Fachada : FuncGrid
     {
         public FachadaOpenForm FachadaOpenForm { get; set; }
         public FachadaViewForm FachadaViewForm { get; set; }
         public FachadaHeader FachadaHeader { get; set; }
-        public FachadaControls FachadaControls { get; set; }
+        public FachadaGraficos FachadaControls { get; set; }
         public FachadaDetails FachadaDetails { get; set; }
         public FachadaAttach FachadaAttach { get; set; }
         public FachadaHitos FachadaHitos { get; set; }
+        public FachadaNotes FachadaNotes { get; set; }
+        public FachadaDeliverys FachadaDeliverys { get; set; }
+        public FachadaGrid FachadaGrid { get; set; }
+        public FachadaBanner FachadaBanner { get; set; }
 
 
         protected UserProfileUPR perfilPr;
@@ -40,13 +44,12 @@ namespace PurchaseDesktop.Fachadas
 
         public ConfigApp ConfigApp { get; set; }
         public EPerfiles CurrentPerfil { get; set; }
-        // public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
 
 
         //! Objeto para no enviar el FPrincipal en cada Función, se inicia en el ctor de FPrincipal
         public FPrincipal Fprpal { get; set; }
 
-        public PerfilFachada(Users user, ConfigApp configApp)
+        public Fachada(Users user, ConfigApp configApp)
         {
             ConfigApp = configApp;
             Enum.TryParse(user.ProfileID, out EPerfiles p);
@@ -58,50 +61,70 @@ namespace PurchaseDesktop.Fachadas
                     FachadaOpenForm = new FachadaOpenForm(perfilAdm);
                     FachadaViewForm = new FachadaViewForm(perfilAdm);
                     FachadaHeader = new FachadaHeader(perfilAdm, configApp);
-                    FachadaControls = new FachadaControls(perfilAdm);
+                    FachadaControls = new FachadaGraficos(perfilAdm);
                     FachadaDetails = new FachadaDetails(perfilAdm);
                     FachadaAttach = new FachadaAttach(perfilAdm, configApp);
                     FachadaHitos = new FachadaHitos(perfilAdm);
+                    FachadaNotes = new FachadaNotes(perfilAdm);
+                    FachadaDeliverys = new FachadaDeliverys(perfilAdm);
+                    FachadaGrid = new FachadaGrid(perfilAdm);
+                    FachadaBanner = new FachadaBanner(perfilAdm, configApp);
                     break;
                 case EPerfiles.BAS:
                     perfilBas = new UserProfileBAS(user);
                     FachadaOpenForm = new FachadaOpenForm(perfilBas);
                     FachadaViewForm = new FachadaViewForm(perfilBas);
                     FachadaHeader = new FachadaHeader(perfilBas, configApp);
-                    FachadaControls = new FachadaControls(perfilBas);
+                    FachadaControls = new FachadaGraficos(perfilBas);
                     FachadaDetails = new FachadaDetails(perfilBas);
                     FachadaAttach = new FachadaAttach(perfilBas, configApp);
                     FachadaHitos = new FachadaHitos(perfilBas);
+                    FachadaNotes = new FachadaNotes(perfilBas);
+                    FachadaDeliverys = new FachadaDeliverys(perfilBas);
+                    FachadaGrid = new FachadaGrid(perfilBas);
+                    FachadaBanner = new FachadaBanner(perfilBas, configApp);
                     break;
                 case EPerfiles.UPO:
                     perfilPo = new UserProfileUPO(user);
                     FachadaOpenForm = new FachadaOpenForm(perfilPo);
                     FachadaViewForm = new FachadaViewForm(perfilPo);
                     FachadaHeader = new FachadaHeader(perfilPo, configApp);
-                    FachadaControls = new FachadaControls(perfilPo);
+                    FachadaControls = new FachadaGraficos(perfilPo);
                     FachadaDetails = new FachadaDetails(perfilPo);
                     FachadaAttach = new FachadaAttach(perfilPo, configApp);
                     FachadaHitos = new FachadaHitos(perfilPo);
+                    FachadaNotes = new FachadaNotes(perfilPo);
+                    FachadaDeliverys = new FachadaDeliverys(perfilPo);
+                    FachadaGrid = new FachadaGrid(perfilPo);
+                    FachadaBanner = new FachadaBanner(perfilPo, configApp);
                     break;
                 case EPerfiles.UPR:
                     perfilPr = new UserProfileUPR(user);
                     FachadaOpenForm = new FachadaOpenForm(perfilPr);
                     FachadaViewForm = new FachadaViewForm(perfilPr);
                     FachadaHeader = new FachadaHeader(perfilPr, configApp);
-                    FachadaControls = new FachadaControls(perfilPr);
+                    FachadaControls = new FachadaGraficos(perfilPr);
                     FachadaDetails = new FachadaDetails(perfilPr);
                     FachadaAttach = new FachadaAttach(perfilPr, configApp);
                     FachadaHitos = new FachadaHitos(perfilPr);
+                    FachadaNotes = new FachadaNotes(perfilPr);
+                    FachadaDeliverys = new FachadaDeliverys(perfilPr);
+                    FachadaGrid = new FachadaGrid(perfilPr);
+                    FachadaBanner = new FachadaBanner(perfilPr, configApp);
                     break;
                 case EPerfiles.VAL:
                     perfilVal = new UserProfileVAL(user);
                     FachadaOpenForm = new FachadaOpenForm(perfilVal);
                     FachadaViewForm = new FachadaViewForm(perfilVal);
                     FachadaHeader = new FachadaHeader(perfilVal, configApp);
-                    FachadaControls = new FachadaControls(perfilVal);
+                    FachadaControls = new FachadaGraficos(perfilVal);
                     FachadaDetails = new FachadaDetails(perfilVal);
                     FachadaAttach = new FachadaAttach(perfilVal, configApp);
                     FachadaHitos = new FachadaHitos(perfilVal);
+                    FachadaNotes = new FachadaNotes(perfilVal);
+                    FachadaDeliverys = new FachadaDeliverys(perfilVal);
+                    FachadaGrid = new FachadaGrid(perfilVal);
+                    FachadaBanner = new FachadaBanner(perfilVal, configApp);
                     break;
                 default:
                     break;
@@ -111,33 +134,10 @@ namespace PurchaseDesktop.Fachadas
 
         #region Métodos del Grid Principal de cada Formulario
 
-        public void CargarGrid(iGrid grid)
-        {
-            //! Asociar el Grid de cada Form po única vez a la Clase HFunctions
-            Grid = grid;
-            switch (grid.Parent.Name) // Formulario Padre
-            {
-                case "FPrincipal":
-                    CargarColumnasFPrincipal(CurrentPerfil); break;
-                case "FDetails":
-                    CargarColumnasFDetail(); break;
-                case "FAttach":
-                    CargarColumnasFAttach(); break;
-                case "FSupplier":
-                    CargarColumnasFSupplier(); break;
-                case "FHitos":
-                    CargarColumnasFHitos(); break;
-                case "FNotes":
-                    CargarColumnasFNotes(); break;
-                case "FDeliverys":
-                    CargarColumnasFDelivery(); break;
-            }
-        }
 
-        public void FormatearGrid()
-        {
-            Formatear();
-        }
+        //TODO ACA HE LLEGADO!
+
+
 
         public void CargarContextMenuStrip(ContextMenuStrip context, DataRow headerDR)
         {
@@ -724,25 +724,7 @@ namespace PurchaseDesktop.Fachadas
             Fprpal.CargarDashboard();
         }
 
-        public async Task<string> CargarBanner()
-        {
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    return await new HtmlManipulate(ConfigApp).ReemplazarDatos();
-                case EPerfiles.UPR:
-                    return await new HtmlManipulate(ConfigApp).ReemplazarDatos();
-                case EPerfiles.VAL:
-                    return await new HtmlManipulate(ConfigApp).ReemplazarDatos();
-                default:
-                    break;
-            }
-            return string.Empty;
-        }
+
         private void CopyFile(string source, string target)
         {
             try
@@ -855,144 +837,9 @@ namespace PurchaseDesktop.Fachadas
 
 
 
-        #region Notes CRUD
-
-        public string InsertNote(OrderNotes item, DataRow headerDR)
-        {
-            int status = Convert.ToInt32(headerDR["StatusID"]);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    perfilPo.InsertNote(item, headerID);
-                    break;
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-            return "OK";
-        }
-
-        public string DeleteNote(DataRow noteDR, DataRow headerDR)
-        {
-            int status = Convert.ToInt32(headerDR["StatusID"]);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    perfilPo.DeleteNote(headerID, Convert.ToInt32(noteDR["OrderNoteID"]));
-                    break;
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-            return "OK";
-        }
-
-        public string UpdateNote(object newValue, DataRow hitoDR, DataRow headerDR, string campo)
-        {
-            int status = Convert.ToInt32(headerDR["StatusID"]);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            var noteID = Convert.ToInt32(hitoDR["OrderNoteID"]);
-            var n = new OrderNotes().GetByID(noteID);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    switch (campo)
-                    {
-                        case "Modifier":
-                            n.Modifier = Convert.ToByte(newValue);
-                            perfilPo.UpdateNote(n, headerID);
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-            return "OK";
-
-        }
-        #endregion
-
-        #region Delivery CRUD
-
-        public string InsertDelivery(OrderDelivery item, DataRow headerDR)
-        {
-            int status = Convert.ToInt32(headerDR["StatusID"]);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    perfilPo.InsertDelivery(item, headerID);
-                    break;
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-            return "OK";
-        }
-
-        public string DeleteDelivery(DataRow noteDR, DataRow headerDR)
-        {
-            int status = Convert.ToInt32(headerDR["StatusID"]);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    perfilPo.DeleteDelivery(headerID, Convert.ToInt32(noteDR["DeliveryID"]));
-                    break;
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-            return "OK";
-        }
 
 
-        #endregion             
+
 
     }
 }

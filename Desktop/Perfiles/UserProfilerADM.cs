@@ -10,7 +10,7 @@ using PurchaseDesktop.Interfaces;
 
 namespace PurchaseDesktop.Perfiles
 {
-    public class UserProfilerADM : HFunctions, IPerfilActions
+    public class UserProfilerADM : Enums, IPerfilActions
     {
         public UserProfilerADM(Users currentUser)
         {

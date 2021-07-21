@@ -10,13 +10,13 @@ using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Fachadas
 {
-    public class FachadaHitos
+    public class FachadaDeliverys
     {
         public EPerfiles CurrentPerfil { get; set; }
         public IPerfilActions PerfilActions { get; set; }
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
 
-        public FachadaHitos(IPerfilActions perfilActions)
+        public FachadaDeliverys(IPerfilActions perfilActions)
         {
             PerfilActions = perfilActions;
             Enum.TryParse(perfilActions.CurrentUser.ProfileID, out EPerfiles p);
@@ -24,7 +24,7 @@ namespace PurchaseDesktop.Fachadas
         }
 
 
-        public string InsertHito(OrderHitos item, DataRow headerDR)
+        public string InsertDelivery(OrderDelivery item, DataRow headerDR)
         {
             int status = Convert.ToInt32(headerDR["StatusID"]);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
@@ -36,7 +36,7 @@ namespace PurchaseDesktop.Fachadas
                     break;
                 case EPerfiles.UPO:
                     if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    PerfilActions.InsertHito(item, headerID);
+                    PerfilActions.InsertDelivery(item, headerID);
                     break;
                 case EPerfiles.UPR:
                     break;
@@ -48,7 +48,7 @@ namespace PurchaseDesktop.Fachadas
             return "OK";
         }
 
-        public string DeleteHito(DataRow hitoDR, DataRow headerDR)
+        public string DeleteDelivery(DataRow noteDR, DataRow headerDR)
         {
             int status = Convert.ToInt32(headerDR["StatusID"]);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
@@ -60,7 +60,7 @@ namespace PurchaseDesktop.Fachadas
                     break;
                 case EPerfiles.UPO:
                     if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    PerfilActions.DeleteHito(headerID, Convert.ToInt32(hitoDR["HitoID"]));
+                    PerfilActions.DeleteDelivery(headerID, Convert.ToInt32(noteDR["DeliveryID"]));
                     break;
                 case EPerfiles.UPR:
                     break;
@@ -70,41 +70,6 @@ namespace PurchaseDesktop.Fachadas
                     break;
             }
             return "OK";
-        }
-
-        public string UpdateHito(object newValue, DataRow hitoDR, DataRow headerDR, string campo)
-        {
-            int status = Convert.ToInt32(headerDR["StatusID"]);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            var hitoID = Convert.ToInt32(hitoDR["HitoID"]);
-            var h = new OrderHitos().GetByID(hitoID);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    switch (campo)
-                    {
-                        case "Description":
-                            h.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
-                            PerfilActions.UpdateHito(h, headerID);
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-            return "OK";
-
         }
 
 

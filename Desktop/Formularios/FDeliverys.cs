@@ -12,19 +12,19 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-using static PurchaseDesktop.Helpers.HFunctions;
+using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Formularios
 {
     public partial class FDeliverys : Form, IControles, IGridCustom
     {
-        private readonly PerfilFachada rFachada;
+        private readonly Fachada rFachada;
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
         public Users CurrentUser { get; set; }
         public iGRow GuardarElPrevioCurrent { get; set; }
 
-        public FDeliverys(PerfilFachada rFachada, DataRow dr)
+        public FDeliverys(Fachada rFachada, DataRow dr)
         {
             this.rFachada = rFachada;
             Current = dr;
@@ -196,7 +196,7 @@ namespace PurchaseDesktop.Formularios
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                var resultado = rFachada.DeleteDelivery(current, Current);
+                var resultado = rFachada.FachadaDeliverys.DeleteDelivery(current, Current);
                 if (resultado == "OK")
                 {
                     LlenarGrid();
@@ -262,7 +262,7 @@ namespace PurchaseDesktop.Formularios
                     Description = TxtTitle.Text.Trim(),
                     Date = DatePicker.Value,
                 };
-                var resultado = rFachada.InsertDelivery(del, Current);
+                var resultado = rFachada.FachadaDeliverys.InsertDelivery(del, Current);
                 if (resultado == "OK")
                 {
                     LlenarGrid();

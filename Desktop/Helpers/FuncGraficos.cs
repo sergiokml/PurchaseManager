@@ -11,7 +11,7 @@ using PurchaseData.DataModel;
 
 namespace PurchaseDesktop.Helpers
 {
-    public class HDashBoardFunctions
+    public class FuncGraficos
     {
         private BunifuPieChart PieChart1 { get; set; }
         private BunifuPieChart PieChart2 { get; set; }

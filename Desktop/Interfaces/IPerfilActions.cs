@@ -2,7 +2,7 @@
 
 using PurchaseData.DataModel;
 
-using static PurchaseDesktop.Helpers.HFunctions;
+using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Interfaces
 {

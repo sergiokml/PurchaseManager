@@ -8,16 +8,16 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-using static PurchaseDesktop.Helpers.HFunctions;
+using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Fachadas
 {
-    public class FachadaControls : HDashBoardFunctions
+    public class FachadaGraficos : FuncGraficos
     {
         public EPerfiles CurrentPerfil { get; set; }
         public IPerfilActions PerfilActions { get; set; }
 
-        public FachadaControls(IPerfilActions perfilActions)
+        public FachadaGraficos(IPerfilActions perfilActions)
         {
             PerfilActions = perfilActions;
             Enum.TryParse(perfilActions.CurrentUser.ProfileID, out EPerfiles p);

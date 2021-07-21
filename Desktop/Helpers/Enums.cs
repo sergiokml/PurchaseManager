@@ -1,6 +1,6 @@
 ﻿namespace PurchaseDesktop.Helpers
 {
-    public partial class HFunctions
+    public partial class Enums
     {
         public enum EPerfiles
         {

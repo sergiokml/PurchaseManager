@@ -9,11 +9,13 @@ using PurchaseData.DataModel;
 
 using TenTec.Windows.iGridLib;
 
+using static PurchaseDesktop.Helpers.Enums;
+
 namespace PurchaseDesktop.Helpers
 {
-    public partial class HFunctions
+    public class FuncGrid
     {
-        public HFunctions()
+        public FuncGrid()
         {
             //! Esto se carga por herencia, el grid es NULL aquí.
         }

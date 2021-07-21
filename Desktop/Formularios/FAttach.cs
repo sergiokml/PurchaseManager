@@ -13,13 +13,13 @@ using PurchaseDesktop.Interfaces;
 
 using TenTec.Windows.iGridLib;
 
-using static PurchaseDesktop.Helpers.HFunctions;
+using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Formularios
 {
     public partial class FAttach : Form, IControles, IGridCustom
     {
-        private readonly PerfilFachada rFachada;
+        private readonly Fachada rFachada;
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public DataRow Current { get; set; }
         //public Users CurrentUser { get; set; }
@@ -27,7 +27,7 @@ namespace PurchaseDesktop.Formularios
         public iGRow GuardarElPrevioCurrent { get; set; }
 
 
-        public FAttach(PerfilFachada rFachada, DataRow dr)
+        public FAttach(Fachada rFachada, DataRow dr)
         {
             this.rFachada = rFachada;
             Current = dr;

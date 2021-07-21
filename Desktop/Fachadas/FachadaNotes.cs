@@ -10,21 +10,21 @@ using static PurchaseDesktop.Helpers.Enums;
 
 namespace PurchaseDesktop.Fachadas
 {
-    public class FachadaHitos
+    public class FachadaNotes
     {
         public EPerfiles CurrentPerfil { get; set; }
         public IPerfilActions PerfilActions { get; set; }
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
 
-        public FachadaHitos(IPerfilActions perfilActions)
+        public FachadaNotes(IPerfilActions perfilActions)
         {
             PerfilActions = perfilActions;
             Enum.TryParse(perfilActions.CurrentUser.ProfileID, out EPerfiles p);
             CurrentPerfil = p;
         }
+        #region Notes CRUD
 
-
-        public string InsertHito(OrderHitos item, DataRow headerDR)
+        public string InsertNote(OrderNotes item, DataRow headerDR)
         {
             int status = Convert.ToInt32(headerDR["StatusID"]);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
@@ -36,7 +36,7 @@ namespace PurchaseDesktop.Fachadas
                     break;
                 case EPerfiles.UPO:
                     if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    PerfilActions.InsertHito(item, headerID);
+                    PerfilActions.InsertNote(item, headerID);
                     break;
                 case EPerfiles.UPR:
                     break;
@@ -48,7 +48,7 @@ namespace PurchaseDesktop.Fachadas
             return "OK";
         }
 
-        public string DeleteHito(DataRow hitoDR, DataRow headerDR)
+        public string DeleteNote(DataRow noteDR, DataRow headerDR)
         {
             int status = Convert.ToInt32(headerDR["StatusID"]);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
@@ -60,7 +60,7 @@ namespace PurchaseDesktop.Fachadas
                     break;
                 case EPerfiles.UPO:
                     if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    PerfilActions.DeleteHito(headerID, Convert.ToInt32(hitoDR["HitoID"]));
+                    PerfilActions.DeleteNote(headerID, Convert.ToInt32(noteDR["OrderNoteID"]));
                     break;
                 case EPerfiles.UPR:
                     break;
@@ -72,12 +72,12 @@ namespace PurchaseDesktop.Fachadas
             return "OK";
         }
 
-        public string UpdateHito(object newValue, DataRow hitoDR, DataRow headerDR, string campo)
+        public string UpdateNote(object newValue, DataRow hitoDR, DataRow headerDR, string campo)
         {
             int status = Convert.ToInt32(headerDR["StatusID"]);
             var headerID = Convert.ToInt32(headerDR["headerID"]);
-            var hitoID = Convert.ToInt32(hitoDR["HitoID"]);
-            var h = new OrderHitos().GetByID(hitoID);
+            var noteID = Convert.ToInt32(hitoDR["OrderNoteID"]);
+            var n = new OrderNotes().GetByID(noteID);
             switch (CurrentPerfil)
             {
                 case EPerfiles.ADM:
@@ -88,9 +88,9 @@ namespace PurchaseDesktop.Fachadas
                     if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
                     switch (campo)
                     {
-                        case "Description":
-                            h.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
-                            PerfilActions.UpdateHito(h, headerID);
+                        case "Modifier":
+                            n.Modifier = Convert.ToByte(newValue);
+                            PerfilActions.UpdateNote(n, headerID);
                             break;
                         default:
                             break;
@@ -106,8 +106,6 @@ namespace PurchaseDesktop.Fachadas
             return "OK";
 
         }
-
-
-
+        #endregion
     }
 }

@@ -165,10 +165,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fachadas\FachadaAttach.cs" />
-    <Compile Include="Fachadas\FachadaControls.cs" />
+    <Compile Include="Fachadas\FachadaBanner.cs" />
+    <Compile Include="Fachadas\FachadaGraficos.cs" />
+    <Compile Include="Fachadas\FachadaDeliverys.cs" />
     <Compile Include="Fachadas\FachadaDetails.cs" />
+    <Compile Include="Fachadas\FachadaGrid.cs" />
     <Compile Include="Fachadas\FachadaHeader.cs" />
     <Compile Include="Fachadas\FachadaHitos.cs" />
+    <Compile Include="Fachadas\FachadaNotes.cs" />
     <Compile Include="Formularios\FConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,10 +242,10 @@
     <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Fachadas\FachadaOpenForm.cs" />
     <Compile Include="Fachadas\FachadaViewForm.cs" />
-    <Compile Include="Helpers\HDashBoardFunctions.cs" />
+    <Compile Include="Helpers\FuncGraficos.cs" />
     <Compile Include="Interfaces\ExtendsPerfilActions.cs" />
-    <Compile Include="Helpers\HGridFunctions.cs" />
-    <Compile Include="Fachadas\PerfilFachada.cs" />
+    <Compile Include="Helpers\FuncGrid.cs" />
+    <Compile Include="Fachadas\Fachada.cs" />
     <Compile Include="Interfaces\IControles.cs" />
     <Compile Include="Interfaces\IGridCustom.cs" />
     <Compile Include="Interfaces\IPerfilActions.cs" />
