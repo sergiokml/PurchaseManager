@@ -10,19 +10,43 @@ using PurchaseData.DataModel;
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
-namespace PurchaseDesktop.Profiles
+namespace PurchaseDesktop.Perfiles
 {
     public class UserProfileVAL : HFunctions, IPerfilActions
     {
+        public UserProfileVAL(Users user)
+        {
+            CurrentUser = user;
+        }
+
         public Users CurrentUser { get; set; }
 
         #region Vistas
         public DataTable VistaFPrincipal()
         {
+            List<vOrderByMinTransaction> l2 = new List<vOrderByMinTransaction>();
             using (var rContext = new PurchaseManagerEntities())
             {
-                var l = rContext.vOrderByMinTransaction.Where(c => c.StatusID >= 2).OrderByDescending(c => c.DateLast).ToList();
-                return this.ToDataTable<vOrderByMinTransaction>(l);
+                List<vOrderByMinTransaction> l = rContext
+                    .vOrderByMinTransaction
+                    .Where(c => c.StatusID >= 2)
+                    .OrderByDescending(c => c.DateLast).ToList();
+                //!
+                var users = new Users().GetList();
+                foreach (var item in l)
+                {
+                    if (item.RequisitionHeaderID != null)
+                    {
+                        var user = users.FirstOrDefault(c => c.UserID == item.UserPR);
+                        item.CostID = user.CostID;
+                        if (CurrentUser.CostID == user.CostID)
+                        {
+                            l2.Add(item);
+                        }
+                    }
+                }
+
+                return this.ToDataTable<vOrderByMinTransaction>(l2);
             }
         }
 

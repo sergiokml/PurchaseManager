@@ -10,10 +10,15 @@ using PurchaseData.DataModel;
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
-namespace PurchaseDesktop.Profiles
+namespace PurchaseDesktop.Perfiles
 {
     public class UserProfileUPO : HFunctions, IPerfilActions
     {
+        public UserProfileUPO(Users user)
+        {
+            CurrentUser = user;
+        }
+
         public Users CurrentUser { get; set; }
 
         #region Vistas
@@ -21,9 +26,25 @@ namespace PurchaseDesktop.Profiles
         {
             using (var rContext = new PurchaseManagerEntities())
             {
-                var l = rContext.vOrderByMinTransaction.Where(c => c.UserID == CurrentUser.UserID)
-              .OrderByDescending(c => c.DateLast).ToList();
-                var r = rContext.vRequisitionByMinTransaction.Where(c => c.StatusID == 2).Where(c => c.UserPO == CurrentUser.UserID).ToList();
+                //! Lista de PO hechas por este usuario PO
+                var l = rContext.vOrderByMinTransaction
+                    .Where(c => c.UserID == CurrentUser.UserID)
+                    .OrderByDescending(c => c.DateLast).ToList();
+                //!
+                var users = new Users().GetList();
+                foreach (var item in l)
+                {
+                    if (item.RequisitionHeaderID != null)
+                    {
+                        var user = users.FirstOrDefault(c => c.UserID == item.UserPR);
+                        item.NameUserID = user.FirstName.Substring(0, 1).PadRight(2) + user.LastName;
+                        item.CostID = user.CostID;
+                    }
+                }
+                //! Lista de PR con estado 2 y de todos los usuarios
+                var r = rContext.vRequisitionByMinTransaction
+                    .Where(c => c.StatusID == 2)
+                    .Where(c => c.UserPO == CurrentUser.UserID).ToList();
                 foreach (var item in r)
                 {
                     var n = new vOrderByMinTransaction

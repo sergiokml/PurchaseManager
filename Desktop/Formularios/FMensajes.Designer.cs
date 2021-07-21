@@ -161,7 +161,7 @@ namespace PurchaseDesktop.Formularios
             // 
             this.FDock.AllowFormDragging = true;
             this.FDock.AllowFormDropShadow = true;
-            this.FDock.AllowFormResizing = true;
+            this.FDock.AllowFormResizing = false;
             this.FDock.AllowHidingBottomRegion = true;
             this.FDock.AllowOpacityChangesWhileDragging = true;
             this.FDock.BorderOptions.BottomBorder.BorderColor = System.Drawing.Color.Silver;

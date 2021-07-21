@@ -783,7 +783,7 @@ namespace PurchaseDesktop.Formularios
             // 
             this.FDock.AllowFormDragging = true;
             this.FDock.AllowFormDropShadow = true;
-            this.FDock.AllowFormResizing = true;
+            this.FDock.AllowFormResizing = false;
             this.FDock.AllowHidingBottomRegion = true;
             this.FDock.AllowOpacityChangesWhileDragging = true;
             this.FDock.BorderOptions.BottomBorder.BorderColor = System.Drawing.Color.Silver;
@@ -945,7 +945,6 @@ namespace PurchaseDesktop.Formularios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(1100, 574);
             this.Controls.Add(this.PanelHechizoBanner);
@@ -957,7 +956,6 @@ namespace PurchaseDesktop.Formularios
             this.Controls.Add(this.PanelHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FPrincipal";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Purchase Manager";
             this.Load += new System.EventHandler(this.FPrincipal_Load);
             this.Shown += new System.EventHandler(this.FPrincipal_Shown);

@@ -9,11 +9,16 @@ using PurchaseData.DataModel;
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
-namespace PurchaseDesktop.Profiles
+namespace PurchaseDesktop.Perfiles
 {
     public class UserProfileUPR : HFunctions, IPerfilActions
     {
         public Users CurrentUser { get; set; }
+
+        public UserProfileUPR(Users currentUser)
+        {
+            CurrentUser = currentUser;
+        }
 
         #region Vistas
 

@@ -117,7 +117,7 @@ namespace PurchaseDesktop.Formularios
             Icon = Properties.Resources.icons8_survey;
             SetControles();
             //! Grid Principal
-            rFachada.CargarGrid(Grid, "FAttach", Current);
+            rFachada.CargarGrid(Grid);
             LlenarGrid();
 
             //! Eventos

@@ -231,6 +231,7 @@
       <DependentUpon>FSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Enums.cs" />
+    <Compile Include="Helpers\FachadaOpenForm.cs" />
     <Compile Include="Helpers\HDashBoardFunctions.cs" />
     <Compile Include="Interfaces\ExtendsPerfilActions.cs" />
     <Compile Include="Helpers\HGridFunctions.cs" />
@@ -238,14 +239,12 @@
     <Compile Include="Interfaces\IControles.cs" />
     <Compile Include="Interfaces\IGridCustom.cs" />
     <Compile Include="Interfaces\IPerfilActions.cs" />
-    <Compile Include="Profiles\PerfilUPO_.cs" />
-    <Compile Include="Profiles\PerfilUPR_.cs" />
-    <Compile Include="Profiles\PerfilVAL_.cs" />
-    <Compile Include="Profiles\UserProfileBAS.cs" />
-    <Compile Include="Profiles\UserProfilerADM.cs" />
-    <Compile Include="Profiles\UserProfileUPO.cs" />
-    <Compile Include="Profiles\UserProfileUPR.cs" />
-    <Compile Include="Profiles\UserProfileVAL.cs" />
+    <Compile Include="Perfiles\Perfiles.cs" />
+    <Compile Include="Perfiles\UserProfileBAS.cs" />
+    <Compile Include="Perfiles\UserProfilerADM.cs" />
+    <Compile Include="Perfiles\UserProfileUPO.cs" />
+    <Compile Include="Perfiles\UserProfileUPR.cs" />
+    <Compile Include="Perfiles\UserProfileVAL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Formularios\FConfig.resx">

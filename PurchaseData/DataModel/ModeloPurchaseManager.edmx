@@ -72,7 +72,7 @@
           </Key>
           <Property Name="CurrencyID" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="MaxInput" Type="decimal" Precision="11" Scale="2" />
+          <Property Name="MaxInput" Type="decimal" Precision="11" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Medidas">
           <Key>
@@ -331,11 +331,11 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vOrderByMinTransaction' 
           <Property Name="CompanyID" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="CurrencyID" Type="varchar" MaxLength="3" />
           <Property Name="RequisitionHeaderID" Type="int" />
+          <Property Name="UserPR" Type="varchar" MaxLength="8" />
           <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NameBiz" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CompanyCode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="TypeDocumentHeader" Type="nvarchar" MaxLength="2" Nullable="false" />
-          <Property Name="HitosCount" Type="int" />
           <Property Name="NameUserID" Type="varchar" MaxLength="52" />
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -871,11 +871,11 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
     [vOrderByMinTransaction].[CompanyID] AS [CompanyID], 
     [vOrderByMinTransaction].[CurrencyID] AS [CurrencyID], 
     [vOrderByMinTransaction].[RequisitionHeaderID] AS [RequisitionHeaderID], 
+    [vOrderByMinTransaction].[UserPR] AS [UserPR], 
     [vOrderByMinTransaction].[CompanyName] AS [CompanyName], 
     [vOrderByMinTransaction].[NameBiz] AS [NameBiz], 
     [vOrderByMinTransaction].[CompanyCode] AS [CompanyCode], 
     [vOrderByMinTransaction].[TypeDocumentHeader] AS [TypeDocumentHeader], 
-    [vOrderByMinTransaction].[HitosCount] AS [HitosCount], 
     [vOrderByMinTransaction].[NameUserID] AS [NameUserID], 
     [vOrderByMinTransaction].[Status] AS [Status]
     FROM [dbo].[vOrderByMinTransaction] AS [vOrderByMinTransaction]</DefiningQuery>
@@ -1051,7 +1051,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <EntitySet Name="UserCosts" EntityType="PurchaseManagerModelo.UserCosts" />
           <EntitySet Name="UserProfiles" EntityType="PurchaseManagerModelo.UserProfiles" />
           <EntitySet Name="Users" EntityType="PurchaseManagerModelo.Users" />
-          <EntitySet Name="vOrderByMinTransaction" EntityType="PurchaseManagerModelo.vOrderByMinTransaction" />
           <EntitySet Name="vRequisitionByMinTransaction" EntityType="PurchaseManagerModelo.vRequisitionByMinTransaction" />
           <AssociationSet Name="FK_OrderDetails_Accounts" Association="PurchaseManagerModelo.FK_OrderDetails_Accounts">
             <End Role="Accounts" EntitySet="Accounts" />
@@ -1200,6 +1199,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
             <Parameter Name="Password" Mode="In" Type="String" />
             <Parameter Name="ID" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="vOrderByMinTransaction" EntityType="PurchaseManagerModelo.vOrderByMinTransaction" />
         </EntityContainer>
         <EntityType Name="Accounts">
           <Key>
@@ -1258,7 +1258,7 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Name="CurrencyID" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="OrderHeader" Relationship="PurchaseManagerModelo.FK_OrderHeader_Currencies" FromRole="Currencies" ToRole="OrderHeader" />
-          <Property Name="MaxInput" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="MaxInput" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Medidas">
           <Key>
@@ -1509,49 +1509,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <NavigationProperty Name="Transactions" Relationship="PurchaseManagerModelo.FK_Transactions_Users" FromRole="Users" ToRole="Transactions" />
           <NavigationProperty Name="UserCosts" Relationship="PurchaseManagerModelo.FK_Users_UserCosts" FromRole="Users" ToRole="UserCosts" />
           <NavigationProperty Name="UserProfiles" Relationship="PurchaseManagerModelo.FK_Users_UserProfiles" FromRole="Users" ToRole="UserProfiles" />
-        </EntityType>
-        <EntityType Name="vOrderByMinTransaction">
-          <Key>
-            <PropertyRef Name="HeaderID" />
-            <PropertyRef Name="Code" />
-            <PropertyRef Name="Tax" />
-            <PropertyRef Name="Total" />
-            <PropertyRef Name="Type" />
-            <PropertyRef Name="StatusID" />
-            <PropertyRef Name="UserID" />
-            <PropertyRef Name="Event" />
-            <PropertyRef Name="CompanyID" />
-            <PropertyRef Name="CompanyName" />
-            <PropertyRef Name="NameBiz" />
-            <PropertyRef Name="CompanyCode" />
-            <PropertyRef Name="TypeDocumentHeader" />
-            <PropertyRef Name="Status" />
-          </Key>
-          <Property Name="HeaderID" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="Net" Type="Decimal" Precision="11" Scale="2" />
-          <Property Name="Exent" Type="Decimal" Precision="11" Scale="2" />
-          <Property Name="Tax" Type="Decimal" Nullable="false" Precision="14" Scale="4" />
-          <Property Name="Discount" Type="Decimal" Precision="11" Scale="2" />
-          <Property Name="Total" Type="Decimal" Nullable="false" Precision="17" Scale="4" />
-          <Property Name="Type" Type="Byte" Nullable="false" />
-          <Property Name="StatusID" Type="Byte" Nullable="false" />
-          <Property Name="UserID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="CostID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="DateLast" Type="DateTime" Precision="7" />
-          <Property Name="Event" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="SupplierID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="CurrencyID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="RequisitionHeaderID" Type="Int32" />
-          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NameBiz" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="TypeDocumentHeader" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="HitosCount" Type="Int32" />
-          <Property Name="NameUserID" Type="String" MaxLength="52" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vRequisitionByMinTransaction">
           <Key>
@@ -1886,6 +1843,49 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           <Property Type="String" Name="CostID" Nullable="true" MaxLength="3" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="vOrderByMinTransaction">
+          <Key>
+            <PropertyRef Name="HeaderID" />
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Tax" />
+            <PropertyRef Name="Total" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="StatusID" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="Event" />
+            <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="CompanyName" />
+            <PropertyRef Name="NameBiz" />
+            <PropertyRef Name="CompanyCode" />
+            <PropertyRef Name="TypeDocumentHeader" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="HeaderID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Net" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="Exent" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="Tax" Type="Decimal" Nullable="false" Precision="14" Scale="4" />
+          <Property Name="Discount" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="17" Scale="4" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="StatusID" Type="Byte" Nullable="false" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CostID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="DateLast" Type="DateTime" Precision="7" />
+          <Property Name="Event" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SupplierID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CurrencyID" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="RequisitionHeaderID" Type="Int32" />
+          <Property Name="UserPR" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NameBiz" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TypeDocumentHeader" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="NameUserID" Type="String" MaxLength="52" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2168,37 +2168,6 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vOrderByMinTransaction">
-            <EntityTypeMapping TypeName="PurchaseManagerModelo.vOrderByMinTransaction">
-              <MappingFragment StoreEntitySet="vOrderByMinTransaction">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="NameUserID" ColumnName="NameUserID" />
-                <ScalarProperty Name="HitosCount" ColumnName="HitosCount" />
-                <ScalarProperty Name="TypeDocumentHeader" ColumnName="TypeDocumentHeader" />
-                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
-                <ScalarProperty Name="NameBiz" ColumnName="NameBiz" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="RequisitionHeaderID" ColumnName="RequisitionHeaderID" />
-                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="Event" ColumnName="Event" />
-                <ScalarProperty Name="DateLast" ColumnName="DateLast" />
-                <ScalarProperty Name="CostID" ColumnName="CostID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Tax" ColumnName="Tax" />
-                <ScalarProperty Name="Exent" ColumnName="Exent" />
-                <ScalarProperty Name="Net" ColumnName="Net" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vRequisitionByMinTransaction">
             <EntityTypeMapping TypeName="PurchaseManagerModelo.vRequisitionByMinTransaction">
               <MappingFragment StoreEntitySet="vRequisitionByMinTransaction">
@@ -2277,6 +2246,37 @@ advertencia 6002: La tabla o vista 'PurchaseManager.dbo.vRequisitionByMinTransac
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UPDATE_ORDERDETAILS" FunctionName="PurchaseManagerModelo.Store.UPDATE_ORDERDETAILS" />
           <FunctionImportMapping FunctionImportName="UPDATE_PASSWORD_HASH" FunctionName="PurchaseManagerModelo.Store.UPDATE_PASSWORD_HASH" />
+          <EntitySetMapping Name="vOrderByMinTransaction">
+            <EntityTypeMapping TypeName="PurchaseManagerModelo.vOrderByMinTransaction">
+              <MappingFragment StoreEntitySet="vOrderByMinTransaction">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="NameUserID" ColumnName="NameUserID" />
+                <ScalarProperty Name="TypeDocumentHeader" ColumnName="TypeDocumentHeader" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="NameBiz" ColumnName="NameBiz" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="UserPR" ColumnName="UserPR" />
+                <ScalarProperty Name="RequisitionHeaderID" ColumnName="RequisitionHeaderID" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Event" ColumnName="Event" />
+                <ScalarProperty Name="DateLast" ColumnName="DateLast" />
+                <ScalarProperty Name="CostID" ColumnName="CostID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Exent" ColumnName="Exent" />
+                <ScalarProperty Name="Net" ColumnName="Net" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -68,9 +68,10 @@ namespace PurchaseDesktop.Formularios
             this.bunifuSeparator1 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.bunifuSeparator2 = new Bunifu.UI.WinForms.BunifuSeparator();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.UserConfig = new System.Windows.Forms.TabPage();
             this.General = new System.Windows.Forms.TabPage();
+            this.UserConfig = new System.Windows.Forms.TabPage();
             this.Accounts = new System.Windows.Forms.TabPage();
+            this.FDock = new Bunifu.UI.WinForms.BunifuFormDock();
             this.PanelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -97,7 +98,7 @@ namespace PurchaseDesktop.Formularios
             this.BtnCerrar.ImageSize = new System.Drawing.Size(17, 17);
             this.BtnCerrar.ImageZoomSize = new System.Drawing.Size(22, 22);
             this.BtnCerrar.InitialImage = ((System.Drawing.Image)(resources.GetObject("BtnCerrar.InitialImage")));
-            this.BtnCerrar.Location = new System.Drawing.Point(366, 1);
+            this.BtnCerrar.Location = new System.Drawing.Point(588, 1);
             this.BtnCerrar.Name = "BtnCerrar";
             this.BtnCerrar.Rotation = 0;
             this.BtnCerrar.ShowActiveImage = true;
@@ -670,6 +671,16 @@ namespace PurchaseDesktop.Formularios
             this.tabControl1.Size = new System.Drawing.Size(614, 260);
             this.tabControl1.TabIndex = 50;
             // 
+            // General
+            // 
+            this.General.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.General.Location = new System.Drawing.Point(4, 22);
+            this.General.Name = "General";
+            this.General.Padding = new System.Windows.Forms.Padding(3);
+            this.General.Size = new System.Drawing.Size(606, 234);
+            this.General.TabIndex = 1;
+            this.General.Text = "General";
+            // 
             // UserConfig
             // 
             this.UserConfig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
@@ -688,16 +699,6 @@ namespace PurchaseDesktop.Formularios
             this.UserConfig.TabIndex = 0;
             this.UserConfig.Text = "User Config";
             // 
-            // General
-            // 
-            this.General.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.General.Location = new System.Drawing.Point(4, 22);
-            this.General.Name = "General";
-            this.General.Padding = new System.Windows.Forms.Padding(3);
-            this.General.Size = new System.Drawing.Size(606, 234);
-            this.General.TabIndex = 1;
-            this.General.Text = "General";
-            // 
             // Accounts
             // 
             this.Accounts.Location = new System.Drawing.Point(4, 22);
@@ -706,6 +707,46 @@ namespace PurchaseDesktop.Formularios
             this.Accounts.TabIndex = 2;
             this.Accounts.Text = "Accounts";
             this.Accounts.UseVisualStyleBackColor = true;
+            // 
+            // FDock
+            // 
+            this.FDock.AllowFormDragging = true;
+            this.FDock.AllowFormDropShadow = true;
+            this.FDock.AllowFormResizing = false;
+            this.FDock.AllowHidingBottomRegion = true;
+            this.FDock.AllowOpacityChangesWhileDragging = true;
+            this.FDock.BorderOptions.BottomBorder.BorderColor = System.Drawing.Color.Silver;
+            this.FDock.BorderOptions.BottomBorder.BorderThickness = 1;
+            this.FDock.BorderOptions.BottomBorder.ShowBorder = true;
+            this.FDock.BorderOptions.LeftBorder.BorderColor = System.Drawing.Color.Silver;
+            this.FDock.BorderOptions.LeftBorder.BorderThickness = 1;
+            this.FDock.BorderOptions.LeftBorder.ShowBorder = true;
+            this.FDock.BorderOptions.RightBorder.BorderColor = System.Drawing.Color.Silver;
+            this.FDock.BorderOptions.RightBorder.BorderThickness = 1;
+            this.FDock.BorderOptions.RightBorder.ShowBorder = true;
+            this.FDock.BorderOptions.TopBorder.BorderColor = System.Drawing.Color.Silver;
+            this.FDock.BorderOptions.TopBorder.BorderThickness = 1;
+            this.FDock.BorderOptions.TopBorder.ShowBorder = true;
+            this.FDock.ContainerControl = this;
+            this.FDock.DockingIndicatorsColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.FDock.DockingIndicatorsOpacity = 0.5D;
+            this.FDock.DockingOptions.DockAll = true;
+            this.FDock.DockingOptions.DockBottomLeft = true;
+            this.FDock.DockingOptions.DockBottomRight = true;
+            this.FDock.DockingOptions.DockFullScreen = true;
+            this.FDock.DockingOptions.DockLeft = true;
+            this.FDock.DockingOptions.DockRight = true;
+            this.FDock.DockingOptions.DockTopLeft = true;
+            this.FDock.DockingOptions.DockTopRight = true;
+            this.FDock.FormDraggingOpacity = 0.9D;
+            this.FDock.ParentForm = this;
+            this.FDock.ShowCursorChanges = true;
+            this.FDock.ShowDockingIndicators = true;
+            this.FDock.TitleBarOptions.AllowFormDragging = true;
+            this.FDock.TitleBarOptions.BunifuFormDock = this.FDock;
+            this.FDock.TitleBarOptions.DoubleClickToExpandWindow = false;
+            this.FDock.TitleBarOptions.TitleBarControl = this.PanelHeader;
+            this.FDock.TitleBarOptions.UseBackColorOnDockingIndicators = false;
             // 
             // FConfig
             // 
@@ -747,5 +788,6 @@ namespace PurchaseDesktop.Formularios
         private System.Windows.Forms.TabPage UserConfig;
         private System.Windows.Forms.TabPage General;
         private System.Windows.Forms.TabPage Accounts;
+        private Bunifu.UI.WinForms.BunifuFormDock FDock;
     }
 }

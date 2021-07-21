@@ -98,7 +98,7 @@ namespace PurchaseDesktop.Formularios
             //TrackBar.LargeChange = 5;
 
             //! Grid Principal
-            rFachada.CargarGrid(Grid, "FHitos", Current);
+            rFachada.CargarGrid(Grid);
             LlenarGrid();
 
             //! Eventos

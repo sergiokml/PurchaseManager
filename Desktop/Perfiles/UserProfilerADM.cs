@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 using PurchaseData.DataModel;
 
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
-namespace PurchaseDesktop.Profiles
+namespace PurchaseDesktop.Perfiles
 {
-    public class UserProfileBAS : HFunctions, IPerfilActions
+    public class UserProfilerADM : HFunctions, IPerfilActions
     {
+        public UserProfilerADM(Users currentUser)
+        {
+            CurrentUser = currentUser;
+        }
+
         public Users CurrentUser { get; set; }
 
         public void DeleteAttach<T>(T item, int attachID)
@@ -144,7 +151,25 @@ namespace PurchaseDesktop.Profiles
 
         public DataTable VistaFPrincipal()
         {
-            throw new NotImplementedException();
+            using (var rContext = new PurchaseManagerEntities())
+            {
+                List<vOrderByMinTransaction> l = rContext
+                    .vOrderByMinTransaction
+                    .Where(c => c.StatusID >= 2)
+                    .OrderByDescending(c => c.DateLast).ToList();
+                //!
+                var users = new Users().GetList();
+                foreach (var item in l)
+                {
+                    if (item.RequisitionHeaderID != null)
+                    {
+                        var user = users.FirstOrDefault(c => c.UserID == item.UserPR);
+                        item.CostID = user.CostID;
+
+                    }
+                }
+                return this.ToDataTable<vOrderByMinTransaction>(l);
+            }
         }
 
         public DataTable VistaFProveedores(TypeDocumentHeader headerTD, int headerID)

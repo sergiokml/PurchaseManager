@@ -6,10 +6,15 @@ using PurchaseData.DataModel;
 using PurchaseDesktop.Helpers;
 using PurchaseDesktop.Interfaces;
 
-namespace PurchaseDesktop.Profiles
+namespace PurchaseDesktop.Perfiles
 {
-    public class UserProfilerADM : HFunctions, IPerfilActions
+    public class UserProfileBAS : HFunctions, IPerfilActions
     {
+        public UserProfileBAS(Users user)
+        {
+            CurrentUser = user;
+        }
+
         public Users CurrentUser { get; set; }
 
         public void DeleteAttach<T>(T item, int attachID)

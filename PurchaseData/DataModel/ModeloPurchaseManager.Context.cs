@@ -51,8 +51,8 @@ namespace PurchaseData.DataModel
         public virtual DbSet<UserCosts> UserCosts { get; set; }
         public virtual DbSet<UserProfiles> UserProfiles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<vOrderByMinTransaction> vOrderByMinTransaction { get; set; }
         public virtual DbSet<vRequisitionByMinTransaction> vRequisitionByMinTransaction { get; set; }
+        public virtual DbSet<vOrderByMinTransaction> vOrderByMinTransaction { get; set; }
     
         public virtual int CONVERT_PR(string description, Nullable<byte> type, Nullable<decimal> net, Nullable<decimal> exent, Nullable<byte> statusID, Nullable<int> requisitionHeaderID, string companyID, Nullable<decimal> discount)
         {

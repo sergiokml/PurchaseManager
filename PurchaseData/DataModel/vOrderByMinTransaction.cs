@@ -32,11 +32,11 @@ namespace PurchaseData.DataModel
         public string CompanyID { get; set; }
         public string CurrencyID { get; set; }
         public Nullable<int> RequisitionHeaderID { get; set; }
+        public string UserPR { get; set; }
         public string CompanyName { get; set; }
         public string NameBiz { get; set; }
         public string CompanyCode { get; set; }
         public string TypeDocumentHeader { get; set; }
-        public Nullable<int> HitosCount { get; set; }
         public string NameUserID { get; set; }
         public string Status { get; set; }
     }

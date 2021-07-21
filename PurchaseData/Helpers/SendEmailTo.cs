@@ -61,7 +61,7 @@ namespace PurchaseData.Helpers
         }
 
 
-        public async Task SendEmailToSupplier(string path, string asunto, Users user, Suppliers supp, List<Attaches> att)
+        public async Task SendEmailToSupplier(string path, string asunto, Users user, Suppliers supp, List<Attaches> att, int HeaderID)
         {
             BodyBuilder bodyBuilder = new BodyBuilder();
             if (Path.GetExtension(path) == ".pdf")
@@ -80,7 +80,7 @@ namespace PurchaseData.Helpers
             //! Adjuntos
             foreach (var item in att)
             {
-                bodyBuilder.Attachments.Add(configApp.FolderApp + @"\" + item.FileName);
+                bodyBuilder.Attachments.Add(configApp.FolderApp + HeaderID + item.FileName);
             }
             //! From
             Message.From.Add(new MailboxAddress($"Purchase Manager", configApp.Email));

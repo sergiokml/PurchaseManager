@@ -18,7 +18,8 @@ namespace PurchaseDesktop.Formularios
 {
     public partial class FPrincipal : Form, IControles, IGridCustom
     {
-        private readonly PerfilFachada rFachada;
+        //private readonly PerfilFachada rFachada;
+        public PerfilFachada rFachada { get; set; }
 
         public TextInfo UCase { get; set; } = CultureInfo.InvariantCulture.TextInfo;
         public bool IsSending { get; set; }
@@ -30,12 +31,15 @@ namespace PurchaseDesktop.Formularios
         public FPrincipal(PerfilFachada rFachada)
         {
             this.rFachada = rFachada;
-            rFachada.Fprpal = this;
+            //rFachada.Fprpal = this;
             InitializeComponent();
         }
-        public FPrincipal()
-        {
-        }
+        //public FPrincipal(PerfilFachada rFachada)
+        //{
+        //    this.rFachada = rFachada;
+        //    //rFachada.Fprpal = this;
+        //    InitializeComponent();
+        //}
 
         #endregion
 
@@ -69,7 +73,7 @@ namespace PurchaseDesktop.Formularios
             Grid.CellEllipsisButtonClick += Grid_CellEllipsisButtonClick;
 
             //! Grid Principal
-            rFachada.CargarGrid(Grid, "FPrincipal", Current); // Pintar y cargar columnas
+            rFachada.CargarGrid(Grid); // Pintar y cargar columnas
             LlenarGrid();
 
             //! Otros
@@ -261,7 +265,7 @@ namespace PurchaseDesktop.Formularios
 
         private void Grid_ColDividerDoubleClick(object sender, iGColDividerDoubleClickEventArgs e)
         {
-            Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
+            // Grid.Header.Cells[e.RowIndex, e.ColIndex].Value = Grid.Cols[e.ColIndex].Width;
         }
 
         /// <summary>
@@ -312,6 +316,7 @@ namespace PurchaseDesktop.Formularios
                 if (e.Button == MouseButtons.Right)
                 {
                     Current = (DataRow)Grid.Rows[e.RowIndex].Tag;
+                    GuardarElPrevioCurrent = Grid.CurRow;
                     rFachada.CargarContextMenuStrip(CtxMenu, Current);
                     CtxMenu.Show(Grid, e.MousePos);
                 }
@@ -336,6 +341,7 @@ namespace PurchaseDesktop.Formularios
         {
             Grid.DrawAsFocused = true;
             await rFachada.SeleccionarContextMenuStripAsync(Current, e.ClickedItem.Name);
+            Grid.CurRow = GuardarElPrevioCurrent;
             Grid.Focus();
             Grid.DrawAsFocused = false;
         }
@@ -404,31 +410,14 @@ namespace PurchaseDesktop.Formularios
 
                         Grid.GroupObject.Add("TypeDocumentHeader").SortOrder = iGSortOrder.Descending;
                     }
-
-
-
-                    //Grid.SortObject.Add("TypeDocumentHeader");
-                    //Grid.SortObject[0].SortType = iGSortType.ByValue;
-                    //Grid.SortObject[0].SortOrder = iGSortOrder.Descending;
-
                     Grid.Group();
-
-
-
-
                 }
                 else
                 {
                     Grid.GroupObject.Clear();
                     Grid.Group();
                 }
-
-
-
-
             }
-
-
         }
 
         public iGrid GetGrid()
@@ -449,7 +438,7 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[myRowIndex].Tag = vista.Rows[myRowIndex];
                 }
-                Grid = rFachada.FormatearGrid(Grid, "FPrincipal", Current);
+                rFachada.FormatearGrid();
                 Grid.Refresh();
                 //Msg($"You have {vista.Rows.Count} documents issued and showing.", MsgProceso.Informacion);
             }
@@ -521,7 +510,7 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FDetails f = new FDetails(rFachada, current);
-                    rFachada.OPenDetailForm(f);
+                    rFachada.FachadaOpenForm.OPenDetailForm(f);
                 }
             }
         }
@@ -539,7 +528,7 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FAttach f = new FAttach(rFachada, current);
-                    rFachada.OpenAttachForm(f);
+                    rFachada.FachadaOpenForm.OpenAttachForm(f);
                 }
             }
         }
@@ -557,7 +546,7 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FSupplier f = new FSupplier(rFachada, current);
-                    rFachada.OpenSupplierForm(f);
+                    rFachada.FachadaOpenForm.OpenSupplierForm(f);
                 }
             }
         }
@@ -575,7 +564,7 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FHitos f = new FHitos(rFachada, current);
-                    rFachada.OpenHitosForm(f);
+                    rFachada.FachadaOpenForm.OpenHitosForm(f);
                 }
             }
         }
@@ -593,7 +582,7 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FNotes f = new FNotes(rFachada, current);
-                    rFachada.OpenNotesForm(f);
+                    rFachada.FachadaOpenForm.OpenNotesForm(f);
                 }
             }
         }
@@ -622,7 +611,7 @@ namespace PurchaseDesktop.Formularios
                 if (current != null)
                 {
                     FDeliverys f = new FDeliverys(rFachada, current);
-                    rFachada.OpenDeliveryForm(f);
+                    rFachada.FachadaOpenForm.OpenDeliveryForm(f);
                 }
             }
         }

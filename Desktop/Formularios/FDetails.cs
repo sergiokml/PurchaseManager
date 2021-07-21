@@ -26,7 +26,7 @@ namespace PurchaseDesktop.Formularios
         public FDetails(PerfilFachada rFachada, DataRow dr)
         {
             this.rFachada = rFachada;
-            Current = dr;
+            Current = dr; //! Current del F Principal (Header)
             InitializeComponent();
         }
 
@@ -38,10 +38,10 @@ namespace PurchaseDesktop.Formularios
         private void FDetails_Load(object sender, EventArgs e)
         {
             Icon = Properties.Resources.icons8_survey;
-            SetControles();
             //! Grid Principal
-            rFachada.CargarGrid(Grid, "FDetails", Current);
+            rFachada.CargarGrid(Grid);
             LlenarGrid();
+            SetControles();
 
             //! Eventos
             Grid.BeforeCommitEdit += Grid_BeforeCommitEdit;
@@ -91,7 +91,7 @@ namespace PurchaseDesktop.Formularios
         {
             if (ValidarControles())
             {
-                Enum.TryParse(rFachada.CurrentUser().ProfileID, out Perfiles p);
+                Enum.TryParse(rFachada.CurrentUser().ProfileID, out EPerfiles p);
                 var resultado = string.Empty;
                 Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
                 switch (td)
@@ -177,7 +177,7 @@ namespace PurchaseDesktop.Formularios
                 {
                     Grid.Rows[i].Cells["nro"].Value = i + 1;
                 }
-                Grid = rFachada.FormatearGrid(Grid, "FDetails", Current);
+                rFachada.FormatearGrid();
                 Grid.Refresh();
             }
             catch (Exception)
@@ -192,7 +192,7 @@ namespace PurchaseDesktop.Formularios
 
         public bool ValidarControles()
         {
-            Enum.TryParse(rFachada.CurrentUser().ProfileID, out Perfiles p);
+            Enum.TryParse(rFachada.CurrentUser().ProfileID, out EPerfiles p);
             Enum.TryParse(Current["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
             if (CboAccount.SelectedIndex == -1)
             {
@@ -273,6 +273,10 @@ namespace PurchaseDesktop.Formularios
                     TxtTax.Visible = false;
                     ChkExent.Visible = false;
                     CboCurrency.Visible = false;
+                    Grid.Cols["Price"].Visible = false;
+                    Grid.Cols["NameProduct"].Width = 352;
+                    // Grid.Cols["DescriptionProduct"].Visible = false;
+
 
                     var pr = new RequisitionHeader().GetById(Convert.ToInt32(Current["HeaderID"]));
                     TxtGlosa.Text = pr.Description;
@@ -300,6 +304,9 @@ namespace PurchaseDesktop.Formularios
                     decimal exent = Convert.ToDecimal(po.Exent);
                     decimal tax = Convert.ToDecimal(po.Tax);
                     decimal total = Convert.ToDecimal(po.Total);
+                    Grid.Cols["Price"].Visible = true;
+                    Grid.Cols["NameProduct"].Width = 288;
+                    //Grid.Cols["DescriptionProduct"].Visible =true;
                     if (neto > 0)
                     {
                         TxtNet.Text = neto.ToString("$#,0.##;;''", CultureInfo.GetCultureInfo("es-CL"));

@@ -112,7 +112,7 @@ namespace PurchaseDesktop.Formularios
             }
         }
 
-        private void BtnLogin_Click_1(object sender, EventArgs e)
+        private void BtnLogin_Click(object sender, EventArgs e)
         {
             if (UserDB != null)
             {

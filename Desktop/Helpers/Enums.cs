@@ -2,7 +2,7 @@
 {
     public partial class HFunctions
     {
-        public enum Perfiles
+        public enum EPerfiles
         {
             ADM,
             BAS,

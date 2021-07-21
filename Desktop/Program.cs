@@ -8,7 +8,6 @@ using PurchaseData.DataModel;
 
 using PurchaseDesktop.Formularios;
 using PurchaseDesktop.Helpers;
-using PurchaseDesktop.Profiles;
 
 namespace Desktop
 {
@@ -26,36 +25,32 @@ namespace Desktop
             //! Internet?
             if (CheckForInternetConnection())
             {
-                //! Los Perfiles: 
-                UserProfileUPO perfilPo = new UserProfileUPO();
-                UserProfileUPR perfilPr = new UserProfileUPR();
-                UserProfileVAL perfilVal = new UserProfileVAL();
-                UserProfilerADM perfilAdm = new UserProfilerADM();
-                UserProfileBAS perfilBas = new UserProfileBAS();
                 Users user;
                 using (var contextDB = new PurchaseManagerEntities())
                 {
-                    //var P = "14720891"; // PR Jhoana
+                    //var P = "14720891"; // PR Jhoana ADM
+                    var P = "15332723"; // PO (NO IMPORTA EL CC)
+                    //var P = "16003040"; // VALIDADOR DEV FCA ADM
 
-                    var P = "15332723"; // PO (TODAS LAS PR)
-                    //var P = "15960233"; // VAL DEV 
-
-                    //var P = "16003040"; // FCA "ADM VALIDADOR TODOS" 
+                    //var P = "10972784"; // ADM VALIDADOR TODOS Y CONFIGURACIONES
 
                     user = contextDB.Users.Find(P);
                     //contextDB.Entry(user).Reference(c => c.UserProfiles).Load();
                     //CargarUPR(10);
                     //CargaUPO(4, "13779971"); // Booorador PO (Po user)
                 }
-
                 FLogin loginForm = new FLogin();
                 Application.Run(loginForm);
-
                 if (loginForm.UserSuccessfullyAuthenticated)
                 {
-                    PerfilFachada facade = new PerfilFachada(perfilPr, perfilPo, perfilVal, perfilAdm, perfilBas, loginForm.UserDB);
-                    FPrincipal f = new FPrincipal(facade);
-                    Application.Run(f);
+                    var config = new ConfigApp().GetConfigApp();
+                    if (config != null)
+                    {
+                        PerfilFachada facade = new PerfilFachada(loginForm.UserDB, config);
+                        var f = facade.FachadaOpenForm.OpenPrincipalForm(facade);
+                        facade.Fprpal = f;
+                        Application.Run(f);
+                    }
                 }
             }
         }
