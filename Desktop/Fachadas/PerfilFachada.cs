@@ -56,35 +56,35 @@ namespace PurchaseDesktop.Fachadas
                     perfilAdm = new UserProfilerADM(user); // Usar tambien lo mismo!!!!!!
                     FachadaOpenForm = new FachadaOpenForm(perfilAdm);
                     FachadaViewForm = new FachadaViewForm(perfilAdm);
-                    FachadaHeader = new FachadaHeader(perfilAdm);
+                    FachadaHeader = new FachadaHeader(perfilAdm, configApp);
                     FachadaControls = new FachadaControls(perfilAdm);
                     break;
                 case EPerfiles.BAS:
                     perfilBas = new UserProfileBAS(user);
                     FachadaOpenForm = new FachadaOpenForm(perfilBas);
                     FachadaViewForm = new FachadaViewForm(perfilBas);
-                    FachadaHeader = new FachadaHeader(perfilBas);
+                    FachadaHeader = new FachadaHeader(perfilBas, configApp);
                     FachadaControls = new FachadaControls(perfilBas);
                     break;
                 case EPerfiles.UPO:
                     perfilPo = new UserProfileUPO(user);
                     FachadaOpenForm = new FachadaOpenForm(perfilPo);
                     FachadaViewForm = new FachadaViewForm(perfilPo);
-                    FachadaHeader = new FachadaHeader(perfilPo);
+                    FachadaHeader = new FachadaHeader(perfilPo, configApp);
                     FachadaControls = new FachadaControls(perfilPo);
                     break;
                 case EPerfiles.UPR:
                     perfilPr = new UserProfileUPR(user);
                     FachadaOpenForm = new FachadaOpenForm(perfilPr);
                     FachadaViewForm = new FachadaViewForm(perfilPr);
-                    FachadaHeader = new FachadaHeader(perfilPr);
+                    FachadaHeader = new FachadaHeader(perfilPr, configApp);
                     FachadaControls = new FachadaControls(perfilPr);
                     break;
                 case EPerfiles.VAL:
                     perfilVal = new UserProfileVAL(user);
                     FachadaOpenForm = new FachadaOpenForm(perfilVal);
                     FachadaViewForm = new FachadaViewForm(perfilVal);
-                    FachadaHeader = new FachadaHeader(perfilVal);
+                    FachadaHeader = new FachadaHeader(perfilVal, configApp);
                     FachadaControls = new FachadaControls(perfilVal);
                     break;
                 default:
@@ -735,288 +735,6 @@ namespace PurchaseDesktop.Fachadas
 
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="newValue"></param>
-        /// <param name="headerDR"></param>
-        /// <param name="campo"></param>
-        public void UpdateItem(object newValue, DataRow headerDR, string campo)
-        {
-            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            RequisitionHeader pr;
-            OrderHeader po;
-            int res = 0;
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    switch (td)
-                    {
-                        case TypeDocumentHeader.PR:
-                            Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
-                        case TypeDocumentHeader.PO:
-                            switch (campo)
-                            {
-                                case "Description":
-                                    po = new OrderHeader().GetById(headerID);
-                                    if (po.StatusID >= 2)
-                                    {
-                                        Fprpal
-                                            .Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
-                                    }
-                                    po.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
-                                    res = perfilPo.UpdateItemHeader<OrderHeader>(po);
-                                    break;
-                                case "Type":
-                                    po = new OrderHeader().GetById(headerID);
-                                    if (po.StatusID >= 2)
-                                    {
-                                        Fprpal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning);
-                                        Fprpal.IsSending = true;
-                                        return;
-                                    }
-                                    po.Type = Convert.ToByte(newValue);
-                                    res = perfilPo.UpdateItemHeader<OrderHeader>(po);
-                                    break;
-                                case "Net":
-                                    Fprpal.Msg("ERROR_UPDATE", MsgProceso.Warning); return;
-                                case "SupplierID":
-                                    po = new OrderHeader().GetById(headerID);
-                                    if (po.StatusID >= 2)
-                                    {
-                                        Fprpal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
-                                    }
-                                    po.SupplierID = newValue.ToString();
-                                    res = perfilPo.UpdateItemHeader<OrderHeader>(po);
-                                    break;
-                                case "CurrencyID":
-                                    po = new OrderHeader().GetById(headerID);
-                                    if (po.StatusID >= 2)
-                                    {
-                                        Fprpal.Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
-                                    }
-                                    po.CurrencyID = newValue.ToString();
-                                    res = perfilPo.UpdateItemHeader<OrderHeader>(po);
-                                    break;
-                            }
-                            if (res == 3) // Return 3
-                            {
-                                Fprpal.Msg("Update OK.", MsgProceso.Informacion); break;
-                            }
-                            else
-                            {
-                                Fprpal.Msg("ERROR_UPDATE", MsgProceso.Warning); return;
-                            }
-                    }
-                    break;
-                case EPerfiles.UPR:
-                    switch (td)
-                    {
-                        case TypeDocumentHeader.PR:
-                            switch (campo)
-                            {
-                                case "Description":
-                                    pr = new RequisitionHeader().GetById(headerID);
-                                    if (pr.StatusID >= 2)
-                                    {
-                                        Fprpal
-                                            .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
-                                    }
-                                    pr.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
-                                    res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
-                                    break;
-                                case "Type":
-                                    pr = new RequisitionHeader().GetById(headerID);
-                                    if (pr.StatusID >= 2)
-                                    {
-                                        Fprpal
-                                            .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
-                                    }
-                                    pr.Type = Convert.ToByte(newValue);
-                                    res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
-                                    break;
-                                case "CurrencyID":
-                                    Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
-                                case "UserPO":
-                                    pr = new RequisitionHeader().GetById(headerID);
-                                    if (pr.StatusID >= 2)
-                                    {
-                                        Fprpal
-                                            .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
-                                    }
-                                    pr.UserPO = newValue.ToString();
-                                    res = perfilPr.UpdateItemHeader<RequisitionHeader>(pr);
-                                    break;
-                            }
-                            break;
-                        case TypeDocumentHeader.PO:
-                            Fprpal
-                                .Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
-                    }
-                    if (res == 3) // Return 3
-                    {
-                        Fprpal
-                            .Msg("Update OK.", MsgProceso.Informacion); break;
-                    }
-                    else
-                    {
-                        Fprpal
-                            .Msg("ERROR_UPDATE", MsgProceso.Warning); return;
-                    }
-                case EPerfiles.VAL:
-                    break;
-            }
-            Fprpal.LlenarGrid();
-            Fprpal.ClearControles();
-            Fprpal.SetControles();
-            Fprpal.CargarDashboard();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="headerDR"></param>
-        /// <param name="fPrincipal"></param>
-        public void DeleteItem(DataRow headerDR)
-        {
-            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            StringBuilder mensaje = new StringBuilder();
-            mensaje.AppendLine($"You are going to delete document N° {headerID}.");
-            mensaje.AppendLine();
-            var f = new FMensajes(Fprpal);
-            int res;
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    switch (td)
-                    {
-                        case TypeDocumentHeader.PR:
-                            Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
-                        case TypeDocumentHeader.PO:
-                            var po = new OrderHeader().GetById(headerID);
-                            if (perfilPo.CurrentUser.UserID != headerDR["UserID"].ToString()) //! User ID viene de la vista.
-                            {
-                                Fprpal
-                                    .Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
-                            }
-                            if (po.StatusID >= 2)
-                            {
-                                Fprpal
-                                    .Msg("The 'status' of the Purchase Order is not allowed.", MsgProceso.Warning); return;
-                            }
-                            if (po.RequisitionHeaderID != null)
-                            {
-                                mensaje.AppendLine($"The PR N°{po.RequisitionHeaderID} will be 'Active' again.");
-                                mensaje.AppendLine();
-                                mensaje.AppendLine("Are You Sure?");
-                            }
-                            else
-                            {
-                                mensaje.AppendLine();
-                                mensaje.AppendLine("Are You Sure?");
-                            }
-                            f.Mensaje = mensaje;
-                            f.ShowDialog();
-                            if (f.Resultado == DialogResult.Cancel)
-                            {
-                                return;
-                            }
-                            res = perfilPo.DeleteItemHeader<OrderHeader>(po);
-                            if (res > 0) //! Return Indeterminado
-                            {
-                                //! Eliminar Files in Folder
-                                try
-                                {
-                                    DirectoryInfo dir = new DirectoryInfo($"{ConfigApp.FolderApp}{headerID}");
-                                    if (dir.Exists)
-                                    {
-                                        foreach (var file in dir.GetFiles())
-                                        {
-                                            file.Attributes = FileAttributes.Normal;
-                                        }
-                                        dir.Delete(true);
-                                    }
-                                }
-                                catch (Exception) { return; }
-                                Fprpal
-                               .Msg("Delete OK.", MsgProceso.Informacion); break;
-                            }
-                            else
-                            {
-                                Fprpal
-                                    .Msg("ERROR_DELETE", MsgProceso.Warning); break; // En caso de error tiene que volver a cargarse la Grilla!
-                            }
-                    }
-                    break;
-                case EPerfiles.UPR:
-                    switch (td)
-                    {
-                        case TypeDocumentHeader.PR:
-                            if (perfilPr.CurrentUser.UserID != headerDR["UserID"].ToString())
-                            {
-                                Fprpal
-                                    .Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
-                            }
-                            var pr = new RequisitionHeader().GetById(headerID);
-                            if (pr.StatusID >= 2)
-                            {
-                                Fprpal
-                                    .Msg("The 'status' of the Purchase Requisition is not allowed.", MsgProceso.Warning); return;
-                            }
-                            mensaje.AppendLine("Are You Sure?");
-                            f.Mensaje = mensaje;
-                            f.ShowDialog(Fprpal);
-                            if (f.Resultado == DialogResult.Cancel)
-                            {
-                                return;
-                            }
-                            res = perfilPr.DeleteItemHeader<RequisitionHeader>(pr);
-                            if (res > 0) // Return Indeterminado
-                            {
-                                //! Eliminar Files in Folder
-                                try
-                                {
-                                    DirectoryInfo dir = new DirectoryInfo($"{ConfigApp.FolderApp}{headerID}");
-                                    if (dir.Exists)
-                                    {
-                                        foreach (var file in dir.GetFiles())
-                                        {
-                                            file.Attributes = FileAttributes.Normal;
-                                        }
-                                        dir.Delete(true);
-                                    }
-                                }
-                                catch (Exception) { return; }
-                                Fprpal
-                               .Msg("Delete OK.", MsgProceso.Informacion); break;
-                            }
-                            else
-                            {
-                                Fprpal
-                                    .Msg("ERROR_DELETE", MsgProceso.Warning); break;
-                            }
-                        case TypeDocumentHeader.PO:
-                            Fprpal.Msg("Your profile does not allow you to complete this action.", MsgProceso.Warning); return;
-                    }
-                    break;
-                case EPerfiles.VAL:
-                    break;
-            }
-            Fprpal.LlenarGrid();
-            Fprpal.ClearControles();
-            Fprpal.SetControles();
-            Fprpal.CargarDashboard();
-        }
 
         #endregion
 

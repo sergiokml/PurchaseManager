@@ -33,6 +33,7 @@ namespace PurchaseDesktop.Formularios
             this.rFachada = rFachada;
             rFachada.FachadaHeader.Fprpal = this;
             rFachada.FachadaOpenForm.Fprpal = this;
+
             InitializeComponent();
         }
         //public FPrincipal(PerfilFachada rFachada)
@@ -167,7 +168,7 @@ namespace PurchaseDesktop.Formularios
             //! En caso de hacer update desde otra fila, no posicionándose en ella.
             GuardarElPrevioCurrent = Grid.Rows[e.RowIndex];
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            rFachada.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key);
+            rFachada.FachadaHeader.UpdateItem(e.NewValue, current, Grid.Cols[e.ColIndex].Key);
             //! Al hacer update se pierde el foco:
             Grid.CurRow = GuardarElPrevioCurrent;
             if (IsSending)
@@ -242,7 +243,7 @@ namespace PurchaseDesktop.Formularios
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-                rFachada.DeleteItem(current);
+                rFachada.FachadaHeader.DeleteItem(current);
                 Grid.Focus();
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)

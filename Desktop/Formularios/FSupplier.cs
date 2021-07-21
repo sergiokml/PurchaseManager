@@ -316,7 +316,7 @@ namespace PurchaseDesktop.Formularios
                 var current = (DataRow)Grid.Rows[e.RowIndex].Tag;
                 if (current != null)
                 {
-                    rFachada.UpdateItem(current["SupplierID"], Current, "SupplierID");
+                    rFachada.FachadaHeader.UpdateItem(current["SupplierID"], Current, "SupplierID");
                     LlenarGrid();
                     ClearControles();
                     SetControles();

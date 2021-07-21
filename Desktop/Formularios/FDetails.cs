@@ -111,7 +111,7 @@ namespace PurchaseDesktop.Formularios
                         //! Update Glosa
                         if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
                         {
-                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                            rFachada.FachadaHeader.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
                         }
                         break;
                     case TypeDocumentHeader.PO:
@@ -137,7 +137,7 @@ namespace PurchaseDesktop.Formularios
                         //! Update Glosa
                         if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
                         {
-                            rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                            rFachada.FachadaHeader.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
                         }
                         break;
                     default:
@@ -438,7 +438,7 @@ namespace PurchaseDesktop.Formularios
             //! Update Glosa
             if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
             {
-                rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                rFachada.FachadaHeader.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
             }
             if (resultado == "OK")
             {
@@ -558,7 +558,7 @@ namespace PurchaseDesktop.Formularios
         {
             if (!Equals(CboCurrency.SelectedValue, Current["CurrencyID"].ToString()))
             {
-                rFachada.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID");
+                rFachada.FachadaHeader.UpdateItem(CboCurrency.SelectedValue, Current, "CurrencyID");
                 ((FPrincipal)Owner).GetGrid().CurRow = GuardarElPrevioCurrent;
                 Current["CurrencyID"] = CboCurrency.SelectedValue;
                 LlenarGrid();
@@ -567,7 +567,7 @@ namespace PurchaseDesktop.Formularios
             //! Update Glosa
             else if (!Equals(TxtGlosa.Text, Current["Description"].ToString()))
             {
-                rFachada.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
+                rFachada.FachadaHeader.UpdateItem(TxtGlosa.Text.Trim(), Current, "Description");
             }
         }
     }
