@@ -25,6 +25,9 @@ namespace PurchaseDesktop.Helpers
     public class PerfilFachada : HFunctions
     {
         public FachadaOpenForm FachadaOpenForm { get; set; }
+        public FachadaViewForm FachadaViewForm { get; set; }
+
+
 
         protected UserProfileUPR perfilPr;
         protected UserProfileUPO perfilPo;
@@ -53,7 +56,27 @@ namespace PurchaseDesktop.Helpers
             CurrentPerfil = p;
             //MyProperty  = new FunctionsGrid();
 
-            FachadaOpenForm = new FachadaOpenForm(user);
+            // TODO ACÁ DEBO HACER UNA "FACTORÍA" QUE CREA CLASES:
+            switch (CurrentPerfil)
+            {
+                case EPerfiles.ADM:
+                    break;
+                case EPerfiles.BAS:
+                    break;
+                case EPerfiles.UPO:
+                    FachadaOpenForm = new FachadaOpenForm(user);
+                    FachadaViewForm = new FachadaViewForm(user, perfilPo);
+                    break;
+                case EPerfiles.UPR:
+                    FachadaOpenForm = new FachadaOpenForm(user);
+                    FachadaViewForm = new FachadaViewForm(user, perfilPr);
+                    break;
+                case EPerfiles.VAL:
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         #region Métodos del Grid Principal de cada Formulario
@@ -696,154 +719,21 @@ namespace PurchaseDesktop.Helpers
 
         #endregion
 
-        #region Abrir Formularios
 
-
-
-
-
-
-
-
-
-        #endregion
 
         #region Vistas Formularios
 
-        public DataTable GetVistaFPrincipal()
-        {
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    return perfilAdm.VistaFPrincipal();
-                case EPerfiles.BAS:
-                    return perfilBas.VistaFPrincipal();
-                case EPerfiles.UPO:
-                    return perfilPo.VistaFPrincipal();
-                case EPerfiles.UPR:
-                    return perfilPr.VistaFPrincipal();
-                case EPerfiles.VAL:
-                    return perfilVal.VistaFPrincipal();
-            }
-            return null;
-        }
 
-        public DataTable GetVistaDetalles(DataRow headerDR)
-        {
-            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    return perfilPo.VistaFDetalles(td, Convert.ToInt32(headerDR["headerID"]));
-                case EPerfiles.UPR:
-                    return perfilPr.VistaFDetalles(td, Convert.ToInt32(headerDR["headerID"]));
-                case EPerfiles.VAL:
-                    break;
-            }
-            return null;
-        }
 
-        public DataTable GetVistaHitos(DataRow headerDR)
-        {
-            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    return perfilPo.VistaFHitos(td, Convert.ToInt32(headerDR["headerID"]));
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-            }
-            return null;
 
-        }
 
-        public DataTable GetVistaNotes(DataRow headerDR)
-        {
-            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    return perfilPo.VistaFNotes(td, Convert.ToInt32(headerDR["headerID"]));
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-            }
-            return null;
 
-        }
 
-        public DataTable GetVistaAttaches(DataRow headerDR)
-        {
-            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    return perfilPo.VistaFAdjuntos(td, Convert.ToInt32(headerDR["headerID"]));
-                case EPerfiles.UPR:
-                    return perfilPr.VistaFAdjuntos(td, Convert.ToInt32(headerDR["headerID"]));
-                case EPerfiles.VAL:
-                    break;
-            }
-            return null;
-        }
 
-        public DataTable GetVistaSuppliers(DataRow headerDR)
-        {
-            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    return perfilPo.VistaFProveedores(td, Convert.ToInt32(headerDR["headerID"]));
-                case EPerfiles.UPR:
-                    return perfilPr.VistaFProveedores(td, Convert.ToInt32(headerDR["headerID"]));
-                case EPerfiles.VAL:
-                    break;
-            }
-            return null;
-        }
 
-        public DataTable GetVistaDelivery(DataRow headerDR)
-        {
-            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    return perfilPo.VistaDelivery(td, Convert.ToInt32(headerDR["headerID"]));
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-            }
-            return null;
 
-        }
+
+
 
         #endregion
 

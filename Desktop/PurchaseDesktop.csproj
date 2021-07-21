@@ -232,6 +232,7 @@
     </Compile>
     <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\FachadaOpenForm.cs" />
+    <Compile Include="Helpers\FachadaViewForm.cs" />
     <Compile Include="Helpers\HDashBoardFunctions.cs" />
     <Compile Include="Interfaces\ExtendsPerfilActions.cs" />
     <Compile Include="Helpers\HGridFunctions.cs" />

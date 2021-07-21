@@ -116,7 +116,7 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                DataTable vista = rFachada.GetVistaHitos(Current);
+                DataTable vista = rFachada.FachadaViewForm.GetVistaHitos(Current);
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //!Data Bound * **!

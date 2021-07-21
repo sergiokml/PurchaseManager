@@ -102,7 +102,7 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                var vista = rFachada.GetVistaSuppliers(Current);
+                var vista = rFachada.FachadaViewForm.GetVistaSuppliers(Current);
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!

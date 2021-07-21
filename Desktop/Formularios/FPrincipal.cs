@@ -430,7 +430,7 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                DataTable vista = rFachada.GetVistaFPrincipal();
+                DataTable vista = rFachada.FachadaViewForm.GetVistaFPrincipal();
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //! Data Bound  ***!

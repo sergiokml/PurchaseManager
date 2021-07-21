@@ -135,7 +135,7 @@ namespace PurchaseDesktop.Formularios
             Grid.BeginUpdate();
             try
             {
-                DataTable vista = rFachada.GetVistaAttaches(Current);
+                DataTable vista = rFachada.FachadaViewForm.GetVistaAttaches(Current);
                 Grid.Rows.Clear();
                 Grid.FillWithData(vista, true);
                 //!Data Bound * **!

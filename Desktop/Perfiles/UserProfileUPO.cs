@@ -85,16 +85,16 @@ namespace PurchaseDesktop.Perfiles
                     using (var rContext = new PurchaseManagerEntities())
                     {
                         return this
-                        .ToDataTable<RequisitionDetails>(rContext.RequisitionDetails
-                        .Where(c => c.HeaderID == headerID).ToList());
+                            .ToDataTable<RequisitionDetails>(rContext.RequisitionDetails
+                            .Where(c => c.HeaderID == headerID).ToList());
                     }
 
                 case TypeDocumentHeader.PO:
                     using (var rContext = new PurchaseManagerEntities())
                     {
                         return this
-                        .ToDataTable<OrderDetails>(rContext.OrderDetails
-                        .Where(c => c.HeaderID == headerID).ToList());
+                            .ToDataTable<OrderDetails>(rContext.OrderDetails
+                            .Where(c => c.HeaderID == headerID).ToList());
                     }
             }
             return null;
