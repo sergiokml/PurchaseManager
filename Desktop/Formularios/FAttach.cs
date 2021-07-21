@@ -184,7 +184,7 @@ namespace PurchaseDesktop.Formularios
             //! Update solo si cambió el dato.
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            var resultado = rFachada.UpdateAttach(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
+            var resultado = rFachada.FachadaAttach.UpdateAttach(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
             if (resultado == "OK")
             {
                 LlenarGrid();
@@ -214,7 +214,7 @@ namespace PurchaseDesktop.Formularios
                     FileName = $"{@"\"}{Path.GetFileName(TxtPathFile.Text)}",
                     Modifier = (byte)status
                 };
-                var resultado = rFachada.InsertAttach(att, Current, FilePath);
+                var resultado = rFachada.FachadaAttach.InsertAttach(att, Current, FilePath);
                 if (resultado == "OK")
                 {
                     LlenarGrid();
@@ -241,7 +241,7 @@ namespace PurchaseDesktop.Formularios
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                var resultado = rFachada.DeleteAttach(current, Current);
+                var resultado = rFachada.FachadaAttach.DeleteAttach(current, Current);
                 if (resultado == "OK")
                 {
                     LlenarGrid();
@@ -255,7 +255,7 @@ namespace PurchaseDesktop.Formularios
             }
             else if (Grid.Cols["view"].Index == e.ColIndex)
             {
-                var resultado = rFachada.OpenAttach(current, Current);
+                var resultado = rFachada.FachadaAttach.OpenAttach(current, Current);
                 if (resultado != "OK")
                 {
                     ((FPrincipal)Owner).Msg(resultado, MsgProceso.Warning);

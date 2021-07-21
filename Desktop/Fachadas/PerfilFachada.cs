@@ -28,6 +28,8 @@ namespace PurchaseDesktop.Fachadas
         public FachadaHeader FachadaHeader { get; set; }
         public FachadaControls FachadaControls { get; set; }
         public FachadaDetails FachadaDetails { get; set; }
+        public FachadaAttach FachadaAttach { get; set; }
+        public FachadaHitos FachadaHitos { get; set; }
 
 
         protected UserProfileUPR perfilPr;
@@ -49,17 +51,17 @@ namespace PurchaseDesktop.Fachadas
             ConfigApp = configApp;
             Enum.TryParse(user.ProfileID, out EPerfiles p);
             CurrentPerfil = p;
-
-            // TODO ACÁ DEBO HACER UNA "FACTORÍA" QUE CREA CLASES:            
             switch (CurrentPerfil)
             {
                 case EPerfiles.ADM:
-                    perfilAdm = new UserProfilerADM(user); // Usar tambien lo mismo!!!!!!
+                    perfilAdm = new UserProfilerADM(user); // Usar tambien lo mismo!
                     FachadaOpenForm = new FachadaOpenForm(perfilAdm);
                     FachadaViewForm = new FachadaViewForm(perfilAdm);
                     FachadaHeader = new FachadaHeader(perfilAdm, configApp);
                     FachadaControls = new FachadaControls(perfilAdm);
                     FachadaDetails = new FachadaDetails(perfilAdm);
+                    FachadaAttach = new FachadaAttach(perfilAdm, configApp);
+                    FachadaHitos = new FachadaHitos(perfilAdm);
                     break;
                 case EPerfiles.BAS:
                     perfilBas = new UserProfileBAS(user);
@@ -68,6 +70,8 @@ namespace PurchaseDesktop.Fachadas
                     FachadaHeader = new FachadaHeader(perfilBas, configApp);
                     FachadaControls = new FachadaControls(perfilBas);
                     FachadaDetails = new FachadaDetails(perfilBas);
+                    FachadaAttach = new FachadaAttach(perfilBas, configApp);
+                    FachadaHitos = new FachadaHitos(perfilBas);
                     break;
                 case EPerfiles.UPO:
                     perfilPo = new UserProfileUPO(user);
@@ -76,6 +80,8 @@ namespace PurchaseDesktop.Fachadas
                     FachadaHeader = new FachadaHeader(perfilPo, configApp);
                     FachadaControls = new FachadaControls(perfilPo);
                     FachadaDetails = new FachadaDetails(perfilPo);
+                    FachadaAttach = new FachadaAttach(perfilPo, configApp);
+                    FachadaHitos = new FachadaHitos(perfilPo);
                     break;
                 case EPerfiles.UPR:
                     perfilPr = new UserProfileUPR(user);
@@ -84,6 +90,8 @@ namespace PurchaseDesktop.Fachadas
                     FachadaHeader = new FachadaHeader(perfilPr, configApp);
                     FachadaControls = new FachadaControls(perfilPr);
                     FachadaDetails = new FachadaDetails(perfilPr);
+                    FachadaAttach = new FachadaAttach(perfilPr, configApp);
+                    FachadaHitos = new FachadaHitos(perfilPr);
                     break;
                 case EPerfiles.VAL:
                     perfilVal = new UserProfileVAL(user);
@@ -92,6 +100,8 @@ namespace PurchaseDesktop.Fachadas
                     FachadaHeader = new FachadaHeader(perfilVal, configApp);
                     FachadaControls = new FachadaControls(perfilVal);
                     FachadaDetails = new FachadaDetails(perfilVal);
+                    FachadaAttach = new FachadaAttach(perfilVal, configApp);
+                    FachadaHitos = new FachadaHitos(perfilVal);
                     break;
                 default:
                     break;
@@ -733,7 +743,17 @@ namespace PurchaseDesktop.Fachadas
             }
             return string.Empty;
         }
-
+        private void CopyFile(string source, string target)
+        {
+            try
+            {
+                File.Copy(source, target, true); //! True: sobre escribir el file
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
 
         #region Header CRUD
@@ -746,186 +766,7 @@ namespace PurchaseDesktop.Fachadas
 
 
 
-        #region Attach CRUD
 
-        public string InsertAttach(Attaches item, DataRow headerDR, string path)
-        {
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            if (!Directory.Exists(ConfigApp.FolderApp + headerID))
-            {
-                Directory.CreateDirectory(ConfigApp.FolderApp + headerID);
-            }
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    var po = new OrderHeader().GetById(headerID);
-                    if (po.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    if (File.Exists($"{ConfigApp.FolderApp}{item.FileName}"))
-                    {
-                        return "The file you are trying to copy already exists on the server.";
-                    }
-                    perfilPo.InsertAttach<OrderHeader>(item, po);
-                    //! Copiar el archivo en la carpeta
-                    CopyFile(path, $"{ConfigApp.FolderApp}{headerID}{item.FileName}");
-                    break;
-                case EPerfiles.UPR:
-                    var pr = new RequisitionHeader().GetById(headerID);
-                    if (pr.StatusID >= 2) { return "The 'status' of the Purchase Requisition is not allowed."; }
-                    if (File.Exists($"{ConfigApp.FolderApp}{headerID}{item.FileName}"))
-                    {
-                        return "The file you are trying to copy already exists on the server.";
-                    }
-                    perfilPr.InsertAttach<RequisitionHeader>(item, pr);
-                    //! Copiar el archivo en la carpeta
-                    CopyFile(path, $"{ConfigApp.FolderApp}{headerID}{item.FileName}");
-                    break;
-                case EPerfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-            return "OK";
-        }
-
-        private void DeleteFile(string path)
-        {
-            try
-            {
-                File.Delete(path);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-        }
-
-        private void CopyFile(string source, string target)
-        {
-            try
-            {
-                File.Copy(source, target, true); //! True: sobre escribir el file
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public string DeleteAttach(DataRow attachDR, DataRow headerDR)
-        {
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            var attachID = Convert.ToInt32(attachDR["attachID"]);
-            Enum.TryParse(headerDR["TypeDocumentHeader"].ToString(), out TypeDocumentHeader td);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    switch (td)
-                    {
-                        case TypeDocumentHeader.PR:
-                            return "Your profile does not allow you to complete this action.";
-                        case TypeDocumentHeader.PO:
-                            var po = new OrderHeader().GetById(headerID);
-                            if (po.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                            //! Borrar el archivo de la carpeta
-                            DeleteFile($"{ConfigApp.FolderApp}{headerID}{attachDR["FileName"]}");
-                            perfilPo.DeleteAttach(po, attachID);
-                            break;
-                    }
-                    break;
-                case EPerfiles.UPR:
-                    switch (td)
-                    {
-                        case TypeDocumentHeader.PR:
-                            //todo Saber si tiene acceso a la carpeta en el server: ds
-                            // DirectorySecurity ds = Directory.GetAccessControl(configApp.FolderApp);
-                            var pr = new RequisitionHeader().GetById(headerID);
-                            if (pr.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                            //! Borrar el archivo de la carpeta
-                            DeleteFile($"{ConfigApp.FolderApp}{headerID}{attachDR["FileName"]}");
-                            perfilPr.DeleteAttach<RequisitionHeader>(pr, attachID);
-                            break;
-                        case TypeDocumentHeader.PO:
-                            return "Your profile does not allow you to complete this action.";
-                    }
-                    break;
-                case EPerfiles.VAL:
-                    break;
-            }
-            return "OK";
-        }
-
-        public string OpenAttach(DataRow attachDR, DataRow headerDR)
-        {
-            try
-            {
-                var headerID = Convert.ToInt32(headerDR["headerID"]);
-                Process.Start($"{ConfigApp.FolderApp}{headerID}{attachDR["FileName"]}");
-                return "OK";
-            }
-            catch (Exception)
-            {
-                return "The system cannot find the requested path.";
-            }
-        }
-
-        public string UpdateAttach(object newValue, DataRow attachDR, DataRow headerDR, string campo)
-        {
-            var headerID = Convert.ToInt32(headerDR["HeaderID"]);
-            var attachID = Convert.ToInt32(attachDR["AttachID"]);
-            var att = new Attaches().GetByID(attachID);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    var po = new OrderHeader().GetById(headerID);
-                    if (po.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    switch (campo)
-                    {
-                        case "Description":
-                            att.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
-                            perfilPo.UpdateAttaches<OrderHeader>(att, po);
-                            break;
-                        case "Modifier":
-                            att.Modifier = Convert.ToByte(newValue);
-                            perfilPo.UpdateAttaches<OrderHeader>(att, po);
-                            break;
-                    }
-                    break;
-                case EPerfiles.UPR:
-                    var pr = new RequisitionHeader().GetById(headerID);
-                    if (pr.StatusID >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    //var attt = pr.Attaches.FirstOrDefault(c => c.AttachID == attachID);
-                    switch (campo)
-                    {
-                        case "Description":
-                            att.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
-                            perfilPr.UpdateAttaches<RequisitionHeader>(att, pr);
-                            break;
-                        case "Modifier":
-                            att.Modifier = Convert.ToByte(newValue);
-                            perfilPr.UpdateAttaches<RequisitionHeader>(att, pr);
-                            break;
-                    }
-                    break;
-                case EPerfiles.VAL:
-                    break;
-            }
-            return "OK";
-
-        }
-        #endregion
 
         #region Supplier CRUD
 
@@ -1012,92 +853,7 @@ namespace PurchaseDesktop.Fachadas
 
         #endregion
 
-        #region Hitos CRUD
 
-        public string InsertHito(OrderHitos item, DataRow headerDR)
-        {
-            int status = Convert.ToInt32(headerDR["StatusID"]);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    perfilPo.InsertHito(item, headerID);
-                    break;
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-            return "OK";
-        }
-
-        public string DeleteHito(DataRow hitoDR, DataRow headerDR)
-        {
-            int status = Convert.ToInt32(headerDR["StatusID"]);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    perfilPo.DeleteHito(headerID, Convert.ToInt32(hitoDR["HitoID"]));
-                    break;
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-            return "OK";
-        }
-
-        public string UpdateHito(object newValue, DataRow hitoDR, DataRow headerDR, string campo)
-        {
-            int status = Convert.ToInt32(headerDR["StatusID"]);
-            var headerID = Convert.ToInt32(headerDR["headerID"]);
-            var hitoID = Convert.ToInt32(hitoDR["HitoID"]);
-            var h = new OrderHitos().GetByID(hitoID);
-            switch (CurrentPerfil)
-            {
-                case EPerfiles.ADM:
-                    break;
-                case EPerfiles.BAS:
-                    break;
-                case EPerfiles.UPO:
-                    if (status >= 2) { return "The 'status' of the Purchase Order is not allowed."; }
-                    switch (campo)
-                    {
-                        case "Description":
-                            h.Description = UCase.ToTitleCase(newValue.ToString().ToLower());
-                            perfilPo.UpdateHito(h, headerID);
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case EPerfiles.UPR:
-                    break;
-                case EPerfiles.VAL:
-                    break;
-                default:
-                    break;
-            }
-            return "OK";
-
-        }
-
-        #endregion
 
         #region Notes CRUD
 

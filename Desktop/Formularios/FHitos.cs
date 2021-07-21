@@ -169,7 +169,7 @@ namespace PurchaseDesktop.Formularios
             //! Update solo si cambió el dato.
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             DataRow current = (DataRow)Grid.Rows[e.RowIndex].Tag;
-            var resultado = rFachada.UpdateHito(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
+            var resultado = rFachada.FachadaHitos.UpdateHito(e.NewValue, current, Current, Grid.Cols[e.ColIndex].Key);
             if (resultado == "OK")
             {
                 LlenarGrid();
@@ -202,7 +202,7 @@ namespace PurchaseDesktop.Formularios
                     Porcent = Convert.ToByte(TrackBar.Value)
 
                 };
-                var resultado = rFachada.InsertHito(h, Current);
+                var resultado = rFachada.FachadaHitos.InsertHito(h, Current);
                 if (resultado == "OK")
                 {
                     LlenarGrid();
@@ -233,7 +233,7 @@ namespace PurchaseDesktop.Formularios
             System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
             if (Grid.Cols["delete"].Index == e.ColIndex)
             {
-                var resultado = rFachada.DeleteHito(current, Current);
+                var resultado = rFachada.FachadaHitos.DeleteHito(current, Current);
                 if (resultado == "OK")
                 {
                     LlenarGrid();
